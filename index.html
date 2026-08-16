@@ -249,11 +249,19 @@
     }
     .add-set-link:hover { border-color: var(--blue); color: var(--blue); }
 
-    /* ── REST & EMPTY ── */
-    .rest-state { text-align: center; padding: 60px 20px; }
-    .rest-emoji { font-size: 54px; margin-bottom: 12px; display: block; }
-    .rest-heading { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px; }
-    .rest-desc { font-size: 14px; color: var(--text-sec); }
+    /* ── REST DAY DISPLAY ── */
+    .rest-state { text-align: center; padding: 40px 20px 20px; }
+    .rest-emoji { font-size: 48px; margin-bottom: 12px; display: block; }
+    .rest-heading { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .rest-desc { font-size: 14px; color: var(--text-sec); margin-bottom: 20px; }
+
+    .quick-tab-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 30px; background: var(--surface-2);
+      border: 1px solid var(--border-light); color: #fff; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .quick-tab-btn:hover { border-color: var(--red); color: var(--red); }
 
     /* ── MODAL (REAL ANIMATED EXERCISE GIF & 3D MUSCLE MAPS) ── */
     .modal-overlay {
@@ -294,7 +302,7 @@
       width: 100%; height: 100%; object-fit: contain; background: #ffffff;
     }
 
-    /* 3D ANATOMICAL BODY MUSCLE MAPS (MATCHING PHOTO 2 & PHOTO 3) */
+    /* 3D ANATOMICAL BODY MUSCLE MAPS */
     .muscle-section-title {
       font-size: 11px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--text-sec); margin-bottom: 10px;
@@ -375,7 +383,7 @@
     <div id="dayMainContent"></div>
   </main>
 
-  <!-- EXERCISE DETAIL MODAL (REAL ANIMATED GIF DEMO + 3D ANATOMICAL BODY MAPS) -->
+  <!-- EXERCISE DETAIL MODAL -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-container">
       <div class="modal-header">
@@ -383,12 +391,12 @@
         <button class="modal-close" id="modalCloseBtn">✕</button>
       </div>
       
-      <!-- TOP: REAL ANIMATED EXERCISE GIF (CLEAN, NO OVERLAYS) -->
+      <!-- TOP: REAL ANIMATED EXERCISE GIF -->
       <div class="modal-gif-card">
         <img id="modalExGif" src="" alt="Exercise Motion GIF" />
       </div>
 
-      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS (PHOTO 2 & PHOTO 3 MATCH) -->
+      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS -->
       <div class="muscle-section-title">DOELSPIEREN (TARGET MUSCLES)</div>
       <div class="muscle-maps-row">
         <div class="muscle-map-box">
@@ -409,7 +417,7 @@
   <div id="toast"></div>
 
   <script>
-  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL BODY MAPS (PHOTO 2 & 3 MATCH) ─────
+  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL BODY MAPS ─────────────────────────
   function get3DBodyFrontSVG(targetMuscles = []) {
     const isT = (m) => targetMuscles.includes(m);
     const f = (m) => isT(m) ? "url(#red3DGrad)" : "url(#body3DGrad)";
@@ -447,7 +455,7 @@
         <path d="M 38,42 C 24,44 20,56 24,66 C 32,68 38,62 38,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
         <path d="M 82,42 C 96,44 100,56 96,66 C 88,68 82,62 82,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
 
-        <!-- CHEST / PECTORALS (3D ANATOMICAL CHEST PLATES) -->
+        <!-- CHEST / PECTORALS -->
         <path d="M 38,44 C 52,43 59,48 59,70 C 44,72 36,62 38,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
         <path d="M 82,44 C 68,43 61,48 61,70 C 76,72 84,62 82,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
 
@@ -600,6 +608,26 @@
     'Easy Bar Forearm Curls': {
       category: 'Voorarmen', equipment: 'EZ Barbell', target: ['forearms'],
       gif: BASE_GIF_URL + "forearms/ez-barbell-wrist-curl.gif"
+    },
+    'Squat Barbell': {
+      category: 'Benen', equipment: 'Barbell', target: ['legs'],
+      gif: BASE_GIF_URL + "quadriceps/barbell-squat.gif"
+    },
+    'Leg Press': {
+      category: 'Benen', equipment: 'Leg Press Machine', target: ['legs'],
+      gif: BASE_GIF_URL + "quadriceps/sled-45-leg-press.gif"
+    },
+    'Leg Extension': {
+      category: 'Benen', equipment: 'Leg Extension Machine', target: ['legs'],
+      gif: BASE_GIF_URL + "quadriceps/lever-seated-leg-extension.gif"
+    },
+    'Hamstring Curl': {
+      category: 'Benen', equipment: 'Leg Curl Machine', target: ['legs'],
+      gif: BASE_GIF_URL + "hamstrings/lever-lying-leg-curl.gif"
+    },
+    'Calf Raises': {
+      category: 'Benen', equipment: 'Machine / Block', target: ['calves'],
+      gif: BASE_GIF_URL + "calves/standing-calf-raise.gif"
     }
   };
 
@@ -615,7 +643,7 @@
       { title: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] }
     ]},
     2: { name: 'Woensdag', label: 'Benen 🦵', groups: [
-      { title: 'Benen', exercises: [] }
+      { title: 'Benen', exercises: ['Squat Barbell', 'Leg Press', 'Leg Extension', 'Hamstring Curl', 'Calf Raises'] }
     ]},
     3: { name: 'Donderdag', label: 'Rust 😴', groups: [] },
     4: { name: 'Vrijdag', label: 'Chest + Rug 🔥', groups: [
@@ -679,7 +707,7 @@
 
   function saveExerciseDoneState(dateStr, dayIdx, exName, isDone) {
     if (isDone) localStorage.setItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`, 'true');
-    else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`);
+    else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dateStr}:${exName}`);
   }
 
   // ─── TOAST NOTIFICATION ─────────────────────────────────────────────────────
@@ -707,7 +735,12 @@
 
     if (activeDayIndex === null) {
       const todayDay = today.getDay();
-      activeDayIndex = (todayDay === 0 ? 6 : todayDay - 1);
+      let defaultIdx = (todayDay === 0 ? 6 : todayDay - 1);
+      // If default today is a Rest Day (Thursday or Sunday), default to Monday so exercises are immediately visible!
+      if (ROUTINE_SCHEMA[defaultIdx].groups.length === 0) {
+        defaultIdx = 0; // Maandag (Push)
+      }
+      activeDayIndex = defaultIdx;
     }
 
     renderDayTabs(dates, today);
@@ -757,7 +790,10 @@
         <div class="rest-state">
           <span class="rest-emoji">😴</span>
           <div class="rest-heading">Rustdag</div>
-          <div class="rest-desc">Geen training gepland vandaag. Tijd voor spierherstel!</div>
+          <div class="rest-desc">Geen training gepland voor vandaag. Tijd voor spierherstel & voeding!</div>
+          <button class="quick-tab-btn" onclick="switchDay(0)">
+            💪 Bekijk Maandag Training (Push) &#8594;
+          </button>
         </div>
       `;
       return;
@@ -795,6 +831,11 @@
 
       mainContainer.appendChild(groupEl);
     });
+  }
+
+  function switchDay(idx) {
+    activeDayIndex = idx;
+    renderApp();
   }
 
   function createExerciseCard(exName, dateStr, dayIdx, allExercisesList) {
@@ -982,7 +1023,7 @@
       : Math.round(totalVolumeKg);
   }
 
-  // ─── DETAIL MODAL FUNCTIONALITY (REAL ANIMATED EXERCISE GIF & 3D BODY MAPS) ──
+  // ─── DETAIL MODAL FUNCTIONALITY ─────────────────────────────────────────────
   function openDetailModal(exName) {
     const exData = EXERCISE_DATABASE[exName] || {
       category: 'Gym', equipment: 'Apparaat', target: [], gif: ''
@@ -1054,7 +1095,9 @@
   document.getElementById('btnToday').addEventListener('click', () => {
     currentWeekOffset = 0;
     const today = new Date().getDay();
-    activeDayIndex = (today === 0 ? 6 : today - 1);
+    let defaultIdx = (today === 0 ? 6 : today - 1);
+    if (ROUTINE_SCHEMA[defaultIdx].groups.length === 0) defaultIdx = 0;
+    activeDayIndex = defaultIdx;
     renderApp();
   });
 
