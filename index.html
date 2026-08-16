@@ -2,10 +2,10 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GymLog – Amier's Workout Tracker</title>
-  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud. Bijhoud sets, reps en gewicht per dag." />
-  <meta name="theme-color" content="#4f8ef7" />
+  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud in Hevy & Gympal stijl." />
+  <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="GymLog" />
@@ -13,1210 +13,1396 @@
   <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     :root {
-      --bg: #070b14;
-      --bg2: #0d1220;
-      --bg3: #111827;
-      --glass: rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.08);
-      --glass-hover: rgba(255,255,255,0.07);
+      --bg:           #000000;
+      --surface-1:    #121212;
+      --surface-2:    #1c1c1e;
+      --surface-3:    #2c2c2e;
+      --border:       #2c2c2e;
+      --border-light: #3a3a3c;
+      
+      --red:          #ff3b30;
+      --red-glow:     rgba(255, 59, 48, 0.25);
+      --blue:         #0a84ff;
+      --blue-glow:    rgba(10, 132, 255, 0.25);
+      --green:        #30d158;
+      --green-glow:   rgba(48, 209, 88, 0.25);
+      --orange:       #ff9f0a;
 
-      --blue: #4f8ef7;
-      --blue-glow: rgba(79,142,247,0.25);
-      --purple: #8b5cf6;
-      --purple-glow: rgba(139,92,246,0.25);
-      --pink: #ec4899;
-      --green: #10b981;
-      --orange: #f59e0b;
-      --red: #ef4444;
+      --text:         #ffffff;
+      --text-sec:     #8e8e93;
+      --text-mut:     #636366;
 
-      --text: #f1f5f9;
-      --text2: #94a3b8;
-      --text3: #64748b;
-
-      --push: #4f8ef7;
-      --push-glow: rgba(79,142,247,0.3);
-      --pull: #8b5cf6;
-      --pull-glow: rgba(139,92,246,0.3);
-      --legs: #10b981;
-      --legs-glow: rgba(16,185,129,0.3);
-      --arms: #f59e0b;
-      --arms-glow: rgba(245,158,11,0.3);
-      --rest: #64748b;
-      --rest-glow: rgba(100,116,139,0.2);
-      --full: #ec4899;
-      --full-glow: rgba(236,72,153,0.3);
-
-      --radius: 16px;
-      --radius-sm: 10px;
-      --radius-xs: 6px;
+      --radius-lg:    16px;
+      --radius-md:    12px;
+      --radius-sm:    8px;
     }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
+    html, body {
       background: var(--bg);
       color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
+      width: 100%;
       overflow-x: hidden;
     }
 
-    /* Background orbs */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -20%;
-      left: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -20%;
-      right: -10%;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ─── HEADER ─── */
+    /* ── HEADER ── */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7,11,20,0.85);
+      position: sticky; top: 0; z-index: 90;
+      background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
     }
-
     .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 680px; margin: 0 auto; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .brand {
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 0 16px var(--blue-glow);
-    }
-
-    .logo-text {
-      font-size: 20px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--text), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .header-date {
-      font-size: 13px;
-      color: var(--text2);
-      font-weight: 500;
-    }
-
-    /* ─── MAIN ─── */
-    main {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
-
-    /* ─── WEEK NAV ─── */
-    .week-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
-
-    .week-label {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .week-nav-btns {
-      display: flex;
-      gap: 8px;
-    }
-
-    .nav-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      color: var(--text2);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .brand-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--surface-2); border: 1px solid var(--border-light);
+      display: flex; align-items: center; justify-content: center;
       font-size: 16px;
-      transition: all 0.2s;
+    }
+    .brand-title {
+      font-size: 19px; font-weight: 800; color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .header-date {
+      font-size: 13px; color: var(--text-sec); font-weight: 500;
     }
 
-    .nav-btn:hover {
-      background: var(--glass-hover);
-      color: var(--text);
-      border-color: var(--blue);
-      box-shadow: 0 0 10px var(--blue-glow);
+    /* ── CONTAINER ── */
+    main {
+      max-width: 680px; margin: 0 auto;
+      padding: 16px 14px 100px;
     }
 
-    /* ─── DAY TABS ─── */
-    .day-tabs {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .day-tab {
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      padding: 12px 6px;
-      text-align: center;
-      transition: all 0.25s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .day-tab::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
-
-    .day-tab:hover { background: var(--glass-hover); }
-
-    .day-tab.active {
-      border-color: transparent;
-      box-shadow: 0 0 20px var(--c-glow, var(--blue-glow));
-    }
-
-    .day-tab.active::before { opacity: 1; }
-
-    .day-tab.today .day-number::after {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--blue);
-      margin: 3px auto 0;
-      box-shadow: 0 0 6px var(--blue);
-    }
-
-    .day-short {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text3);
-      margin-bottom: 4px;
-    }
-
-    .day-number {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text2);
-    }
-
-    .day-tab.active .day-short,
-    .day-tab.active .day-number { color: #fff; }
-
-    .day-dot {
-      margin-top: 6px;
-      height: 4px;
-      border-radius: 2px;
-      background: transparent;
-      transition: background 0.25s;
-    }
-
-    /* ─── DAY HEADER ─── */
-    .day-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .day-title {
-      font-size: 32px;
-      font-weight: 900;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .day-badge {
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .day-progress-bar {
-      height: 4px;
-      border-radius: 2px;
-      background: var(--glass-border);
-      overflow: hidden;
-      margin-bottom: 28px;
-    }
-
-    .day-progress-fill {
-      height: 100%;
-      border-radius: 2px;
-      transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
-    }
-
-    /* ─── MUSCLE GROUP ─── */
-    .muscle-group {
-      margin-bottom: 24px;
-    }
-
-    .muscle-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* ── WEEK NAV ── */
+    .week-bar {
+      display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px;
     }
+    .week-title {
+      font-size: 14px; font-weight: 600; color: var(--text-sec);
+    }
+    .week-controls { display: flex; gap: 6px; }
+    .nav-btn {
+      height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface-1);
+      color: var(--text-sec); font-family: inherit; font-size: 13px; font-weight: 600;
+      padding: 0 12px; cursor: pointer; transition: all 0.2s;
+    }
+    .nav-btn:active { transform: scale(0.96); }
+    .nav-btn.now { color: var(--blue); border-color: rgba(10,132,255,0.4); }
 
-    .muscle-label-text {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text3);
+    /* ── DAY TABS ── */
+    .day-tabs {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 6px; margin-bottom: 20px;
+    }
+    .day-tab {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 10px 2px;
+      text-align: center; cursor: pointer; transition: all 0.2s;
+    }
+    .day-tab.active {
+      background: var(--surface-2); border-color: var(--border-light);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .day-tab.today .d-num::after {
+      content: ''; display: block; width: 4px; height: 4px;
+      border-radius: 50%; background: var(--red); margin: 3px auto 0;
+    }
+    .d-short {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      color: var(--text-mut); margin-bottom: 2px;
+    }
+    .d-num { font-size: 16px; font-weight: 700; color: var(--text-sec); }
+    .day-tab.active .d-short,
+    .day-tab.active .d-num { color: #ffffff; }
+
+    /* ── STATS BAR ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-bottom: 20px;
+    }
+    .stat-box {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 12px; text-align: center;
+    }
+    .stat-val {
+      font-size: 22px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px;
+    }
+    .stat-lbl {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-mut);
     }
 
-    .muscle-line {
-      flex: 1;
-      height: 1px;
-      background: var(--glass-border);
+    /* ── DAY BANNER ── */
+    .day-hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .day-name { font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+    .workout-badge {
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      background: var(--surface-2); border: 1px solid var(--border-light); color: var(--red);
     }
 
-    /* ─── EXERCISE CARD ─── */
-    .exercise-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 12px;
-      transition: all 0.25s;
-      position: relative;
-      overflow: hidden;
+    /* ── MUSCLE GROUP ── */
+    .grp-section { margin-bottom: 22px; }
+    .grp-hdr {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+    }
+    .grp-title {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-mut);
+    }
+    .grp-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── EXERCISE CARD ── */
+    .ex-card {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); margin-bottom: 14px;
+      overflow: hidden; transition: border-color 0.2s;
+    }
+    .ex-card:hover { border-color: var(--border-light); }
+    .ex-card.completed { opacity: 0.7; }
+    .ex-card.completed .ex-title-text { text-decoration: line-through; color: var(--text-mut); }
+
+    /* CARD HEADER */
+    .ex-top {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; background: rgba(255,255,255,0.015);
+      border-bottom: 1px solid var(--border);
+    }
+    .ex-thumb {
+      width: 58px; height: 58px; border-radius: 12px;
+      background: #09090b; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; cursor: pointer; position: relative; overflow: hidden;
+    }
+    .ex-thumb svg { width: 50px; height: 50px; }
+    .ex-thumb-zoom {
+      position: absolute; bottom: 2px; right: 2px;
+      background: rgba(0,0,0,0.6); border-radius: 4px; padding: 1px 3px;
+      font-size: 9px; color: var(--text-sec);
+    }
+    .ex-meta { flex: 1; min-width: 0; }
+    .ex-title-text {
+      font-size: 15px; font-weight: 700; color: #fff;
+      line-height: 1.25; margin-bottom: 4px;
+    }
+    .ex-sub-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .tag-pill {
+      font-size: 10px; font-weight: 600; color: var(--text-sec);
+      background: var(--surface-2); padding: 2px 8px; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .tag-pill.target { color: var(--red); border-color: rgba(255,59,48,0.25); background: rgba(255,59,48,0.1); }
+
+    .info-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface-2);
+      color: var(--text-sec); font-size: 13px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .info-btn:hover { color: #fff; border-color: var(--text-sec); }
+
+    .finish-ex-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text-mut); font-size: 14px; display: flex;
+      align-items: center; justify-content: center; cursor: pointer;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .finish-ex-btn:hover { border-color: var(--green); color: var(--green); }
+    .finish-ex-btn.done {
+      background: var(--green); border-color: var(--green); color: #000;
+      box-shadow: 0 0 10px var(--green-glow);
     }
 
-    .exercise-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      border-radius: 3px 0 0 3px;
-      background: var(--c-accent, var(--blue));
+    /* SETS TABLE */
+    .sets-box { padding: 10px 14px 14px; }
+    .sets-head {
+      display: grid; grid-template-columns: 28px 1fr 1fr 1fr 34px;
+      gap: 8px; padding: 4px 0; margin-bottom: 4px;
     }
-
-    .exercise-card:hover {
-      background: var(--glass-hover);
-      border-color: rgba(255,255,255,0.12);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    .sets-head span {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-mut); text-align: center;
     }
-
-    .exercise-card.done { opacity: 0.7; }
-    .exercise-card.done .exercise-name { text-decoration: line-through; color: var(--text3); }
-
-    .exercise-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .exercise-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      transition: color 0.2s;
-    }
-
-    .exercise-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .check-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid var(--glass-border);
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text3);
-      font-size: 13px;
-      transition: all 0.2s;
-    }
-
-    .check-btn:hover {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .check-btn.checked {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(16,185,129,0.4);
-    }
-
-    /* ─── SETS TABLE ─── */
-    .sets-header {
-      display: grid;
-      grid-template-columns: 36px 1fr 1fr 1fr 40px;
-      gap: 8px;
-      margin-bottom: 8px;
-      padding: 0 4px;
-    }
-
-    .sets-header span {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text3);
-      text-align: center;
-    }
-
-    .sets-header span:first-child { text-align: left; }
+    .sets-head span:first-child { text-align: left; }
 
     .set-row {
-      display: grid;
-      grid-template-columns: 36px 1fr 1fr 1fr 40px;
-      gap: 8px;
-      margin-bottom: 6px;
-      align-items: center;
-      padding: 0 4px;
-      animation: slideIn 0.25s ease;
+      display: grid; grid-template-columns: 28px 1fr 1fr 1fr 34px;
+      gap: 8px; align-items: center; margin-bottom: 6px;
     }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .set-index {
+      width: 26px; height: 26px; border-radius: 6px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      font-size: 11px; font-weight: 700; color: var(--text-sec);
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .set-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text2);
+    .set-row.is-done .set-index {
+      background: var(--green); border-color: var(--green); color: #000;
     }
-
-    .set-row.set-done .set-num {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-      box-shadow: 0 0 8px rgba(16,185,129,0.4);
-    }
-
     .set-input {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xs);
-      padding: 8px 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      text-align: center;
-      outline: none;
-      transition: all 0.2s;
+      width: 100%; background: var(--surface-2);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 7px 6px; font-family: inherit; font-size: 13px; font-weight: 600;
+      color: #fff; text-align: center; outline: none; transition: border-color 0.2s;
     }
+    .set-input:focus { border-color: var(--blue); }
+    .set-input::placeholder { color: var(--text-mut); font-weight: 400; }
+    .set-row.is-done .set-input { opacity: 0.5; }
 
-    .set-input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px var(--blue-glow);
-      background: var(--bg2);
-    }
-
-    .set-input::placeholder { color: var(--text3); font-weight: 400; }
-
-    .set-done-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: var(--text3);
-      transition: all 0.2s;
-    }
-
-    .set-done-btn:hover { border-color: var(--green); color: var(--green); }
-
-    .set-row.set-done .set-done-btn {
-      background: rgba(16,185,129,0.15);
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .set-row.set-done .set-input {
-      opacity: 0.6;
-    }
-
-    /* ─── ADD SET BUTTON ─── */
-    .add-set-btn {
-      width: 100%;
-      margin-top: 10px;
-      padding: 9px;
-      border-radius: var(--radius-xs);
-      border: 1px dashed var(--glass-border);
-      background: transparent;
-      color: var(--text3);
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .add-set-btn:hover {
-      border-color: var(--blue);
-      color: var(--blue);
-      background: var(--blue-glow);
-    }
-
-    /* ─── REST DAY ─── */
-    .rest-day {
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    .rest-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-      display: block;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .rest-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .rest-sub {
-      color: var(--text3);
-      font-size: 16px;
-    }
-
-    /* ─── EMPTY LEGS ─── */
-    .empty-card {
-      background: var(--glass);
-      border: 1px dashed var(--glass-border);
-      border-radius: var(--radius);
-      padding: 40px;
+    .one-rm-val {
+      font-size: 11px; font-weight: 600; color: var(--text-mut);
       text-align: center;
     }
 
-    .empty-card-icon { font-size: 40px; margin-bottom: 12px; }
-    .empty-card-text { color: var(--text3); font-size: 15px; }
+    .set-check-btn {
+      width: 30px; height: 30px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface-2);
+      color: var(--text-mut); font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .set-check-btn:hover { border-color: var(--green); color: var(--green); }
+    .set-row.is-done .set-check-btn {
+      background: rgba(48,209,88,0.15); border-color: var(--green); color: var(--green);
+    }
 
-    /* ─── TOAST ─── */
+    .add-set-link {
+      width: 100%; margin-top: 8px; padding: 8px;
+      border-radius: var(--radius-sm); border: 1px dashed var(--border);
+      background: transparent; color: var(--text-sec); font-family: inherit;
+      font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .add-set-link:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* ── REST & EMPTY ── */
+    .rest-state {
+      text-align: center; padding: 60px 20px;
+    }
+    .rest-emoji { font-size: 54px; margin-bottom: 12px; display: block; }
+    .rest-heading { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .rest-desc { font-size: 14px; color: var(--text-sec); }
+
+    /* ── MODAL (EXERCISE DETAILS & MUSCLE MAP) ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-container {
+      width: 100%; max-width: 600px; max-height: 90vh;
+      background: var(--surface-1); border: 1px solid var(--border-light);
+      border-radius: 24px 24px 0 0; overflow-y: auto;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+      padding: 20px 20px 40px;
+    }
+    .modal-overlay.open .modal-container { transform: translateY(0); }
+
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
+    }
+    .modal-title { font-size: 18px; font-weight: 800; color: #fff; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--surface-3); border: none; color: #fff;
+      font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* LARGE GRAPHIC DISPLAY */
+    .graphic-card {
+      background: #09090b; border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .graphic-card svg { max-width: 260px; height: auto; display: block; }
+
+    .muscle-maps-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .muscle-map-box {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px; text-align: center;
+    }
+    .map-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-sec); margin-bottom: 8px; }
+    .muscle-map-box svg { height: 140px; width: auto; margin: 0 auto; display: block; }
+
+    .info-section-title {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-mut); margin-bottom: 8px;
+    }
+    .info-box {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px; font-size: 13px; color: var(--text-sec);
+      line-height: 1.5; margin-bottom: 16px;
+    }
+
+    /* TOAST */
     #toast {
-      position: fixed;
-      bottom: 32px;
-      right: 24px;
-      z-index: 999;
-      background: var(--bg3);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm);
-      padding: 14px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transform: translateY(20px);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      z-index: 300; background: var(--surface-3); border: 1px solid var(--border-light);
+      border-radius: 30px; padding: 10px 20px; font-size: 13px; font-weight: 600;
+      color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: flex; align-items: center; gap: 8px; opacity: 0; pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* ─── STATS BAR ─── */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text3);
-    }
-
-    /* ─── SCROLLBAR ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 640px) {
-      .day-tabs { grid-template-columns: repeat(7, 1fr); gap: 4px; }
-      .day-tab { padding: 10px 2px; }
-      .day-short { font-size: 9px; }
-      .day-number { font-size: 15px; }
-      .stats-bar { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-      .stat-value { font-size: 22px; }
-    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
     <div class="header-inner">
-      <div class="logo">
-        <div class="logo-icon">💪</div>
-        <span class="logo-text">GymLog</span>
+      <div class="brand">
+        <div class="brand-icon">💪</div>
+        <span class="brand-title">GymLog</span>
       </div>
       <span class="header-date" id="headerDate"></span>
     </div>
   </header>
 
+  <!-- MAIN CONTAINER -->
   <main>
-    <!-- Week navigation -->
-    <div class="week-nav">
-      <div class="week-label" id="weekLabel"></div>
-      <div class="week-nav-btns">
-        <button class="nav-btn" id="prevWeek" title="Vorige week">&#8592;</button>
-        <button class="nav-btn" id="todayBtn" title="Vandaag" style="font-size:12px;font-weight:700;width:auto;padding:0 12px;color:var(--blue)">Nu</button>
-        <button class="nav-btn" id="nextWeek" title="Volgende week">&#8594;</button>
+    <!-- WEEK SELECTOR -->
+    <div class="week-bar">
+      <span class="week-title" id="weekRangeStr"></span>
+      <div class="week-controls">
+        <button class="nav-btn" id="btnPrevWeek">&#8592;</button>
+        <button class="nav-btn now" id="btnToday">Nu</button>
+        <button class="nav-btn" id="btnNextWeek">&#8594;</button>
       </div>
     </div>
 
-    <!-- Day tabs -->
-    <div class="day-tabs" id="dayTabs"></div>
+    <!-- DAY TABS -->
+    <div class="day-tabs" id="dayTabsContainer"></div>
 
-    <!-- Stats -->
-    <div class="stats-bar" id="statsBar">
-      <div class="stat-card">
-        <div class="stat-value" id="statSets">0</div>
-        <div class="stat-label">Sets vandaag</div>
+    <!-- STATS -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-box">
+        <div class="stat-val" id="valTotalSets">0</div>
+        <div class="stat-lbl">Sets</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value" id="statExercises">0</div>
-        <div class="stat-label">Oefeningen</div>
+      <div class="stat-box">
+        <div class="stat-val" id="valDoneEx">0</div>
+        <div class="stat-lbl">Oefeningen</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value" id="statVolume">0</div>
-        <div class="stat-label">Volume (kg)</div>
+      <div class="stat-box">
+        <div class="stat-val" id="valVolume">0</div>
+        <div class="stat-lbl">Volume (kg)</div>
       </div>
     </div>
 
-    <!-- Day progress -->
-    <div class="day-progress-bar" id="dayProgressBar" style="display:none">
-      <div class="day-progress-fill" id="dayProgressFill"></div>
-    </div>
-
-    <!-- Content -->
-    <div id="dayContent"></div>
+    <!-- MAIN DAY CONTENT -->
+    <div id="dayMainContent"></div>
   </main>
+
+  <!-- EXERCISE DETAIL MODAL -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <span class="modal-title" id="modalExTitle">Oefening Details</span>
+        <button class="modal-close" id="modalCloseBtn">✕</button>
+      </div>
+      <div class="graphic-card" id="modalGraphicCard"></div>
+      
+      <div class="info-section-title">Doelspieren (Target Muscles)</div>
+      <div class="muscle-maps-row">
+        <div class="muscle-map-box">
+          <div class="map-lbl">Voorkant Body</div>
+          <div id="modalMapFront"></div>
+        </div>
+        <div class="muscle-map-box">
+          <div class="map-lbl">Achterkant Body</div>
+          <div id="modalMapBack"></div>
+        </div>
+      </div>
+
+      <div class="info-section-title">Uitvoering & Tips</div>
+      <div class="info-box" id="modalFormTips"></div>
+
+      <div class="info-section-title">Persoonlijk Record (PR)</div>
+      <div class="info-box" id="modalPRStats">Nog geen data ingevuld voor deze oefening.</div>
+    </div>
+  </div>
 
   <div id="toast"></div>
 
   <script>
-  // ─── SCHEMA ──────────────────────────────────────────────────────────────────
-  const SCHEMA = {
-    0: { // Maandag
-      name: 'Maandag',
-      type: 'push',
-      label: 'Push 💥',
-      color: '#4f8ef7',
-      glow: 'rgba(79,142,247,0.3)',
-      groups: [
-        { name: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
-        { name: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
-        { name: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] },
-      ]
-    },
-    1: { // Dinsdag
-      name: 'Dinsdag',
-      type: 'pull',
-      label: 'Pull 🔥',
-      color: '#8b5cf6',
-      glow: 'rgba(139,92,246,0.3)',
-      groups: [
-        { name: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] },
-        { name: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] },
-      ]
-    },
-    2: { // Woensdag
-      name: 'Woensdag',
-      type: 'legs',
-      label: 'Benen 🦵',
-      color: '#10b981',
-      glow: 'rgba(16,185,129,0.3)',
-      groups: [
-        { name: 'Benen', exercises: [] }
-      ]
-    },
-    3: { // Donderdag
-      name: 'Donderdag',
-      type: 'rest',
-      label: 'Rust 😴',
-      color: '#64748b',
-      glow: 'rgba(100,116,139,0.2)',
-      groups: []
-    },
-    4: { // Vrijdag
-      name: 'Vrijdag',
-      type: 'full',
-      label: 'Chest + Rug 🏋️',
-      color: '#ec4899',
-      glow: 'rgba(236,72,153,0.3)',
-      groups: [
-        { name: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
-        { name: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] },
-      ]
-    },
-    5: { // Zaterdag
-      name: 'Zaterdag',
-      type: 'arms',
-      label: 'Armen 💪',
-      color: '#f59e0b',
-      glow: 'rgba(245,158,11,0.3)',
-      groups: [
-        { name: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
-        { name: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] },
-        { name: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] },
-        { name: 'Voorarmen', exercises: ['Easy Bar Forearm Curls'] },
-      ]
-    },
-    6: { // Zondag
-      name: 'Zondag',
-      type: 'rest',
-      label: 'Rust 😴',
-      color: '#64748b',
-      glow: 'rgba(100,116,139,0.2)',
-      groups: []
-    },
+  // ─── ANATOMICAL VECTOR ART ENGINE ──────────────────────────────────────────
+  // Colors for drawings
+  const C_SKIN = "#27272a";
+  const C_SKIN_STROKE = "#3f3f46";
+  const C_EQUIP = "#71717a";
+  const C_EQUIP_DARK = "#52525b";
+  const C_RED = "#ff3b30";
+  const C_RED_STROKE = "#dc2626";
+  const C_BLUE = "#0a84ff";
+
+  // Full High-Detail Vector SVG Generators for Exercise Action & Muscles
+  const EXERCISE_ILLUSTRATIONS = {
+    'Incline Dumbell Press': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- INCLINE BENCH -->
+        <path d="M 30,130 L 120,60 L 145,130 Z" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+        <line x1="20" y1="130" x2="170" y2="130" stroke="${C_EQUIP_DARK}" stroke-width="4"/>
+        <line x1="120" y1="60" x2="120" y2="130" stroke="${C_EQUIP}" stroke-width="3"/>
+        
+        <!-- MAN BODY LYING ON BENCH -->
+        <!-- Legs -->
+        <path d="M 140,115 L 165,130 L 165,150" stroke="${C_SKIN_STROKE}" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <!-- Torso -->
+        <path d="M 50,115 L 115,65" stroke="${C_SKIN}" stroke-width="22" stroke-linecap="round"/>
+        <!-- Head -->
+        <circle cx="42" cy="118" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        
+        <!-- HIGHLIGHTED UPPER CHEST MUSCLE (RED) -->
+        <path d="M 82,85 C 95,75 105,80 100,92 C 92,98 80,95 82,85 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="90" cy="86" r="12" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS & DUMBBELLS -->
+        <!-- Left & Right Arms pressing up -->
+        <path d="M 90,86 L 85,50 L 95,25" stroke="${C_SKIN_STROKE}" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <!-- Dumbbells -->
+        <g transform="translate(95,22) rotate(-15)">
+          <rect x="-14" y="-5" width="6" height="10" rx="2" fill="${C_EQUIP}"/>
+          <rect x="8" y="-5" width="6" height="10" rx="2" fill="${C_EQUIP}"/>
+          <line x1="-10" y1="0" x2="10" y2="0" stroke="#fff" stroke-width="3"/>
+        </g>
+      </svg>`,
+
+    'Cable Flies': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- CABLE TOWER POLES -->
+        <line x1="20" y1="10" x2="20" y2="150" stroke="${C_EQUIP}" stroke-width="4"/>
+        <line x1="180" y1="10" x2="180" y2="150" stroke="${C_EQUIP}" stroke-width="4"/>
+        <!-- CABLE LINES -->
+        <line x1="20" y1="25" x2="70" y2="70" stroke="${C_EQUIP_DARK}" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="180" y1="25" x2="130" y2="70" stroke="${C_EQUIP_DARK}" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- MAN STANDING FRONT VIEW -->
+        <!-- Legs -->
+        <path d="M 90,110 L 85,150 M 110,110 L 115,150" stroke="${C_SKIN_STROKE}" stroke-width="10" stroke-linecap="round"/>
+        <!-- Head -->
+        <circle cx="100" cy="30" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <!-- Torso -->
+        <path d="M 88,44 L 112,44 L 106,90 L 94,90 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+
+        <!-- HIGHLIGHTED CHEST PECTORALS (RED) -->
+        <path d="M 89,45 Q 100,58 100,66 Q 89,64 88,52 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1"/>
+        <path d="M 111,45 Q 100,58 100,66 Q 111,64 112,52 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1"/>
+        <circle cx="100" cy="55" r="14" fill="${C_RED}" opacity="0.35"/>
+
+        <!-- ARMS EXTENDED OUT & COMING IN -->
+        <path d="M 88,46 L 60,65 L 75,75" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 112,46 L 140,65 L 125,75" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- Cable Handles -->
+        <circle cx="75" cy="75" r="4" fill="${C_EQUIP}"/>
+        <circle cx="125" cy="75" r="4" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Machine Shoulder Press': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MACHINE FRAME & SEAT -->
+        <rect x="75" y="80" width="50" height="70" rx="4" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+        <rect x="70" y="70" width="60" height="12" rx="3" fill="${C_EQUIP_DARK}"/>
+        <line x1="50" y1="20" x2="50" y2="140" stroke="${C_EQUIP}" stroke-width="4"/>
+        <line x1="150" y1="20" x2="150" y2="140" stroke="${C_EQUIP}" stroke-width="4"/>
+        <!-- Handles bar -->
+        <line x1="45" y1="35" x2="155" y2="35" stroke="${C_EQUIP}" stroke-width="4"/>
+
+        <!-- SEATED MAN -->
+        <circle cx="100" cy="48" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,60 L 112,60 L 108,100 L 92,100 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+
+        <!-- HIGHLIGHTED DELTOIDS / SHOULDERS (RED) -->
+        <ellipse cx="84" cy="62" rx="7" ry="8" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1"/>
+        <ellipse cx="116" cy="62" rx="7" ry="8" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1"/>
+        <circle cx="84" cy="62" r="9" fill="${C_RED}" opacity="0.4"/>
+        <circle cx="116" cy="62" r="9" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS PUSHING OVERHEAD -->
+        <path d="M 84,62 L 60,45 L 52,35" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 116,62 L 140,45 L 148,35" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>`,
+
+    'Side Delts': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MAN STANDING WITH DUMBBELLS LATERAL RAISE -->
+        <circle cx="100" cy="28" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,40 L 112,40 L 106,95 L 94,95 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <path d="M 94,95 L 90,145 M 106,95 L 110,145" stroke="${C_SKIN_STROKE}" stroke-width="9" stroke-linecap="round"/>
+
+        <!-- HIGHLIGHTED SIDE DELTS (RED) -->
+        <ellipse cx="83" cy="43" rx="8" ry="9" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="117" cy="43" rx="8" ry="9" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="83" cy="43" r="10" fill="${C_RED}" opacity="0.4"/>
+        <circle cx="117" cy="43" r="10" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS RAISED SIDEWAYS -->
+        <path d="M 83,43 L 40,45 L 30,48" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 117,43 L 160,45 L 170,48" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        
+        <!-- Dumbbells -->
+        <rect x="24" y="40" width="6" height="16" rx="2" fill="${C_EQUIP}"/>
+        <rect x="170" y="40" width="6" height="16" rx="2" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Tricep Pushdown': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- CABLE MACHINE TOWER -->
+        <line x1="140" y1="10" x2="140" y2="150" stroke="${C_EQUIP}" stroke-width="4"/>
+        <circle cx="140" cy="18" r="6" fill="${C_EQUIP_DARK}"/>
+        <line x1="140" y1="18" x2="110" y2="60" stroke="${C_EQUIP}" stroke-width="2"/>
+
+        <!-- MAN SIDE PROFILE VIEW -->
+        <circle cx="75" cy="35" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <!-- Torso -->
+        <path d="M 72,46 L 82,90 L 70,140" stroke="${C_SKIN}" stroke-width="14" stroke-linecap="round" fill="none"/>
+        
+        <!-- HIGHLIGHTED TRICEP BACK OF ARM (RED) -->
+        <path d="M 80,50 Q 94,62 86,74 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="85" cy="62" r="10" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARM PUSHING DOWN -->
+        <path d="M 78,48 L 86,72 L 108,82" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- Rope attachment -->
+        <line x1="108" y1="82" x2="110" y2="60" stroke="#fff" stroke-width="2"/>
+        <circle cx="108" cy="85" r="4" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Overhead Tricep Extensions': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MAN SEATED FRONT VIEW -->
+        <rect x="75" y="90" width="50" height="60" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+        <circle cx="100" cy="55" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,67 L 112,67 L 106,110 L 94,110 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+
+        <!-- HIGHLIGHTED TRICEPS LONG HEAD (RED) -->
+        <ellipse cx="80" cy="45" rx="6" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="120" cy="45" rx="6" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="80" cy="45" r="9" fill="${C_RED}" opacity="0.4"/>
+        <circle cx="120" cy="45" r="9" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS RAISED OVERHEAD HOLDING DUMBBELL -->
+        <path d="M 88,67 L 80,42 L 95,20" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 112,67 L 120,42 L 105,20" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        
+        <!-- Dumbbell overhead -->
+        <rect x="90" y="12" width="20" height="10" rx="3" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Lat Pulldown': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- LAT MACHINE -->
+        <line x1="100" y1="10" x2="100" y2="40" stroke="${C_EQUIP}" stroke-width="3"/>
+        <path d="M 40,30 L 160,30" stroke="${C_EQUIP}" stroke-width="5" stroke-linecap="round"/>
+        <rect x="80" y="90" width="40" height="50" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+
+        <!-- MAN SEATED BACK VIEW -->
+        <circle cx="100" cy="50" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <!-- Torso back -->
+        <path d="M 86,62 L 114,62 L 106,105 L 94,105 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+
+        <!-- HIGHLIGHTED LATS (WING MUSCLES RED) -->
+        <path d="M 87,63 Q 72,75 88,95 L 98,90 L 98,63 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <path d="M 113,63 Q 128,75 112,95 L 102,90 L 102,63 Z" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="80" cy="78" r="12" fill="${C_RED}" opacity="0.35"/>
+        <circle cx="120" cy="78" r="12" fill="${C_RED}" opacity="0.35"/>
+
+        <!-- ARMS REACHING UP TO WIDE BAR -->
+        <path d="M 87,63 L 65,40 L 55,30" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 113,63 L 135,40 L 145,30" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>`,
+
+    'Machine Row': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- ROWING MACHINE -->
+        <rect x="90" y="60" width="12" height="60" fill="${C_EQUIP}"/>
+        <rect x="75" y="100" width="50" height="40" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+
+        <!-- MAN SEATED ROWING -->
+        <circle cx="130" cy="45" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 125,58 L 95,65 L 100,105 M 100,105 L 130,135" stroke="${C_SKIN}" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+        <!-- HIGHLIGHTED MID BACK & LATS (RED) -->
+        <ellipse cx="115" cy="70" rx="10" ry="14" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="115" cy="70" r="14" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS PULLING HANDLES BACK -->
+        <path d="M 125,60 L 105,75 L 85,70" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>`,
+
+    'The Virgin Machine Row': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- SEATED CABLE ROW RIG -->
+        <rect x="30" y="50" width="15" height="80" fill="${C_EQUIP}"/>
+        <line x1="45" y1="80" x2="105" y2="80" stroke="${C_EQUIP_DARK}" stroke-width="2"/>
+        <rect x="120" y="90" width="50" height="40" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+
+        <!-- MAN ROWING TO ABDOMEN -->
+        <circle cx="140" cy="50" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 135,62 L 125,100 L 95,125" stroke="${C_SKIN}" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+        <!-- HIGHLIGHTED LAT & RHOMBOID (RED) -->
+        <ellipse cx="130" cy="72" rx="9" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="130" cy="72" r="12" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS PULLING CABLE HANDLE -->
+        <path d="M 135,64 L 110,80 L 105,80" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>`,
+
+    'Rear Delts': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- REVERSE FLY PEC DECK MACHINE -->
+        <rect x="90" y="40" width="20" height="90" fill="#18181b" stroke="${C_EQUIP}" stroke-width="2"/>
+        <line x1="30" y1="55" x2="170" y2="55" stroke="${C_EQUIP}" stroke-width="4"/>
+
+        <!-- MAN SEATED CHEST AGAINST PAD (BACK VIEW) -->
+        <circle cx="100" cy="32" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,44 L 112,44 L 106,90 L 94,90 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+
+        <!-- HIGHLIGHTED REAR DELTOIDS (RED) -->
+        <ellipse cx="84" cy="46" rx="7" ry="8" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="116" cy="46" rx="7" ry="8" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="84" cy="46" r="10" fill="${C_RED}" opacity="0.4"/>
+        <circle cx="116" cy="46" r="10" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS EXTENDED OUTWARDS -->
+        <path d="M 84,46 L 45,55" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 116,46 L 155,55" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>`,
+
+    'Dumbell Curls': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MAN STANDING FRONT VIEW -->
+        <circle cx="100" cy="28" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,40 L 112,40 L 106,95 L 94,95 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <path d="M 94,95 L 90,145 M 106,95 L 110,145" stroke="${C_SKIN_STROKE}" stroke-width="9" stroke-linecap="round"/>
+
+        <!-- HIGHLIGHTED BICEPS (RED) -->
+        <ellipse cx="78" cy="56" rx="7" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="122" cy="56" rx="7" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="78" cy="56" r="10" fill="${C_RED}" opacity="0.45"/>
+        <circle cx="122" cy="56" r="10" fill="${C_RED}" opacity="0.45"/>
+
+        <!-- ARMS BENT IN CURL POSITION -->
+        <path d="M 88,42 L 78,56 L 76,42" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 112,42 L 122,56 L 124,42" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+        <!-- Dumbbells at shoulders -->
+        <rect x="68" y="34" width="16" height="8" rx="2" fill="${C_EQUIP}"/>
+        <rect x="116" y="34" width="16" height="8" rx="2" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Hamer Curls': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MAN SIDE-FRONT VIEW -->
+        <circle cx="100" cy="28" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,40 L 112,40 L 106,95 L 94,95 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <path d="M 94,95 L 90,145 M 106,95 L 110,145" stroke="${C_SKIN_STROKE}" stroke-width="9" stroke-linecap="round"/>
+
+        <!-- HIGHLIGHTED BRACHIALIS & BICEPS (RED) -->
+        <ellipse cx="76" cy="58" rx="6" ry="13" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="124" cy="58" rx="6" ry="13" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="76" cy="58" r="9" fill="${C_RED}" opacity="0.4"/>
+        <circle cx="124" cy="58" r="9" fill="${C_RED}" opacity="0.4"/>
+
+        <!-- ARMS HAMMER CURL POSITION -->
+        <path d="M 88,42 L 76,58 L 72,48" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 112,42 L 124,58 L 128,48" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+        <!-- Vertical Dumbbells -->
+        <rect x="68" y="40" width="8" height="18" rx="2" fill="${C_EQUIP}"/>
+        <rect x="124" y="40" width="8" height="18" rx="2" fill="${C_EQUIP}"/>
+      </svg>`,
+
+    'Easy Bar Forearm Curls': () => `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- MAN STANDING -->
+        <circle cx="100" cy="28" r="10" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="1.5"/>
+        <path d="M 88,40 L 112,40 L 106,95 L 94,95 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <path d="M 94,95 L 90,145 M 106,95 L 110,145" stroke="${C_SKIN_STROKE}" stroke-width="9" stroke-linecap="round"/>
+
+        <!-- HIGHLIGHTED FOREARMS (RED) -->
+        <ellipse cx="78" cy="76" rx="6" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <ellipse cx="122" cy="76" rx="6" ry="12" fill="${C_RED}" stroke="${C_RED_STROKE}" stroke-width="1.5"/>
+        <circle cx="78" cy="76" r="10" fill="${C_RED}" opacity="0.45"/>
+        <circle cx="122" cy="76" r="10" fill="${C_RED}" opacity="0.45"/>
+
+        <!-- ARMS HOLDING EZ BAR -->
+        <path d="M 88,42 L 78,65 L 82,85" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M 112,42 L 122,65 L 118,85" stroke="${C_SKIN_STROKE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+        <!-- EZ BARBELL -->
+        <path d="M 60,85 L 80,87 L 100,83 L 120,87 L 140,85" stroke="${C_EQUIP}" stroke-width="4" fill="none"/>
+        <circle cx="60" cy="85" r="7" fill="${C_EQUIP_DARK}"/>
+        <circle cx="140" cy="85" r="7" fill="${C_EQUIP_DARK}"/>
+      </svg>`
   };
 
-  const DAY_SHORTS = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
-  const TYPE_ICONS = { push:'⚡', pull:'🔵', legs:'🦵', arms:'💪', full:'🔥', rest:'😴' };
-
-  // ─── STATE ──────────────────────────────────────────────────────────────────
-  let weekOffset = 0;
-  let activeDay = null; // 0=Monday..6=Sunday
-
-  function getMonday(d) {
-    const date = new Date(d);
-    const day = date.getDay();
-    const diff = (day === 0 ? -6 : 1 - day);
-    date.setDate(date.getDate() + diff);
-    date.setHours(0,0,0,0);
-    return date;
+  // Generic fallback SVG for unknown exercise
+  function getGenericSVG() {
+    return `
+      <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="40" r="12" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <path d="M 85,55 L 115,55 L 108,110 L 92,110 Z" fill="${C_SKIN}" stroke="${C_SKIN_STROKE}" stroke-width="2"/>
+        <circle cx="100" cy="70" r="15" fill="${C_RED}" opacity="0.5"/>
+      </svg>`;
   }
 
-  function getWeekDates(offset) {
-    const monday = getMonday(new Date());
+  // ANATOMICAL BODY MAP (Front View & Back View)
+  function getBodyFrontSVG(targetMuscles = []) {
+    const isTarget = (m) => targetMuscles.includes(m);
+    const colorOf = (m) => isTarget(m) ? C_RED : "#27272a";
+    const strokeOf = (m) => isTarget(m) ? C_RED_STROKE : "#3f3f46";
+    const opacityOf = (m) => isTarget(m) ? "1" : "0.5";
+
+    return `
+      <svg viewBox="0 0 100 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head & Neck -->
+        <circle cx="50" cy="16" r="10" fill="#27272a" stroke="#3f3f46" stroke-width="1"/>
+        <rect x="46" y="26" width="8" height="8" fill="#27272a"/>
+        <!-- Shoulders (Deltoids) -->
+        <ellipse cx="30" cy="38" rx="8" ry="9" fill="${colorOf('shoulders')}" stroke="${strokeOf('shoulders')}" opacity="${opacityOf('shoulders')}"/>
+        <ellipse cx="70" cy="38" rx="8" ry="9" fill="${colorOf('shoulders')}" stroke="${strokeOf('shoulders')}" opacity="${opacityOf('shoulders')}"/>
+        <!-- Chest (Pectorals) -->
+        <path d="M 38,34 Q 50,34 50,54 Q 38,54 36,44 Z" fill="${colorOf('chest')}" stroke="${strokeOf('chest')}" opacity="${opacityOf('chest')}"/>
+        <path d="M 62,34 Q 50,34 50,54 Q 62,54 64,44 Z" fill="${colorOf('chest')}" stroke="${strokeOf('chest')}" opacity="${opacityOf('chest')}"/>
+        <!-- Abs -->
+        <rect x="42" y="56" width="16" height="24" rx="4" fill="${colorOf('abs')}" stroke="${strokeOf('abs')}" opacity="${opacityOf('abs')}"/>
+        <!-- Biceps -->
+        <ellipse cx="24" cy="54" rx="5" ry="11" fill="${colorOf('biceps')}" stroke="${strokeOf('biceps')}" opacity="${opacityOf('biceps')}"/>
+        <ellipse cx="76" cy="54" rx="5" ry="11" fill="${colorOf('biceps')}" stroke="${strokeOf('biceps')}" opacity="${opacityOf('biceps')}"/>
+        <!-- Forearms -->
+        <ellipse cx="20" cy="78" rx="4" ry="12" fill="${colorOf('forearms')}" stroke="${strokeOf('forearms')}" opacity="${opacityOf('forearms')}"/>
+        <ellipse cx="80" cy="78" rx="4" ry="12" fill="${colorOf('forearms')}" stroke="${strokeOf('forearms')}" opacity="${opacityOf('forearms')}"/>
+        <!-- Legs (Quads) -->
+        <rect x="34" y="92" width="14" height="38" rx="5" fill="${colorOf('legs')}" stroke="${strokeOf('legs')}" opacity="${opacityOf('legs')}"/>
+        <rect x="52" y="92" width="14" height="38" rx="5" fill="${colorOf('legs')}" stroke="${strokeOf('legs')}" opacity="${opacityOf('legs')}"/>
+      </svg>`;
+  }
+
+  function getBodyBackSVG(targetMuscles = []) {
+    const isTarget = (m) => targetMuscles.includes(m);
+    const colorOf = (m) => isTarget(m) ? C_RED : "#27272a";
+    const strokeOf = (m) => isTarget(m) ? C_RED_STROKE : "#3f3f46";
+    const opacityOf = (m) => isTarget(m) ? "1" : "0.5";
+
+    return `
+      <svg viewBox="0 0 100 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <circle cx="50" cy="16" r="10" fill="#27272a" stroke="#3f3f46" stroke-width="1"/>
+        <!-- Traps -->
+        <path d="M 40,26 L 60,26 L 68,38 L 32,38 Z" fill="${colorOf('back')}" stroke="${strokeOf('back')}" opacity="${opacityOf('back')}"/>
+        <!-- Lats & Upper Back -->
+        <path d="M 32,38 L 68,38 L 60,78 L 40,78 Z" fill="${colorOf('back')}" stroke="${strokeOf('back')}" opacity="${opacityOf('back')}"/>
+        <!-- Triceps -->
+        <ellipse cx="22" cy="54" rx="5" ry="12" fill="${colorOf('triceps')}" stroke="${strokeOf('triceps')}" opacity="${opacityOf('triceps')}"/>
+        <ellipse cx="78" cy="54" rx="5" ry="12" fill="${colorOf('triceps')}" stroke="${strokeOf('triceps')}" opacity="${opacityOf('triceps')}"/>
+        <!-- Rear Delts -->
+        <ellipse cx="29" cy="38" rx="5" ry="6" fill="${colorOf('shoulders')}" stroke="${strokeOf('shoulders')}" opacity="${opacityOf('shoulders')}"/>
+        <ellipse cx="71" cy="38" rx="5" ry="6" fill="${colorOf('shoulders')}" stroke="${strokeOf('shoulders')}" opacity="${opacityOf('shoulders')}"/>
+        <!-- Hamstrings & Glutes -->
+        <rect x="34" y="92" width="14" height="38" rx="5" fill="${colorOf('legs')}" stroke="${strokeOf('legs')}" opacity="${opacityOf('legs')}"/>
+        <rect x="52" y="92" width="14" height="38" rx="5" fill="${colorOf('legs')}" stroke="${strokeOf('legs')}" opacity="${opacityOf('legs')}"/>
+      </svg>`;
+  }
+
+  // ─── EXERCISE DATABASE METADATA ──────────────────────────────────────────────
+  const EXERCISE_METADATA = {
+    'Incline Dumbell Press': {
+      category: 'Chest',
+      equipment: 'Dumbbells & Incline Bench',
+      target: ['chest', 'shoulders'],
+      targetText: 'Bovenkant Borst (Upper Chest) & Voorkant Schouder',
+      tips: 'Zet de bank op een hoek van 30-45 graden. Laat de dumbbells gecontroleerd zakken tot borsthoogte en duw ze in een lichte boog omhoog zonder de dumbbells tegen elkaar te laten tikken.'
+    },
+    'Cable Flies': {
+      category: 'Chest',
+      equipment: 'Cable Crossover Station',
+      target: ['chest'],
+      targetText: 'Grote Borstspier (Pectoralis Major)',
+      tips: 'Houd je ellebogen licht gebogen tijdens de hele beweging. Knijp je borstspieren hard samen als je handen elkaar voor je borst ontmoeten.'
+    },
+    'Machine Shoulder Press': {
+      category: 'Shoulders',
+      equipment: 'Shoulder Press Machine',
+      target: ['shoulders', 'triceps'],
+      targetText: 'Schouders (Deltoids) & Triceps',
+      tips: 'Stel de zitting zo in dat de handvatten op schouderhoogte beginnen. Duw gecontroleerd omhoog zonder je ellebogen volledig te overstrekken.'
+    },
+    'Side Delts': {
+      category: 'Shoulders',
+      equipment: 'Dumbbells',
+      target: ['shoulders'],
+      targetText: 'Zijkant Schouder (Lateral Deltoid)',
+      tips: 'Til de dumbbells zijwaarts op tot schouderhoogte met de handpalmen naar beneden. Beeld je in dat je water uit twee flessen schenkt bovenin de beweging.'
+    },
+    'Tricep Pushdown': {
+      category: 'Triceps',
+      equipment: 'Cable Station & Rope/Bar',
+      target: ['triceps'],
+      targetText: 'Triceps (Achterkant Arm)',
+      tips: 'Houd je ellebogen strak tegen je zij gedrukt. Duw de kabel helemaal naar beneden en strek je armen volledig uit.'
+    },
+    'Overhead Tricep Extensions': {
+      category: 'Triceps',
+      equipment: 'Cable / Dumbbell',
+      target: ['triceps'],
+      targetText: 'Lange Kop Tricep (Triceps Long Head)',
+      tips: 'Houd je bovenarmen verticaal naast je hoofd. Buig je ellebogen achter je hoofd en strek de massa krachtig omhoog.'
+    },
+    'Lat Pulldown': {
+      category: 'Back',
+      equipment: 'Lat Pulldown Machine',
+      target: ['back', 'biceps'],
+      targetText: 'Brede Rugspier (Latissimus Dorsi)',
+      tips: 'Pak de stang breed vast. Trek de stang naar het bovenste deel van je borst terwijl je je schouderbladen naar elkaar toe en omlaag trekt.'
+    },
+    'Machine Row': {
+      category: 'Back',
+      equipment: 'Seated Row Machine',
+      target: ['back', 'biceps'],
+      targetText: 'Middenrug, Lats & Rhomboids',
+      tips: 'Druk je borst stevig tegen het kussen. Trek de handvatten naar je navel en knijp je schouderbladen 1 seconde achterin samen.'
+    },
+    'The Virgin Machine Row': {
+      category: 'Back',
+      equipment: 'Plate Loaded Row Machine',
+      target: ['back'],
+      targetText: 'Lats & Middenrug',
+      tips: 'Gebruik een neutrale greep. Trek met je ellebogen en focus op het aanspannen van je rug in plaats van je armen.'
+    },
+    'Rear Delts': {
+      category: 'Shoulders / Back',
+      equipment: 'Reverse Pec Deck / Machine',
+      target: ['shoulders', 'back'],
+      targetText: 'Achterkant Schouder (Rear Deltoids)',
+      tips: 'Zit met je borst tegen het apparaat. Beweeg de armen naar buiten tot ze in één lijn zijn met je schouders.'
+    },
+    'Dumbell Curls': {
+      category: 'Biceps',
+      equipment: 'Dumbbells',
+      target: ['biceps', 'forearms'],
+      targetText: 'Biceps (Voorkant Arm)',
+      tips: 'Houd je ellebogen stil aan je zij. Draai je pols naar buiten (supinatie) terwijl je het gewicht omhoog krult.'
+    },
+    'Hamer Curls': {
+      category: 'Biceps / Forearms',
+      equipment: 'Dumbbells',
+      target: ['biceps', 'forearms'],
+      targetText: 'Brachialis & Onderarmen',
+      tips: 'Houd de dumbbells vast met een neutrale greep (handpalmen naar elkaar toe). Krul gecontroleerd omhoog.'
+    },
+    'Easy Bar Forearm Curls': {
+      category: 'Forearms',
+      equipment: 'EZ Barbell',
+      target: ['forearms'],
+      targetText: 'Onderarm Buigers & Strekkers',
+      tips: 'Gebruik de gebogen EZ-stang om de polsen te ontlasten. Krul vanuit de polsen/onderarmen voor maximale pomp.'
+    }
+  };
+
+  // ─── ROUTINE SCHEDULE ────────────────────────────────────────────────────────
+  const ROUTINE_SCHEMA = {
+    0: { name: 'Maandag', label: 'Push 💥', groups: [
+      { title: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
+      { title: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
+      { title: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] }
+    ]},
+    1: { name: 'Dinsdag', label: 'Pull 🔵', groups: [
+      { title: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] },
+      { title: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] }
+    ]},
+    2: { name: 'Woensdag', label: 'Benen 🦵', groups: [
+      { title: 'Benen', exercises: [] }
+    ]},
+    3: { name: 'Donderdag', label: 'Rust 😴', groups: [] },
+    4: { name: 'Vrijdag', label: 'Chest + Rug 🔥', groups: [
+      { title: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
+      { title: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] }
+    ]},
+    5: { name: 'Zaterdag', label: 'Armen & Schouder 💪', groups: [
+      { title: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
+      { title: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] },
+      { title: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] },
+      { title: 'Voorarmen', exercises: ['Easy Bar Forearm Curls'] }
+    ]},
+    6: { name: 'Zondag', label: 'Rust 😴', groups: [] }
+  };
+
+  const DAY_NAMES_SHORT = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+
+  // ─── STATE MANAGEMENT & LOCAL STORAGE ───────────────────────────────────────
+  let currentWeekOffset = 0;
+  let activeDayIndex = null;
+
+  function getMondayOfDate(d) {
+    const dt = new Date(d);
+    const day = dt.getDay();
+    const diff = (day === 0 ? -6 : 1 - day);
+    dt.setDate(dt.getDate() + diff);
+    dt.setHours(0,0,0,0);
+    return dt;
+  }
+
+  function getWeekDatesArray(offset) {
+    const monday = getMondayOfDate(new Date());
     monday.setDate(monday.getDate() + offset * 7);
-    return Array.from({length:7}, (_,i) => {
+    return Array.from({length: 7}, (_, i) => {
       const d = new Date(monday);
       d.setDate(d.getDate() + i);
       return d;
     });
   }
 
-  function dateKey(date) {
-    return date.toISOString().slice(0,10);
+  function formatDateKey(dateObj) {
+    return dateObj.toISOString().slice(0, 10);
   }
 
-  function storageKey(dateStr, exerciseName, dayIdx) {
-    return `gymlog:${dateStr}:${dayIdx}:${exerciseName}`;
+  function makeStorageKey(dateStr, dayIdx, exName) {
+    return `gymlog_hevy:${dateStr}:${dayIdx}:${exName}`;
   }
 
-  function loadSets(dateStr, dayIdx, exerciseName) {
-    const raw = localStorage.getItem(storageKey(dateStr, exerciseName, dayIdx));
+  function loadExerciseSets(dateStr, dayIdx, exName) {
+    const raw = localStorage.getItem(makeStorageKey(dateStr, dayIdx, exName));
     return raw ? JSON.parse(raw) : [];
   }
 
-  function saveSets(dateStr, dayIdx, exerciseName, sets) {
-    localStorage.setItem(storageKey(dateStr, exerciseName, dayIdx), JSON.stringify(sets));
+  function saveExerciseSets(dateStr, dayIdx, exName, setsArray) {
+    localStorage.setItem(makeStorageKey(dateStr, dayIdx, exName), JSON.stringify(setsArray));
   }
 
-  function loadDone(dateStr, dayIdx, exerciseName) {
-    return localStorage.getItem(`gymlog:done:${dateStr}:${dayIdx}:${exerciseName}`) === '1';
+  function loadExerciseDoneState(dateStr, dayIdx, exName) {
+    return localStorage.getItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`) === 'true';
   }
 
-  function saveDone(dateStr, dayIdx, exerciseName, val) {
-    if (val) localStorage.setItem(`gymlog:done:${dateStr}:${dayIdx}:${exerciseName}`, '1');
-    else localStorage.removeItem(`gymlog:done:${dateStr}:${dayIdx}:${exerciseName}`);
+  function saveExerciseDoneState(dateStr, dayIdx, exName, isDone) {
+    if (isDone) localStorage.setItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`, 'true');
+    else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`);
   }
 
-  // ─── TOAST ──────────────────────────────────────────────────────────────────
+  // ─── TOAST NOTIFICATION ─────────────────────────────────────────────────────
   let toastTimer;
-  function showToast(msg, icon='✅') {
-    const el = document.getElementById('toast');
-    el.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
-    el.classList.add('show');
+  function triggerToast(text, icon = '✅') {
+    const toastEl = document.getElementById('toast');
+    toastEl.innerHTML = `<span>${icon}</span><span>${text}</span>`;
+    toastEl.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
   }
 
-  // ─── RENDER ─────────────────────────────────────────────────────────────────
-  function render() {
-    const dates = getWeekDates(weekOffset);
+  // ─── RENDER ENGINE ──────────────────────────────────────────────────────────
+  function renderApp() {
+    const dates = getWeekDatesArray(currentWeekOffset);
     const today = new Date(); today.setHours(0,0,0,0);
 
-    // Header date
-    document.getElementById('headerDate').textContent = today.toLocaleDateString('nl-NL', {weekday:'long',day:'numeric',month:'long'});
+    // Header current date
+    document.getElementById('headerDate').textContent = today.toLocaleDateString('nl-NL', {
+      weekday: 'short', day: 'numeric', month: 'short'
+    });
 
-    // Week label
-    const wStart = dates[0].toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
-    const wEnd   = dates[6].toLocaleDateString('nl-NL',{day:'numeric',month:'short',year:'numeric'});
-    document.getElementById('weekLabel').textContent = `${wStart} – ${wEnd}`;
+    // Week range label
+    const startStr = dates[0].toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+    const endStr = dates[6].toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' });
+    document.getElementById('weekRangeStr').textContent = `${startStr} – ${endStr}`;
 
-    // If activeDay not set, default to today's weekday (Mon=0..Sun=6) or 0
-    if (activeDay === null) {
-      const td = today.getDay();
-      activeDay = td === 0 ? 6 : td - 1;
+    // Set default active day if null
+    if (activeDayIndex === null) {
+      const todayDay = today.getDay();
+      activeDayIndex = (todayDay === 0 ? 6 : todayDay - 1);
     }
 
-    renderTabs(dates, today);
-    renderDay(dates[activeDay], activeDay);
+    renderDayTabs(dates, today);
+    renderDayMainContent(dates[activeDayIndex], activeDayIndex);
   }
 
-  function renderTabs(dates, today) {
-    const container = document.getElementById('dayTabs');
+  function renderDayTabs(dates, today) {
+    const container = document.getElementById('dayTabsContainer');
     container.innerHTML = '';
-    dates.forEach((date, i) => {
-      const schema = SCHEMA[i];
-      const isToday = date.getTime() === today.getTime();
-      const isActive = i === activeDay;
+
+    dates.forEach((dateObj, i) => {
+      const isToday = (dateObj.getTime() === today.getTime());
+      const isActive = (i === activeDayIndex);
 
       const tab = document.createElement('div');
-      tab.className = `day-tab${isActive?' active':''}${isToday?' today':''}`;
-      tab.style.setProperty('--c-glow', schema.glow);
-      if (isActive) {
-        tab.style.background = `linear-gradient(160deg, ${schema.color}22, ${schema.color}08)`;
-        tab.style.borderColor = schema.color + '55';
-      }
-
+      tab.className = `day-tab${isActive ? ' active' : ''}${isToday ? ' today' : ''}`;
       tab.innerHTML = `
-        <div class="day-short">${DAY_SHORTS[i]}</div>
-        <div class="day-number">${date.getDate()}</div>
-        <div class="day-dot" style="${isActive?'background:'+schema.color:''}"></div>
+        <div class="d-short">${DAY_NAMES_SHORT[i]}</div>
+        <div class="d-num">${dateObj.getDate()}</div>
       `;
-
       tab.addEventListener('click', () => {
-        activeDay = i;
-        render();
+        activeDayIndex = i;
+        renderApp();
       });
-
       container.appendChild(tab);
     });
   }
 
-  function renderDay(date, dayIdx) {
-    const schema = SCHEMA[dayIdx];
-    const dateStr = dateKey(date);
-    const content = document.getElementById('dayContent');
-    const statsBar = document.getElementById('statsBar');
-    const progBar  = document.getElementById('dayProgressBar');
-    const progFill = document.getElementById('dayProgressFill');
+  function renderDayMainContent(dateObj, dayIdx) {
+    const dayData = ROUTINE_SCHEMA[dayIdx];
+    const dateStr = formatDateKey(dateObj);
+    const mainContainer = document.getElementById('dayMainContent');
+    const statsGrid = document.getElementById('statsGrid');
+    mainContainer.innerHTML = '';
 
-    content.innerHTML = '';
-
-    // Day header
-    const dh = document.createElement('div');
-    dh.className = 'day-header';
-    dh.innerHTML = `
-      <div class="day-title">${schema.name}</div>
-      <div class="day-badge" style="background:${schema.color}22;color:${schema.color};border:1px solid ${schema.color}44">${schema.label}</div>
+    // Day Header
+    const hdr = document.createElement('div');
+    hdr.className = 'day-hdr';
+    hdr.innerHTML = `
+      <div class="day-name">${dayData.name}</div>
+      <div class="workout-badge">${dayData.label}</div>
     `;
-    content.appendChild(dh);
+    mainContainer.appendChild(hdr);
 
-    if (schema.type === 'rest') {
-      statsBar.style.display = 'none';
-      progBar.style.display = 'none';
-      content.innerHTML += `
-        <div class="rest-day">
-          <span class="rest-icon">😴</span>
-          <div class="rest-title">Rustdag</div>
-          <div class="rest-sub">Herstel is net zo belangrijk als trainen. Geniet ervan!</div>
+    // Rest Day State
+    if (dayData.groups.length === 0 || dayData.label.includes('Rust')) {
+      statsGrid.style.display = 'none';
+      mainContainer.innerHTML += `
+        <div class="rest-state">
+          <span class="rest-emoji">😴</span>
+          <div class="rest-heading">Rustdag</div>
+          <div class="rest-desc">Geen training gepland vandaag. Tijd voor spierherstel en voeding!</div>
         </div>
       `;
       return;
     }
 
-    // Stats
-    statsBar.style.display = 'grid';
-    progBar.style.display = 'block';
-    progFill.style.background = `linear-gradient(90deg, ${schema.color}, ${schema.color}88)`;
+    statsGrid.style.display = 'grid';
 
-    // Collect all exercises
-    const allExercises = schema.groups.flatMap(g => g.exercises);
-    let totalSets = 0, totalDone = 0, totalVolume = 0;
+    // Calculate totals across exercises
+    const allExercisesList = dayData.groups.flatMap(g => g.exercises);
+    recalculateStats(dateStr, dayIdx, allExercisesList);
 
-    allExercises.forEach(ex => {
-      const sets = loadSets(dateStr, dayIdx, ex);
-      const done = loadDone(dateStr, dayIdx, ex);
-      sets.forEach(s => {
-        if (s.done) {
-          totalSets++;
-          const v = (parseFloat(s.weight)||0) * (parseFloat(s.reps)||0);
-          totalVolume += v;
-        }
-      });
-      if (done) totalDone++;
-    });
-
-    document.getElementById('statSets').textContent = totalSets;
-    document.getElementById('statExercises').textContent = `${totalDone}/${allExercises.length}`;
-
-    // Volume display
-    const volDisplay = totalVolume >= 1000 ? (totalVolume/1000).toFixed(1)+'K' : Math.round(totalVolume);
-    document.getElementById('statVolume').textContent = volDisplay;
-
-    // Progress bar
-    const pct = allExercises.length > 0 ? (totalDone / allExercises.length * 100) : 0;
-    progFill.style.width = pct + '%';
-    progFill.style.boxShadow = `0 0 12px ${schema.color}`;
-
-    // Groups
-    schema.groups.forEach(group => {
-      const mgEl = document.createElement('div');
-      mgEl.className = 'muscle-group';
-
-      if (group.exercises.length === 0) {
-        mgEl.innerHTML = `
-          <div class="muscle-label">
-            <span class="muscle-label-text">${group.name}</span>
-            <div class="muscle-line"></div>
-          </div>
-          <div class="empty-card">
-            <div class="empty-card-icon">🏗️</div>
-            <div class="empty-card-text">Nog geen oefeningen toegevoegd. Voeg ze zelf toe hieronder!</div>
-          </div>
-        `;
-        content.appendChild(mgEl);
-        return;
-      }
-
-      mgEl.innerHTML = `
-        <div class="muscle-label">
-          <span class="muscle-label-text">${group.name}</span>
-          <div class="muscle-line"></div>
+    // Render Muscle Groups
+    dayData.groups.forEach(grp => {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'grp-section';
+      groupEl.innerHTML = `
+        <div class="grp-hdr">
+          <span class="grp-title">${grp.title}</span>
+          <div class="grp-line"></div>
         </div>
       `;
 
-      group.exercises.forEach(exName => {
-        const card = buildExerciseCard(exName, dateStr, dayIdx, schema.color, allExercises, schema);
-        mgEl.appendChild(card);
+      if (grp.exercises.length === 0) {
+        groupEl.innerHTML += `
+          <div style="background:var(--surface-1);border:1px dashed var(--border);border-radius:14px;padding:24px;text-align:center;color:var(--text-sec);font-size:13px;">
+            Geen oefeningen ingesteld voor ${grp.title}.
+          </div>
+        `;
+        mainContainer.appendChild(groupEl);
+        return;
+      }
+
+      grp.exercises.forEach(exName => {
+        const card = createExerciseCard(exName, dateStr, dayIdx, allExercisesList);
+        groupEl.appendChild(card);
       });
 
-      content.appendChild(mgEl);
+      mainContainer.appendChild(groupEl);
     });
   }
 
-  function buildExerciseCard(exName, dateStr, dayIdx, color, allExercises, schema) {
-    let sets = loadSets(dateStr, dayIdx, exName);
-    let isDone = loadDone(dateStr, dayIdx, exName);
+  function createExerciseCard(exName, dateStr, dayIdx, allExercisesList) {
+    let sets = loadExerciseSets(dateStr, dayIdx, exName);
+    let isCompleted = loadExerciseDoneState(dateStr, dayIdx, exName);
 
-    // Default 3 empty sets
+    // Default 3 sets if empty
     if (sets.length === 0) {
-      sets = [{weight:'',reps:'',done:false},{weight:'',reps:'',done:false},{weight:'',reps:'',done:false}];
-      saveSets(dateStr, dayIdx, exName, sets);
+      sets = [
+        { weight: '', reps: '', done: false },
+        { weight: '', reps: '', done: false },
+        { weight: '', reps: '', done: false }
+      ];
+      saveExerciseSets(dateStr, dayIdx, exName, sets);
     }
+
+    const meta = EXERCISE_METADATA[exName] || {
+      category: 'Fitness', equipment: 'Gym', target: [], targetText: 'Target Muscles', tips: ''
+    };
 
     const card = document.createElement('div');
-    card.className = `exercise-card${isDone?' done':''}`;
-    card.style.setProperty('--c-accent', color);
+    card.className = `ex-card${isCompleted ? ' completed' : ''}`;
 
-    function rerender() {
-      const newCard = buildExerciseCard(exName, dateStr, dayIdx, color, allExercises, schema);
-      card.replaceWith(newCard);
-      updateStats(dateStr, dayIdx, schema, allExercises);
-    }
-
-    // Header
+    // TOP HEADER
     const top = document.createElement('div');
-    top.className = 'exercise-top';
+    top.className = 'ex-top';
 
-    const nameEl = document.createElement('div');
-    nameEl.className = 'exercise-name';
-    nameEl.textContent = exName;
+    // SVG Thumb
+    const thumb = document.createElement('div');
+    thumb.className = 'ex-thumb';
+    const svgFn = EXERCISE_ILLUSTRATIONS[exName] || getGenericSVG;
+    thumb.innerHTML = svgFn() + `<span class="ex-thumb-zoom">🔍</span>`;
+    thumb.addEventListener('click', () => openDetailModal(exName));
 
-    const actions = document.createElement('div');
-    actions.className = 'exercise-actions';
+    // Meta Info
+    const metaBox = document.createElement('div');
+    metaBox.className = 'ex-meta';
+    metaBox.innerHTML = `
+      <div class="ex-title-text">${exName}</div>
+      <div class="ex-sub-tags">
+        <span class="tag-pill target">${meta.category}</span>
+        <span class="tag-pill">${meta.equipment}</span>
+      </div>
+    `;
 
-    const checkBtn = document.createElement('button');
-    checkBtn.className = `check-btn${isDone?' checked':''}`;
-    checkBtn.title = isDone ? 'Markeer als niet klaar' : 'Markeer als klaar';
-    checkBtn.innerHTML = '✓';
-    checkBtn.addEventListener('click', () => {
-      isDone = !isDone;
-      saveDone(dateStr, dayIdx, exName, isDone);
-      showToast(isDone ? `${exName} klaar! 🔥` : `${exName} ongedaan gemaakt`, isDone?'✅':'↩️');
-      rerender();
+    // Actions (Info Modal + Finish Checkmark)
+    const infoBtn = document.createElement('button');
+    infoBtn.className = 'info-btn';
+    infoBtn.innerHTML = 'ℹ️';
+    infoBtn.title = 'Bekijk Oefening & Spiertekening';
+    infoBtn.addEventListener('click', () => openDetailModal(exName));
+
+    const finishBtn = document.createElement('button');
+    finishBtn.className = `finish-ex-btn${isCompleted ? ' done' : ''}`;
+    finishBtn.innerHTML = '✓';
+    finishBtn.title = isCompleted ? 'Markeer als onvoltooid' : 'Markeer als klaar';
+    finishBtn.addEventListener('click', () => {
+      isCompleted = !isCompleted;
+      saveExerciseDoneState(dateStr, dayIdx, exName, isCompleted);
+      triggerToast(isCompleted ? `${exName} afgerond! 🔥` : `${exName} heropend`, isCompleted ? '✅' : '↩️');
+      card.classList.toggle('completed', isCompleted);
+      finishBtn.classList.toggle('done', isCompleted);
+      recalculateStats(dateStr, dayIdx, allExercisesList);
     });
 
-    actions.appendChild(checkBtn);
-    top.appendChild(nameEl);
-    top.appendChild(actions);
+    top.appendChild(thumb);
+    top.appendChild(metaBox);
+    top.appendChild(infoBtn);
+    top.appendChild(finishBtn);
     card.appendChild(top);
 
-    // Sets header
-    const sh = document.createElement('div');
-    sh.className = 'sets-header';
-    sh.innerHTML = '<span>Set</span><span>Gewicht (kg)</span><span>Reps</span><span>1RM Est.</span><span></span>';
-    card.appendChild(sh);
+    // SETS TABLE
+    const setsBox = document.createElement('div');
+    setsBox.className = 'sets-box';
 
-    // Set rows
-    const setContainer = document.createElement('div');
+    const setsHead = document.createElement('div');
+    setsHead.className = 'sets-head';
+    setsHead.innerHTML = '<span>SET</span><span>KG</span><span>REPS</span><span>1RM</span><span></span>';
+    setsBox.appendChild(setsHead);
 
-    function renderSets() {
-      setContainer.innerHTML = '';
-      sets.forEach((set, idx) => {
+    const rowsContainer = document.createElement('div');
+
+    function renderRows() {
+      rowsContainer.innerHTML = '';
+      sets.forEach((setObj, sIdx) => {
         const row = document.createElement('div');
-        row.className = `set-row${set.done?' set-done':''}`;
+        row.className = `set-row${setObj.done ? ' is-done' : ''}`;
 
-        const numEl = document.createElement('div');
-        numEl.className = 'set-num';
-        numEl.textContent = idx + 1;
+        const indexEl = document.createElement('div');
+        indexEl.className = 'set-index';
+        indexEl.textContent = sIdx + 1;
 
-        const weightInput = document.createElement('input');
-        weightInput.className = 'set-input';
-        weightInput.type = 'number';
-        weightInput.min = '0';
-        weightInput.step = '0.5';
-        weightInput.placeholder = 'kg';
-        weightInput.value = set.weight || '';
-        weightInput.addEventListener('change', () => {
-          sets[idx].weight = weightInput.value;
-          saveSets(dateStr, dayIdx, exName, sets);
-          updateStats(dateStr, dayIdx, schema, allExercises);
-          // Update 1RM
-          const w = parseFloat(sets[idx].weight)||0;
-          const r = parseFloat(sets[idx].reps)||0;
-          const rm = calc1RM(w, r);
-          row.querySelector('.oneRM').textContent = rm > 0 ? rm + ' kg' : '–';
+        const weightInp = document.createElement('input');
+        weightInp.className = 'set-input';
+        weightInp.type = 'number'; weightInp.step = '0.5'; weightInp.min = '0';
+        weightInp.placeholder = 'kg'; weightInp.value = setObj.weight || '';
+
+        const repsInp = document.createElement('input');
+        repsInp.className = 'set-input';
+        repsInp.type = 'number'; repsInp.min = '0';
+        repsInp.placeholder = 'reps'; repsInp.value = setObj.reps || '';
+
+        const oneRmEl = document.createElement('div');
+        oneRmEl.className = 'one-rm-val';
+        const calc1RM = () => {
+          const w = parseFloat(weightInp.value) || 0;
+          const r = parseFloat(repsInp.value) || 0;
+          return (w > 0 && r > 0) ? (r === 1 ? w : Math.round(w * (1 + r / 30))) + 'kg' : '–';
+        };
+        oneRmEl.textContent = calc1RM();
+
+        weightInp.addEventListener('change', () => {
+          sets[sIdx].weight = weightInp.value;
+          saveExerciseSets(dateStr, dayIdx, exName, sets);
+          oneRmEl.textContent = calc1RM();
+          recalculateStats(dateStr, dayIdx, allExercisesList);
         });
 
-        const repsInput = document.createElement('input');
-        repsInput.className = 'set-input';
-        repsInput.type = 'number';
-        repsInput.min = '0';
-        repsInput.placeholder = 'reps';
-        repsInput.value = set.reps || '';
-        repsInput.addEventListener('change', () => {
-          sets[idx].reps = repsInput.value;
-          saveSets(dateStr, dayIdx, exName, sets);
-          updateStats(dateStr, dayIdx, schema, allExercises);
-          const w = parseFloat(sets[idx].weight)||0;
-          const r = parseFloat(sets[idx].reps)||0;
-          const rm = calc1RM(w, r);
-          row.querySelector('.oneRM').textContent = rm > 0 ? rm + ' kg' : '–';
+        repsInp.addEventListener('change', () => {
+          sets[sIdx].reps = repsInp.value;
+          saveExerciseSets(dateStr, dayIdx, exName, sets);
+          oneRmEl.textContent = calc1RM();
+          recalculateStats(dateStr, dayIdx, allExercisesList);
         });
 
-        // 1RM estimate (Epley formula)
-        const w = parseFloat(set.weight)||0;
-        const r = parseFloat(set.reps)||0;
-        const rm = calc1RM(w, r);
-        const rmEl = document.createElement('div');
-        rmEl.className = 'set-input oneRM';
-        rmEl.style.cssText = 'display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid transparent;color:var(--text3);font-size:12px;font-weight:500;';
-        rmEl.textContent = rm > 0 ? rm + ' kg' : '–';
-
-        const doneBtn = document.createElement('button');
-        doneBtn.className = 'set-done-btn';
-        doneBtn.title = set.done ? 'Ondoen' : 'Set klaar';
-        doneBtn.innerHTML = set.done ? '✓' : '○';
-        doneBtn.addEventListener('click', () => {
-          sets[idx].done = !sets[idx].done;
-          if (sets[idx].done && !weightInput.value) sets[idx].weight = weightInput.value;
-          if (sets[idx].done && !repsInput.value) sets[idx].reps = repsInput.value;
-          saveSets(dateStr, dayIdx, exName, sets);
-          renderSets();
-          updateStats(dateStr, dayIdx, schema, allExercises);
-          if (sets[idx].done) showToast(`Set ${idx+1} van ${exName} afgerond! 💪`, '🔥');
+        const checkBtn = document.createElement('button');
+        checkBtn.className = 'set-check-btn';
+        checkBtn.innerHTML = setObj.done ? '✓' : '○';
+        checkBtn.addEventListener('click', () => {
+          sets[sIdx].done = !sets[sIdx].done;
+          saveExerciseSets(dateStr, dayIdx, exName, sets);
+          renderRows();
+          recalculateStats(dateStr, dayIdx, allExercisesList);
+          if (sets[sIdx].done) triggerToast(`Set ${sIdx + 1} voltooid! 💪`, '🔥');
         });
 
-        row.appendChild(numEl);
-        row.appendChild(weightInput);
-        row.appendChild(repsInput);
-        row.appendChild(rmEl);
-        row.appendChild(doneBtn);
-        setContainer.appendChild(row);
+        row.appendChild(indexEl);
+        row.appendChild(weightInp);
+        row.appendChild(repsInp);
+        row.appendChild(oneRmEl);
+        row.appendChild(checkBtn);
+        rowsContainer.appendChild(row);
       });
     }
 
-    renderSets();
-    card.appendChild(setContainer);
+    renderRows();
+    setsBox.appendChild(rowsContainer);
 
-    // Add set button
-    const addBtn = document.createElement('button');
-    addBtn.className = 'add-set-btn';
-    addBtn.innerHTML = '＋ Set toevoegen';
-    addBtn.addEventListener('click', () => {
-      sets.push({weight:'',reps:'',done:false});
-      saveSets(dateStr, dayIdx, exName, sets);
-      renderSets();
+    const addSetBtn = document.createElement('button');
+    addSetBtn.className = 'add-set-link';
+    addSetBtn.innerHTML = '＋ Set toevoegen';
+    addSetBtn.addEventListener('click', () => {
+      sets.push({ weight: '', reps: '', done: false });
+      saveExerciseSets(dateStr, dayIdx, exName, sets);
+      renderRows();
     });
-    card.appendChild(addBtn);
+
+    setsBox.appendChild(addSetBtn);
+    card.appendChild(setsBox);
 
     return card;
   }
 
-  function calc1RM(weight, reps) {
-    if (!weight || !reps || reps <= 0) return 0;
-    if (reps === 1) return weight;
-    return Math.round(weight * (1 + reps / 30));
-  }
+  function recalculateStats(dateStr, dayIdx, allExercisesList) {
+    let completedSetsCount = 0;
+    let completedExercisesCount = 0;
+    let totalVolumeKg = 0;
 
-  function updateStats(dateStr, dayIdx, schema, allExercises) {
-    let totalSets = 0, totalDone = 0, totalVolume = 0;
-    allExercises.forEach(ex => {
-      const sets = loadSets(dateStr, dayIdx, ex);
-      const done = loadDone(dateStr, dayIdx, ex);
+    allExercisesList.forEach(exName => {
+      const sets = loadExerciseSets(dateStr, dayIdx, exName);
+      const isDone = loadExerciseDoneState(dateStr, dayIdx, exName);
+      
       sets.forEach(s => {
         if (s.done) {
-          totalSets++;
-          totalVolume += (parseFloat(s.weight)||0) * (parseFloat(s.reps)||0);
+          completedSetsCount++;
+          const w = parseFloat(s.weight) || 0;
+          const r = parseFloat(s.reps) || 0;
+          totalVolumeKg += (w * r);
         }
       });
-      if (done) totalDone++;
+
+      if (isDone) completedExercisesCount++;
     });
 
-    document.getElementById('statSets').textContent = totalSets;
-    document.getElementById('statExercises').textContent = `${totalDone}/${allExercises.length}`;
-    const volDisplay = totalVolume >= 1000 ? (totalVolume/1000).toFixed(1)+'K' : Math.round(totalVolume);
-    document.getElementById('statVolume').textContent = volDisplay;
-
-    const pct = allExercises.length > 0 ? (totalDone / allExercises.length * 100) : 0;
-    const fill = document.getElementById('dayProgressFill');
-    if (fill) {
-      fill.style.width = pct + '%';
-      fill.style.boxShadow = `0 0 12px ${schema.color}`;
-    }
+    document.getElementById('valTotalSets').textContent = completedSetsCount;
+    document.getElementById('valDoneEx').textContent = `${completedExercisesCount}/${allExercisesList.length}`;
+    document.getElementById('valVolume').textContent = totalVolumeKg >= 1000 
+      ? (totalVolumeKg / 1000).toFixed(1) + 'K' 
+      : Math.round(totalVolumeKg);
   }
 
-  // ─── EVENTS ─────────────────────────────────────────────────────────────────
-  document.getElementById('prevWeek').addEventListener('click', () => {
-    weekOffset--;
-    render();
+  // ─── DETAIL MODAL FUNCTIONALITY ─────────────────────────────────────────────
+  function openDetailModal(exName) {
+    const meta = EXERCISE_METADATA[exName] || {
+      category: 'Oefening', equipment: 'Gym', target: [], targetText: 'Target Muscles', tips: 'Geen tips.'
+    };
+
+    document.getElementById('modalExTitle').textContent = exName;
+    
+    // Set graphic illustration
+    const svgFn = EXERCISE_ILLUSTRATIONS[exName] || getGenericSVG;
+    document.getElementById('modalGraphicCard').innerHTML = svgFn();
+
+    // Set Front & Back muscle maps
+    document.getElementById('modalMapFront').innerHTML = getBodyFrontSVG(meta.target);
+    document.getElementById('modalMapBack').innerHTML = getBodyBackSVG(meta.target);
+
+    // Set Tips
+    document.getElementById('modalFormTips').innerHTML = `
+      <div style="font-weight:700;color:#fff;margin-bottom:4px;">${meta.targetText}</div>
+      <div>${meta.tips}</div>
+    `;
+
+    // Calculate PR from localStorage
+    let maxWeight = 0;
+    let max1RM = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.includes(exName) && key.startsWith('gymlog_hevy:')) {
+        try {
+          const setsArr = JSON.parse(localStorage.getItem(key));
+          setsArr.forEach(s => {
+            const w = parseFloat(s.weight) || 0;
+            const r = parseFloat(s.reps) || 0;
+            if (w > maxWeight) maxWeight = w;
+            const est1RM = r === 1 ? w : w * (1 + r / 30);
+            if (est1RM > max1RM) max1RM = est1RM;
+          });
+        } catch(e) {}
+      }
+    }
+
+    const prBox = document.getElementById('modalPRStats');
+    if (maxWeight > 0) {
+      prBox.innerHTML = `
+        <div style="display:flex;gap:20px;">
+          <div><span style="color:var(--text-sec);font-size:11px;">MAX GEWICHT:</span> <strong style="color:var(--red);font-size:16px;">${maxWeight} kg</strong></div>
+          <div><span style="color:var(--text-sec);font-size:11px;">GESCHATTE 1RM:</span> <strong style="color:var(--blue);font-size:16px;">${Math.round(max1RM)} kg</strong></div>
+        </div>
+      `;
+    } else {
+      prBox.textContent = 'Nog geen gewichten ingevuld voor deze oefening.';
+    }
+
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function closeDetailModal() {
+    document.getElementById('detailModal').classList.remove('open');
+  }
+
+  document.getElementById('modalCloseBtn').addEventListener('click', closeDetailModal);
+  document.getElementById('detailModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('detailModal')) closeDetailModal();
   });
 
-  document.getElementById('nextWeek').addEventListener('click', () => {
-    weekOffset++;
-    render();
+  // ─── WEEK NAVIGATION EVENT LISTENERS ─────────────────────────────────────────
+  document.getElementById('btnPrevWeek').addEventListener('click', () => {
+    currentWeekOffset--;
+    renderApp();
   });
 
-  document.getElementById('todayBtn').addEventListener('click', () => {
-    weekOffset = 0;
-    const td = new Date().getDay();
-    activeDay = td === 0 ? 6 : td - 1;
-    render();
+  document.getElementById('btnNextWeek').addEventListener('click', () => {
+    currentWeekOffset++;
+    renderApp();
   });
 
-  // ─── INIT ────────────────────────────────────────────────────────────────────
-  render();
+  document.getElementById('btnToday').addEventListener('click', () => {
+    currentWeekOffset = 0;
+    const today = new Date().getDay();
+    activeDayIndex = (today === 0 ? 6 : today - 1);
+    renderApp();
+  });
 
-  // ─── SERVICE WORKER ─────────────────────────────────────────────────────────
+  // ─── INITIALIZATION & SERVICE WORKER ────────────────────────────────────────
+  renderApp();
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
