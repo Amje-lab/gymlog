@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GymLog – Amier's Workout Tracker</title>
-  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud met professionele 3D spierillustraties & anatomische spierkaarten." />
+  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud met HD geanimeerde spier-GIFs & 3D spierkaarten." />
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -154,13 +154,14 @@
       border-bottom: 1px solid var(--border);
     }
     .ex-thumb {
-      width: 62px; height: 62px; border-radius: 12px;
-      background: #000000; border: 1px solid var(--border);
+      width: 64px; height: 64px; border-radius: 12px;
+      background: #ffffff; border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; cursor: pointer; position: relative; overflow: hidden;
-      padding: 4px;
     }
-    .ex-thumb svg { width: 100%; height: 100%; display: block; }
+    .ex-thumb img {
+      width: 100%; height: 100%; object-fit: contain; background: #ffffff;
+    }
     .ex-meta { flex: 1; min-width: 0; }
     .ex-title-text { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 4px; }
     .ex-sub-tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -254,7 +255,7 @@
     .rest-heading { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px; }
     .rest-desc { font-size: 14px; color: var(--text-sec); }
 
-    /* ── MODAL (MEDICAL-GRADE 3D ANATOMICAL ILLUSTRATION & BODY MAPS) ── */
+    /* ── MODAL (REAL ANIMATED EXERCISE GIF & 3D MUSCLE MAPS) ── */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 200;
       background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
@@ -282,19 +283,18 @@
       font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
 
-    /* 3D MEDICAL ANATOMICAL EXERCISE CARD */
-    .anatomical-exercise-card {
+    /* REAL ANIMATED EXERCISE GIF CONTAINER (CLEAN, NO OVERLAYS) */
+    .modal-gif-card {
       width: 100%; height: 260px;
-      background: #000000; border: 1px solid var(--border);
+      background: #ffffff; border: 1px solid var(--border);
       border-radius: 16px; overflow: hidden; margin-bottom: 20px;
       display: flex; align-items: center; justify-content: center;
-      padding: 10px;
     }
-    .anatomical-exercise-card svg {
-      width: 100%; height: 100%; display: block;
+    .modal-gif-card img {
+      width: 100%; height: 100%; object-fit: contain; background: #ffffff;
     }
 
-    /* 3D ANATOMICAL BODY MUSCLE MAPS (FRONT & BACK) */
+    /* 3D ANATOMICAL BODY MUSCLE MAPS (MATCHING PHOTO 2 & PHOTO 3) */
     .muscle-section-title {
       font-size: 11px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--text-sec); margin-bottom: 10px;
@@ -375,7 +375,7 @@
     <div id="dayMainContent"></div>
   </main>
 
-  <!-- EXERCISE DETAIL MODAL (MEDICAL-GRADE 3D ANATOMICAL ILLUSTRATION & BODY MAPS) -->
+  <!-- EXERCISE DETAIL MODAL (REAL ANIMATED GIF DEMO + 3D ANATOMICAL BODY MAPS) -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-container">
       <div class="modal-header">
@@ -383,10 +383,12 @@
         <button class="modal-close" id="modalCloseBtn">✕</button>
       </div>
       
-      <!-- TOP: 3D ANATOMICAL MEDICAL-GRADE EXERCISE ILLUSTRATION -->
-      <div class="anatomical-exercise-card" id="modalExerciseIllustrationBox"></div>
+      <!-- TOP: REAL ANIMATED EXERCISE GIF (CLEAN, NO OVERLAYS) -->
+      <div class="modal-gif-card">
+        <img id="modalExGif" src="" alt="Exercise Motion GIF" />
+      </div>
 
-      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS -->
+      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS (PHOTO 2 & PHOTO 3 MATCH) -->
       <div class="muscle-section-title">DOELSPIEREN (TARGET MUSCLES)</div>
       <div class="muscle-maps-row">
         <div class="muscle-map-box">
@@ -407,23 +409,21 @@
   <div id="toast"></div>
 
   <script>
-  // ─── HIGH-PRECISION 3D MEDICAL-GRADE ANATOMICAL VECTOR RENDERING ENGINE ─────
-  
-  // 3D Muscle Anatomy Front Body Map
+  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL BODY MAPS (PHOTO 2 & 3 MATCH) ─────
   function get3DBodyFrontSVG(targetMuscles = []) {
     const isT = (m) => targetMuscles.includes(m);
     const f = (m) => isT(m) ? "url(#red3DGrad)" : "url(#body3DGrad)";
     const s = (m) => isT(m) ? "#ff3b30" : "#444956";
-    const opacity = (m) => isT(m) ? "1" : "0.7";
+    const opacity = (m) => isT(m) ? "1" : "0.75";
     const filter = (m) => isT(m) ? 'filter="url(#redGlow)"' : "";
 
     return `
       <svg viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="body3DGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#323742" />
-            <stop offset="50%" stop-color="#232730" />
-            <stop offset="100%" stop-color="#14171d" />
+            <stop offset="0%" stop-color="#3a404d" />
+            <stop offset="50%" stop-color="#282d36" />
+            <stop offset="100%" stop-color="#16191f" />
           </linearGradient>
           <radialGradient id="red3DGrad" cx="30%" cy="30%" r="80%">
             <stop offset="0%" stop-color="#ff6961" />
@@ -447,7 +447,7 @@
         <path d="M 38,42 C 24,44 20,56 24,66 C 32,68 38,62 38,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
         <path d="M 82,42 C 96,44 100,56 96,66 C 88,68 82,62 82,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
 
-        <!-- CHEST / PECTORALS (3D DETAILED ANATOMICAL CHEST PLATES) -->
+        <!-- CHEST / PECTORALS (3D ANATOMICAL CHEST PLATES) -->
         <path d="M 38,44 C 52,43 59,48 59,70 C 44,72 36,62 38,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
         <path d="M 82,44 C 68,43 61,48 61,70 C 76,72 84,62 82,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
 
@@ -486,7 +486,7 @@
     const isT = (m) => targetMuscles.includes(m);
     const f = (m) => isT(m) ? "url(#red3DGradBack)" : "url(#body3DGrad)";
     const s = (m) => isT(m) ? "#ff3b30" : "#444956";
-    const opacity = (m) => isT(m) ? "1" : "0.7";
+    const opacity = (m) => isT(m) ? "1" : "0.75";
     const filter = (m) => isT(m) ? 'filter="url(#redGlowBack)"' : "";
 
     return `
@@ -545,249 +545,63 @@
       </svg>`;
   }
 
-  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL EXERCISE VECTOR DIAGRAMS (PHOTO 2 STYLE) ─
-  const ANATOMICAL_EXERCISE_ILLUSTRATIONS = {
-    'Incline Dumbell Press': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3D" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/>
-            <stop offset="50%" stop-color="#a1a1aa"/>
-            <stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redMuscle" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/>
-            <stop offset="60%" stop-color="#ff3b30"/>
-            <stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-          <filter id="redGlowEx">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-          </filter>
-        </defs>
+  // ─── DATABASE OF REAL ANIMATED EXERCISE GIFs & TARGET MUSCLE METADATA ────────
+  const BASE_GIF_URL = "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/main/";
 
-        <!-- INCLINE BENCH -->
-        <path d="M 40,170 L 190,80 L 225,170 Z" fill="#18181b" stroke="#52525b" stroke-width="3"/>
-        <line x1="20" y1="170" x2="260" y2="170" stroke="#3f3f46" stroke-width="5"/>
-        <line x1="190" y1="80" x2="190" y2="170" stroke="#71717a" stroke-width="4"/>
-
-        <!-- 3D MUSCULAR MAN LYING FLAT ON BENCH -->
-        <!-- Legs & Feet -->
-        <path d="M 220,150 L 250,170 L 250,200" stroke="#71717a" stroke-width="12" stroke-linecap="round" fill="none"/>
-        
-        <!-- Torso & Abs (Silver-gray 3D shading) -->
-        <path d="M 60,150 L 180,80" stroke="url(#body3D)" stroke-width="34" stroke-linecap="round"/>
-        
-        <!-- Head -->
-        <circle cx="50" cy="155" r="14" fill="url(#body3D)" stroke="#27272a" stroke-width="1.5"/>
-
-        <!-- PECTORAL MUSCLES (CHEST) ACTIVATED IN BRIGHT CRIMSON RED -->
-        <path d="M 125,108 C 145,95 160,102 152,120 C 140,128 122,122 125,108 Z" fill="url(#redMuscle)" stroke="#ff3b30" stroke-width="2" filter="url(#redGlowEx)"/>
-        <!-- Muscle striation lines -->
-        <path d="M 130,112 Q 145,105 150,115 M 128,118 Q 140,114 146,122" stroke="#ffffff" stroke-width="1" opacity="0.6" fill="none"/>
-
-        <!-- ARMS & DUMBBELLS (PRESS POSITION) -->
-        <!-- Arms -->
-        <path d="M 135,110 L 125,60 L 140,25" stroke="url(#body3D)" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <path d="M 145,105 L 170,60 L 185,25" stroke="url(#body3D)" stroke-width="10" fill="none" stroke-linecap="round"/>
-
-        <!-- Heavy Dumbbells -->
-        <g transform="translate(140,22) rotate(-15)">
-          <rect x="-18" y="-8" width="10" height="16" rx="3" fill="#18181b" stroke="#71717a"/>
-          <rect x="8" y="-8" width="10" height="16" rx="3" fill="#18181b" stroke="#71717a"/>
-          <line x1="-14" y1="0" x2="14" y2="0" stroke="#ffffff" stroke-width="4"/>
-        </g>
-        <g transform="translate(185,22) rotate(-15)">
-          <rect x="-18" y="-8" width="10" height="16" rx="3" fill="#18181b" stroke="#71717a"/>
-          <rect x="8" y="-8" width="10" height="16" rx="3" fill="#18181b" stroke="#71717a"/>
-          <line x1="-14" y1="0" x2="14" y2="0" stroke="#ffffff" stroke-width="4"/>
-        </g>
-      </svg>`,
-
-    'Side Delts': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DSide" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/>
-            <stop offset="50%" stop-color="#a1a1aa"/>
-            <stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redSideDelt" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/>
-            <stop offset="60%" stop-color="#ff3b30"/>
-            <stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- 3D MUSCULAR MAN STANDING FRONT VIEW -->
-        <!-- Head -->
-        <ellipse cx="150" cy="35" rx="14" ry="16" fill="url(#body3DSide)"/>
-        <!-- Torso & Abs -->
-        <path d="M 132,52 L 168,52 L 160,130 L 140,130 Z" fill="url(#body3DSide)" stroke="#3f3f46" stroke-width="1.5"/>
-        <!-- Legs -->
-        <path d="M 142,130 L 135,205 M 158,130 L 165,205" stroke="#71717a" stroke-width="14" stroke-linecap="round"/>
-
-        <!-- HIGHLIGHTED SIDE DELTOIDS (SHOULDERS BRIGHT RED) -->
-        <ellipse cx="122" cy="58" rx="12" ry="14" fill="url(#redSideDelt)" stroke="#ff3b30" stroke-width="1.5"/>
-        <ellipse cx="178" cy="58" rx="12" ry="14" fill="url(#redSideDelt)" stroke="#ff3b30" stroke-width="1.5"/>
-
-        <!-- ARMS RAISED LATERALLY WITH DUMBBELLS -->
-        <path d="M 122,58 L 60,62 L 45,65" stroke="url(#body3DSide)" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <path d="M 178,58 L 240,62 L 255,65" stroke="url(#body3DSide)" stroke-width="10" stroke-linecap="round" fill="none"/>
-
-        <!-- Dumbbells in hands -->
-        <rect x="34" y="52" width="10" height="26" rx="3" fill="#18181b" stroke="#ffffff" stroke-width="2"/>
-        <rect x="256" y="52" width="10" height="26" rx="3" fill="#18181b" stroke="#ffffff" stroke-width="2"/>
-      </svg>`,
-
-    'Cable Flies': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DCable" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/><stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redPec" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/><stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Cable Towers -->
-        <line x1="30" y1="20" x2="30" y2="200" stroke="#52525b" stroke-width="6"/>
-        <line x1="270" y1="20" x2="270" y2="200" stroke="#52525b" stroke-width="6"/>
-        <line x1="30" y1="35" x2="105" y2="95" stroke="#a1a1aa" stroke-width="2"/>
-        <line x1="270" y1="35" x2="195" y2="95" stroke="#a1a1aa" stroke-width="2"/>
-
-        <!-- Man Standing -->
-        <ellipse cx="150" cy="40" rx="14" ry="16" fill="url(#body3DCable)"/>
-        <path d="M 132,58 L 168,58 L 160,135 L 140,135 Z" fill="url(#body3DCable)"/>
-
-        <!-- HIGHLIGHTED CHEST (RED) -->
-        <path d="M 133,60 Q 150,78 150,90 Q 134,88 132,70 Z" fill="url(#redPec)" stroke="#ff3b30"/>
-        <path d="M 167,60 Q 150,78 150,90 Q 166,88 168,70 Z" fill="url(#redPec)" stroke="#ff3b30"/>
-
-        <!-- Arms Extended in Crossover Fly -->
-        <path d="M 132,60 L 90,85 L 115,100" stroke="url(#body3DCable)" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <path d="M 168,60 L 210,85 L 185,100" stroke="url(#body3DCable)" stroke-width="9" stroke-linecap="round" fill="none"/>
-      </svg>`,
-
-    'Machine Shoulder Press': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DSh" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/><stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redSh" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/><stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Machine Seat & Frame -->
-        <rect x="110" y="110" width="80" height="90" rx="6" fill="#18181b" stroke="#52525b" stroke-width="3"/>
-        <line x1="70" y1="30" x2="70" y2="190" stroke="#3f3f46" stroke-width="6"/>
-        <line x1="230" y1="30" x2="230" y2="190" stroke="#3f3f46" stroke-width="6"/>
-
-        <!-- Seated Man -->
-        <ellipse cx="150" cy="65" rx="14" ry="16" fill="url(#body3DSh)"/>
-        <path d="M 132,82 L 168,82 L 162,140 L 138,140 Z" fill="url(#body3DSh)"/>
-
-        <!-- HIGHLIGHTED SHOULDERS (RED) -->
-        <ellipse cx="126" cy="84" rx="11" ry="13" fill="url(#redSh)" stroke="#ff3b30"/>
-        <ellipse cx="174" cy="84" rx="11" ry="13" fill="url(#redSh)" stroke="#ff3b30"/>
-
-        <!-- Arms Pressing Machine Overhead -->
-        <path d="M 126,84 L 90,60 L 75,45" stroke="url(#body3DSh)" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <path d="M 174,84 L 210,60 L 225,45" stroke="url(#body3DSh)" stroke-width="9" stroke-linecap="round" fill="none"/>
-      </svg>`,
-
-    'Tricep Pushdown': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DTri" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/><stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redTri" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/><stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Cable Machine -->
-        <line x1="210" y1="20" x2="210" y2="200" stroke="#52525b" stroke-width="6"/>
-        <line x1="210" y1="30" x2="165" y2="90" stroke="#a1a1aa" stroke-width="2.5"/>
-
-        <!-- Man Side Profile -->
-        <ellipse cx="110" cy="50" rx="14" ry="16" fill="url(#body3DTri)"/>
-        <path d="M 106,66 L 120,130 L 102,200" stroke="url(#body3DTri)" stroke-width="22" stroke-linecap="round" fill="none"/>
-
-        <!-- HIGHLIGHTED TRICEP BACK OF ARM (RED) -->
-        <path d="M 116,70 Q 136,88 124,106 Z" fill="url(#redTri)" stroke="#ff3b30" stroke-width="1.5"/>
-
-        <!-- Arm Pushing Down -->
-        <path d="M 114,68 L 124,102 L 165,115" stroke="url(#body3DTri)" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <circle cx="165" cy="115" r="6" fill="#ffffff"/>
-      </svg>`,
-
-    'Lat Pulldown': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DLat" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/><stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redLat" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/><stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Lat Pulldown Machine & Wide Bar -->
-        <line x1="150" y1="15" x2="150" y2="45" stroke="#52525b" stroke-width="4"/>
-        <path d="M 60,40 L 240,40" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
-        <rect x="120" y="120" width="60" height="70" rx="6" fill="#18181b" stroke="#52525b" stroke-width="3"/>
-
-        <!-- Seated Man Back View -->
-        <ellipse cx="150" cy="70" rx="14" ry="16" fill="url(#body3DLat)"/>
-        <path d="M 130,86 L 170,86 L 160,145 L 140,145 Z" fill="url(#body3DLat)"/>
-
-        <!-- HIGHLIGHTED LATS (WING MUSCLES BRIGHT RED) -->
-        <path d="M 132,88 Q 110,105 132,132 L 146,125 L 146,88 Z" fill="url(#redLat)" stroke="#ff3b30"/>
-        <path d="M 168,88 Q 190,105 168,132 L 154,125 L 154,88 Z" fill="url(#redLat)" stroke="#ff3b30"/>
-
-        <!-- Arms Reaching Up to Wide Bar -->
-        <path d="M 132,88 L 95,55 L 75,40" stroke="url(#body3DLat)" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <path d="M 168,88 L 205,55 L 225,40" stroke="url(#body3DLat)" stroke-width="9" stroke-linecap="round" fill="none"/>
-      </svg>`,
-
-    'Dumbell Curls': () => `
-      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="body3DCurl" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#e4e4e7"/><stop offset="100%" stop-color="#52525b"/>
-          </linearGradient>
-          <linearGradient id="redBicep" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff6961"/><stop offset="100%" stop-color="#b30006"/>
-          </linearGradient>
-        </defs>
-
-        <!-- Standing Man -->
-        <ellipse cx="150" cy="35" rx="14" ry="16" fill="url(#body3DCurl)"/>
-        <path d="M 132,52 L 168,52 L 160,130 L 140,130 Z" fill="url(#body3DCurl)"/>
-
-        <!-- HIGHLIGHTED BICEPS (BRIGHT RED) -->
-        <ellipse cx="118" cy="74" rx="10" ry="16" fill="url(#redBicep)" stroke="#ff3b30"/>
-        <ellipse cx="182" cy="74" rx="10" ry="16" fill="url(#redBicep)" stroke="#ff3b30"/>
-
-        <!-- Bicep Curling Arms -->
-        <path d="M 132,54 L 118,74 L 115,55" stroke="url(#body3DCurl)" stroke-width="9" stroke-linecap="round" fill="none"/>
-        <path d="M 168,54 L 182,74 L 185,55" stroke="url(#body3DCurl)" stroke-width="9" stroke-linecap="round" fill="none"/>
-
-        <!-- Dumbbells at shoulders -->
-        <rect x="104" y="44" width="22" height="12" rx="3" fill="#18181b" stroke="#ffffff" stroke-width="2"/>
-        <rect x="174" y="44" width="22" height="12" rx="3" fill="#18181b" stroke="#ffffff" stroke-width="2"/>
-      </svg>`
+  const EXERCISE_DATABASE = {
+    'Incline Dumbell Press': {
+      category: 'Borst', equipment: 'Dumbbells', target: ['chest', 'shoulders'],
+      gif: BASE_GIF_URL + "pectorals/dumbbell-incline-bench-press.gif"
+    },
+    'Cable Flies': {
+      category: 'Borst', equipment: 'Kabelstation', target: ['chest'],
+      gif: BASE_GIF_URL + "pectorals/cable-standing-up-straight-crossovers.gif"
+    },
+    'Machine Shoulder Press': {
+      category: 'Schouders', equipment: 'Machine', target: ['shoulders', 'triceps'],
+      gif: BASE_GIF_URL + "delts/dumbbell-seated-shoulder-press-parallel-grip.gif"
+    },
+    'Side Delts': {
+      category: 'Schouders', equipment: 'Dumbbells', target: ['shoulders'],
+      gif: BASE_GIF_URL + "delts/dumbbell-lateral-raise.gif"
+    },
+    'Tricep Pushdown': {
+      category: 'Triceps', equipment: 'Kabelstation', target: ['triceps'],
+      gif: BASE_GIF_URL + "triceps/cable-one-arm-tricep-pushdown.gif"
+    },
+    'Overhead Tricep Extensions': {
+      category: 'Triceps', equipment: 'Kabel / Dumbbell', target: ['triceps'],
+      gif: BASE_GIF_URL + "triceps/dumbbell-standing-overhead-triceps-extension.gif"
+    },
+    'Lat Pulldown': {
+      category: 'Rug', equipment: 'Machine', target: ['back', 'biceps'],
+      gif: BASE_GIF_URL + "lats/cable-lat-pulldown-full-range-of-motion.gif"
+    },
+    'Machine Row': {
+      category: 'Rug', equipment: 'Machine', target: ['back', 'biceps'],
+      gif: BASE_GIF_URL + "upper-back/lever-seated-row.gif"
+    },
+    'The Virgin Machine Row': {
+      category: 'Rug', equipment: 'Kabel / Machine', target: ['back'],
+      gif: BASE_GIF_URL + "upper-back/cable-seated-row.gif"
+    },
+    'Rear Delts': {
+      category: 'Schouders / Rug', equipment: 'Machine', target: ['shoulders', 'back'],
+      gif: BASE_GIF_URL + "delts/dumbbell-rear-delt-raise.gif"
+    },
+    'Dumbell Curls': {
+      category: 'Biceps', equipment: 'Dumbbells', target: ['biceps', 'forearms'],
+      gif: BASE_GIF_URL + "biceps/dumbbell-bicep-curl.gif"
+    },
+    'Hamer Curls': {
+      category: 'Biceps', equipment: 'Dumbbells', target: ['biceps', 'forearms'],
+      gif: BASE_GIF_URL + "biceps/dumbbell-alternate-seated-hammer-curl.gif"
+    },
+    'Easy Bar Forearm Curls': {
+      category: 'Voorarmen', equipment: 'EZ Barbell', target: ['forearms'],
+      gif: BASE_GIF_URL + "forearms/ez-barbell-wrist-curl.gif"
+    }
   };
-
-  // Fallback for exercises without specific custom 3D drawing
-  function getGenericAnatomicalSVG() {
-    return ANATOMICAL_EXERCISE_ILLUSTRATIONS['Incline Dumbell Press']();
-  }
 
   // ─── ROUTINE SCHEDULE ────────────────────────────────────────────────────────
   const ROUTINE_SCHEMA = {
@@ -996,8 +810,8 @@
       saveExerciseSets(dateStr, dayIdx, exName, sets);
     }
 
-    const exMeta = EXERCISE_METADATA[exName] || {
-      category: 'Gym', equipment: 'Apparaat', target: []
+    const exData = EXERCISE_DATABASE[exName] || {
+      category: 'Gym', equipment: 'Apparaat', target: [], gif: ''
     };
 
     const card = document.createElement('div');
@@ -1007,11 +821,10 @@
     const top = document.createElement('div');
     top.className = 'ex-top';
 
-    // Thumbnail SVG (3D Anatomical)
+    // Thumbnail (Real Animated Exercise GIF)
     const thumb = document.createElement('div');
     thumb.className = 'ex-thumb';
-    const svgFn = ANATOMICAL_EXERCISE_ILLUSTRATIONS[exName] || getGenericAnatomicalSVG;
-    thumb.innerHTML = svgFn();
+    thumb.innerHTML = `<img src="${exData.gif}" alt="${exName}" />`;
     thumb.addEventListener('click', () => openDetailModal(exName));
 
     const metaBox = document.createElement('div');
@@ -1019,15 +832,15 @@
     metaBox.innerHTML = `
       <div class="ex-title-text">${exName}</div>
       <div class="ex-sub-tags">
-        <span class="tag-pill target">${exMeta.category}</span>
-        <span class="tag-pill">${exMeta.equipment}</span>
+        <span class="tag-pill target">${exData.category}</span>
+        <span class="tag-pill">${exData.equipment}</span>
       </div>
     `;
 
     const infoBtn = document.createElement('button');
     infoBtn.className = 'info-btn';
     infoBtn.innerHTML = 'ℹ️';
-    infoBtn.title = 'Bekijk 3D Spiertekening & Kaart';
+    infoBtn.title = 'Bekijk HD Animatie & Spierkaart';
     infoBtn.addEventListener('click', () => openDetailModal(exName));
 
     const finishBtn = document.createElement('button');
@@ -1169,21 +982,20 @@
       : Math.round(totalVolumeKg);
   }
 
-  // ─── DETAIL MODAL FUNCTIONALITY (HIGH-PRECISION 3D ANATOMICAL DIAGRAM & BODY MAPS) 
+  // ─── DETAIL MODAL FUNCTIONALITY (REAL ANIMATED EXERCISE GIF & 3D BODY MAPS) ──
   function openDetailModal(exName) {
-    const exMeta = EXERCISE_METADATA[exName] || {
-      category: 'Gym', equipment: 'Apparaat', target: []
+    const exData = EXERCISE_DATABASE[exName] || {
+      category: 'Gym', equipment: 'Apparaat', target: [], gif: ''
     };
 
     document.getElementById('modalExTitle').textContent = exName;
     
-    // Set High-Precision 3D Anatomical Exercise Vector Diagram
-    const svgFn = ANATOMICAL_EXERCISE_ILLUSTRATIONS[exName] || getGenericAnatomicalSVG;
-    document.getElementById('modalExerciseIllustrationBox').innerHTML = svgFn();
+    // Set Real Animated Exercise GIF
+    document.getElementById('modalExGif').src = exData.gif;
 
     // Set 3D Anatomical Muscle Maps (Front & Back View)
-    document.getElementById('modalMapFront').innerHTML = get3DBodyFrontSVG(exMeta.target);
-    document.getElementById('modalMapBack').innerHTML = get3DBodyBackSVG(exMeta.target);
+    document.getElementById('modalMapFront').innerHTML = get3DBodyFrontSVG(exData.target);
+    document.getElementById('modalMapBack').innerHTML = get3DBodyBackSVG(exData.target);
 
     // Calculate PR
     let maxWeight = 0;
