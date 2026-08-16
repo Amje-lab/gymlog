@@ -54,10 +54,9 @@
     /* ── HEADER ── */
     header {
       position: sticky; top: 0; z-index: 90;
-      background: rgba(22, 22, 27, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(42, 42, 53, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       padding: 0 16px;
     }
     .header-inner {
@@ -69,10 +68,9 @@
       font-family: 'Outfit', sans-serif;
       font-size: 25px; font-weight: 900;
       letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
+    .brand-title .g-white { color: #ffffff; }
+    .brand-title .g-gray { color: #64748b; }
     .header-date { font-size: 13px; color: var(--text-sec); font-weight: 500; }
 
     /* ── CONTAINER ── */
@@ -93,7 +91,7 @@
       cursor: pointer; transition: color 0.2s; background: none; border: none;
     }
     .nav-item.active { color: #ffffff; }
-    .nav-icon { font-size: 20px; margin-bottom: 2px; }
+    .nav-icon { width: 24px; height: 24px; margin-bottom: 4px; fill: currentColor; }
     .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 
     /* ── WORKOUT SESSION TIMER BANNER ── */
@@ -139,30 +137,33 @@
       color: var(--text-sec); font-family: inherit; font-size: 13px; font-weight: 600;
       padding: 0 12px; cursor: pointer; transition: all 0.2s;
     }
-    .nav-btn:active { transform: scale(0.96); }
-    .nav-btn.now { color: var(--blue); border-color: rgba(10,132,255,0.4); }
-
-    /* ── DAY TABS (AGENDA) ── */
+    /* ── DAY TABS (AGENDA 4-WEEK GRID) ── */
     .day-tabs {
-      display: flex; flex-direction: column;
+      display: grid; grid-template-columns: repeat(7, 1fr);
       gap: 6px; margin-bottom: 20px;
     }
     .day-tab {
+      aspect-ratio: 1; border-radius: 12px;
       background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 10px 2px;
-      text-align: center; cursor: pointer; transition: all 0.2s;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; position: relative;
     }
-    .day-tab.active {
-      background: var(--surface-2); border-color: var(--border-light);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-    }
-    .day-tab.today .d-num::after {
-      content: ''; display: block; width: 4px; height: 4px;
-      border-radius: 50%; background: var(--red); margin: 3px auto 0;
+    .day-tab.today { border-color: #fff; }
+    .day-tab.active { border-color: var(--blue); }
+    .day-tab.done {
+      background: rgba(48, 209, 88, 0.15); border-color: var(--green);
+      box-shadow: 0 0 10px rgba(48,209,88,0.2); color: var(--green);
     }
     .d-short { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-mut); margin-bottom: 2px; }
     .d-num { font-size: 16px; font-weight: 700; color: var(--text-sec); }
     .day-tab.active .d-short, .day-tab.active .d-num { color: #ffffff; }
+    .day-tab.done .d-short, .day-tab.done .d-num { color: var(--green); }
+    
+    .streak-banner {
+      display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;
+      background: rgba(255,149,0,0.1); border: 1px solid rgba(255,149,0,0.3);
+      padding: 12px; border-radius: 12px; color: #ff9500; font-weight: 900; font-size: 18px;
+    }
 
     /* ── STATS BAR ── */
     .stats-grid {
@@ -209,12 +210,13 @@
     }
     .ex-thumb {
       width: 64px; height: 64px; border-radius: 12px;
-      background: #ffffff; border: 1px solid var(--border);
+      background: transparent; border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; cursor: pointer; position: relative; overflow: hidden;
     }
     .ex-thumb img {
-      width: 100%; height: 100%; object-fit: contain; background: #ffffff;
+      width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);
+      filter: invert(1) hue-rotate(180deg);
     }
     .ex-meta { flex: 1; min-width: 0; }
     .ex-title-text { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 4px; }
@@ -352,7 +354,6 @@
 
     /* ── REST DAY DISPLAY ── */
     .rest-state { text-align: center; padding: 40px 20px 20px; }
-    .rest-emoji { font-size: 48px; margin-bottom: 12px; display: block; }
     .rest-heading { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; }
     .rest-desc { font-size: 14px; color: var(--text-sec); margin-bottom: 20px; }
 
@@ -395,12 +396,13 @@
     /* REAL ANIMATED EXERCISE MOTION GIF CONTAINER */
     .modal-gif-card {
       width: 100%; height: 320px;
-      background: #ffffff; border: 1px solid var(--border);
+      background: transparent; border: 1px solid var(--border);
       border-radius: 18px; overflow: hidden; margin-bottom: 10px;
       display: flex; align-items: center; justify-content: center;
     }
     .modal-gif-card img {
-      width: 100%; height: 100%; object-fit: contain; background: #ffffff;
+      width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);
+      filter: invert(1) hue-rotate(180deg);
     }
 
     /* TOAST */
@@ -421,7 +423,7 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <span class="brand-title">GymLog</span>
+        <span class="brand-title"><span class="g-white">Gym</span><span class="g-gray">Log</span></span>
       </div>
       <span class="header-date" id="headerDate"></span>
     </div>
@@ -482,7 +484,6 @@
     <div id="viewSearch" style="display: none;">
       <div class="search-container">
         <input type="text" class="search-box" id="searchInput" placeholder="Zoek elke oefening in de gym..." oninput="filterExerciseLibrary()" />
-        <div class="filter-chips" id="filterChipsContainer"></div>
       </div>
       <div class="lib-grid" id="libraryGridContainer"></div>
     </div>
@@ -491,15 +492,15 @@
   <!-- STICKY BOTTOM NAVIGATION BAR -->
   <nav class="bottom-nav">
     <button class="nav-item active" id="navBtnHome" onclick="switchMainView('home')">
-      <span class="nav-icon">🏠</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
       <span class="nav-label">Home</span>
     </button>
     <button class="nav-item" id="navBtnAgenda" onclick="switchMainView('agenda')">
-      <span class="nav-icon">📅</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
       <span class="nav-label">Agenda</span>
     </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchMainView('search')">
-      <span class="nav-icon">🔍</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       <span class="nav-label">Zoeken</span>
     </button>
   </nav>
@@ -6479,7 +6480,7 @@
     0: { name: 'Maandag', label: 'PUSH WORKOUT', groups: [
       { title: 'Borst', exercises: ['Dumbbell Incline Bench Press', 'Cable Standing Up Straight Crossovers', 'Barbell Bench Press'] },
       { title: 'Schouders', exercises: ['Dumbbell Seated Shoulder Press', 'Dumbbell Lateral Raise'] },
-      { title: 'Triceps', exercises: ['Cable Triceps Pushdown', 'Dumbbell Standing Overhead Triceps Extension'] }
+      { title: 'Triceps', exercises: ['Cable Pushdown', 'Dumbbell Seated Triceps Extension'] }
     ]},
     1: { name: 'Dinsdag', label: 'PULL WORKOUT', groups: [
       { title: 'Rug', exercises: ['Cable Lat Pulldown Full Range Of Motion', 'Lever Seated Row', 'Barbell Bent Over Row'] },
@@ -6495,7 +6496,7 @@
     ]},
     5: { name: 'Zaterdag', label: 'ARMEN & SCHOUDERS', groups: [
       { title: 'Schouders', exercises: ['Dumbbell Seated Shoulder Press', 'Dumbbell Lateral Raise'] },
-      { title: 'Triceps', exercises: ['Cable Triceps Pushdown'] },
+      { title: 'Triceps', exercises: ['Cable Pushdown'] },
       { title: 'Biceps', exercises: ['Dumbbell Bicep Curl'] }
     ]},
     6: { name: 'Zondag', label: 'RUSTDAG', groups: [] }
@@ -6541,7 +6542,7 @@
       btn.className = 'session-btn stop';
       dot.style.display = 'block';
       label.textContent = 'WORKOUT ACTIEF';
-      triggerToast('Workout sessie gestart! Zet ' + '’m op 💪', '🔥');
+      triggerToast('Workout sessie gestart! Zet ’m op', '');
     } else {
       isSessionActive = false;
       clearInterval(sessionTimerInterval);
@@ -6556,7 +6557,7 @@
       label.textContent = 'SESSIE STATUS';
       document.getElementById('sessionTimerText').textContent = 'Niet Gestart';
       
-      triggerToast(`Sessie afgerond in ${mins}m ${secs}s! Lekker bezig 🔥`, '🎉');
+      triggerToast(`Sessie afgerond in ${mins}m ${secs}s! Lekker bezig`, '');
     }
   }
 
@@ -6624,7 +6625,11 @@
   function getWeekDatesArray(offset) {
     const monday = getMondayOfDate(new Date());
     monday.setDate(monday.getDate() + offset * 7);
-    return Array.from({length: 7}, (_, i) => {
+    
+    // In agenda view, we want 4 weeks (28 days) starting from current week's Monday
+    const daysToGenerate = activeTab === 'agenda' ? 28 : 7;
+    
+    return Array.from({length: daysToGenerate}, (_, i) => {
       const d = new Date(monday);
       d.setDate(d.getDate() + i);
       return d;
@@ -6657,11 +6662,27 @@
     else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`);
   }
 
+  function findPreviousSets(exName, currentDateStr) {
+    let best = null;
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_hevy:') && k.endsWith(':' + exName) && !k.includes(currentDateStr)) {
+        try {
+          const s = JSON.parse(localStorage.getItem(k));
+          if (s && s.length > 0 && s[0].weight) {
+            best = s;
+          }
+        } catch (e) {}
+      }
+    }
+    return best;
+  }
+
   // ─── TOAST NOTIFICATION ─────────────────────────────────────────────────────
   let toastTimer;
-  function triggerToast(text, icon = '✅') {
+  function triggerToast(text, icon = '') {
     const toastEl = document.getElementById('toast');
-    toastEl.innerHTML = `<span>${icon}</span><span>${text}</span>`;
+    toastEl.innerHTML = icon ? `<span>${icon}</span><span>${text}</span>` : `<span>${text}</span>`;
     toastEl.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
@@ -6691,54 +6712,77 @@
     }
 
     renderDayTabs(dates, today);
-    renderDayMainContent(dates[activeDayIndex], activeDayIndex);
+    renderDayMainContent(dates[activeDayIndex] || dates[0], activeDayIndex);
   }
 
   function renderDayTabs(dates, today) {
     const container = document.getElementById('dayTabsContainer');
     container.innerHTML = '';
     const schema = getActiveRoutineSchema();
+    
+    let currentStreak = 0;
 
-    dates.forEach((dateObj, i) => {
+    // Calculate streak
+    const pastDates = dates.filter(d => d.getTime() <= today.getTime());
+    for (let i = pastDates.length - 1; i >= 0; i--) {
+      const d = pastDates[i];
+      const dIdx = d.getDay() === 0 ? 6 : d.getDay() - 1;
+      const dSchema = schema[dIdx] || { groups: [] };
+      const allEx = dSchema.groups.flatMap(g => g.exercises);
+      if (allEx.length > 0) {
+        const isDone = allEx.every(exName => loadExerciseDoneState(formatDateKey(d), dIdx, exName));
+        if (isDone) currentStreak++;
+        else break;
+      }
+    }
+    
+    if (activeTab === 'agenda') {
+      const streakBanner = document.createElement('div');
+      streakBanner.className = 'streak-banner';
+      streakBanner.innerHTML = `${currentStreak} DAGEN STREAK`;
+      container.appendChild(streakBanner);
+    }
+    
+    const grid = document.createElement('div');
+    grid.className = 'day-tabs';
+
+    dates.forEach((dateObj, idx) => {
+      // day index in schema (0=Mon, 6=Sun)
+      const dIdx = dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1;
       const isToday = (dateObj.getTime() === today.getTime());
-      const isActive = (i === activeDayIndex);
-      const dayData = schema[i] || { label: 'RUSTDAG', groups: [] };
+      
+      // If we are in Agenda (28 days), the click should map to the visual grid index
+      // If Home (7 days), activeDayIndex matches the array index.
+      const isActive = (idx === (activeTab === 'agenda' ? activeDayIndex : dIdx));
+
+      const dayData = schema[dIdx] || { label: 'RUSTDAG', groups: [] };
       
       const allEx = dayData.groups.flatMap(g => g.exercises);
       const dateStr = formatDateKey(dateObj);
       let isAllDone = false;
       if (allEx.length > 0) {
-        isAllDone = allEx.every(exName => loadExerciseDoneState(dateStr, i, exName));
+        isAllDone = allEx.every(exName => loadExerciseDoneState(dateStr, dIdx, exName));
       }
 
-      const bodyParts = [...new Set(dayData.groups.map(g => g.title))].join(' • ');
-
       const tab = document.createElement('div');
-      tab.className = `day-tab${isActive ? ' active' : ''}${isToday ? ' today' : ''}`;
-      tab.style.display = 'flex';
-      tab.style.flexDirection = 'column';
-      tab.style.alignItems = 'flex-start';
-      tab.style.padding = '12px 16px';
-      tab.style.textAlign = 'left';
-      tab.style.marginBottom = '6px';
-
+      tab.className = `day-tab${isActive ? ' active' : ''}${isToday ? ' today' : ''}${isAllDone ? ' done' : ''}`;
+      
       tab.innerHTML = `
-        <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-          <div style="display:flex; align-items:baseline; gap:8px;">
-            <div class="d-short" style="font-size:12px;">${DAY_NAMES_SHORT[i]}</div>
-            <div class="d-num" style="font-size:18px;">${dateObj.getDate()}</div>
-            ${isAllDone && allEx.length > 0 ? '<div style="font-size:14px; margin-left:4px;">✅</div>' : ''}
-          </div>
-          <div style="font-size:10px; color:var(--text-mut); font-weight:700;">${dayData.label}</div>
-        </div>
-        ${bodyParts ? `<div style="font-size:11px; color:var(--text-sec); margin-top:6px;">💪 ${bodyParts}</div>` : '<div style="font-size:11px; color:var(--text-mut); margin-top:6px;">Rust</div>'}
+        <div class="d-short">${DAY_NAMES_SHORT[dIdx]}</div>
+        <div class="d-num">${dateObj.getDate()}</div>
       `;
+      if (isAllDone) {
+         tab.innerHTML = `<svg style="width:24px; height:24px; fill:var(--green);" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>`;
+      }
+
       tab.addEventListener('click', () => {
-        activeDayIndex = i;
+        activeDayIndex = activeTab === 'agenda' ? idx : dIdx;
         renderApp();
       });
-      container.appendChild(tab);
+      grid.appendChild(tab);
     });
+    
+    container.appendChild(grid);
   }
 
   function renderDayMainContent(dateObj, dayIdx) {
@@ -6761,11 +6805,10 @@
       statsGrid.style.display = 'none';
       mainContainer.innerHTML += `
         <div class="rest-state">
-          <span class="rest-emoji">😴</span>
           <div class="rest-heading">Rustdag</div>
           <div class="rest-desc">Geen training gepland voor vandaag. Tijd voor herstel & voeding!</div>
           <button class="quick-tab-btn" onclick="switchDay(0)">
-            💪 Bekijk Maandag Training (Push) &#8594;
+            Bekijk Maandag Training (Push) &#8594;
           </button>
         </div>
       `;
@@ -6816,7 +6859,7 @@
     if (schema[dayIdx] && schema[dayIdx].groups[groupIdx]) {
       schema[dayIdx].groups[groupIdx].exercises = schema[dayIdx].groups[groupIdx].exercises.filter(e => e !== exName);
       saveActiveRoutineSchema(schema);
-      triggerToast(`${exName} verwijderd uit je routine!`, '🗑️');
+      triggerToast(`${exName} verwijderd uit je routine!`, '');
       renderApp();
     }
   }
@@ -6862,13 +6905,13 @@
 
     const infoBtn = document.createElement('button');
     infoBtn.className = 'action-icon-btn';
-    infoBtn.innerHTML = 'ℹ️';
+    infoBtn.innerHTML = 'i';
     infoBtn.title = 'Bekijk HD Animatie';
     infoBtn.addEventListener('click', () => openDetailModal(exName));
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'action-icon-btn delete-btn';
-    deleteBtn.innerHTML = '🗑️';
+    deleteBtn.innerHTML = 'x';
     deleteBtn.title = 'Verwijder van deze dag';
     deleteBtn.addEventListener('click', () => {
       removeExerciseFromRoutine(dayIdx, groupIdx, exName);
@@ -6904,6 +6947,7 @@
     setsBox.appendChild(setsHead);
 
     const rowsContainer = document.createElement('div');
+    const prevSetsData = findPreviousSets(exName, dateStr);
 
     function renderRows() {
       rowsContainer.innerHTML = '';
@@ -6915,15 +6959,20 @@
         indexEl.className = 'set-index';
         indexEl.textContent = sIdx + 1;
 
+        const prevW = prevSetsData && prevSetsData[sIdx] ? prevSetsData[sIdx].weight : '';
+        const prevR = prevSetsData && prevSetsData[sIdx] ? prevSetsData[sIdx].reps : '';
+
         const weightInp = document.createElement('input');
         weightInp.className = 'set-input';
         weightInp.type = 'number'; weightInp.step = '0.5'; weightInp.min = '0';
-        weightInp.placeholder = 'kg'; weightInp.value = setObj.weight || '';
+        weightInp.placeholder = prevW ? `V: ${prevW}` : 'kg';
+        weightInp.value = setObj.weight || '';
 
         const repsInp = document.createElement('input');
         repsInp.className = 'set-input';
         repsInp.type = 'number'; repsInp.min = '0';
-        repsInp.placeholder = 'reps'; repsInp.value = setObj.reps || '';
+        repsInp.placeholder = prevR ? `V: ${prevR}` : 'reps';
+        repsInp.value = setObj.reps || '';
 
         const oneRmEl = document.createElement('div');
         oneRmEl.className = 'one-rm-val';
@@ -6956,7 +7005,7 @@
           saveExerciseSets(dateStr, dayIdx, exName, sets);
           renderRows();
           recalculateStats(dateStr, dayIdx, allExercisesList);
-          if (sets[sIdx].done) triggerToast(`Set ${sIdx + 1} voltooid! 💪`, '🔥');
+          if (sets[sIdx].done) triggerToast(`Set ${sIdx + 1} voltooid!`, '');
         });
 
         row.appendChild(indexEl);
@@ -7009,9 +7058,15 @@
 
     document.getElementById('valTotalSets').textContent = completedSetsCount;
     document.getElementById('valDoneEx').textContent = `${completedExercisesCount}/${allExercisesList.length}`;
-    document.getElementById('valVolume').textContent = totalVolumeKg >= 1000 
-      ? (totalVolumeKg / 1000).toFixed(1) + 'K' 
-      : Math.round(totalVolumeKg);
+    
+    let volText = 'Motorfiets';
+    if (totalVolumeKg > 6000) volText = 'T-Rex';
+    else if (totalVolumeKg > 3000) volText = 'Olifant';
+    else if (totalVolumeKg > 1500) volText = 'Neushoorn';
+    else if (totalVolumeKg > 500) volText = 'Kleine Auto';
+    
+    const formattedVol = totalVolumeKg >= 1000 ? (totalVolumeKg / 1000).toFixed(1) + 'K' : Math.round(totalVolumeKg);
+    document.getElementById('valVolume').innerHTML = `${formattedVol}<div style="font-size:10px; color:var(--text-sec); margin-top:2px;">${volText}</div>`;
   }
 
   // ─── SEARCH & EXERCISE LIBRARY LOGIC ─────────────────────────────────────────
@@ -7119,9 +7174,9 @@
     if (!group.exercises.includes(exName)) {
       group.exercises.push(exName);
       saveActiveRoutineSchema(schema);
-      triggerToast(`${exName} toegevoegd aan ${DAY_NAMES_SHORT[dayIdx]}! 💪`, '🔥');
+      triggerToast(`${exName} toegevoegd aan ${DAY_NAMES_SHORT[dayIdx]}!`, '');
     } else {
-      triggerToast(`${exName} staat al op die dag!`, 'ℹ️');
+      triggerToast(`${exName} staat al op die dag!`, '');
     }
 
     selectEl.value = '';
