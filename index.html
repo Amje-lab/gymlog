@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GymLog – Amier's Workout Tracker</title>
-  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud met HD geanimeerde spier-GIFs & 3D spierkaarten." />
+  <meta name="description" content="Persoonlijke gym workout tracker voor Amier Mahmoud met live workout timer, HD geanimeerde spier-GIFs & 3D spierkaarten." />
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -48,7 +48,7 @@
       min-height: 100vh; width: 100%; overflow-x: hidden;
     }
 
-    /* ── HEADER ── */
+    /* ── HEADER (NO SPIDER/MUSCLE ICON, NEW OUTFIT TYPOGRAPHY) ── */
     header {
       position: sticky; top: 0; z-index: 90;
       background: rgba(0, 0, 0, 0.94);
@@ -58,20 +58,52 @@
       padding: 0 16px;
     }
     .header-inner {
-      max-width: 680px; margin: 0 auto; height: 54px;
+      max-width: 680px; margin: 0 auto; height: 56px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand-icon {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: var(--surface-2); border: 1px solid var(--border-light);
-      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    .brand { display: flex; align-items: center; gap: 8px; }
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px; font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .brand-title { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
     .header-date { font-size: 13px; color: var(--text-sec); font-weight: 500; }
 
     /* ── CONTAINER ── */
     main { max-width: 680px; margin: 0 auto; padding: 16px 14px 100px; }
+
+    /* ── WORKOUT SESSION TIMER BAR ── */
+    .session-banner {
+      background: var(--surface-1); border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg); padding: 14px 16px;
+      margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .session-info { display: flex; align-items: center; gap: 10px; }
+    .session-pulse-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 10px var(--green-glow); animation: timerPulse 1.5s infinite;
+    }
+    @keyframes timerPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+    .session-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-sec); }
+    .session-timer-display {
+      font-family: 'Outfit', monospace; font-size: 20px; font-weight: 900; color: #fff; line-height: 1;
+    }
+    .session-btn {
+      padding: 10px 18px; border-radius: 24px; border: none;
+      font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 800;
+      letter-spacing: 0.03em; cursor: pointer; transition: all 0.2s;
+    }
+    .session-btn.start {
+      background: #ffffff; color: #000000; box-shadow: 0 4px 14px rgba(255,255,255,0.25);
+    }
+    .session-btn.start:active { transform: scale(0.96); }
+    .session-btn.stop {
+      background: var(--red); color: #ffffff; box-shadow: 0 4px 14px var(--red-glow);
+    }
+    .session-btn.stop:active { transform: scale(0.96); }
 
     /* ── WEEK NAV ── */
     .week-bar {
@@ -124,11 +156,11 @@
 
     /* ── DAY BANNER ── */
     .day-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .day-name { font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+    .day-name { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
     .workout-badge {
       padding: 6px 14px; border-radius: 20px;
-      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-      background: var(--surface-2); border: 1px solid var(--border-light); color: var(--red);
+      font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.04em;
+      background: var(--surface-2); border: 1px solid var(--border-light); color: #ffffff;
     }
 
     /* ── MUSCLE GROUP ── */
@@ -263,7 +295,7 @@
     }
     .quick-tab-btn:hover { border-color: var(--red); color: var(--red); }
 
-    /* ── MODAL (REAL ANIMATED EXERCISE GIF & 3D MUSCLE MAPS) ── */
+    /* ── MODAL (CLEAN ANIMATED EXERCISE GIF & 3D MUSCLE MAPS - PR REMOVED) ── */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 200;
       background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
@@ -284,14 +316,14 @@
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
     }
-    .modal-title { font-size: 18px; font-weight: 800; color: #fff; }
+    .modal-title { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #fff; }
     .modal-close {
       width: 32px; height: 32px; border-radius: 50%;
       background: var(--surface-3); border: none; color: #fff;
       font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
 
-    /* REAL ANIMATED EXERCISE GIF CONTAINER (CLEAN, NO OVERLAYS) */
+    /* REAL ANIMATED EXERCISE GIF CONTAINER */
     .modal-gif-card {
       width: 100%; height: 260px;
       background: #ffffff; border: 1px solid var(--border);
@@ -302,26 +334,20 @@
       width: 100%; height: 100%; object-fit: contain; background: #ffffff;
     }
 
-    /* 3D ANATOMICAL BODY MUSCLE MAPS */
+    /* 3D ANATOMICAL BODY MUSCLE MAPS (MATCHING PHOTO 2 & PHOTO 3) */
     .muscle-section-title {
       font-size: 11px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--text-sec); margin-bottom: 10px;
     }
     .muscle-maps-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;
     }
     .muscle-map-box {
       background: var(--surface-1); border: 1px solid var(--border);
       border-radius: 14px; padding: 14px 10px; text-align: center;
     }
     .map-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-sec); margin-bottom: 8px; }
-    .muscle-map-box svg { height: 175px; width: auto; margin: 0 auto; display: block; }
-
-    /* PR RECORD CARD */
-    .pr-card {
-      background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px; font-size: 13px; color: var(--text-sec);
-    }
+    .muscle-map-box svg { height: 180px; width: auto; margin: 0 auto; display: block; }
 
     /* TOAST */
     #toast {
@@ -337,11 +363,10 @@
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER (CLEAN BRANDING, NO MUSCLE EMOJI BOX) -->
   <header>
     <div class="header-inner">
       <div class="brand">
-        <div class="brand-icon">💪</div>
         <span class="brand-title">GymLog</span>
       </div>
       <span class="header-date" id="headerDate"></span>
@@ -350,6 +375,20 @@
 
   <!-- MAIN CONTAINER -->
   <main>
+    <!-- WORKOUT SESSION TIMER BANNER -->
+    <div class="session-banner" id="sessionBanner">
+      <div class="session-info">
+        <div class="session-pulse-dot" id="sessionDot" style="display:none;"></div>
+        <div>
+          <div class="session-label" id="sessionStateLabel">Sessie Status</div>
+          <div class="session-timer-display" id="sessionTimerText">Niet Gestart</div>
+        </div>
+      </div>
+      <button class="session-btn start" id="sessionToggleBtn" onclick="toggleWorkoutSession()">
+        ▶ START SESSIE
+      </button>
+    </div>
+
     <!-- WEEK SELECTOR -->
     <div class="week-bar">
       <span class="week-title" id="weekRangeStr"></span>
@@ -383,7 +422,7 @@
     <div id="dayMainContent"></div>
   </main>
 
-  <!-- EXERCISE DETAIL MODAL -->
+  <!-- EXERCISE DETAIL MODAL (NO PR SECTION) -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-container">
       <div class="modal-header">
@@ -396,7 +435,7 @@
         <img id="modalExGif" src="" alt="Exercise Motion GIF" />
       </div>
 
-      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS -->
+      <!-- BOTTOM: 3D ANATOMICAL BODY MUSCLE MAPS (MATCHING PHOTO 2 & PHOTO 3) -->
       <div class="muscle-section-title">DOELSPIEREN (TARGET MUSCLES)</div>
       <div class="muscle-maps-row">
         <div class="muscle-map-box">
@@ -408,16 +447,13 @@
           <div id="modalMapBack"></div>
         </div>
       </div>
-
-      <div class="muscle-section-title">PERSOONLIJK RECORD (PR)</div>
-      <div class="pr-card" id="modalPRStats">Nog geen data ingevuld.</div>
     </div>
   </div>
 
   <div id="toast"></div>
 
   <script>
-  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL BODY MAPS ─────────────────────────
+  // ─── HIGH-PRECISION 3D MEDICAL ANATOMICAL BODY MAPS (PHOTO 2 & 3 MATCH) ─────
   function get3DBodyFrontSVG(targetMuscles = []) {
     const isT = (m) => targetMuscles.includes(m);
     const f = (m) => isT(m) ? "url(#red3DGrad)" : "url(#body3DGrad)";
@@ -455,7 +491,7 @@
         <path d="M 38,42 C 24,44 20,56 24,66 C 32,68 38,62 38,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
         <path d="M 82,42 C 96,44 100,56 96,66 C 88,68 82,62 82,48 Z" fill="${f('shoulders')}" stroke="${s('shoulders')}" stroke-width="1.2" opacity="${opacity('shoulders')}" ${filter('shoulders')}/>
 
-        <!-- CHEST / PECTORALS -->
+        <!-- CHEST / PECTORALS (3D ANATOMICAL CHEST PLATES) -->
         <path d="M 38,44 C 52,43 59,48 59,70 C 44,72 36,62 38,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
         <path d="M 82,44 C 68,43 61,48 61,70 C 76,72 84,62 82,44 Z" fill="${f('chest')}" stroke="${s('chest')}" stroke-width="1.2" opacity="${opacity('chest')}" ${filter('chest')}/>
 
@@ -631,32 +667,32 @@
     }
   };
 
-  // ─── ROUTINE SCHEDULE ────────────────────────────────────────────────────────
+  // ─── ROUTINE SCHEDULE (CLEAN MONOCHROME BADGES) ──────────────────────────────
   const ROUTINE_SCHEMA = {
-    0: { name: 'Maandag', label: 'Push 💥', groups: [
+    0: { name: 'Maandag', label: 'PUSH WORKOUT', groups: [
       { title: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
       { title: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
       { title: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] }
     ]},
-    1: { name: 'Dinsdag', label: 'Pull 🔵', groups: [
+    1: { name: 'Dinsdag', label: 'PULL WORKOUT', groups: [
       { title: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] },
       { title: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] }
     ]},
-    2: { name: 'Woensdag', label: 'Benen 🦵', groups: [
+    2: { name: 'Woensdag', label: 'BENEN WORKOUT', groups: [
       { title: 'Benen', exercises: ['Squat Barbell', 'Leg Press', 'Leg Extension', 'Hamstring Curl', 'Calf Raises'] }
     ]},
-    3: { name: 'Donderdag', label: 'Rust 😴', groups: [] },
-    4: { name: 'Vrijdag', label: 'Chest + Rug 🔥', groups: [
+    3: { name: 'Donderdag', label: 'RUSTDAG', groups: [] },
+    4: { name: 'Vrijdag', label: 'CHEST & RUG', groups: [
       { title: 'Chest', exercises: ['Incline Dumbell Press', 'Cable Flies'] },
       { title: 'Rug', exercises: ['Lat Pulldown', 'Machine Row', 'The Virgin Machine Row', 'Rear Delts'] }
     ]},
-    5: { name: 'Zaterdag', label: 'Armen & Schouder 💪', groups: [
+    5: { name: 'Zaterdag', label: 'ARMEN & SCHOUDERS', groups: [
       { title: 'Schouder', exercises: ['Machine Shoulder Press', 'Side Delts'] },
       { title: 'Tricep', exercises: ['Tricep Pushdown', 'Overhead Tricep Extensions'] },
       { title: 'Bicep', exercises: ['Dumbell Curls', 'Hamer Curls'] },
       { title: 'Voorarmen', exercises: ['Easy Bar Forearm Curls'] }
     ]},
-    6: { name: 'Zondag', label: 'Rust 😴', groups: [] }
+    6: { name: 'Zondag', label: 'RUSTDAG', groups: [] }
   };
 
   const DAY_NAMES_SHORT = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
@@ -664,6 +700,55 @@
   // ─── STATE MANAGEMENT & LOCAL STORAGE ───────────────────────────────────────
   let currentWeekOffset = 0;
   let activeDayIndex = null;
+  
+  // LIVE WORKOUT SESSION TIMER STATE
+  let sessionStartTime = null;
+  let sessionTimerInterval = null;
+  let isSessionActive = false;
+
+  function toggleWorkoutSession() {
+    const btn = document.getElementById('sessionToggleBtn');
+    const dot = document.getElementById('sessionDot');
+    const label = document.getElementById('sessionStateLabel');
+
+    if (!isSessionActive) {
+      isSessionActive = true;
+      sessionStartTime = Date.now();
+      sessionTimerInterval = setInterval(updateSessionTimer, 1000);
+      
+      btn.textContent = '⏹ SESSIE AFRONDEN';
+      btn.className = 'session-btn stop';
+      dot.style.display = 'block';
+      label.textContent = 'WORKOUT ACTIEF';
+      triggerToast('Workout sessie gestart! Zet ' + '’m op 💪', '🔥');
+    } else {
+      isSessionActive = false;
+      clearInterval(sessionTimerInterval);
+      
+      const elapsedSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
+      const mins = Math.floor(elapsedSeconds / 60);
+      const secs = elapsedSeconds % 60;
+
+      btn.textContent = '▶ START SESSIE';
+      btn.className = 'session-btn start';
+      dot.style.display = 'none';
+      label.textContent = 'SESSIE STATUS';
+      document.getElementById('sessionTimerText').textContent = 'Niet Gestart';
+      
+      triggerToast(`Sessie afgerond in ${mins}m ${secs}s! Lekker bezig 🔥`, '🎉');
+    }
+  }
+
+  function updateSessionTimer() {
+    if (!sessionStartTime) return;
+    const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+    const hrs = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+    const mins = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+    const secs = String(elapsed % 60).padStart(2, '0');
+    
+    const displayStr = hrs > 0 ? `${hrs}:${mins}:${secs}` : `${mins}:${secs}`;
+    document.getElementById('sessionTimerText').textContent = displayStr;
+  }
 
   function getMondayOfDate(d) {
     const dt = new Date(d);
@@ -707,7 +792,7 @@
 
   function saveExerciseDoneState(dateStr, dayIdx, exName, isDone) {
     if (isDone) localStorage.setItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`, 'true');
-    else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dateStr}:${exName}`);
+    else localStorage.removeItem(`gymlog_hevy_done:${dateStr}:${dayIdx}:${exName}`);
   }
 
   // ─── TOAST NOTIFICATION ─────────────────────────────────────────────────────
@@ -717,7 +802,7 @@
     toastEl.innerHTML = `<span>${icon}</span><span>${text}</span>`;
     toastEl.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
   }
 
   // ─── RENDER ENGINE ──────────────────────────────────────────────────────────
@@ -736,9 +821,8 @@
     if (activeDayIndex === null) {
       const todayDay = today.getDay();
       let defaultIdx = (todayDay === 0 ? 6 : todayDay - 1);
-      // If default today is a Rest Day (Thursday or Sunday), default to Monday so exercises are immediately visible!
       if (ROUTINE_SCHEMA[defaultIdx].groups.length === 0) {
-        defaultIdx = 0; // Maandag (Push)
+        defaultIdx = 0; // Maandag Push
       }
       activeDayIndex = defaultIdx;
     }
@@ -784,13 +868,13 @@
     `;
     mainContainer.appendChild(hdr);
 
-    if (dayData.groups.length === 0 || dayData.label.includes('Rust')) {
+    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
       statsGrid.style.display = 'none';
       mainContainer.innerHTML += `
         <div class="rest-state">
           <span class="rest-emoji">😴</span>
           <div class="rest-heading">Rustdag</div>
-          <div class="rest-desc">Geen training gepland voor vandaag. Tijd voor spierherstel & voeding!</div>
+          <div class="rest-desc">Geen training gepland voor vandaag. Tijd voor herstel & voeding!</div>
           <button class="quick-tab-btn" onclick="switchDay(0)">
             💪 Bekijk Maandag Training (Push) &#8594;
           </button>
@@ -1023,51 +1107,18 @@
       : Math.round(totalVolumeKg);
   }
 
-  // ─── DETAIL MODAL FUNCTIONALITY ─────────────────────────────────────────────
+  // ─── DETAIL MODAL FUNCTIONALITY (PR BOX REMOVED) ────────────────────────────
   function openDetailModal(exName) {
     const exData = EXERCISE_DATABASE[exName] || {
       category: 'Gym', equipment: 'Apparaat', target: [], gif: ''
     };
 
     document.getElementById('modalExTitle').textContent = exName;
-    
-    // Set Real Animated Exercise GIF
     document.getElementById('modalExGif').src = exData.gif;
 
     // Set 3D Anatomical Muscle Maps (Front & Back View)
     document.getElementById('modalMapFront').innerHTML = get3DBodyFrontSVG(exData.target);
     document.getElementById('modalMapBack').innerHTML = get3DBodyBackSVG(exData.target);
-
-    // Calculate PR
-    let maxWeight = 0;
-    let max1RM = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key && key.includes(exName) && key.startsWith('gymlog_hevy:')) {
-        try {
-          const setsArr = JSON.parse(localStorage.getItem(key));
-          setsArr.forEach(s => {
-            const w = parseFloat(s.weight) || 0;
-            const r = parseFloat(s.reps) || 0;
-            if (w > maxWeight) maxWeight = w;
-            const est1RM = r === 1 ? w : w * (1 + r / 30);
-            if (est1RM > max1RM) max1RM = est1RM;
-          });
-        } catch(e) {}
-      }
-    }
-
-    const prBox = document.getElementById('modalPRStats');
-    if (maxWeight > 0) {
-      prBox.innerHTML = `
-        <div style="display:flex;gap:20px;">
-          <div><span style="color:var(--text-sec);font-size:11px;">MAX GEWICHT:</span> <strong style="color:var(--red);font-size:16px;">${maxWeight} kg</strong></div>
-          <div><span style="color:var(--text-sec);font-size:11px;">GESCHATTE 1RM:</span> <strong style="color:var(--blue);font-size:16px;">${Math.round(max1RM)} kg</strong></div>
-        </div>
-      `;
-    } else {
-      prBox.textContent = 'Nog geen gewichten ingevuld voor deze oefening.';
-    }
 
     document.getElementById('detailModal').classList.add('open');
   }
