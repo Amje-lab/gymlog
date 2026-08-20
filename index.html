@@ -213,16 +213,41 @@
       cursor: pointer; margin-top: 6px;
     }
 
-    /* AGENDA / CALENDAR VIEW */
-    .agenda-nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; scrollbar-width: none; }
-    .agenda-day-btn {
-      flex: 1; min-width: 68px; padding: 8px 4px; border-radius: 12px;
-      background: var(--surface-1); border: 1px solid var(--border);
-      color: var(--text-sec); text-align: center; cursor: pointer;
+    /* AGENDA / MONTH CALENDAR VIEW */
+    .calendar-weekdays-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px; text-align: center; font-size: 11px; font-weight: 800;
+      color: var(--text-sec); margin-bottom: 6px; padding: 0 2px;
     }
-    .agenda-day-btn.active {
-      background: #ffffff; color: #000000; border-color: #ffffff; font-weight: 800;
+    .month-calendar-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 5px; margin-bottom: 14px;
     }
+    .cal-day-box {
+      min-height: 64px; background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 10px; padding: 6px 4px; display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between; text-align: center;
+      cursor: pointer; transition: all 0.2s ease; position: relative;
+    }
+    .cal-day-box:active { transform: scale(0.96); }
+    .cal-day-box.empty { background: transparent; border: none; cursor: default; }
+    .cal-day-box.today {
+      border: 2px solid var(--blue); background: rgba(56, 189, 248, 0.08);
+      box-shadow: 0 0 12px var(--blue-glow);
+    }
+    .cal-day-box.done {
+      border-color: rgba(48, 209, 88, 0.45); background: rgba(48, 209, 88, 0.06);
+    }
+    .cal-day-box.locked {
+      opacity: 0.55; cursor: not-allowed; background: var(--surface-2);
+      border-style: dashed;
+    }
+    .cal-day-num { font-size: 13px; font-weight: 900; color: #fff; line-height: 1; }
+    .cal-day-tag {
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      color: var(--text-sec); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .cal-status-icon { width: 14px; height: 14px; margin-top: 2px; }
 
     /* SEARCH / LIBRARY VIEW */
     .search-input {
@@ -240,8 +265,20 @@
     .lib-list { display: flex; flex-direction: column; gap: 8px; }
     .lib-item {
       background: var(--surface-1); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px 12px; display: flex; align-items: center;
-      justify-content: space-between; gap: 10px;
+      border-radius: 14px; padding: 10px 12px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+    }
+    .lib-thumb {
+      width: 48px; height: 48px; border-radius: 8px;
+      background: #ffffff; border: 1px solid var(--border-light);
+      flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .lib-thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .lib-add-select {
+      background: var(--surface-2); border: 1px solid var(--border-light);
+      color: var(--blue); font-size: 11px; font-weight: 800;
+      padding: 6px 8px; border-radius: 8px; cursor: pointer; outline: none;
     }
 
     /* PROFILE & SETTINGS */
@@ -442,14 +479,73 @@
       <div id="todayWorkoutContent"></div>
     </div>
 
-    <!-- VIEW 2: AGENDA / SCHEMA -->
+    <!-- VIEW 2: AGENDA / MAANDSCHEMA MET BLOKJES & SLOTJES -->
     <div id="viewAgenda" style="display: none;">
-      <div class="agenda-nav" id="agendaDaysNav"></div>
+      <div class="profile-card" style="margin-bottom:12px; padding:14px 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-sec); letter-spacing:0.06em;">WORKOUT KALENDER</div>
+            <div style="font-size:18px; font-weight:900; color:#fff;" id="agendaMonthYearTitle">Augustus 2026</div>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button onclick="navigateAgendaMonth(-1)" class="action-icon-btn" title="Vorige Maand" style="width:30px;height:30px;">
+              <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button onclick="navigateAgendaMonth(0)" class="action-icon-btn" style="width:auto; padding:0 10px; font-size:11px; font-weight:800; height:30px;" title="Naar Vandaag">Vandaag</button>
+            <button onclick="navigateAgendaMonth(1)" class="action-icon-btn" title="Volgende Maand" style="width:30px;height:30px;">
+              <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 DAGEN WEEK TITELS -->
+      <div class="calendar-weekdays-grid">
+        <div>Ma</div><div>Di</div><div>Wo</div><div>Do</div><div>Vr</div><div>Za</div><div>Zo</div>
+      </div>
+
+      <!-- MAAND KALENDER BLOKJES GRID -->
+      <div class="month-calendar-grid" id="agendaMonthGrid"></div>
+
+      <!-- GESELECTEERDE DAG DETAIL -->
       <div id="agendaDayContent"></div>
     </div>
 
-    <!-- VIEW 3: TRACKER & PROGRESSIE -->
+    <!-- VIEW 3: TRACKER & PROGRESSIE MET OEFENING GRAFIEK -->
     <div id="viewTracker" style="display: none;">
+      <!-- OEFENING PROGRESSIE GRAFIEK -->
+      <div class="profile-card">
+        <div class="profile-field-label">Oefening Progressie & PR Grafiek</div>
+        <select class="profile-input" id="trackerExerciseSelect" onchange="renderExerciseProgressionChart(this.value)">
+          <option value="">Kies een oefening om de grafiek te zien...</option>
+        </select>
+
+        <!-- STATS ROW VOOR GESELECTEERDE OEFENING -->
+        <div id="exerciseChartStats" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin:10px 0;">
+          <div style="background:var(--surface-2); padding:8px; border-radius:8px; text-align:center;">
+            <div class="stat-label">Max PR</div>
+            <div style="font-size:14px; font-weight:900; color:var(--blue);" id="chartStatPr">-</div>
+          </div>
+          <div style="background:var(--surface-2); padding:8px; border-radius:8px; text-align:center;">
+            <div class="stat-label">Sessies</div>
+            <div style="font-size:14px; font-weight:900; color:var(--green);" id="chartStatSessions">0</div>
+          </div>
+          <div style="background:var(--surface-2); padding:8px; border-radius:8px; text-align:center;">
+            <div class="stat-label">Volume</div>
+            <div style="font-size:14px; font-weight:900; color:#ff9500;" id="chartStatVolume">-</div>
+          </div>
+        </div>
+
+        <!-- CANVAS CHART CONTAINER -->
+        <div style="position:relative; width:100%; height:210px; background:var(--surface-2); border-radius:12px; padding:10px; border:1px solid var(--border); overflow:hidden;">
+          <canvas id="exerciseProgressionCanvas" style="width:100%; height:100%; display:block;"></canvas>
+          <div id="chartEmptyState" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-size:12px; color:var(--text-sec);">
+            Selecteer een oefening hierboven om je overload-grafiek te bekijken!
+          </div>
+        </div>
+      </div>
+
+      <!-- ALGEMENE STATISTIEKEN -->
       <div class="profile-card">
         <div class="profile-field-label">Algemene Statistieken</div>
         <div class="profile-grid-2" style="margin-top:8px;">
@@ -464,6 +560,7 @@
         </div>
       </div>
 
+      <!-- VOORTGANGSFOTO'S -->
       <div class="profile-card">
         <div class="profile-field-label">Voortgangsfoto's</div>
         <input type="file" id="trackerPhotoInput" accept="image/*" style="display:none;" onchange="handleProgressPhotoUpload(event)" />
@@ -1818,37 +1915,145 @@
     localStorage.removeItem('gymlog_profile_photo');
     loadProfileSettings();
     triggerToast('Profielfoto verwijderd');
+  }  // â”€â”€â”€ AGENDA / MAAND KALENDER MET SLOTJES VOOR TOEKOMSTIGE DAGEN â”€â”€â”€
+  let agendaViewDate = new Date();
+  let agendaSelectedDateStr = formatDateKey(new Date());
+
+  function navigateAgendaMonth(delta) {
+    if (delta === 0) {
+      agendaViewDate = new Date();
+    } else {
+      agendaViewDate.setMonth(agendaViewDate.getMonth() + delta);
+    }
+    renderAgendaView();
   }
 
-  // AGENDA VIEW
   function renderAgendaView() {
-    const nav = document.getElementById('agendaDaysNav');
-    nav.innerHTML = '';
+    const year = agendaViewDate.getFullYear();
+    const month = agendaViewDate.getMonth();
+    const monthNames = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+    
+    const titleEl = document.getElementById('agendaMonthYearTitle');
+    if (titleEl) titleEl.textContent = `${monthNames[month]} ${year}`;
+
+    const gridEl = document.getElementById('agendaMonthGrid');
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const firstDayDate = new Date(year, month, 1);
+    let startDayOfWeek = firstDayDate.getDay(); // 0=Sun, 1=Mon...
+    startDayOfWeek = (startDayOfWeek === 0 ? 6 : startDayOfWeek - 1); // 0=Mon, 6=Sun
+
+    const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const todayStr = formatDateKey(today);
 
     const schema = getActiveRoutineSchema();
-    DAY_NAMES.forEach((dayName, dIdx) => {
-      const btn = document.createElement('button');
-      btn.className = `agenda-day-btn${dIdx === 0 ? ' active' : ''}`;
-      btn.textContent = dayName.slice(0, 2);
-      btn.onclick = () => {
-        document.querySelectorAll('.agenda-day-btn').forEach((b, i) => b.classList.toggle('active', i === dIdx));
-        renderAgendaDayContent(dIdx);
-      };
-      nav.appendChild(btn);
-    });
 
-    renderAgendaDayContent(0);
+    // Empty cells before start of month
+    for (let i = 0; i < startDayOfWeek; i++) {
+      const emptyBox = document.createElement('div');
+      emptyBox.className = 'cal-day-box empty';
+      gridEl.appendChild(emptyBox);
+    }
+
+    // Days of the month
+    for (let d = 1; d <= totalDaysInMonth; d++) {
+      const thisDate = new Date(year, month, d);
+      thisDate.setHours(0,0,0,0);
+      const dateStr = formatDateKey(thisDate);
+      const dayOfWeek = thisDate.getDay();
+      const dayIdx = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+      const dayData = schema[dayIdx] || { label: 'RUST' };
+
+      const isToday = (dateStr === todayStr);
+      const isFuture = (thisDate > today);
+      const isSelected = (dateStr === agendaSelectedDateStr);
+
+      // Check if any sets completed on this date
+      let dateVolume = 0;
+      let setsCompleted = 0;
+      for (let kIdx = 0; kIdx < localStorage.length; kIdx++) {
+        const key = localStorage.key(kIdx);
+        if (key && key.startsWith(`gymlog_sets:${dateStr}:`)) {
+          try {
+            const sets = JSON.parse(localStorage.getItem(key));
+            sets.forEach(s => {
+              if (s.done) {
+                setsCompleted++;
+                dateVolume += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+              }
+            });
+          } catch(e) {}
+        }
+      }
+
+      const hasWorkoutDone = setsCompleted > 0;
+      const isRest = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
+
+      const dayBox = document.createElement('div');
+      let classes = ['cal-day-box'];
+      if (isToday) classes.push('today');
+      if (isFuture) classes.push('locked');
+      else if (hasWorkoutDone) classes.push('done');
+      if (isSelected) classes.push('selected');
+      dayBox.className = classes.join(' ');
+
+      let statusIcon = '';
+      if (isFuture) {
+        // Lock Icon SVG
+        statusIcon = '<svg class="cal-status-icon" viewBox="0 0 24 24" fill="#94a3b8"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>';
+      } else if (hasWorkoutDone) {
+        statusIcon = '<svg class="cal-status-icon" viewBox="0 0 24 24" fill="#30d158"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+      } else if (isRest) {
+        statusIcon = '<span style="font-size:10px; color:var(--text-mut);">â€”</span>';
+      } else {
+        statusIcon = '<span style="font-size:10px; color:#ff453a;">â—‹</span>';
+      }
+
+      let shortLabel = dayData.label.replace(' WORKOUT', '').replace(' OVERLOAD', '');
+      if (shortLabel.length > 7) shortLabel = shortLabel.slice(0, 6) + '.';
+
+      dayBox.innerHTML = `
+        <div class="cal-day-num">${d}</div>
+        <div class="cal-day-tag">${shortLabel}</div>
+        <div>${statusIcon}</div>
+      `;
+
+      dayBox.onclick = () => {
+        if (isFuture) {
+          triggerToast('Deze dag is vergrendeld totdat de datum aanbreekt!');
+          return;
+        }
+        agendaSelectedDateStr = dateStr;
+        renderAgendaView();
+        renderAgendaDayDetail(dateStr, dayIdx);
+      };
+
+      gridEl.appendChild(dayBox);
+    }
+
+    renderAgendaDayDetail(agendaSelectedDateStr, new Date(agendaSelectedDateStr).getDay() === 0 ? 6 : new Date(agendaSelectedDateStr).getDay() - 1);
   }
 
-  function renderAgendaDayContent(dIdx) {
+  function renderAgendaDayDetail(dateStr, dayIdx) {
     const container = document.getElementById('agendaDayContent');
+    if (!container) return;
+
     const schema = getActiveRoutineSchema();
-    const dayData = schema[dIdx] || { name: DAY_NAMES[dIdx], label: 'WORKOUT', groups: [] };
+    const dayData = schema[dayIdx] || { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+
+    const parsedDate = new Date(dateStr);
+    const dateTitle = parsedDate.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
     container.innerHTML = `
       <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <div style="font-size:17px; font-weight:800; color:#fff;">${DAY_NAMES[dIdx]}</div>
+          <div>
+            <div style="font-size:16px; font-weight:800; color:#fff; text-transform:capitalize;">${dateTitle}</div>
+            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${dayData.name} Schema</div>
+          </div>
           <div class="workout-badge">${dayData.label}</div>
         </div>
         <div id="agendaGroupList"></div>
@@ -1856,7 +2061,7 @@
     `;
 
     const gList = document.getElementById('agendaGroupList');
-    if (dayData.groups.length === 0) {
+    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
       gList.innerHTML = '<div style="font-size:13px; color:var(--text-sec); text-align:center; padding:16px;">Rustdag - Geen oefeningen gepland</div>';
       return;
     }
@@ -1865,17 +2070,34 @@
       const box = document.createElement('div');
       box.style.marginBottom = '12px';
       box.innerHTML = `<div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--text-sec); margin-bottom:6px;">${g.title}</div>`;
+      
       g.exercises.forEach(ex => {
+        const sets = loadExerciseSets(dateStr, dayIdx, ex);
+        let setSummary = '';
+        const doneSets = sets.filter(s => s.done);
+        if (doneSets.length > 0) {
+          const maxWeight = Math.max(...doneSets.map(s => parseFloat(s.weight) || 0));
+          setSummary = `<span style="color:var(--green); font-size:11px; font-weight:700;">${doneSets.length} sets (${maxWeight} kg max)</span>`;
+        } else {
+          setSummary = `<span style="color:var(--text-mut); font-size:11px;">Niet gelogd</span>`;
+        }
+
         const item = document.createElement('div');
-        item.style.cssText = 'padding:8px 10px; background:var(--surface-2); border-radius:8px; margin-bottom:4px; font-size:13px; font-weight:700; color:#fff; display:flex; justify-content:space-between; align-items:center;';
-        item.innerHTML = `<span>${ex}</span><button onclick="openDetailModal('${ex}')" style="background:none; border:none; color:var(--blue); font-size:11px; font-weight:800; cursor:pointer;">Info</button>`;
+        item.style.cssText = 'padding:10px 12px; background:var(--surface-2); border-radius:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;';
+        item.innerHTML = `
+          <div>
+            <div style="font-size:13px; font-weight:800; color:#fff;">${ex}</div>
+            <div style="margin-top:2px;">${setSummary}</div>
+          </div>
+          <button onclick="openDetailModal('${ex}')" style="padding:4px 10px; border-radius:6px; background:var(--surface-3); border:1px solid var(--border); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">Bekijk</button>
+        `;
         box.appendChild(item);
       });
       gList.appendChild(box);
     });
   }
 
-  // TRACKER VIEW & PHOTOS
+  // â”€â”€â”€ TRACKER VIEW & INTERACTIEVE OEFENING GRAFIEK â”€â”€â”€
   function renderTrackerView() {
     const totalVol = getAllTimeTotalVolume();
     document.getElementById('trackerTotalVolume').textContent = `${Math.round(totalVol).toLocaleString('nl-NL')} kg`;
@@ -1891,7 +2113,227 @@
       }
     }
     document.getElementById('trackerTotalSets').textContent = setCnt;
+    
+    populateTrackerExerciseDropdown();
     loadProgressPhotos();
+  }
+
+  function populateTrackerExerciseDropdown() {
+    const select = document.getElementById('trackerExerciseSelect');
+    if (!select) return;
+
+    const currentVal = select.value;
+    select.innerHTML = '<option value="">Kies een oefening om de grafiek te zien...</option>';
+
+    // Find all exercises with logs or from routine
+    const allExNames = new Set();
+    const schema = getActiveRoutineSchema();
+    schema.forEach(d => {
+      if (d.groups) d.groups.forEach(g => {
+        g.exercises.forEach(e => allExNames.add(e));
+      });
+    });
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:')) {
+        const parts = k.split(':');
+        if (parts.length >= 4) allExNames.add(parts[3]);
+      }
+    }
+
+    const sorted = Array.from(allExNames).sort();
+    sorted.forEach(ex => {
+      const opt = document.createElement('option');
+      opt.value = ex;
+      opt.textContent = ex;
+      select.appendChild(opt);
+    });
+
+    if (currentVal && sorted.includes(currentVal)) {
+      select.value = currentVal;
+      renderExerciseProgressionChart(currentVal);
+    } else if (sorted.length > 0) {
+      select.value = sorted[0];
+      renderExerciseProgressionChart(sorted[0]);
+    }
+  }
+
+  function renderExerciseProgressionChart(exName) {
+    const canvas = document.getElementById('exerciseProgressionCanvas');
+    const emptyState = document.getElementById('chartEmptyState');
+    const prEl = document.getElementById('chartStatPr');
+    const sessEl = document.getElementById('chartStatSessions');
+    const volEl = document.getElementById('chartStatVolume');
+
+    if (!exName || !canvas) {
+      if (emptyState) emptyState.style.display = 'flex';
+      return;
+    }
+
+    // Collect data points: date -> maxWeight & volume
+    const historyMap = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:') && k.includes(`:${exName}`)) {
+        const parts = k.split(':');
+        const dateStr = parts[1];
+        try {
+          const sets = JSON.parse(localStorage.getItem(k));
+          sets.forEach(s => {
+            if (s.done) {
+              const w = parseFloat(s.weight) || 0;
+              const r = parseFloat(s.reps) || 0;
+              if (!historyMap[dateStr]) historyMap[dateStr] = { maxWeight: 0, volume: 0, reps: 0 };
+              if (w > historyMap[dateStr].maxWeight) {
+                historyMap[dateStr].maxWeight = w;
+                historyMap[dateStr].reps = r;
+              }
+              historyMap[dateStr].volume += (w * r);
+            }
+          });
+        } catch(e) {}
+      }
+    }
+
+    const sortedDates = Object.keys(historyMap).sort();
+    if (sortedDates.length === 0) {
+      if (emptyState) {
+        emptyState.textContent = `Nog geen sets gelogd voor "${exName}". Train vandaag om je grafiek te zien!`;
+        emptyState.style.display = 'flex';
+      }
+      if (prEl) prEl.textContent = '-';
+      if (sessEl) sessEl.textContent = '0';
+      if (volEl) volEl.textContent = '-';
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    let overallPr = 0;
+    let totalExVol = 0;
+    const points = sortedDates.map(dStr => {
+      const dObj = historyMap[dStr];
+      if (dObj.maxWeight > overallPr) overallPr = dObj.maxWeight;
+      totalExVol += dObj.volume;
+      return {
+        dateStr: dStr,
+        label: dStr.slice(5), // MM-DD
+        weight: dObj.maxWeight
+      };
+    });
+
+    if (prEl) prEl.textContent = `${overallPr} kg`;
+    if (sessEl) sessEl.textContent = sortedDates.length;
+    if (volEl) volEl.textContent = `${Math.round(totalExVol).toLocaleString('nl-NL')} kg`;
+
+    // Draw high-DPI Canvas Chart
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = (rect.width || 340) * dpr;
+    canvas.height = (rect.height || 210) * dpr;
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width || 340;
+    const h = rect.height || 210;
+    const padL = 36, padR = 20, padT = 20, padB = 28;
+    const plotW = w - padL - padR;
+    const plotH = h - padT - padB;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const maxW = Math.max(...points.map(p => p.weight), 10);
+    const minW = Math.max(0, Math.min(...points.map(p => p.weight)) - 10);
+    const range = (maxW - minW) || 10;
+
+    const getX = (idx) => {
+      if (points.length === 1) return padL + plotW / 2;
+      return padL + (idx / (points.length - 1)) * plotW;
+    };
+    const getY = (val) => padT + plotH - ((val - minW) / range) * plotH;
+
+    // Grid lines
+    ctx.strokeStyle = '#262933';
+    ctx.lineWidth = 1;
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#656b7c';
+    ctx.textAlign = 'right';
+
+    for (let step = 0; step <= 3; step++) {
+      const val = Math.round(minW + (step / 3) * range);
+      const y = getY(val);
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(w - padR, y);
+      ctx.stroke();
+      ctx.fillText(`${val}k`, padL - 6, y + 3);
+    }
+
+    // Gradient fill under curve
+    const grad = ctx.createLinearGradient(0, padT, 0, padT + plotH);
+    grad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+    grad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(points[0].weight));
+    for (let i = 1; i < points.length; i++) {
+      const prevX = getX(i - 1), prevY = getY(points[i - 1].weight);
+      const curX = getX(i), curY = getY(points[i].weight);
+      const cpX = (prevX + curX) / 2;
+      ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+    }
+    ctx.lineTo(getX(points.length - 1), padT + plotH);
+    ctx.lineTo(getX(0), padT + plotH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line stroke
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(points[0].weight));
+    for (let i = 1; i < points.length; i++) {
+      const prevX = getX(i - 1), prevY = getY(points[i - 1].weight);
+      const curX = getX(i), curY = getY(points[i].weight);
+      const cpX = (prevX + curX) / 2;
+      ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+    }
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Points & Value badges
+    ctx.textAlign = 'center';
+    points.forEach((p, idx) => {
+      const cx = getX(idx);
+      const cy = getY(p.weight);
+
+      // Outer glow circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+
+      // Inner white dot
+      ctx.beginPath();
+      ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+
+      // Value label on top
+      ctx.font = 'bold 10px Outfit, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(`${p.weight}kg`, cx, cy - 8);
+
+      // Date label on bottom
+      ctx.font = '9px JetBrains Mono, monospace';
+      ctx.fillStyle = '#9ba1b0';
+      ctx.fillText(p.label, cx, h - 8);
+    });
   }
 
   function handleProgressPhotoUpload(e) {
@@ -1990,20 +2432,74 @@
       return;
     }
 
-    entries.slice(0, 40).forEach(([name, data]) => {
+    entries.slice(0, 50).forEach(([name, data]) => {
       const item = document.createElement('div');
       item.className = 'lib-item';
+      const gifUrl = getExerciseGif(name);
+      const fallbackSrc = CATEGORY_FALLBACK_GIFS[data.category] || CATEGORY_FALLBACK_GIFS['Overig'];
+
       item.innerHTML = `
         <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-          <div style="font-weight:800; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${name}</div>
-          <span class="tag-pill">${data.category}</span>
+          <div class="lib-thumb" onclick="openDetailModal('${name}')" title="Bekijk HD Animatie">
+            <img src="${gifUrl}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackSrc}';" />
+          </div>
+          <div style="flex:1; min-width:0;" onclick="openDetailModal('${name}')" style="cursor:pointer;">
+            <div style="font-weight:800; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${name}</div>
+            <div style="display:flex; gap:4px; margin-top:3px;">
+              <span class="tag-pill tag-tier-${data.tier.toLowerCase()}">${data.tier}</span>
+              <span class="tag-pill">${data.category}</span>
+              <span class="tag-pill">${data.equipment}</span>
+            </div>
+          </div>
         </div>
-        <div style="display:flex; gap:6px; flex-shrink:0;">
-          <button onclick="openDetailModal('${name}')" style="padding:4px 8px; border-radius:6px; background:var(--surface-3); border:1px solid var(--border); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">Info</button>
+        <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+          <select class="lib-add-select" onchange="addExerciseToRoutineDay('${name}', this)">
+            <option value="">+ Voeg toe aan...</option>
+            <option value="0">Maandag (Push)</option>
+            <option value="1">Dinsdag (Pull)</option>
+            <option value="2">Woensdag (Benen)</option>
+            <option value="4">Vrijdag (Upper)</option>
+            <option value="5">Zaterdag (Lower)</option>
+            <option value="3">Donderdag</option>
+            <option value="6">Zondag</option>
+          </select>
         </div>
       `;
       list.appendChild(item);
     });
+  }
+
+  function addExerciseToRoutineDay(exName, selectEl) {
+    const dayIdx = parseInt(selectEl.value, 10);
+    if (isNaN(dayIdx)) return;
+
+    const schema = getActiveRoutineSchema();
+    if (!schema[dayIdx]) {
+      schema[dayIdx] = { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+    }
+
+    const exData = ALL_EXERCISES_DATABASE[exName];
+    const catName = exData ? exData.category : 'Overig';
+
+    let group = schema[dayIdx].groups.find(g => g.title.toLowerCase() === catName.toLowerCase());
+    if (!group) {
+      group = { title: catName, exercises: [] };
+      schema[dayIdx].groups.push(group);
+      if (schema[dayIdx].label.includes('RUST')) {
+        schema[dayIdx].label = catName.toUpperCase() + ' WORKOUT';
+      }
+    }
+
+    if (!group.exercises.includes(exName)) {
+      group.exercises.push(exName);
+      saveActiveRoutineSchema(schema);
+      triggerToast(`+ ${exName} toegevoegd aan ${DAY_NAMES[dayIdx]} (${catName})!`);
+      renderHomeView();
+    } else {
+      triggerToast(`${exName} staat al in ${DAY_NAMES[dayIdx]}!`);
+    }
+
+    selectEl.value = '';
   }
 
   // EXPORT & RESET DATA
