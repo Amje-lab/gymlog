@@ -3306,6 +3306,138 @@
     return { current: RANK_TIERS[0], next: RANK_TIERS[1], progress: 0, neededKg: 500, totalVol: 0 };
   }
 
+  // â”€â”€â”€ VECTOR STICKER GENERATORS (RANKS & ANIMALS) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  function getRankBadgeStickerHtml(rankId, size = 44) {
+    const id = (rankId || '').toLowerCase();
+    let bgGrad = 'linear-gradient(135deg, #334155, #1e293b)';
+    let borderColor = '#94a3b8';
+    let iconSvg = '';
+    let glowColor = 'rgba(148, 163, 184, 0.4)';
+
+    if (id.startsWith('wood')) {
+      bgGrad = 'linear-gradient(135deg, #78350f, #451a03)';
+      borderColor = '#b45309';
+      glowColor = 'rgba(180, 83, 9, 0.4)';
+      iconSvg = '<path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 14h2v2h-2v-2zm0-8h2v6h-2V8z" fill="#fcd34d"/>';
+    } else if (id.startsWith('iron')) {
+      bgGrad = 'linear-gradient(135deg, #475569, #1e293b)';
+      borderColor = '#cbd5e1';
+      glowColor = 'rgba(203, 213, 225, 0.4)';
+      iconSvg = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="#f1f5f9"/>';
+    } else if (id.startsWith('bronze')) {
+      bgGrad = 'linear-gradient(135deg, #92400e, #78350f)';
+      borderColor = '#f59e0b';
+      glowColor = 'rgba(245, 158, 11, 0.4)';
+      iconSvg = '<polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8" fill="#fde68a"/>';
+    } else if (id.startsWith('silver')) {
+      bgGrad = 'linear-gradient(135deg, #64748b, #334155)';
+      borderColor = '#f8fafc';
+      glowColor = 'rgba(248, 250, 252, 0.5)';
+      iconSvg = '<polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8" fill="#ffffff"/>';
+    } else if (id.startsWith('gold')) {
+      bgGrad = 'linear-gradient(135deg, #ca8a04, #854d0e)';
+      borderColor = '#fef08a';
+      glowColor = 'rgba(254, 240, 138, 0.6)';
+      iconSvg = '<polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8" fill="#fef08a"/>';
+    } else if (id.startsWith('platinum')) {
+      bgGrad = 'linear-gradient(135deg, #0284c7, #0369a1)';
+      borderColor = '#7dd3fc';
+      glowColor = 'rgba(125, 211, 252, 0.6)';
+      iconSvg = '<polygon points="12,2 22,9 18,21 6,21 2,9" fill="#e0f2fe"/>';
+    } else if (id.startsWith('emerald')) {
+      bgGrad = 'linear-gradient(135deg, #059669, #064e3b)';
+      borderColor = '#6ee7b7';
+      glowColor = 'rgba(110, 231, 183, 0.6)';
+      iconSvg = '<polygon points="12,2 20,7 20,17 12,22 4,17 4,7" fill="#a7f3d0"/>';
+    } else if (id.startsWith('ruby')) {
+      bgGrad = 'linear-gradient(135deg, #dc2626, #7f1d1d)';
+      borderColor = '#fca5a5';
+      glowColor = 'rgba(252, 165, 165, 0.6)';
+      iconSvg = '<polygon points="12,2 20,7 20,17 12,22 4,17 4,7" fill="#fecaca"/>';
+    } else if (id.startsWith('diamond')) {
+      bgGrad = 'linear-gradient(135deg, #0284c7, #1e3a8a)';
+      borderColor = '#38bdf8';
+      glowColor = 'rgba(56, 189, 248, 0.8)';
+      iconSvg = '<polygon points="12,1 16,8 23,9 18,15 19,23 12,19 5,23 6,15 1,9 8,8" fill="#e0f2fe"/>';
+    } else if (id.startsWith('master')) {
+      bgGrad = 'linear-gradient(135deg, #7c3aed, #4c1d95)';
+      borderColor = '#d8b4fe';
+      glowColor = 'rgba(216, 180, 254, 0.8)';
+      iconSvg = '<path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z" fill="#f3e8ff"/>';
+    } else if (id.startsWith('grandmaster') || id.startsWith('challenger')) {
+      bgGrad = 'linear-gradient(135deg, #b91c1c, #450a0a)';
+      borderColor = '#f87171';
+      glowColor = 'rgba(248, 113, 113, 0.8)';
+      iconSvg = '<polygon points="12,1 15,7 22,8 17,14 19,21 12,17 5,21 7,14 2,8 9,7" fill="#ffedd5"/>';
+    } else if (id.startsWith('mythic') || id.startsWith('immortal')) {
+      bgGrad = 'linear-gradient(135deg, #9333ea, #3b0764)';
+      borderColor = '#c084fc';
+      glowColor = 'rgba(192, 132, 252, 0.8)';
+      iconSvg = '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#f3e8ff" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    } else {
+      bgGrad = 'linear-gradient(135deg, #ea580c, #431407)';
+      borderColor = '#fdba74';
+      glowColor = 'rgba(253, 186, 116, 0.9)';
+      iconSvg = '<polygon points="12,1 15,7 22,8 17,14 19,21 12,17 5,21 7,14 2,8 9,7" fill="#fff7ed"/>';
+    }
+
+    return `
+      <div style="width:${size}px; height:${size}px; border-radius:12px; background:${bgGrad}; border:2px solid ${borderColor}; box-shadow:0 0 14px ${glowColor}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <svg style="width:${Math.round(size*0.58)}px; height:${Math.round(size*0.58)}px;" viewBox="0 0 24 24">
+          ${iconSvg}
+        </svg>
+      </div>
+    `;
+  }
+
+  function getAnimalBadgeStickerHtml(animalName, size = 68) {
+    const a = (animalName || '').toLowerCase();
+    let bgGrad = 'linear-gradient(135deg, #1e293b, #0f172a)';
+    let borderColor = '#38bdf8';
+    let glowColor = 'rgba(56, 189, 248, 0.5)';
+    let icon = '<circle cx="12" cy="12" r="9" fill="#38bdf8"/>';
+
+    if (a.includes('walvis') || a.includes('whale')) {
+      bgGrad = 'linear-gradient(135deg, #0284c7, #082f49)';
+      borderColor = '#7dd3fc';
+      glowColor = 'rgba(125, 211, 252, 0.6)';
+      icon = '<path d="M2 12C2 12 5 7 12 7C19 7 22 12 22 12C22 12 19 17 12 17C5 17 2 12 2 12Z" fill="#bae6fd"/>';
+    } else if (a.includes('dinosaurus') || a.includes('t-rex') || a.includes('sauropod')) {
+      bgGrad = 'linear-gradient(135deg, #059669, #022c22)';
+      borderColor = '#6ee7b7';
+      glowColor = 'rgba(110, 231, 183, 0.6)';
+      icon = '<path d="M12 2L4 7V17L12 22L20 17V7L12 2Z" fill="#a7f3d0"/>';
+    } else if (a.includes('olifant') || a.includes('mammoet')) {
+      bgGrad = 'linear-gradient(135deg, #64748b, #1e293b)';
+      borderColor = '#cbd5e1';
+      glowColor = 'rgba(203, 213, 225, 0.6)';
+      icon = '<path d="M12 4C7.58 4 4 7.58 4 12C4 16.42 7.58 20 12 20C16.42 20 20 16.42 20 12C20 7.58 16.42 4 12 4ZM12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C15.31 6 18 8.69 18 12C18 15.31 15.31 18 12 18Z" fill="#f1f5f9"/>';
+    } else if (a.includes('leeuw') || a.includes('tijger')) {
+      bgGrad = 'linear-gradient(135deg, #d97706, #78350f)';
+      borderColor = '#fde68a';
+      glowColor = 'rgba(253, 230, 138, 0.6)';
+      icon = '<polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8" fill="#fef08a"/>';
+    } else if (a.includes('gorilla') || a.includes('beer')) {
+      bgGrad = 'linear-gradient(135deg, #475569, #0f172a)';
+      borderColor = '#94a3b8';
+      glowColor = 'rgba(148, 163, 184, 0.6)';
+      icon = '<rect x="4" y="4" width="16" height="16" rx="4" fill="#cbd5e1"/>';
+    } else {
+      bgGrad = 'linear-gradient(135deg, #3b82f6, #1e1b4b)';
+      borderColor = '#93c5fd';
+      glowColor = 'rgba(147, 197, 253, 0.6)';
+      icon = '<polygon points="12,2 22,12 12,22 2,12" fill="#bfdbfe"/>';
+    }
+
+    return `
+      <div style="width:${size}px; height:${size}px; border-radius:50%; background:${bgGrad}; border:3px solid ${borderColor}; box-shadow:0 0 20px ${glowColor}; display:inline-flex; align-items:center; justify-content:center; margin-bottom:8px;">
+        <svg style="width:${Math.round(size*0.55)}px; height:${Math.round(size*0.55)}px;" viewBox="0 0 24 24">
+          ${icon}
+        </svg>
+      </div>
+    `;
+  }
+
   function updateProfileRankDisplay() {
     const rankInfo = getUserRank();
     const emblemEl = document.getElementById('userRankEmblem');
@@ -3317,7 +3449,7 @@
     const curVolEl = document.getElementById('userRankCurrentVol');
     const nextVolEl = document.getElementById('userRankNextVol');
 
-    if (emblemEl) emblemEl.textContent = rankInfo.current.emoji;
+    if (emblemEl) emblemEl.innerHTML = getRankBadgeStickerHtml(rankInfo.current.id, 46);
     if (titleEl) titleEl.textContent = rankInfo.current.name;
     if (tierNameEl) tierNameEl.textContent = rankInfo.current.tier;
 
@@ -3360,8 +3492,8 @@
       row.className = `rank-item-row${isCurrent ? ' active' : ''}`;
       row.innerHTML = `
         <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-          <div style="font-size:24px; flex-shrink:0;">${tier.emoji}</div>
-          <div style="min-width:0;">
+          ${getRankBadgeStickerHtml(tier.id, 36)}
+          <div style="min-width:0; margin-left:4px;">
             <div style="font-size:14px; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
               ${tier.name} ${isCurrent ? '<span style="font-size:9px; padding:2px 6px; border-radius:10px; background:#38bdf8; color:#000; font-weight:900;">JOUW RANK</span>' : ''}
             </div>
@@ -3584,8 +3716,8 @@
 
     const animal = getAnimalByWeight(sessionVol);
 
-    const emojiEl = document.getElementById('popupAnimalEmoji');
-    if (emojiEl) emojiEl.textContent = animal.emoji;
+    const badgeEl = document.getElementById('popupAnimalBadge');
+    if (badgeEl) badgeEl.innerHTML = getAnimalBadgeStickerHtml(animal.name, 84);
 
     const titleEl = document.getElementById('popupAnimalTitle');
     if (titleEl) titleEl.textContent = `${animal.name.toUpperCase()} OVERLOAD`;
@@ -3641,23 +3773,19 @@
   let activeAuthTab = 'login';
 
   const DEFAULT_FIREBASE_CONFIG = {
-    apiKey: "AIzaSyD-demo-overload-key-auto",
-    authDomain: "overload-gym-tracker.firebaseapp.com",
-    projectId: "overload-gym-tracker",
-    storageBucket: "overload-gym-tracker.appspot.com",
-    messagingSenderId: "10987654321",
-    appId: "1:10987654321:web:abcdef123456"
+    apiKey: "AIzaSyD-sample-overload-key-demo",
+    authDomain: "gymlog-overload.firebaseapp.com",
+    projectId: "gymlog-overload",
+    storageBucket: "gymlog-overload.appspot.com",
+    messagingSenderId: "109823471092",
+    appId: "1:109823471092:web:a9b8c7d6e5f4"
   };
 
   function initFirebaseClient() {
     try {
-      let cfg = DEFAULT_FIREBASE_CONFIG;
-      const storedCfg = localStorage.getItem('gymlog_firebase_custom_cfg');
-      if (storedCfg) {
-        try { cfg = JSON.parse(storedCfg); } catch(e) {}
-      }
-
-      if (window.firebase && !firebase.apps.length) {
+      if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
+        const cfgStr = localStorage.getItem('gymlog_firebase_config');
+        const cfg = cfgStr ? JSON.parse(cfgStr) : DEFAULT_FIREBASE_CONFIG;
         firebase.initializeApp(cfg);
         firebaseAuth = firebase.auth();
         firestoreDb = firebase.firestore();
@@ -3666,12 +3794,14 @@
           currentUser = user;
           updateAuthProfileDisplay();
           if (user) {
+            localStorage.setItem('gymlog_user_registered', 'true');
             syncCloudToLocal(user.uid);
+            syncLocalToCloud(false);
           }
         });
       }
     } catch(err) {
-      console.warn("Firebase initialization in offline/demo mode:", err);
+      console.log("Firebase initializing in offline-first mode:", err);
     }
   }
 
@@ -3701,9 +3831,8 @@
     }
   }
 
-  function openAuthModal() {
-    document.getElementById('authErrorDisplay').style.display = 'none';
-    switchAuthTab('login');
+  function openAuthModal(tab = 'login') {
+    setAuthTab(tab);
     document.getElementById('authModal').classList.add('open');
   }
 
@@ -3711,65 +3840,57 @@
     document.getElementById('authModal').classList.remove('open');
   }
 
-  function switchAuthTab(tab) {
+  function setAuthTab(tab) {
     activeAuthTab = tab;
-    const title = document.getElementById('authModalTitle');
-    const regFields = document.getElementById('authRegisterFields');
-    const passField = document.getElementById('authPasswordField');
-    const btnSubmit = document.getElementById('btnSubmitAuth');
-    const tabLogin = document.getElementById('tabAuthLogin');
-    const tabReg = document.getElementById('tabAuthRegister');
-    const tabForgot = document.getElementById('tabAuthForgot');
-    const err = document.getElementById('authErrorDisplay');
-    if (err) err.style.display = 'none';
-
-    [tabLogin, tabReg, tabForgot].forEach(b => {
-      if (b) { b.style.background = 'transparent'; b.style.color = 'var(--text-sec)'; }
+    ['login', 'register', 'forgot'].forEach(t => {
+      const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+      if (btn) btn.classList.toggle('active', t === tab);
     });
 
+    const nameGroup = document.getElementById('authGroupName');
+    const pwdGroup = document.getElementById('authGroupPassword');
+    const submitBtn = document.getElementById('btnSubmitAuth');
+    const titleEl = document.getElementById('authModalTitle');
+    const descEl = document.getElementById('authModalDesc');
+
     if (tab === 'login') {
-      title.textContent = 'Account Inloggen';
-      regFields.style.display = 'none';
-      passField.style.display = 'block';
-      btnSubmit.textContent = 'Inloggen';
-      tabLogin.style.background = '#ffffff'; tabLogin.style.color = '#000';
+      titleEl.textContent = 'Inloggen bij OVERLOAD';
+      descEl.textContent = 'Log in om je workouts en vrienden overal live te synchroniseren.';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (pwdGroup) pwdGroup.style.display = 'block';
+      if (submitBtn) submitBtn.textContent = 'Inloggen';
     } else if (tab === 'register') {
-      title.textContent = 'Account Aanmaken';
-      regFields.style.display = 'block';
-      passField.style.display = 'block';
-      btnSubmit.textContent = 'Account Registreren';
-      tabReg.style.background = '#ffffff'; tabReg.style.color = '#000';
+      titleEl.textContent = 'Account Aanmaken';
+      descEl.textContent = 'Maak een account aan zodat iedereen je online kan vinden via je @gebruikersnaam!';
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (pwdGroup) pwdGroup.style.display = 'block';
+      if (submitBtn) submitBtn.textContent = 'Registreren';
     } else if (tab === 'forgot') {
-      title.textContent = 'Wachtwoord Resetten';
-      regFields.style.display = 'none';
-      passField.style.display = 'none';
-      btnSubmit.textContent = 'Reset Link Versturen';
-      tabForgot.style.background = '#ffffff'; tabForgot.style.color = '#000';
+      titleEl.textContent = 'Wachtwoord Vergeten';
+      descEl.textContent = 'Vul je e-mailadres in om een herstelinstructie te ontvangen.';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (pwdGroup) pwdGroup.style.display = 'none';
+      if (submitBtn) submitBtn.textContent = 'Resetlink Versturen';
     }
   }
 
   async function submitAuthForm() {
     const email = (document.getElementById('authEmailInput').value || '').trim();
-    const password = (document.getElementById('authPasswordInput').value || '').trim();
-    const username = (document.getElementById('authUsernameInput').value || '').trim();
-    const errEl = document.getElementById('authErrorDisplay');
-
-    if (!email) {
-      errEl.textContent = 'Vul een geldig e-mailadres in.';
-      errEl.style.display = 'block';
-      return;
-    }
-
-    if (activeAuthTab !== 'forgot' && (!password || password.length < 6)) {
-      errEl.textContent = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
-      errEl.style.display = 'block';
-      return;
-    }
-
+    const password = document.getElementById('authPasswordInput').value || '';
+    const username = (document.getElementById('authNameInput').value || '').trim();
+    const errEl = document.getElementById('authErrorText');
     const btn = document.getElementById('btnSubmitAuth');
+
+    errEl.style.display = 'none';
+    if (!email || (activeAuthTab !== 'forgot' && !password)) {
+      errEl.textContent = 'Vul alle vereiste velden in.';
+      errEl.style.display = 'block';
+      return;
+    }
+
     btn.disabled = true;
     const origText = btn.textContent;
-    btn.textContent = 'Bezig...';
+    btn.textContent = 'Verwerken...';
 
     try {
       if (activeAuthTab === 'register') {
@@ -3778,7 +3899,6 @@
             const cred = await firebaseAuth.createUserWithEmailAndPassword(email, password);
             currentUser = cred.user;
           } catch(fbErr) {
-            console.log("Using local cloud simulation:", fbErr);
             currentUser = { uid: 'user_' + Date.now(), email: email };
           }
         } else {
@@ -3789,9 +3909,10 @@
         localStorage.setItem('gymlog_username', username || email.split('@')[0]);
         localStorage.setItem('gymlog_user_handle', handle);
         localStorage.setItem('gymlog_user_email', email);
+        localStorage.setItem('gymlog_user_registered', 'true');
         
         await syncLocalToCloud(false);
-        triggerToast(`ðŸŽ‰ Welkom bij OVERLOAD, ${username || handle}!`);
+        triggerToast(`ðŸŽ‰ Welkom bij OVERLOAD, @${handle}!`);
         closeAuthModal();
         updateAuthProfileDisplay();
       } else if (activeAuthTab === 'login') {
@@ -3800,7 +3921,6 @@
             const cred = await firebaseAuth.signInWithEmailAndPassword(email, password);
             currentUser = cred.user;
           } catch(fbErr) {
-            console.log("Using local simulation login:", fbErr);
             currentUser = { uid: 'user_amier_live', email: email };
           }
         } else {
@@ -3808,6 +3928,7 @@
         }
 
         localStorage.setItem('gymlog_user_email', email);
+        localStorage.setItem('gymlog_user_registered', 'true');
         await syncCloudToLocal(currentUser.uid);
         triggerToast('âœ“ Succesvol ingelogd!');
         closeAuthModal();
@@ -3822,7 +3943,7 @@
         closeAuthModal();
       }
     } catch(err) {
-      errEl.textContent = err.message || 'Fout bij authenticatie. Probeer opnieuw.';
+      errEl.textContent = err.message || 'Fout bij authenticatie.';
       errEl.style.display = 'block';
     } finally {
       btn.disabled = false;
@@ -3837,6 +3958,7 @@
       }
       currentUser = null;
       localStorage.removeItem('gymlog_user_email');
+      localStorage.removeItem('gymlog_user_registered');
       updateAuthProfileDisplay();
       triggerToast('Uitgelogd (Lokale modus actief)');
     }
@@ -3849,23 +3971,50 @@
       if (k && k.startsWith('gymlog_')) data[k] = localStorage.getItem(k);
     }
 
+    const handle = localStorage.getItem('gymlog_user_handle') || 'amier_fit';
+    const username = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
+    const rankInfo = getUserRank();
+
+    const prs = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:')) {
+        const parts = k.split(':');
+        const ex = parts.slice(3).join(':');
+        if (ex && !prs[ex]) {
+          const max = getExerciseMaxWeight(ex);
+          if (max > 0) prs[ex] = max;
+        }
+      }
+    }
+
+    const profileData = {
+      username: username,
+      name: username,
+      handle: handle,
+      email: (currentUser && currentUser.email) || localStorage.getItem('gymlog_user_email') || '',
+      photoUrl: localStorage.getItem('gymlog_profile_photo') || '',
+      bodyweight: localStorage.getItem('gymlog_bodyweight') || '78',
+      height: localStorage.getItem('gymlog_height') || '182',
+      goal: localStorage.getItem('gymlog_goal') || 'hypertrophy',
+      experience: localStorage.getItem('gymlog_exp') || 'intermediate',
+      rank: rankInfo.current.name,
+      streak: calculateCurrentStreak(),
+      allTimeVol: getAllTimeTotalVolume(),
+      prs: prs,
+      updatedAt: Date.now()
+    };
+
     if (currentUser && firestoreDb) {
       try {
         await firestoreDb.collection('users').doc(currentUser.uid).set({
-          profile: {
-            username: localStorage.getItem('gymlog_username') || 'Amier Mahmoud',
-            handle: localStorage.getItem('gymlog_user_handle') || 'amier_fit',
-            email: currentUser.email || '',
-            bodyweight: localStorage.getItem('gymlog_bodyweight') || '78',
-            height: localStorage.getItem('gymlog_height') || '182',
-            goal: localStorage.getItem('gymlog_goal') || 'hypertrophy',
-            experience: localStorage.getItem('gymlog_exp') || 'intermediate',
-            streak: calculateCurrentStreak(),
-            updatedAt: Date.now()
-          },
+          profile: profileData,
           workoutData: data
         }, { merge: true });
-        if (showToast) triggerToast('â˜ï¸ Alles gesynchroniseerd met de Cloud!');
+
+        await firestoreDb.collection('public_profiles').doc(handle.toLowerCase()).set(profileData, { merge: true });
+
+        if (showToast) triggerToast('â˜ï¸ Alles online gesynchroniseerd!');
       } catch(e) {
         if (showToast) triggerToast('âœ“ Lokaal opgeslagen (Cloud gereed)');
       }
@@ -3905,6 +4054,7 @@
       experience: 'Elite Gymrat (3+ jaar)',
       streak: 18,
       status: 'Vandaag getraind ðŸ”¥ - 4.250 kg',
+      rank: 'Diamond I',
       prs: {
         'Dumbbell Incline Bench Press': 42,
         'Barbell Squat': 150,
@@ -3924,6 +4074,7 @@
       experience: 'Gevorderd (2 jaar)',
       streak: 12,
       status: 'Gisteren getraind - 3.100 kg',
+      rank: 'Platinum II',
       prs: {
         'Barbell Bench Press': 110,
         'Barbell Squat': 130,
@@ -3942,6 +4093,7 @@
       experience: 'Elite Gymrat (4+ jaar)',
       streak: 26,
       status: '2 uur geleden getraind ðŸ”¥ - 5.800 kg',
+      rank: 'Diamond III',
       prs: {
         'Dumbbell Incline Bench Press': 48,
         'Barbell Squat': 175,
@@ -3990,7 +4142,7 @@
       card.className = 'friend-card';
       card.onclick = () => openFriendDetailModal(friend.handle);
 
-      const fRank = friend.rank || (friend.handle === 'tarik_gym' ? 'ðŸ’Ž Diamond I' : (friend.handle === 'lars_fit' ? 'ðŸ’  Platinum II' : (friend.handle === 'mo_power' ? 'ðŸ’Ž Diamond III' : 'ðŸ¥ˆ Silver II')));
+      const fRank = friend.rank || 'Bronze I';
 
       card.innerHTML = `
         <div class="friend-left">
@@ -4017,7 +4169,7 @@
     });
   }
 
-  function filterFriendsSearch() {
+  async function filterFriendsSearch() {
     const q = (document.getElementById('friendSearchInput').value || '').toLowerCase().trim();
     const resBox = document.getElementById('friendsSearchResults');
     const resList = document.getElementById('friendsSearchResultsList');
@@ -4029,24 +4181,52 @@
     }
 
     resBox.style.display = 'block';
-    resList.innerHTML = '';
+    resList.innerHTML = '<div style="font-size:12px; color:var(--text-sec); padding:10px; text-align:center;">ðŸ” Zoeken in online community...</div>';
 
-    const pool = DEFAULT_GYM_BUDDIES.concat(getFriendsList());
+    let pool = DEFAULT_GYM_BUDDIES.concat(getFriendsList());
+
+    if (firestoreDb) {
+      try {
+        const snap = await firestoreDb.collection('public_profiles').limit(50).get();
+        snap.forEach(doc => {
+          const d = doc.data();
+          if (d && d.handle) {
+            pool.push({
+              handle: d.handle,
+              name: d.name || d.handle,
+              initial: (d.name || d.handle).charAt(0).toUpperCase(),
+              photoUrl: d.photoUrl || '',
+              weight: d.bodyweight || 78,
+              height: d.height || 182,
+              goal: d.goal || 'Spieropbouw',
+              experience: d.experience || 'Gevorderd',
+              streak: d.streak || 1,
+              status: `Online lifter â€¢ Rank: ${d.rank || 'Bronze I'}`,
+              rank: d.rank || 'Bronze I',
+              prs: d.prs || {}
+            });
+          }
+        });
+      } catch(e) {}
+    }
+
     const unique = [];
     const seen = new Set();
     pool.forEach(p => {
-      if (!seen.has(p.handle)) {
-        seen.add(p.handle);
+      const h = (p.handle || '').toLowerCase();
+      if (h && !seen.has(h)) {
+        seen.add(h);
         unique.push(p);
       }
     });
 
-    const matches = unique.filter(f => f.name.toLowerCase().includes(q) || f.handle.toLowerCase().includes(q));
+    const matches = unique.filter(f => (f.name && f.name.toLowerCase().includes(q)) || (f.handle && f.handle.toLowerCase().includes(q)));
+    resList.innerHTML = '';
 
     if (matches.length === 0) {
       resList.innerHTML = `
         <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center; font-size:12px; color:var(--text-sec);">
-          Geen gebruikers gevonden voor "${q}".
+          Geen gebruikers gevonden voor "${q}". Vraag je gym buddy om de app te openen en een account aan te maken!
         </div>
       `;
       return;
@@ -4066,7 +4246,10 @@
           </div>
           <div class="friend-info">
             <div class="friend-name">${friend.name}</div>
-            <div class="friend-handle">@${friend.handle}</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="friend-handle">@${friend.handle}</span>
+              <span style="font-size:9px; background:var(--surface-3); padding:1px 5px; border-radius:4px; color:#38bdf8;">${friend.rank || 'Ranked'}</span>
+            </div>
           </div>
         </div>
         <div>
@@ -4104,7 +4287,7 @@
       experience: 'Gevorderd (2 jaar)',
       streak: 5,
       status: 'Onlangs lid geworden ðŸ”¥',
-      rank: 'ðŸ¥ˆ Silver I',
+      rank: 'Silver I',
       prs: {
         'Dumbbell Incline Bench Press': 34,
         'Barbell Squat': 110,
@@ -4135,9 +4318,9 @@
         : friend.initial || friend.name.charAt(0);
     }
 
-    const fRank = friend.rank || (friend.handle === 'tarik_gym' ? 'ðŸ’Ž DIAMOND I â€¢ Diamond Beast' : (friend.handle === 'lars_fit' ? 'ðŸ’  PLATINUM II â€¢ Gym Veteraan' : (friend.handle === 'mo_power' ? 'ðŸ’Ž DIAMOND III â€¢ Diamond Overlord' : 'ðŸ¥ˆ SILVER I â€¢ Actieve Lifter')));
+    const fRank = friend.rank || 'Bronze I';
     const badgeEl = document.getElementById('modalFriendBadge');
-    if (badgeEl) badgeEl.textContent = fRank;
+    if (badgeEl) badgeEl.textContent = `âš¡ ${fRank.toUpperCase()}`;
 
     document.getElementById('modalFriendName').textContent = friend.name;
     document.getElementById('modalFriendHandle').textContent = `@${friend.handle}`;
@@ -4195,6 +4378,18 @@
     }
   }
 
+  function checkMandatoryAuthGate() {
+    const isRegistered = localStorage.getItem('gymlog_user_registered') === 'true' || localStorage.getItem('gymlog_user_email');
+    if (!isRegistered) {
+      setTimeout(() => {
+        setAuthTab('register');
+        document.getElementById('authModalTitle').textContent = 'Welkom bij OVERLOAD! ðŸ”¥';
+        document.getElementById('authModalDesc').textContent = 'Maak een account aan om te starten en zodat al je gym buddies je online kunnen vinden via je @gebruikersnaam!';
+        document.getElementById('authModal').classList.add('open');
+      }, 600);
+    }
+  }
+
   document.getElementById('exerciseDetailModal').onclick = (e) => {
     if (e.target.id === 'exerciseDetailModal') closeDetailModal();
   };
@@ -4216,6 +4411,7 @@
   loadProfileSettings();
   renderHomeView();
   renderFriendsView();
+  checkMandatoryAuthGate();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
