@@ -1084,6 +1084,9 @@
         <span class="modal-title" id="authModalTitle">Account Inloggen</span>
         <button class="modal-close-btn" onclick="closeAuthModal()">&#10005;</button>
       </div>
+      <div id="authModalDesc" style="font-size:12px; color:var(--text-sec); margin-bottom:14px;">
+        Log in om je workouts en vrienden overal live te synchroniseren.
+      </div>
       
       <!-- AUTH TABS -->
       <div style="display:flex; gap:6px; background:var(--surface-3); padding:4px; border-radius:10px; margin-bottom:16px;">
@@ -1099,22 +1102,22 @@
       </div>
 
       <!-- FORM FIELDS -->
-      <div id="authRegisterFields" style="display:none; margin-bottom:12px;">
+      <div id="authGroupName" style="display:none; margin-bottom:12px;">
         <div class="profile-field-label">Gebruikersnaam (@handle)</div>
         <input type="text" class="profile-input" id="authUsernameInput" placeholder="bijv. amier_fit" />
       </div>
 
-      <div style="margin-bottom:12px;">
+      <div id="authGroupEmail" style="margin-bottom:12px;">
         <div class="profile-field-label">E-mailadres</div>
         <input type="email" class="profile-input" id="authEmailInput" placeholder="naam@voorbeeld.nl" />
       </div>
 
-      <div id="authPasswordField" style="margin-bottom:14px;">
+      <div id="authGroupPassword" style="margin-bottom:14px;">
         <div class="profile-field-label">Wachtwoord</div>
         <input type="password" class="profile-input" id="authPasswordInput" placeholder="Minimaal 6 tekens" />
       </div>
 
-      <div id="authErrorDisplay" style="display:none; color:var(--red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;"></div>
+      <div id="authErrorText" style="display:none; color:var(--red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;"></div>
 
       <button class="session-btn start" id="btnSubmitAuth" onclick="submitAuthForm()" style="margin-bottom:10px;">
         Inloggen
@@ -3910,8 +3913,11 @@
   function setAuthTab(tab) {
     activeAuthTab = tab;
     ['login', 'register', 'forgot'].forEach(t => {
-      const btn = document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
-      if (btn) btn.classList.toggle('active', t === tab);
+      const btn = document.getElementById(`tabAuth${t.charAt(0).toUpperCase() + t.slice(1)}`);
+      if (btn) {
+        btn.style.background = (t === tab) ? '#ffffff' : 'transparent';
+        btn.style.color = (t === tab) ? '#000000' : 'var(--text-sec)';
+      }
     });
 
     const nameGroup = document.getElementById('authGroupName');
@@ -3921,37 +3927,44 @@
     const descEl = document.getElementById('authModalDesc');
 
     if (tab === 'login') {
-      titleEl.textContent = 'Inloggen bij OVERLOAD';
-      descEl.textContent = 'Log in om je workouts en vrienden overal live te synchroniseren.';
+      if (titleEl) titleEl.textContent = 'Inloggen bij OVERLOAD';
+      if (descEl) descEl.textContent = 'Log in om je workouts en vrienden overal live te synchroniseren.';
       if (nameGroup) nameGroup.style.display = 'none';
       if (pwdGroup) pwdGroup.style.display = 'block';
       if (submitBtn) submitBtn.textContent = 'Inloggen';
     } else if (tab === 'register') {
-      titleEl.textContent = 'Account Aanmaken';
-      descEl.textContent = 'Maak een account aan zodat iedereen je online kan vinden via je @gebruikersnaam!';
+      if (titleEl) titleEl.textContent = 'Account Aanmaken';
+      if (descEl) descEl.textContent = 'Maak een account aan zodat iedereen je online kan vinden via je @gebruikersnaam!';
       if (nameGroup) nameGroup.style.display = 'block';
       if (pwdGroup) pwdGroup.style.display = 'block';
       if (submitBtn) submitBtn.textContent = 'Registreren';
     } else if (tab === 'forgot') {
-      titleEl.textContent = 'Wachtwoord Vergeten';
-      descEl.textContent = 'Vul je e-mailadres in om een herstelinstructie te ontvangen.';
+      if (titleEl) titleEl.textContent = 'Wachtwoord Vergeten';
+      if (descEl) descEl.textContent = 'Vul je e-mailadres in om een herstelinstructie te ontvangen.';
       if (nameGroup) nameGroup.style.display = 'none';
       if (pwdGroup) pwdGroup.style.display = 'none';
       if (submitBtn) submitBtn.textContent = 'Resetlink Versturen';
     }
   }
+  const switchAuthTab = setAuthTab;
 
   async function submitAuthForm() {
-    const email = (document.getElementById('authEmailInput').value || '').trim();
-    const password = document.getElementById('authPasswordInput').value || '';
-    const username = (document.getElementById('authNameInput').value || '').trim();
+    const emailEl = document.getElementById('authEmailInput');
+    const passwordEl = document.getElementById('authPasswordInput');
+    const usernameEl = document.getElementById('authUsernameInput');
     const errEl = document.getElementById('authErrorText');
     const btn = document.getElementById('btnSubmitAuth');
 
-    errEl.style.display = 'none';
+    const email = (emailEl ? emailEl.value : '').trim();
+    const password = passwordEl ? passwordEl.value : '';
+    const username = (usernameEl ? usernameEl.value : '').trim();
+
+    if (errEl) errEl.style.display = 'none';
     if (!email || (activeAuthTab !== 'forgot' && !password)) {
-      errEl.textContent = 'Vul alle vereiste velden in.';
-      errEl.style.display = 'block';
+      if (errEl) {
+        errEl.textContent = 'Vul alle vereiste velden in.';
+        errEl.style.display = 'block';
+      }
       return;
     }
 
@@ -4450,9 +4463,12 @@
     if (!isRegistered) {
       setTimeout(() => {
         setAuthTab('register');
-        document.getElementById('authModalTitle').textContent = 'Welkom bij OVERLOAD! ';
-        document.getElementById('authModalDesc').textContent = 'Maak een account aan om te starten en zodat al je gym buddies je online kunnen vinden via je @gebruikersnaam!';
-        document.getElementById('authModal').classList.add('open');
+        const titleEl = document.getElementById('authModalTitle');
+        const descEl = document.getElementById('authModalDesc');
+        const modal = document.getElementById('authModal');
+        if (titleEl) titleEl.textContent = 'Welkom bij OVERLOAD!';
+        if (descEl) descEl.textContent = 'Maak een account aan om te starten en zodat al je gym buddies je online kunnen vinden via je @gebruikersnaam!';
+        if (modal) modal.classList.add('open');
       }, 600);
     }
   }
