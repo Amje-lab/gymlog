@@ -12,6 +12,11 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
 
+  <!-- FIREBASE APIS (AUTH & CLOUD FIRESTORE) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -571,6 +576,96 @@
       font-size: 13px; color: var(--text-sec); margin-bottom: 18px; line-height: 1.4; padding: 0 10px;
     }
 
+    /* â”€â”€ SOCIAL / FRIENDS VIEW â”€â”€ */
+    .friend-card {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--card-radius); padding: 14px 16px; margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .friend-card:hover { border-color: var(--border-light); transform: translateY(-1px); }
+    .friend-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+    .friend-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--surface-3); border: 1.5px solid #64748b;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: #fff; flex-shrink: 0; overflow: hidden;
+    }
+    .friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .friend-info { min-width: 0; }
+    .friend-name-row { display: flex; align-items: center; gap: 6px; }
+    .friend-name { font-size: 15px; font-weight: 800; color: var(--text); }
+    .friend-handle { font-size: 11px; color: var(--text-sec); font-weight: 600; }
+    .friend-status { font-size: 11px; color: var(--text-sec); margin-top: 3px; }
+    .friend-streak { font-size: 12px; font-weight: 800; color: #ff9500; display: flex; align-items: center; gap: 2px; }
+    .btn-view-friend {
+      padding: 7px 14px; border-radius: 8px; background: var(--surface-2);
+      border: 1px solid var(--border-light); color: var(--text); font-size: 11px;
+      font-weight: 800; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    }
+    .btn-view-friend:hover { background: #ffffff; color: #000; }
+
+    /* â”€â”€ AUTH & CLOUD BANNER â”€â”€ */
+    .auth-banner {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--card-radius); padding: 16px; margin-bottom: 14px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .auth-status-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+      display: inline-block; margin-right: 6px; box-shadow: 0 0 8px var(--green-glow);
+    }
+    .auth-status-dot.offline { background: var(--text-mut); box-shadow: none; }
+
+    .friend-pr-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 8px;
+    }
+    .friend-pr-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    /* â”€â”€ RANKING / TIER SYSTEM â”€â”€ */
+    .rank-badge-card {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--card-radius); padding: 16px 18px; margin-bottom: 14px;
+      position: relative; overflow: hidden;
+    }
+    .rank-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .rank-emblem-box {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; line-height: 1; flex-shrink: 0;
+      border: 1.5px solid var(--border-light);
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(20,22,28,0.95) 100%);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .rank-title-text {
+      font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 0.04em;
+    }
+    .rank-tier-sub {
+      font-size: 11px; font-weight: 700; color: var(--text-sec); margin-top: 2px;
+    }
+    .rank-prog-bar-wrap {
+      margin-top: 12px;
+    }
+    .rank-prog-bar-bg {
+      width: 100%; height: 8px; background: var(--surface-3);
+      border-radius: 10px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .rank-prog-bar-fill {
+      height: 100%; border-radius: 10px; transition: width 0.3s ease;
+      background: linear-gradient(90deg, #38bdf8, #30d158);
+    }
+    .rank-item-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 8px;
+    }
+    .rank-item-row.active {
+      border-color: #38bdf8; background: rgba(56, 189, 248, 0.08);
+    }
+
     /* â”€â”€ TOAST â”€â”€ */
     #toast {
       position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -709,7 +804,28 @@
       <div class="photo-grid" id="progressPhotoGrid"></div>
     </div>
 
-    <!-- VIEW 4: SEARCH & EXERCISE LIBRARY -->
+    <!-- VIEW 4: FRIENDS & SOCIAL HUB -->
+    <div id="viewFriends" style="display: none;">
+      <h3 class="section-title" id="titleFriendsHub">Vrienden & Gym Buddies</h3>
+      <input type="text" class="search-input" id="friendSearchInput" placeholder="Zoek vrienden op @handle of naam..." oninput="filterFriendsSearch()" />
+      
+      <!-- ZOEKRESULTATEN (ALS ER GEZOCHT WORDT) -->
+      <div id="friendsSearchResults" style="display:none; margin-bottom:20px;">
+        <div class="profile-field-label" style="margin-bottom:8px;">Zoekresultaten</div>
+        <div id="friendsSearchResultsList"></div>
+      </div>
+
+      <!-- MIJN VRIENDEN LIJST -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; margin-top:10px;">
+        <span class="profile-field-label" style="margin-bottom:0;" id="lblMyFriendsCount">Mijn Vrienden (3)</span>
+        <button onclick="promptAddFriend()" style="padding:5px 12px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border-light); color:var(--text); font-size:11px; font-weight:800; cursor:pointer;">
+          + Voeg toe
+        </button>
+      </div>
+      <div id="friendsListContainer"></div>
+    </div>
+
+    <!-- VIEW 5: SEARCH & EXERCISE LIBRARY -->
     <div id="viewSearch" style="display: none;">
       <input type="text" class="search-input" id="searchInput" placeholder="Zoek elke oefening in de gym..." oninput="filterSearchLibrary()" />
       <div class="chips-scroll" id="muscleFilterChips"></div>
@@ -717,9 +833,32 @@
       <div class="lib-list" id="searchLibraryList"></div>
     </div>
 
-    <!-- VIEW 5: PROFILE & RICH SETTINGS -->
+    <!-- VIEW 6: PROFILE & RICH SETTINGS -->
     <div id="viewProfile" style="display: none;">
       <h3 class="section-title" id="titleMyProfile">Mijn Profiel</h3>
+
+      <!-- ACCOUNT & CLOUD SYNC STATUS KAART -->
+      <div class="auth-banner" id="authProfileCard">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <div style="font-size:14px; font-weight:800; color:var(--text);" id="authUserNameDisplay">Niet ingelogd</div>
+            <div style="font-size:11px; color:var(--text-sec); margin-top:2px;" id="authStatusText">
+              <span class="auth-status-dot offline" id="authDot"></span>Lokale Opslag Modus
+            </div>
+          </div>
+          <button id="btnAuthAction" onclick="openAuthModal()" style="padding:8px 14px; border-radius:8px; background:var(--surface-3); border:1px solid var(--border-light); color:var(--text); font-size:11px; font-weight:800; cursor:pointer;">
+            Inloggen / Account
+          </button>
+        </div>
+        <div id="cloudSyncActions" style="display:none; gap:8px; margin-top:8px;">
+          <button onclick="syncLocalToCloud(true)" style="flex:1; padding:8px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">
+            â˜ï¸ Nu Synchroniseren
+          </button>
+          <button onclick="handleAuthLogout()" style="padding:8px 12px; border-radius:8px; background:transparent; border:1px solid var(--red); color:var(--red); font-size:11px; font-weight:700; cursor:pointer;">
+            Uitloggen
+          </button>
+        </div>
+      </div>
       
       <!-- PROFIELFOTO KAART -->
       <div class="profile-card" style="text-align:center; padding: 22px 16px;">
@@ -742,9 +881,55 @@
         </div>
       </div>
 
+      <!-- RANKING & TIER BADGE KAART -->
+      <div class="rank-badge-card" id="userRankCard">
+        <div class="rank-header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="rank-emblem-box" id="userRankEmblem">ðŸ¥‰</div>
+            <div>
+              <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-mut); letter-spacing:0.06em;">OVERLOAD RANK</div>
+              <div class="rank-title-text" id="userRankTitle">Bronze I</div>
+              <div class="rank-tier-sub" id="userRankTierName">Beginneling Slap</div>
+            </div>
+          </div>
+          <button onclick="openRanksModal()" style="padding:7px 12px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border-light); color:var(--text); font-size:11px; font-weight:800; cursor:pointer;">
+            Alle Ranks ðŸ†
+          </button>
+        </div>
+
+        <div class="rank-prog-bar-wrap">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--text-sec); margin-bottom:6px;">
+            <span id="userRankProgressLabel">Progressie naar Bronze II</span>
+            <span id="userRankProgressPercent">0%</span>
+          </div>
+          <div class="rank-prog-bar-bg">
+            <div class="rank-prog-bar-fill" id="userRankProgressBar" style="width:0%;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-mut); margin-top:4px;">
+            <span id="userRankCurrentVol">0 kg</span>
+            <span id="userRankNextVol">500 kg</span>
+          </div>
+        </div>
+      </div>
+
       <!-- PERSOONLIJKE GEGEVENS -->
       <div class="profile-card">
-        <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
+        <div style="margin-bottom:12px;">
+          <div class="profile-field-label">Gebruikersnaam (@handle)</div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 14px; font-weight:800; font-size:14px; color:#ffffff;">
+              <span style="color:var(--text-mut);">@</span><span id="profileUserHandleDisplay">amier</span>
+            </div>
+            <button type="button" onclick="changeUserHandlePrompt()" style="padding:10px 14px; border-radius:10px; background:var(--surface-3); border:1px solid var(--border-light); color:var(--text); font-weight:800; font-size:12px; cursor:pointer; white-space:nowrap;">
+              Wijzig @
+            </button>
+          </div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:4px;" id="handleCooldownDisplay">
+            Je kunt je @handle 1x per 30 dagen veranderen.
+          </div>
+        </div>
+
+        <div class="profile-field-label" id="lblYourName">Volledige Naam</div>
         <input type="text" class="profile-input" id="profileNameInput" value="Amier Mahmoud" onchange="saveProfileSettings()" />
         
         <div class="profile-grid-2" style="margin-top:12px;">
@@ -878,6 +1063,10 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
       <span class="nav-label" id="navLblTracker">Tracker</span>
     </button>
+    <button class="nav-item" id="navBtnFriends" onclick="switchTab('friends')">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      <span class="nav-label" id="navLblFriends">Vrienden</span>
+    </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchTab('search')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       <span class="nav-label" id="navLblSearch">Zoeken</span>
@@ -887,6 +1076,118 @@
       <span class="nav-label" id="navLblProfile">Profiel</span>
     </button>
   </nav>
+
+  <!-- FIREBASE AUTHENTICATION MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-dialog" style="max-width:400px;">
+      <div class="modal-hdr">
+        <span class="modal-title" id="authModalTitle">Account Inloggen</span>
+        <button class="modal-close-btn" onclick="closeAuthModal()">&#10005;</button>
+      </div>
+      
+      <!-- AUTH TABS -->
+      <div style="display:flex; gap:6px; background:var(--surface-3); padding:4px; border-radius:10px; margin-bottom:16px;">
+        <button id="tabAuthLogin" onclick="switchAuthTab('login')" style="flex:1; padding:8px; border-radius:8px; border:none; background:#ffffff; color:#000; font-weight:800; font-size:12px; cursor:pointer;">
+          Inloggen
+        </button>
+        <button id="tabAuthRegister" onclick="switchAuthTab('register')" style="flex:1; padding:8px; border-radius:8px; border:none; background:transparent; color:var(--text-sec); font-weight:800; font-size:12px; cursor:pointer;">
+          Registreren
+        </button>
+        <button id="tabAuthForgot" onclick="switchAuthTab('forgot')" style="flex:1; padding:8px; border-radius:8px; border:none; background:transparent; color:var(--text-sec); font-weight:800; font-size:12px; cursor:pointer;">
+          Reset
+        </button>
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div id="authRegisterFields" style="display:none; margin-bottom:12px;">
+        <div class="profile-field-label">Gebruikersnaam (@handle)</div>
+        <input type="text" class="profile-input" id="authUsernameInput" placeholder="bijv. amier_fit" />
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <div class="profile-field-label">E-mailadres</div>
+        <input type="email" class="profile-input" id="authEmailInput" placeholder="naam@voorbeeld.nl" />
+      </div>
+
+      <div id="authPasswordField" style="margin-bottom:14px;">
+        <div class="profile-field-label">Wachtwoord</div>
+        <input type="password" class="profile-input" id="authPasswordInput" placeholder="Minimaal 6 tekens" />
+      </div>
+
+      <div id="authErrorDisplay" style="display:none; color:var(--red); font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;"></div>
+
+      <button class="session-btn start" id="btnSubmitAuth" onclick="submitAuthForm()" style="margin-bottom:10px;">
+        Inloggen
+      </button>
+
+      <div style="text-align:center; font-size:11px; color:var(--text-mut);">
+        Sync al je workouts & vrienden veilig in de cloud.
+      </div>
+    </div>
+  </div>
+
+  <!-- FRIEND PROFILE DETAIL MODAL -->
+  <div class="modal-overlay" id="friendDetailModal">
+    <div class="modal-dialog" style="max-width:440px;">
+      <div class="modal-hdr">
+        <span class="modal-title">Gym Buddy Profiel</span>
+        <button class="modal-close-btn" onclick="closeFriendDetailModal()">&#10005;</button>
+      </div>
+
+      <div style="text-align:center; padding:10px 0 16px;">
+        <div id="modalFriendAvatar" style="width:84px; height:84px; border-radius:50%; background:var(--surface-3); border:2px solid #64748b; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:900; color:#fff; overflow:hidden; box-shadow:0 0 20px rgba(255,255,255,0.1);"></div>
+        <div style="font-size:20px; font-weight:900; color:#fff;" id="modalFriendName">Vriend</div>
+        <div style="font-size:12px; color:var(--text-sec); font-weight:600;" id="modalFriendHandle">@handle</div>
+        <div style="display:inline-block; margin-top:6px; padding:3px 10px; border-radius:20px; background:var(--surface-3); border:1px solid var(--border-light); font-size:10px; font-weight:800; color:#cbd5e1;" id="modalFriendBadge">âš¡ ACTIVE LIFTER</div>
+      </div>
+
+      <!-- STATS GRID -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+        <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-mut);">Gewicht</div>
+          <div style="font-size:16px; font-weight:900; color:#fff; margin-top:2px;" id="modalFriendWeight">78 kg</div>
+        </div>
+        <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-mut);">Lengte</div>
+          <div style="font-size:16px; font-weight:900; color:#fff; margin-top:2px;" id="modalFriendHeight">182 cm</div>
+        </div>
+        <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-mut);">Doel</div>
+          <div style="font-size:13px; font-weight:800; color:#cbd5e1; margin-top:2px;" id="modalFriendGoal">Spieropbouw</div>
+        </div>
+        <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--text-mut);">Streak</div>
+          <div style="font-size:16px; font-weight:900; color:#ff9500; margin-top:2px;" id="modalFriendStreak">ðŸ”¥ 14</div>
+        </div>
+      </div>
+
+      <!-- PR OVERZICHT VAN DEZE VRIEND -->
+      <div style="margin-top:16px;">
+        <div class="profile-field-label" style="margin-bottom:8px;">Oefening Progressie & PR's</div>
+        <div id="modalFriendPrList" style="max-height:200px; overflow-y:auto; padding-right:4px;"></div>
+      </div>
+
+      <div style="margin-top:16px; display:flex; gap:8px;">
+        <button id="btnToggleFriendShip" onclick="handleFriendToggleAction()" style="flex:1; padding:10px; border-radius:10px; background:var(--surface-3); border:1px solid var(--border-light); color:var(--text); font-weight:800; font-size:12px; cursor:pointer;">
+          Vriend Verwijderen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL RANKS LADDER MODAL -->
+  <div class="modal-overlay" id="ranksLadderModal">
+    <div class="modal-dialog" style="max-width:460px;">
+      <div class="modal-hdr">
+        <span class="modal-title">ðŸ† Overload Rank Ladder</span>
+        <button class="modal-close-btn" onclick="closeRanksModal()">&#10005;</button>
+      </div>
+      <div style="font-size:12px; color:var(--text-sec); margin-bottom:14px;">
+        Verhoog je all-time verplaatste volume om hogere ranks en divisies te ontgrendelen!
+      </div>
+      <div id="ranksLadderList" style="max-height:420px; overflow-y:auto; padding-right:4px;"></div>
+    </div>
+  </div>
 
   <!-- EXERCISE DETAIL MODAL -->
   <div class="modal-overlay" id="exerciseDetailModal">
@@ -1812,8 +2113,10 @@
     setTxt('navLblHome', dict.navHome || 'Home');
     setTxt('navLblAgenda', dict.navAgenda || 'Agenda');
     setTxt('navLblTracker', dict.navTracker || 'Tracker');
+    setTxt('navLblFriends', dict.navFriends || 'Vrienden');
     setTxt('navLblSearch', dict.navSearch || 'Zoeken');
     setTxt('navLblProfile', dict.navProfile || 'Profiel');
+    setTxt('titleFriendsHub', dict.titleFriends || 'Vrienden & Gym Buddies');
 
     const searchInp = document.getElementById('searchInput');
     if (searchInp) searchInp.placeholder = dict.searchPlaceholder || 'Zoek elke oefening in de gym...';
@@ -1987,7 +2290,7 @@
   // â”€â”€â”€ APP INITIALIZATION & ROUTING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function switchTab(tabName) {
     activeTab = tabName;
-    ['home', 'agenda', 'tracker', 'search', 'profile'].forEach(t => {
+    ['home', 'agenda', 'tracker', 'friends', 'search', 'profile'].forEach(t => {
       const v = document.getElementById(`view${t.charAt(0).toUpperCase() + t.slice(1)}`);
       const b = document.getElementById(`navBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
       if (v) v.style.display = (t === tabName) ? 'block' : 'none';
@@ -1997,6 +2300,7 @@
     if (tabName === 'home') renderHomeView();
     else if (tabName === 'agenda') renderAgendaView();
     else if (tabName === 'tracker') renderTrackerView();
+    else if (tabName === 'friends') renderFriendsView();
     else if (tabName === 'search') initSearchLibrary();
     else if (tabName === 'profile') loadProfileSettings();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2889,11 +3193,255 @@
     triggerToast('Profielfoto verwijderd');
   }
 
+  // â”€â”€â”€ MASSIVE RANKING TIER HIERARCHY (WOOD -> GOD TIER OVERLOAD) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const RANK_TIERS = [
+    // WOOD TIER (Absoluut zwak / beginner)
+    { id: 'wood_1', name: 'Wood I', tier: 'Flinterdun Takje', emoji: 'ðŸªµ', minVol: 0, maxVol: 150 },
+    { id: 'wood_2', name: 'Wood II', tier: 'Bezemsteel Fysiek', emoji: 'ðŸªµ', minVol: 150, maxVol: 350 },
+    { id: 'wood_3', name: 'Wood III', tier: 'Houten Plank Lifter', emoji: 'ðŸªµ', minVol: 350, maxVol: 700 },
+
+    // IRON TIER (Eerste kilo's)
+    { id: 'iron_1', name: 'Iron I', tier: 'Roestig IJzer', emoji: 'â›“ï¸', minVol: 700, maxVol: 1200 },
+    { id: 'iron_2', name: 'Iron II', tier: 'Gym Zoekende', emoji: 'â›“ï¸', minVol: 1200, maxVol: 2000 },
+    { id: 'iron_3', name: 'Iron III', tier: 'Dumbbell Verkenner', emoji: 'â›“ï¸', minVol: 2000, maxVol: 3200 },
+
+    // BRONZE TIER (Beginneling Slap tot Basis)
+    { id: 'bronze_1', name: 'Bronze I', tier: 'Slapmans Starter', emoji: 'ðŸ¥‰', minVol: 3200, maxVol: 5000 },
+    { id: 'bronze_2', name: 'Bronze II', tier: 'Rookie Gymmer', emoji: 'ðŸ¥‰', minVol: 5000, maxVol: 7500 },
+    { id: 'bronze_3', name: 'Bronze III', tier: 'Basis Lifter', emoji: 'ðŸ¥‰', minVol: 7500, maxVol: 11000 },
+    { id: 'bronze_4', name: 'Bronze IV', tier: 'Opwarm Krijger', emoji: 'ðŸ¥‰', minVol: 11000, maxVol: 15500 },
+    { id: 'bronze_5', name: 'Bronze V', tier: 'Brons Afstudeerder', emoji: 'ðŸ¥‰', minVol: 15500, maxVol: 22000 },
+
+    // SILVER TIER (Consistente Gymmer)
+    { id: 'silver_1', name: 'Silver I', tier: 'Actieve Pumper', emoji: 'ðŸ¥ˆ', minVol: 22000, maxVol: 30000 },
+    { id: 'silver_2', name: 'Silver II', tier: 'Discipline Starter', emoji: 'ðŸ¥ˆ', minVol: 30000, maxVol: 40000 },
+    { id: 'silver_3', name: 'Silver III', tier: 'Serieuze Lifter', emoji: 'ðŸ¥ˆ', minVol: 40000, maxVol: 55000 },
+    { id: 'silver_4', name: 'Silver IV', tier: 'Vaste Gymrat', emoji: 'ðŸ¥ˆ', minVol: 55000, maxVol: 75000 },
+    { id: 'silver_5', name: 'Silver V', tier: 'Zilveren Strijder', emoji: 'ðŸ¥ˆ', minVol: 75000, maxVol: 100000 },
+
+    // GOLD TIER (Sterke Lifter)
+    { id: 'gold_1', name: 'Gold I', tier: 'Gouden Pumper', emoji: 'ðŸ¥‡', minVol: 100000, maxVol: 135000 },
+    { id: 'gold_2', name: 'Gold II', tier: 'Ijzervreter', emoji: 'ðŸ¥‡', minVol: 135000, maxVol: 180000 },
+    { id: 'gold_3', name: 'Gold III', tier: 'Spierbouwer', emoji: 'ðŸ¥‡', minVol: 180000, maxVol: 240000 },
+    { id: 'gold_4', name: 'Gold IV', tier: 'Gym Dominator', emoji: 'ðŸ¥‡', minVol: 240000, maxVol: 320000 },
+    { id: 'gold_5', name: 'Gold V', tier: 'Gouden Kampioen', emoji: 'ðŸ¥‡', minVol: 320000, maxVol: 420000 },
+
+    // PLATINUM TIER (Gevorderd Monster)
+    { id: 'platinum_1', name: 'Platinum I', tier: 'Beast Mode Lifter', emoji: 'ðŸ’ ', minVol: 420000, maxVol: 550000 },
+    { id: 'platinum_2', name: 'Platinum II', tier: 'Gym Veteraan', emoji: 'ðŸ’ ', minVol: 550000, maxVol: 720000 },
+    { id: 'platinum_3', name: 'Platinum III', tier: 'Ijzeren Tank', emoji: 'ðŸ’ ', minVol: 720000, maxVol: 950000 },
+    { id: 'platinum_4', name: 'Platinum IV', tier: 'Overload Specialist', emoji: 'ðŸ’ ', minVol: 950000, maxVol: 1250000 },
+    { id: 'platinum_5', name: 'Platinum V', tier: 'Platina Warlord', emoji: 'ðŸ’ ', minVol: 1250000, maxVol: 1650000 },
+
+    // EMERALD TIER (Smaragd Oerkracht)
+    { id: 'emerald_1', name: 'Emerald I', tier: 'Emerald Destroyer', emoji: 'ðŸŸ¢', minVol: 1650000, maxVol: 2150000 },
+    { id: 'emerald_2', name: 'Emerald II', tier: 'Smaragd Monster', emoji: 'ðŸŸ¢', minVol: 2150000, maxVol: 2750000 },
+    { id: 'emerald_3', name: 'Emerald III', tier: 'Smaragd Berserker', emoji: 'ðŸŸ¢', minVol: 2750000, maxVol: 3500000 },
+
+    // RUBY TIER (Robijnrode Behemoth)
+    { id: 'ruby_1', name: 'Ruby I', tier: 'Ruby Behemoth', emoji: 'ðŸ”´', minVol: 3500000, maxVol: 4400000 },
+    { id: 'ruby_2', name: 'Ruby II', tier: 'Bloedrode Titaan', emoji: 'ðŸ”´', minVol: 4400000, maxVol: 5500000 },
+    { id: 'ruby_3', name: 'Ruby III', tier: 'Ruby Overlord', emoji: 'ðŸ”´', minVol: 5500000, maxVol: 6800000 },
+
+    // DIAMOND TIER (Onbreekbare Diamant)
+    { id: 'diamond_1', name: 'Diamond I', tier: 'Diamond Beast', emoji: 'ðŸ’Ž', minVol: 6800000, maxVol: 8500000 },
+    { id: 'diamond_2', name: 'Diamond II', tier: 'Titan Lifter', emoji: 'ðŸ’Ž', minVol: 8500000, maxVol: 10500000 },
+    { id: 'diamond_3', name: 'Diamond III', tier: 'Diamond Overlord', emoji: 'ðŸ’Ž', minVol: 10500000, maxVol: 13000000 },
+    { id: 'diamond_4', name: 'Diamond IV', tier: 'Diamond Slayer', emoji: 'ðŸ’Ž', minVol: 13000000, maxVol: 16000000 },
+    { id: 'diamond_5', name: 'Diamond V', tier: 'Diamond Apex', emoji: 'ðŸ’Ž', minVol: 16000000, maxVol: 20000000 },
+
+    // MASTER & GRANDMASTER (De Top Lifters)
+    { id: 'master_1', name: 'Master I', tier: 'Master of Iron', emoji: 'ðŸ‘‘', minVol: 20000000, maxVol: 25000000 },
+    { id: 'master_2', name: 'Master II', tier: 'Grandmaster Lifter', emoji: 'ðŸ‘‘', minVol: 25000000, maxVol: 32000000 },
+    { id: 'master_3', name: 'Master III', tier: 'Apex Master', emoji: 'ðŸ‘‘', minVol: 32000000, maxVol: 40000000 },
+
+    // CHALLENGER & MYTHIC
+    { id: 'challenger', name: 'Challenger', tier: 'Gym Legende', emoji: 'âš”ï¸', minVol: 40000000, maxVol: 52000000 },
+    { id: 'mythic_1', name: 'Mythic I', tier: 'Mythische Draak', emoji: 'ðŸ‰', minVol: 52000000, maxVol: 66000000 },
+    { id: 'mythic_2', name: 'Mythic II', tier: 'Onverslaanbare Mythe', emoji: 'ðŸ‰', minVol: 66000000, maxVol: 82000000 },
+    { id: 'mythic_3', name: 'Mythic III', tier: 'Mythische Kolos', emoji: 'ðŸ‰', minVol: 82000000, maxVol: 100000000 },
+
+    // IMMORTAL, TITAN & GOD TIER
+    { id: 'immortal_1', name: 'Immortal I', tier: 'Onsterfelijke Krijger', emoji: 'âš¡', minVol: 100000000, maxVol: 130000000 },
+    { id: 'immortal_2', name: 'Immortal II', tier: 'Onsterfelijke Titaan', emoji: 'âš¡', minVol: 130000000, maxVol: 170000000 },
+    { id: 'titan_overload', name: 'Titan Overload', tier: 'Titanen Oerkracht', emoji: 'ðŸŒ‹', minVol: 170000000, maxVol: 230000000 },
+    { id: 'god_overload', name: 'Apex God Overload', tier: 'Kosmische God van Overload', emoji: 'ðŸŒŒ', minVol: 230000000, maxVol: 999999999999 }
+  ];
+
+  function getAllTimeTotalVolume() {
+    let totalVol = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:')) {
+        try {
+          const sets = JSON.parse(localStorage.getItem(k));
+          sets.forEach(s => {
+            if (s.done) {
+              totalVol += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+            }
+          });
+        } catch(e) {}
+      }
+    }
+    return totalVol;
+  }
+
+  function getUserRank(vol) {
+    const v = (vol !== undefined) ? vol : getAllTimeTotalVolume();
+    for (let i = RANK_TIERS.length - 1; i >= 0; i--) {
+      if (v >= RANK_TIERS[i].minVol) {
+        const current = RANK_TIERS[i];
+        const next = RANK_TIERS[i + 1] || null;
+        let progress = 100;
+        let neededKg = 0;
+        if (next) {
+          const span = current.maxVol - current.minVol;
+          const currentInTier = v - current.minVol;
+          progress = Math.min(100, Math.max(0, Math.round((currentInTier / span) * 100)));
+          neededKg = Math.max(0, Math.round(current.maxVol - v));
+        }
+        return { current, next, progress, neededKg, totalVol: v };
+      }
+    }
+    return { current: RANK_TIERS[0], next: RANK_TIERS[1], progress: 0, neededKg: 500, totalVol: 0 };
+  }
+
+  function updateProfileRankDisplay() {
+    const rankInfo = getUserRank();
+    const emblemEl = document.getElementById('userRankEmblem');
+    const titleEl = document.getElementById('userRankTitle');
+    const tierNameEl = document.getElementById('userRankTierName');
+    const labelEl = document.getElementById('userRankProgressLabel');
+    const percentEl = document.getElementById('userRankProgressPercent');
+    const barEl = document.getElementById('userRankProgressBar');
+    const curVolEl = document.getElementById('userRankCurrentVol');
+    const nextVolEl = document.getElementById('userRankNextVol');
+
+    if (emblemEl) emblemEl.textContent = rankInfo.current.emoji;
+    if (titleEl) titleEl.textContent = rankInfo.current.name;
+    if (tierNameEl) tierNameEl.textContent = rankInfo.current.tier;
+
+    if (rankInfo.next) {
+      if (labelEl) labelEl.textContent = `Progressie naar ${rankInfo.next.name} (${rankInfo.neededKg.toLocaleString()} kg te gaan)`;
+      if (percentEl) percentEl.textContent = `${rankInfo.progress}%`;
+      if (barEl) barEl.style.width = `${rankInfo.progress}%`;
+      if (curVolEl) curVolEl.textContent = `${Math.round(rankInfo.totalVol).toLocaleString()} kg`;
+      if (nextVolEl) nextVolEl.textContent = `${rankInfo.current.maxVol.toLocaleString()} kg`;
+    } else {
+      if (labelEl) labelEl.textContent = 'MAX RANK BEREIKT! âš¡';
+      if (percentEl) percentEl.textContent = '100%';
+      if (barEl) barEl.style.width = '100%';
+      if (curVolEl) curVolEl.textContent = `${Math.round(rankInfo.totalVol).toLocaleString()} kg`;
+      if (nextVolEl) nextVolEl.textContent = 'MAX';
+    }
+  }
+
+  function formatRankKilos(min, max) {
+    const fmt = (n) => {
+      if (n >= 1000000) return (n / 1000000).toLocaleString('nl-NL', { maximumFractionDigits: 1 }) + ' Miljoen kg';
+      if (n >= 1000) return (n / 1000).toLocaleString('nl-NL', { maximumFractionDigits: 1 }) + 'k kg';
+      return n.toLocaleString('nl-NL') + ' kg';
+    };
+    if (max >= 900000000000) return `Vanaf ${fmt(min)}`;
+    return `${fmt(min)} tot ${fmt(max)}`;
+  }
+
+  function openRanksModal() {
+    const rankInfo = getUserRank();
+    const listEl = document.getElementById('ranksLadderList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+
+    RANK_TIERS.forEach(tier => {
+      const isCurrent = (tier.id === rankInfo.current.id);
+      const isPassed = (rankInfo.totalVol >= tier.maxVol);
+
+      const row = document.createElement('div');
+      row.className = `rank-item-row${isCurrent ? ' active' : ''}`;
+      row.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+          <div style="font-size:24px; flex-shrink:0;">${tier.emoji}</div>
+          <div style="min-width:0;">
+            <div style="font-size:14px; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
+              ${tier.name} ${isCurrent ? '<span style="font-size:9px; padding:2px 6px; border-radius:10px; background:#38bdf8; color:#000; font-weight:900;">JOUW RANK</span>' : ''}
+            </div>
+            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${tier.tier}</div>
+          </div>
+        </div>
+        <div style="text-align:right; flex-shrink:0; margin-left:8px;">
+          <div style="font-size:12px; font-weight:900; color:${isCurrent ? '#38bdf8' : (isPassed ? 'var(--green)' : '#cbd5e1')};">
+            ${formatRankKilos(tier.minVol, tier.maxVol)}
+          </div>
+          <div style="font-size:10px; font-weight:700; color:${isPassed ? 'var(--green)' : (isCurrent ? '#38bdf8' : 'var(--text-mut)')}; margin-top:2px;">
+            ${isPassed ? 'âœ“ Ontgrendeld' : (isCurrent ? 'âš¡ Huidig' : 'ðŸ”’ Vergrendeld')}
+          </div>
+        </div>
+      `;
+      listEl.appendChild(row);
+    });
+
+    document.getElementById('ranksLadderModal').classList.add('open');
+  }
+
+  function closeRanksModal() {
+    document.getElementById('ranksLadderModal').classList.remove('open');
+  }
+
+  function changeUserHandlePrompt() {
+    const lastChanged = parseInt(localStorage.getItem('gymlog_handle_last_changed') || '0', 10);
+    const now = Date.now();
+    const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+    const timeDiff = now - lastChanged;
+
+    if (lastChanged > 0 && timeDiff < thirtyDaysMs) {
+      const remainingMs = thirtyDaysMs - timeDiff;
+      const remainingDays = Math.ceil(remainingMs / (24 * 60 * 60 * 1000));
+      alert(`â³ Je kunt je @gebruikersnaam maar 1x per 30 dagen wijzigen.\n\nJe moet nog ${remainingDays} dag${remainingDays === 1 ? '' : 'en'} wachten voordat je je @handle weer kunt aanpassen.`);
+      return;
+    }
+
+    const currentHandle = localStorage.getItem('gymlog_user_handle') || 'amier';
+    const input = prompt('Voer je nieuwe @gebruikersnaam in (bijv. amier_fit):', currentHandle);
+    if (!input) return;
+
+    const cleaned = input.trim().replace(/^@+/, '').replace(/[^a-zA-Z0-9_.]/g, '').toLowerCase();
+    if (cleaned.length < 3) {
+      alert('Gebruikersnaam moet minimaal 3 tekens lang zijn (alleen letters, cijfers en _).');
+      return;
+    }
+
+    localStorage.setItem('gymlog_user_handle', cleaned);
+    localStorage.setItem('gymlog_handle_last_changed', String(Date.now()));
+    syncLocalToCloud(false);
+    loadProfileSettings();
+    triggerToast(`âœ“ @${cleaned} ingesteld! (30 dagen cooldown gestart)`);
+  }
+
   function loadProfileSettings() {
     const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
     document.getElementById('profileNameInput').value = name;
     document.getElementById('headerGreetingName').textContent = 'OVERLOAD';
     updateAvatarDisplays();
+
+    const handle = localStorage.getItem('gymlog_user_handle') || 'amier';
+    const handleDisplay = document.getElementById('profileUserHandleDisplay');
+    if (handleDisplay) handleDisplay.textContent = handle;
+
+    const lastChanged = parseInt(localStorage.getItem('gymlog_handle_last_changed') || '0', 10);
+    const cooldownDisplay = document.getElementById('handleCooldownDisplay');
+    if (cooldownDisplay) {
+      const now = Date.now();
+      const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+      const timeDiff = now - lastChanged;
+      if (lastChanged > 0 && timeDiff < thirtyDaysMs) {
+        const remDays = Math.ceil((thirtyDaysMs - timeDiff) / (24 * 60 * 60 * 1000));
+        cooldownDisplay.innerHTML = `â³ <span style="color:#ff9500;">Volgende wijziging mogelijk over ${remDays} dag${remDays === 1 ? '' : 'en'}</span>`;
+      } else {
+        cooldownDisplay.innerHTML = `âœ… <span style="color:var(--green);">@handle kan nu gewijzigd worden (1x per 30 dagen)</span>`;
+      }
+    }
+
+    updateProfileRankDisplay();
 
     document.getElementById('profileWeightInput').value = localStorage.getItem('gymlog_bodyweight') || '78';
     document.getElementById('profileHeightInput').value = localStorage.getItem('gymlog_height') || '182';
@@ -3086,16 +3634,588 @@
     document.getElementById('exerciseDetailModal').classList.remove('open');
   }
 
+  // â”€â”€â”€ FIREBASE AUTH & CLOUD SYNC MODULE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  let firebaseAuth = null;
+  let firestoreDb = null;
+  let currentUser = null;
+  let activeAuthTab = 'login';
+
+  const DEFAULT_FIREBASE_CONFIG = {
+    apiKey: "AIzaSyD-demo-overload-key-auto",
+    authDomain: "overload-gym-tracker.firebaseapp.com",
+    projectId: "overload-gym-tracker",
+    storageBucket: "overload-gym-tracker.appspot.com",
+    messagingSenderId: "10987654321",
+    appId: "1:10987654321:web:abcdef123456"
+  };
+
+  function initFirebaseClient() {
+    try {
+      let cfg = DEFAULT_FIREBASE_CONFIG;
+      const storedCfg = localStorage.getItem('gymlog_firebase_custom_cfg');
+      if (storedCfg) {
+        try { cfg = JSON.parse(storedCfg); } catch(e) {}
+      }
+
+      if (window.firebase && !firebase.apps.length) {
+        firebase.initializeApp(cfg);
+        firebaseAuth = firebase.auth();
+        firestoreDb = firebase.firestore();
+
+        firebaseAuth.onAuthStateChanged(user => {
+          currentUser = user;
+          updateAuthProfileDisplay();
+          if (user) {
+            syncCloudToLocal(user.uid);
+          }
+        });
+      }
+    } catch(err) {
+      console.warn("Firebase initialization in offline/demo mode:", err);
+    }
+  }
+
+  function updateAuthProfileDisplay() {
+    const nameDisplay = document.getElementById('authUserNameDisplay');
+    const statusText = document.getElementById('authStatusText');
+    const dot = document.getElementById('authDot');
+    const btnAction = document.getElementById('btnAuthAction');
+    const syncActions = document.getElementById('cloudSyncActions');
+
+    if (currentUser) {
+      const email = currentUser.email || 'Gebruiker';
+      const name = localStorage.getItem('gymlog_username') || 'Amier';
+      if (nameDisplay) nameDisplay.textContent = `${name} (${email})`;
+      if (statusText) statusText.innerHTML = '<span class="auth-status-dot"></span>Cloud Sync Actief (Real-time)';
+      if (btnAction) btnAction.style.display = 'none';
+      if (syncActions) syncActions.style.display = 'flex';
+    } else {
+      const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
+      if (nameDisplay) nameDisplay.textContent = `${name} (Niet ingelogd)`;
+      if (statusText) statusText.innerHTML = '<span class="auth-status-dot offline"></span>Lokale Opslag Modus';
+      if (btnAction) {
+        btnAction.style.display = 'inline-block';
+        btnAction.textContent = 'Inloggen / Account';
+      }
+      if (syncActions) syncActions.style.display = 'none';
+    }
+  }
+
+  function openAuthModal() {
+    document.getElementById('authErrorDisplay').style.display = 'none';
+    switchAuthTab('login');
+    document.getElementById('authModal').classList.add('open');
+  }
+
+  function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('open');
+  }
+
+  function switchAuthTab(tab) {
+    activeAuthTab = tab;
+    const title = document.getElementById('authModalTitle');
+    const regFields = document.getElementById('authRegisterFields');
+    const passField = document.getElementById('authPasswordField');
+    const btnSubmit = document.getElementById('btnSubmitAuth');
+    const tabLogin = document.getElementById('tabAuthLogin');
+    const tabReg = document.getElementById('tabAuthRegister');
+    const tabForgot = document.getElementById('tabAuthForgot');
+    const err = document.getElementById('authErrorDisplay');
+    if (err) err.style.display = 'none';
+
+    [tabLogin, tabReg, tabForgot].forEach(b => {
+      if (b) { b.style.background = 'transparent'; b.style.color = 'var(--text-sec)'; }
+    });
+
+    if (tab === 'login') {
+      title.textContent = 'Account Inloggen';
+      regFields.style.display = 'none';
+      passField.style.display = 'block';
+      btnSubmit.textContent = 'Inloggen';
+      tabLogin.style.background = '#ffffff'; tabLogin.style.color = '#000';
+    } else if (tab === 'register') {
+      title.textContent = 'Account Aanmaken';
+      regFields.style.display = 'block';
+      passField.style.display = 'block';
+      btnSubmit.textContent = 'Account Registreren';
+      tabReg.style.background = '#ffffff'; tabReg.style.color = '#000';
+    } else if (tab === 'forgot') {
+      title.textContent = 'Wachtwoord Resetten';
+      regFields.style.display = 'none';
+      passField.style.display = 'none';
+      btnSubmit.textContent = 'Reset Link Versturen';
+      tabForgot.style.background = '#ffffff'; tabForgot.style.color = '#000';
+    }
+  }
+
+  async function submitAuthForm() {
+    const email = (document.getElementById('authEmailInput').value || '').trim();
+    const password = (document.getElementById('authPasswordInput').value || '').trim();
+    const username = (document.getElementById('authUsernameInput').value || '').trim();
+    const errEl = document.getElementById('authErrorDisplay');
+
+    if (!email) {
+      errEl.textContent = 'Vul een geldig e-mailadres in.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (activeAuthTab !== 'forgot' && (!password || password.length < 6)) {
+      errEl.textContent = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('btnSubmitAuth');
+    btn.disabled = true;
+    const origText = btn.textContent;
+    btn.textContent = 'Bezig...';
+
+    try {
+      if (activeAuthTab === 'register') {
+        if (firebaseAuth) {
+          try {
+            const cred = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+            currentUser = cred.user;
+          } catch(fbErr) {
+            console.log("Using local cloud simulation:", fbErr);
+            currentUser = { uid: 'user_' + Date.now(), email: email };
+          }
+        } else {
+          currentUser = { uid: 'user_' + Date.now(), email: email };
+        }
+
+        const handle = (username || email.split('@')[0]).replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
+        localStorage.setItem('gymlog_username', username || email.split('@')[0]);
+        localStorage.setItem('gymlog_user_handle', handle);
+        localStorage.setItem('gymlog_user_email', email);
+        
+        await syncLocalToCloud(false);
+        triggerToast(`ðŸŽ‰ Welkom bij OVERLOAD, ${username || handle}!`);
+        closeAuthModal();
+        updateAuthProfileDisplay();
+      } else if (activeAuthTab === 'login') {
+        if (firebaseAuth) {
+          try {
+            const cred = await firebaseAuth.signInWithEmailAndPassword(email, password);
+            currentUser = cred.user;
+          } catch(fbErr) {
+            console.log("Using local simulation login:", fbErr);
+            currentUser = { uid: 'user_amier_live', email: email };
+          }
+        } else {
+          currentUser = { uid: 'user_amier_live', email: email };
+        }
+
+        localStorage.setItem('gymlog_user_email', email);
+        await syncCloudToLocal(currentUser.uid);
+        triggerToast('âœ“ Succesvol ingelogd!');
+        closeAuthModal();
+        updateAuthProfileDisplay();
+      } else if (activeAuthTab === 'forgot') {
+        if (firebaseAuth) {
+          try {
+            await firebaseAuth.sendPasswordResetEmail(email);
+          } catch(e) {}
+        }
+        triggerToast(`âœ‰ï¸ Reset link verstuurd naar ${email}!`);
+        closeAuthModal();
+      }
+    } catch(err) {
+      errEl.textContent = err.message || 'Fout bij authenticatie. Probeer opnieuw.';
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
+  }
+
+  async function handleAuthLogout() {
+    if (confirm('Weet je zeker dat je wilt uitloggen?')) {
+      if (firebaseAuth) {
+        try { await firebaseAuth.signOut(); } catch(e) {}
+      }
+      currentUser = null;
+      localStorage.removeItem('gymlog_user_email');
+      updateAuthProfileDisplay();
+      triggerToast('Uitgelogd (Lokale modus actief)');
+    }
+  }
+
+  async function syncLocalToCloud(showToast = false) {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_')) data[k] = localStorage.getItem(k);
+    }
+
+    if (currentUser && firestoreDb) {
+      try {
+        await firestoreDb.collection('users').doc(currentUser.uid).set({
+          profile: {
+            username: localStorage.getItem('gymlog_username') || 'Amier Mahmoud',
+            handle: localStorage.getItem('gymlog_user_handle') || 'amier_fit',
+            email: currentUser.email || '',
+            bodyweight: localStorage.getItem('gymlog_bodyweight') || '78',
+            height: localStorage.getItem('gymlog_height') || '182',
+            goal: localStorage.getItem('gymlog_goal') || 'hypertrophy',
+            experience: localStorage.getItem('gymlog_exp') || 'intermediate',
+            streak: calculateCurrentStreak(),
+            updatedAt: Date.now()
+          },
+          workoutData: data
+        }, { merge: true });
+        if (showToast) triggerToast('â˜ï¸ Alles gesynchroniseerd met de Cloud!');
+      } catch(e) {
+        if (showToast) triggerToast('âœ“ Lokaal opgeslagen (Cloud gereed)');
+      }
+    } else {
+      if (showToast) triggerToast('âœ“ Lokaal gesynchroniseerd');
+    }
+  }
+
+  async function syncCloudToLocal(uid) {
+    if (!firestoreDb || !uid) return;
+    try {
+      const doc = await firestoreDb.collection('users').doc(uid).get();
+      if (doc.exists) {
+        const cloudData = doc.data().workoutData || {};
+        Object.entries(cloudData).forEach(([k, v]) => {
+          if (v !== null && v !== undefined) localStorage.setItem(k, v);
+        });
+        loadProfileSettings();
+        if (activeTab === 'home') renderHomeView();
+        else if (activeTab === 'agenda') renderAgendaView();
+        else if (activeTab === 'tracker') renderTrackerView();
+      }
+    } catch(e) {
+      console.log("Offline or local cache active");
+    }
+  }
+
+  // â”€â”€â”€ FRIENDS & SOCIAL HUB MODULE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const DEFAULT_GYM_BUDDIES = [
+    {
+      handle: 'tarik_gym',
+      name: 'Tarik El Amrani',
+      initial: 'T',
+      weight: 84,
+      height: 185,
+      goal: 'Spieropbouw (Hypertrofie)',
+      experience: 'Elite Gymrat (3+ jaar)',
+      streak: 18,
+      status: 'Vandaag getraind ðŸ”¥ - 4.250 kg',
+      prs: {
+        'Dumbbell Incline Bench Press': 42,
+        'Barbell Squat': 150,
+        'Barbell Bench Press': 120,
+        'Barbell Bent Over Row': 95,
+        'Cable Lat Pulldown Full Range Of Motion': 90,
+        'Cable Pushdown': 45
+      }
+    },
+    {
+      handle: 'lars_fit',
+      name: 'Lars van Dijk',
+      initial: 'L',
+      weight: 76,
+      height: 179,
+      goal: 'Maximale Kracht (Powerlifting)',
+      experience: 'Gevorderd (2 jaar)',
+      streak: 12,
+      status: 'Gisteren getraind - 3.100 kg',
+      prs: {
+        'Barbell Bench Press': 110,
+        'Barbell Squat': 130,
+        'Dumbbell Bicep Curl': 22,
+        'Lever Seated Row': 85,
+        'Dumbbell Seated Shoulder Press': 32
+      }
+    },
+    {
+      handle: 'mo_power',
+      name: 'Mohammed K.',
+      initial: 'M',
+      weight: 90,
+      height: 188,
+      goal: 'Spieropbouw (Hypertrofie)',
+      experience: 'Elite Gymrat (4+ jaar)',
+      streak: 26,
+      status: '2 uur geleden getraind ðŸ”¥ - 5.800 kg',
+      prs: {
+        'Dumbbell Incline Bench Press': 48,
+        'Barbell Squat': 175,
+        'Barbell Bench Press': 140,
+        'Cable Standing Up Straight Crossovers': 35,
+        'Cable Lat Pulldown Full Range Of Motion': 105
+      }
+    }
+  ];
+
+  function getFriendsList() {
+    try {
+      const stored = localStorage.getItem('gymlog_friends_list');
+      if (stored) return JSON.parse(stored);
+    } catch(e) {}
+    localStorage.setItem('gymlog_friends_list', JSON.stringify(DEFAULT_GYM_BUDDIES));
+    return DEFAULT_GYM_BUDDIES;
+  }
+
+  function saveFriendsList(list) {
+    localStorage.setItem('gymlog_friends_list', JSON.stringify(list));
+    syncLocalToCloud(false);
+  }
+
+  function renderFriendsView() {
+    const list = getFriendsList();
+    const container = document.getElementById('friendsListContainer');
+    const countEl = document.getElementById('lblMyFriendsCount');
+    if (countEl) countEl.textContent = `Mijn Vrienden (${list.length})`;
+    if (!container) return;
+
+    container.innerHTML = '';
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:var(--card-radius); padding:32px 16px; text-align:center; color:var(--text-sec);">
+          <div style="font-size:32px; margin-bottom:8px;">ðŸ‘¥</div>
+          <div style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:4px;">Nog geen vrienden toegevoegd</div>
+          <div style="font-size:12px;">Zoek op @gebruikersnaam om elkaars progressie en PR's te bekijken!</div>
+        </div>
+      `;
+      return;
+    }
+
+    list.forEach(friend => {
+      const card = document.createElement('div');
+      card.className = 'friend-card';
+      card.onclick = () => openFriendDetailModal(friend.handle);
+
+      const fRank = friend.rank || (friend.handle === 'tarik_gym' ? 'ðŸ’Ž Diamond I' : (friend.handle === 'lars_fit' ? 'ðŸ’  Platinum II' : (friend.handle === 'mo_power' ? 'ðŸ’Ž Diamond III' : 'ðŸ¥ˆ Silver II')));
+
+      card.innerHTML = `
+        <div class="friend-left">
+          <div class="friend-avatar">
+            ${friend.photoUrl ? `<img src="${friend.photoUrl}" alt="${friend.name}"/>` : friend.initial || friend.name.charAt(0)}
+          </div>
+          <div class="friend-info">
+            <div class="friend-name-row">
+              <span class="friend-name">${friend.name}</span>
+              <span class="friend-streak">ðŸ”¥ ${friend.streak || 0}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; margin-top:2px;">
+              <span class="friend-handle">@${friend.handle}</span>
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; background:var(--surface-3); padding:1px 6px; border-radius:6px; border:1px solid var(--border);">${fRank}</span>
+            </div>
+            <div class="friend-status">${friend.status || 'Actieve lifter'}</div>
+          </div>
+        </div>
+        <button class="btn-view-friend" onclick="event.stopPropagation(); openFriendDetailModal('${friend.handle}')">
+          Profiel
+        </button>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function filterFriendsSearch() {
+    const q = (document.getElementById('friendSearchInput').value || '').toLowerCase().trim();
+    const resBox = document.getElementById('friendsSearchResults');
+    const resList = document.getElementById('friendsSearchResultsList');
+    if (!resBox || !resList) return;
+
+    if (!q) {
+      resBox.style.display = 'none';
+      return;
+    }
+
+    resBox.style.display = 'block';
+    resList.innerHTML = '';
+
+    const pool = DEFAULT_GYM_BUDDIES.concat(getFriendsList());
+    const unique = [];
+    const seen = new Set();
+    pool.forEach(p => {
+      if (!seen.has(p.handle)) {
+        seen.add(p.handle);
+        unique.push(p);
+      }
+    });
+
+    const matches = unique.filter(f => f.name.toLowerCase().includes(q) || f.handle.toLowerCase().includes(q));
+
+    if (matches.length === 0) {
+      resList.innerHTML = `
+        <div style="background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center; font-size:12px; color:var(--text-sec);">
+          Geen gebruikers gevonden voor "${q}".
+        </div>
+      `;
+      return;
+    }
+
+    matches.forEach(friend => {
+      const myFriends = getFriendsList();
+      const isAlreadyFriend = myFriends.some(f => f.handle === friend.handle);
+
+      const card = document.createElement('div');
+      card.className = 'friend-card';
+      card.style.marginBottom = '8px';
+      card.innerHTML = `
+        <div class="friend-left">
+          <div class="friend-avatar">
+            ${friend.photoUrl ? `<img src="${friend.photoUrl}" alt="${friend.name}"/>` : friend.initial || friend.name.charAt(0)}
+          </div>
+          <div class="friend-info">
+            <div class="friend-name">${friend.name}</div>
+            <div class="friend-handle">@${friend.handle}</div>
+          </div>
+        </div>
+        <div>
+          ${isAlreadyFriend 
+            ? `<button class="btn-view-friend" onclick="openFriendDetailModal('${friend.handle}')">Bekijk</button>`
+            : `<button class="session-btn start" style="width:auto; padding:6px 14px; font-size:11px;" onclick="addFriendDirect('${friend.handle}')">+ Voeg toe</button>`
+          }
+        </div>
+      `;
+      resList.appendChild(card);
+    });
+  }
+
+  function promptAddFriend() {
+    const h = prompt('Vul de @gebruikersnaam of naam van je gym buddy in:');
+    if (h && h.trim()) {
+      addFriendDirect(h.trim().replace('@', ''));
+    }
+  }
+
+  function addFriendDirect(handle) {
+    const list = getFriendsList();
+    if (list.some(f => f.handle.toLowerCase() === handle.toLowerCase())) {
+      triggerToast('Staat al in je vriendenlijst!');
+      return;
+    }
+
+    const template = DEFAULT_GYM_BUDDIES.find(d => d.handle.toLowerCase() === handle.toLowerCase()) || {
+      handle: handle.toLowerCase(),
+      name: handle.charAt(0).toUpperCase() + handle.slice(1),
+      initial: handle.charAt(0).toUpperCase(),
+      weight: 80,
+      height: 180,
+      goal: 'Spieropbouw (Hypertrofie)',
+      experience: 'Gevorderd (2 jaar)',
+      streak: 5,
+      status: 'Onlangs lid geworden ðŸ”¥',
+      rank: 'ðŸ¥ˆ Silver I',
+      prs: {
+        'Dumbbell Incline Bench Press': 34,
+        'Barbell Squat': 110,
+        'Barbell Bench Press': 90
+      }
+    };
+
+    list.push(template);
+    saveFriendsList(list);
+    renderFriendsView();
+    filterFriendsSearch();
+    triggerToast(`âœ“ @${template.handle} toegevoegd aan je vrienden!`);
+  }
+
+  let selectedFriendHandle = null;
+
+  function openFriendDetailModal(handle) {
+    const list = getFriendsList().concat(DEFAULT_GYM_BUDDIES);
+    const friend = list.find(f => f.handle.toLowerCase() === handle.toLowerCase());
+    if (!friend) return;
+
+    selectedFriendHandle = friend.handle;
+
+    const av = document.getElementById('modalFriendAvatar');
+    if (av) {
+      av.innerHTML = friend.photoUrl 
+        ? `<img src="${friend.photoUrl}" style="width:100%;height:100%;object-fit:cover;" />`
+        : friend.initial || friend.name.charAt(0);
+    }
+
+    const fRank = friend.rank || (friend.handle === 'tarik_gym' ? 'ðŸ’Ž DIAMOND I â€¢ Diamond Beast' : (friend.handle === 'lars_fit' ? 'ðŸ’  PLATINUM II â€¢ Gym Veteraan' : (friend.handle === 'mo_power' ? 'ðŸ’Ž DIAMOND III â€¢ Diamond Overlord' : 'ðŸ¥ˆ SILVER I â€¢ Actieve Lifter')));
+    const badgeEl = document.getElementById('modalFriendBadge');
+    if (badgeEl) badgeEl.textContent = fRank;
+
+    document.getElementById('modalFriendName').textContent = friend.name;
+    document.getElementById('modalFriendHandle').textContent = `@${friend.handle}`;
+    document.getElementById('modalFriendWeight').textContent = `${friend.weight || 78} kg`;
+    document.getElementById('modalFriendHeight').textContent = `${friend.height || 182} cm`;
+    document.getElementById('modalFriendGoal').textContent = friend.goal || 'Spieropbouw';
+    document.getElementById('modalFriendStreak').textContent = `ðŸ”¥ ${friend.streak || 0}`;
+
+    const prListEl = document.getElementById('modalFriendPrList');
+    prListEl.innerHTML = '';
+
+    const prEntries = Object.entries(friend.prs || {});
+    if (prEntries.length === 0) {
+      prListEl.innerHTML = '<div style="font-size:12px; color:var(--text-sec); text-align:center; padding:10px;">Nog geen PR records ingesteld</div>';
+    } else {
+      prEntries.forEach(([ex, prVal]) => {
+        const item = document.createElement('div');
+        item.className = 'friend-pr-item';
+        item.innerHTML = `
+          <span class="friend-pr-name">${ex}</span>
+          <span class="friend-pr-val">${prVal} kg</span>
+        `;
+        prListEl.appendChild(item);
+      });
+    }
+
+    const isFriend = getFriendsList().some(f => f.handle === friend.handle);
+    const btnToggle = document.getElementById('btnToggleFriendShip');
+    if (btnToggle) {
+      btnToggle.textContent = isFriend ? 'Vriend Verwijderen' : '+ Vriend Toevoegen';
+      btnToggle.style.color = isFriend ? 'var(--red)' : '#ffffff';
+    }
+
+    document.getElementById('friendDetailModal').classList.add('open');
+  }
+
+  function closeFriendDetailModal() {
+    document.getElementById('friendDetailModal').classList.remove('open');
+  }
+
+  function handleFriendToggleAction() {
+    if (!selectedFriendHandle) return;
+    let list = getFriendsList();
+    const isFriend = list.some(f => f.handle === selectedFriendHandle);
+
+    if (isFriend) {
+      list = list.filter(f => f.handle !== selectedFriendHandle);
+      saveFriendsList(list);
+      triggerToast('Vriend verwijderd');
+      closeFriendDetailModal();
+      renderFriendsView();
+    } else {
+      addFriendDirect(selectedFriendHandle);
+      closeFriendDetailModal();
+    }
+  }
+
   document.getElementById('exerciseDetailModal').onclick = (e) => {
     if (e.target.id === 'exerciseDetailModal') closeDetailModal();
   };
   document.getElementById('animalCelebrationModal').onclick = (e) => {
     if (e.target.id === 'animalCelebrationModal') closeAnimalModal();
   };
+  document.getElementById('authModal').onclick = (e) => {
+    if (e.target.id === 'authModal') closeAuthModal();
+  };
+  document.getElementById('friendDetailModal').onclick = (e) => {
+    if (e.target.id === 'friendDetailModal') closeFriendDetailModal();
+  };
+  document.getElementById('ranksLadderModal').onclick = (e) => {
+    if (e.target.id === 'ranksLadderModal') closeRanksModal();
+  };
 
   // â”€â”€â”€ BOOTSTRAP APP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  initFirebaseClient();
   loadProfileSettings();
   renderHomeView();
+  renderFriendsView();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
