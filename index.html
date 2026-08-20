@@ -655,7 +655,7 @@
       <div class="profile-card" style="text-align:center; padding:22px 16px;">
         <div style="position:relative; width:92px; height:92px; margin:0 auto 12px;">
           <div id="profilePhotoDisplay" onclick="document.getElementById('profilePhotoInput').click()" style="width:92px; height:92px; border-radius:50%; background:var(--surface-3); border:2px solid #64748b; display:flex; align-items:center; justify-content:center; overflow:hidden; font-size:32px; font-weight:900; color:#fff; box-shadow:0 0 16px rgba(255,255,255,0.1); cursor:pointer;">
-            <span id="profilePhotoInitial">A</span>
+            <span id="profilePhotoInitial">U</span>
           </div>
           <button type="button" onclick="document.getElementById('profilePhotoInput').click()" style="position:absolute; bottom:0; right:0; width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #121316; color:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.5);" title="Kies Foto">
             <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
@@ -663,8 +663,8 @@
         </div>
         <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;" onchange="handleProfilePhotoUpload(event)" />
         
-        <div style="font-size:18px; font-weight:800; color:#fff;" id="profileDisplayName">Amier Mahmoud</div>
-        <div style="font-size:12px; color:var(--text-sec); font-weight:600; margin-bottom:12px;" id="profileDisplayHandle">@amier_fit</div>
+        <div style="font-size:18px; font-weight:800; color:#fff;" id="profileDisplayName">Jouw Profiel</div>
+        <div style="font-size:12px; color:var(--text-sec); font-weight:600; margin-bottom:12px;" id="profileDisplayHandle">@gebruiker</div>
 
         <div style="display:flex; justify-content:center; gap:8px;">
           <button type="button" onclick="document.getElementById('profilePhotoInput').click()" style="padding:7px 16px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border-light); color:var(--text); font-size:12px; font-weight:700; cursor:pointer;">
@@ -717,16 +717,16 @@
         <div id="handleCooldownDisplay" style="font-size:11px; color:var(--text-mut); margin-bottom:12px;"></div>
 
         <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
-        <input type="text" class="profile-input" id="profileNameInput" value="Amier Mahmoud" onchange="saveProfileSettings()" />
+        <input type="text" class="profile-input" id="profileNameInput" placeholder="Vul je voor- en achternaam in..." onchange="saveProfileSettings()" />
         
         <div class="profile-grid-2">
           <div>
             <div class="profile-field-label">Gewicht (kg)</div>
-            <input type="number" step="0.5" class="profile-input" id="profileWeightInput" placeholder="78" onchange="saveProfileSettings()" />
+            <input type="number" step="0.5" class="profile-input" id="profileWeightInput" placeholder="kg" onchange="saveProfileSettings()" />
           </div>
           <div>
             <div class="profile-field-label">Lengte (cm)</div>
-            <input type="number" class="profile-input" id="profileHeightInput" placeholder="182" onchange="saveProfileSettings()" />
+            <input type="number" class="profile-input" id="profileHeightInput" placeholder="cm" onchange="saveProfileSettings()" />
           </div>
         </div>
 
@@ -1029,29 +1029,29 @@
     triggerToast(`Taal gewijzigd naar: ${lang.toUpperCase()}`);
   }
 
-  // DEFAULT ROUTINE SCHEMA
+  // DEFAULT ROUTINE SCHEMA MET LEGE OEFENINGEN PER SPIERGROEP
   const DEFAULT_ROUTINE_SCHEMA = [
     {
       name: 'Maandag', label: 'PUSH WORKOUT',
       groups: [
-        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
-        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
-        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Dips'] }
+        { title: 'Borst', exercises: [] },
+        { title: 'Schouders', exercises: [] },
+        { title: 'Triceps', exercises: [] }
       ]
     },
     {
       name: 'Dinsdag', label: 'PULL WORKOUT',
       groups: [
-        { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Seated Cable Row'] },
-        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
-        { title: 'Voorarmen', exercises: ['Wrist Curl'] }
+        { title: 'Rug', exercises: [] },
+        { title: 'Biceps', exercises: [] },
+        { title: 'Voorarmen', exercises: [] }
       ]
     },
     {
       name: 'Woensdag', label: 'BENEN WORKOUT',
       groups: [
-        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Romanian Deadlift', 'Standing Calf Raise'] },
-        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+        { title: 'Benen', exercises: [] },
+        { title: 'Buik', exercises: [] }
       ]
     },
     {
@@ -1061,15 +1061,19 @@
     {
       name: 'Vrijdag', label: 'UPPER BODY OVERLOAD',
       groups: [
-        { title: 'Borst & Rug', exercises: ['Incline Barbell Bench Press', 'Pull up', 'Dumbbell Row'] },
-        { title: 'Schouders & Armen', exercises: ['Cable Lateral Raise', 'Incline Dumbbell Curl', 'Overhead Tricep Extension'] }
+        { title: 'Borst', exercises: [] },
+        { title: 'Rug', exercises: [] },
+        { title: 'Schouders', exercises: [] },
+        { title: 'Triceps', exercises: [] },
+        { title: 'Biceps', exercises: [] }
       ]
     },
     {
       name: 'Zaterdag', label: 'LOWER BODY & ARMEN',
       groups: [
-        { title: 'Benen', exercises: ['Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl'] },
-        { title: 'Armen Super-Set', exercises: ['Preacher Curl', 'Skull Crusher'] }
+        { title: 'Benen', exercises: [] },
+        { title: 'Buik', exercises: [] },
+        { title: 'Voorarmen', exercises: [] }
       ]
     },
     {
@@ -1097,12 +1101,15 @@
   }
 
   function getActiveRoutineSchema() {
-    const s = localStorage.getItem('gymlog_routine_schema');
-    return s ? JSON.parse(s) : DEFAULT_ROUTINE_SCHEMA;
+    const s = localStorage.getItem('gymlog_routine_schema_v2');
+    if (s) {
+      try { return JSON.parse(s); } catch(e) {}
+    }
+    return DEFAULT_ROUTINE_SCHEMA;
   }
 
   function saveActiveRoutineSchema(s) {
-    localStorage.setItem('gymlog_routine_schema', JSON.stringify(s));
+    localStorage.setItem('gymlog_routine_schema_v2', JSON.stringify(s));
   }
 
   function loadExerciseSets(dateStr, dayIdx, exName) {
@@ -1215,10 +1222,22 @@
       gTitle.textContent = grp.title;
       gBlock.appendChild(gTitle);
 
-      grp.exercises.forEach(exName => {
-        const card = createExerciseCard(dateStr, dayIdx, gIdx, exName, allExercises);
-        gBlock.appendChild(card);
-      });
+      if (!grp.exercises || grp.exercises.length === 0) {
+        const emptyEx = document.createElement('div');
+        emptyEx.style.cssText = 'background:var(--surface-1); border:1px dashed var(--border-light); border-radius:14px; padding:16px; text-align:center; margin-bottom:12px;';
+        emptyEx.innerHTML = `
+          <div style="font-size:12px; color:var(--text-sec); font-weight:700; margin-bottom:8px;">Nog geen oefeningen toegevoegd aan ${grp.title}</div>
+          <button class="chip-btn" style="display:inline-flex; align-items:center; gap:6px; background:var(--surface-2); border:1px solid var(--blue); color:var(--blue); font-size:11px; padding:6px 14px; cursor:pointer;" onclick="activeCategoryFilter='${grp.title}'; switchTab('search');">
+            + Zoek & Voeg ${grp.title} Oefening Toe
+          </button>
+        `;
+        gBlock.appendChild(emptyEx);
+      } else {
+        grp.exercises.forEach(exName => {
+          const card = createExerciseCard(dateStr, dayIdx, gIdx, exName, allExercises);
+          gBlock.appendChild(card);
+        });
+      }
 
       container.appendChild(gBlock);
     });
@@ -1344,11 +1363,40 @@
     if (subEl) subEl.textContent = subText;
   }
 
+  // HELPER OM VORIGE LOGS VOOR EEN OEFENING OP TE HALEN
+  function getPreviousExerciseLogs(currentDateStr, exName) {
+    let latestDate = null;
+    let latestSets = null;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:') && k.endsWith(`:${exName}`)) {
+        const parts = k.split(':');
+        if (parts.length >= 4) {
+          const dStr = parts[1];
+          if (dStr < currentDateStr) {
+            if (!latestDate || dStr > latestDate) {
+              try {
+                const s = JSON.parse(localStorage.getItem(k));
+                if (s && s.length > 0 && s.some(item => (parseFloat(item.weight) > 0 || parseFloat(item.reps) > 0))) {
+                  latestDate = dStr;
+                  latestSets = s;
+                }
+              } catch(e) {}
+            }
+          }
+        }
+      }
+    }
+    return latestDate ? { date: latestDate, sets: latestSets } : null;
+  }
+
   // EXERCISE CARD COMPONENT
   function createExerciseCard(dateStr, dayIdx, groupIdx, exName, allExercisesList) {
     const exData = ALL_EXERCISES_DATABASE[exName] || { category: 'Gym', equipment: 'Barbell', gif: getExerciseGif(exName), tier: 'B' };
     const sets = loadExerciseSets(dateStr, dayIdx, exName);
     const isCompleted = sets.length > 0 && sets.every(s => s.done);
+    const prevLog = getPreviousExerciseLogs(dateStr, exName);
 
     const card = document.createElement('div');
     card.className = `ex-card${isCompleted ? ' completed' : ''}`;
@@ -1391,6 +1439,23 @@
     card.appendChild(top);
 
     const setsContainer = document.createElement('div');
+
+    if (prevLog && prevLog.sets && prevLog.sets.length > 0) {
+      const validSets = prevLog.sets.filter(s => s.weight && s.reps);
+      if (validSets.length > 0) {
+        const prevSummary = document.createElement('div');
+        prevSummary.style.cssText = 'display:flex; align-items:center; justify-content:space-between; background:rgba(56, 189, 248, 0.08); border:1px solid rgba(56, 189, 248, 0.25); border-radius:10px; padding:6px 10px; margin-bottom:10px; font-size:11px;';
+        prevSummary.innerHTML = `
+          <span style="font-weight:800; color:var(--blue); display:inline-flex; align-items:center; gap:4px;">
+            <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+            Vorige training:
+          </span>
+          <span style="font-weight:700; color:#fff; font-family:var(--font-mono);">${validSets.map((s, idx) => `S${idx+1}: ${s.weight}kÃ—${s.reps}`).join('  ')}</span>
+        `;
+        setsContainer.appendChild(prevSummary);
+      }
+    }
+
     const setsHead = document.createElement('div');
     setsHead.className = 'sets-head';
     setsHead.innerHTML = `
@@ -1410,14 +1475,19 @@
         const row = document.createElement('div');
         row.className = 'set-row';
 
+        const prevSet = (prevLog && prevLog.sets && prevLog.sets[sIdx]) ? prevLog.sets[sIdx] : null;
+        const prevKg = (prevSet && prevSet.weight) ? prevSet.weight : '';
+        const prevReps = (prevSet && prevSet.reps) ? prevSet.reps : '';
+
         const indexEl = document.createElement('div');
         indexEl.className = 'set-idx';
-        indexEl.textContent = sIdx + 1;
+        indexEl.innerHTML = `<div>${sIdx + 1}</div>` + (prevKg ? `<div style="font-size:8px; color:var(--blue); font-weight:800; line-height:1; margin-top:2px;" title="Vorige: ${prevKg}kg x ${prevReps}">${prevKg}k</div>` : '');
 
         const weightInp = document.createElement('input');
         weightInp.type = 'number';
         weightInp.className = 'set-input';
-        weightInp.placeholder = 'kg';
+        weightInp.placeholder = prevKg ? `${prevKg} kg` : 'kg';
+        weightInp.title = prevKg ? `Vorige training: ${prevKg} kg` : 'Voer gewicht in';
         weightInp.value = setObj.weight;
         weightInp.oninput = (e) => {
           setObj.weight = e.target.value;
@@ -1429,7 +1499,8 @@
         const repsInp = document.createElement('input');
         repsInp.type = 'number';
         repsInp.className = 'set-input';
-        repsInp.placeholder = 'reps';
+        repsInp.placeholder = prevReps ? `${prevReps}` : 'reps';
+        repsInp.title = prevReps ? `Vorige training: ${prevReps} reps` : 'Voer herhalingen in';
         repsInp.value = setObj.reps;
         repsInp.oninput = (e) => {
           setObj.reps = e.target.value;
@@ -1493,7 +1564,11 @@
     addSetBtn.textContent = '+ Set toevoegen';
     addSetBtn.onclick = () => {
       const last = sets[sets.length - 1] || { weight: '', reps: '' };
-      sets.push({ weight: last.weight, reps: last.reps, done: false });
+      const nextIdx = sets.length;
+      const prevForNext = (prevLog && prevLog.sets && prevLog.sets[nextIdx]) ? prevLog.sets[nextIdx] : null;
+      const initialWeight = last.weight || (prevForNext ? prevForNext.weight : '');
+      const initialReps = last.reps || (prevForNext ? prevForNext.reps : '');
+      sets.push({ weight: initialWeight, reps: initialReps, done: false });
       saveExerciseSets(dateStr, dayIdx, exName, sets);
       renderRows();
       updateHomeStats(dateStr, dayIdx, allExercisesList);
@@ -1901,7 +1976,7 @@
     const cleaned = (val || '').trim().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
     if (!cleaned) return;
 
-    const currentHandle = localStorage.getItem('gymlog_user_handle') || 'amier_fit';
+    const currentHandle = localStorage.getItem('gymlog_user_handle') || '';
     if (cleaned === currentHandle) return;
 
     const lastChanged = parseInt(localStorage.getItem('gymlog_handle_last_changed') || '0', 10);
@@ -1939,10 +2014,10 @@
   }
 
   function loadProfileSettings() {
-    const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
-    const handle = localStorage.getItem('gymlog_user_handle') || 'amier_fit';
-    const weight = localStorage.getItem('gymlog_weight') || '78';
-    const height = localStorage.getItem('gymlog_height') || '182';
+    const name = localStorage.getItem('gymlog_username') || '';
+    const handle = localStorage.getItem('gymlog_user_handle') || '';
+    const weight = localStorage.getItem('gymlog_weight') || '';
+    const height = localStorage.getItem('gymlog_height') || '';
     const goal = localStorage.getItem('gymlog_goal') || 'hypertrophy';
     const rest = localStorage.getItem('gymlog_rest') || '90';
     const lang = getLang();
@@ -1955,8 +2030,8 @@
     if (document.getElementById('profileRestSelect')) document.getElementById('profileRestSelect').value = rest;
     if (document.getElementById('languageSelect')) document.getElementById('languageSelect').value = lang;
 
-    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name;
-    if (document.getElementById('profileDisplayHandle')) document.getElementById('profileDisplayHandle').textContent = `@${handle}`;
+    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name || 'Jouw Profiel';
+    if (document.getElementById('profileDisplayHandle')) document.getElementById('profileDisplayHandle').textContent = handle ? `@${handle}` : '@gebruiker';
 
     const photo = localStorage.getItem('gymlog_profile_photo');
     const photoDisp = document.getElementById('profilePhotoDisplay');
@@ -1964,7 +2039,7 @@
     const hdrAvatar = document.getElementById('headerAvatarEl');
     const btnRemove = document.getElementById('btnRemoveProfilePhoto');
 
-    const initChar = name.charAt(0).toUpperCase() || 'A';
+    const initChar = name ? name.charAt(0).toUpperCase() : 'U';
     if (photo && photoDisp) {
       photoDisp.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;" />`;
       if (hdrAvatar) hdrAvatar.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;" />`;
@@ -1980,9 +2055,9 @@
   }
 
   function saveProfileSettings() {
-    const name = document.getElementById('profileNameInput').value || 'Amier Mahmoud';
-    const weight = document.getElementById('profileWeightInput').value || '78';
-    const height = document.getElementById('profileHeightInput').value || '182';
+    const name = (document.getElementById('profileNameInput').value || '').trim();
+    const weight = (document.getElementById('profileWeightInput').value || '').trim();
+    const height = (document.getElementById('profileHeightInput').value || '').trim();
     const goal = document.getElementById('profileGoalSelect').value;
     const rest = document.getElementById('profileRestSelect').value;
 
@@ -1992,8 +2067,12 @@
     localStorage.setItem('gymlog_goal', goal);
     localStorage.setItem('gymlog_rest', rest);
 
-    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name;
-    triggerToast('Opgeslagen');
+    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name || 'Jouw Profiel';
+    const initChar = name ? name.charAt(0).toUpperCase() : 'U';
+    const hdrAvatar = document.getElementById('headerAvatarEl');
+    const photo = localStorage.getItem('gymlog_profile_photo');
+    if (!photo && hdrAvatar) hdrAvatar.textContent = initChar;
+    triggerToast('Profiel opgeslagen!');
   }
 
   function handleProfilePhotoUpload(e) {
@@ -2037,7 +2116,7 @@
     triggerToast('Profielfoto verwijderd');
   }
 
-  // === WEERGAVE, FULL-APP ACHTERGROND THEMA'S & GRIJS ===
+  // === WEERGAVE, FULL-APP ACHTERGROND THEMA'S (16 KLEUREN) ===
   const THEME_PALETTES = [
     {
       id: 'black',
@@ -2076,8 +2155,26 @@
       }
     },
     {
+      id: 'titanium',
+      name: 'Titanium Steel (Zilver/Metaal)',
+      swatch: '#334155',
+      vars: {
+        '--bg': '#14181f',
+        '--surface-1': '#1e242e',
+        '--surface-2': '#29323f',
+        '--surface-3': '#384354',
+        '--border': '#475569',
+        '--border-light': '#64748b',
+        '--text': '#f8fafc',
+        '--text-sec': '#cbd5e1',
+        '--text-mut': '#94a3b8',
+        '--blue': '#94a3b8',
+        '--blue-glow': 'rgba(148, 163, 184, 0.45)'
+      }
+    },
+    {
       id: 'cyan',
-      name: 'Electric Cyan',
+      name: 'Electric Cyan (Blauw)',
       swatch: '#0284c7',
       vars: {
         '--bg': '#06131c',
@@ -2094,8 +2191,44 @@
       }
     },
     {
+      id: 'ocean',
+      name: 'Deep Ocean (Diepzee)',
+      swatch: '#0369a1',
+      vars: {
+        '--bg': '#041421',
+        '--surface-1': '#0a2235',
+        '--surface-2': '#0f334f',
+        '--surface-3': '#174a72',
+        '--border': '#1d5e91',
+        '--border-light': '#2b82c7',
+        '--text': '#ffffff',
+        '--text-sec': '#bae6fd',
+        '--text-mut': '#7dd3fc',
+        '--blue': '#0ea5e9',
+        '--blue-glow': 'rgba(14, 165, 233, 0.5)'
+      }
+    },
+    {
+      id: 'aquamarine',
+      name: 'Aquamarine (Turkoois)',
+      swatch: '#06b6d4',
+      vars: {
+        '--bg': '#04181a',
+        '--surface-1': '#0a282b',
+        '--surface-2': '#103c40',
+        '--surface-3': '#18555b',
+        '--border': '#226f77',
+        '--border-light': '#2f9aa5',
+        '--text': '#ffffff',
+        '--text-sec': '#a5f3fc',
+        '--text-mut': '#67e8f9',
+        '--blue': '#22d3ee',
+        '--blue-glow': 'rgba(34, 211, 238, 0.5)'
+      }
+    },
+    {
       id: 'green',
-      name: 'Toxic Emerald',
+      name: 'Toxic Emerald (Groen)',
       swatch: '#059669',
       vars: {
         '--bg': '#05160e',
@@ -2112,8 +2245,26 @@
       }
     },
     {
+      id: 'matcha',
+      name: 'Matcha Olive (Saliagroen)',
+      swatch: '#65a30d',
+      vars: {
+        '--bg': '#0f170a',
+        '--surface-1': '#192612',
+        '--surface-2': '#25381b',
+        '--surface-3': '#344f26',
+        '--border': '#476935',
+        '--border-light': '#63914a',
+        '--text': '#ffffff',
+        '--text-sec': '#d9f99d',
+        '--text-mut': '#bef264',
+        '--blue': '#84cc16',
+        '--blue-glow': 'rgba(132, 204, 22, 0.5)'
+      }
+    },
+    {
       id: 'purple',
-      name: 'Cyberpunk Violet',
+      name: 'Cyberpunk Violet (Neon Paars)',
       swatch: '#7c3aed',
       vars: {
         '--bg': '#10061a',
@@ -2130,8 +2281,26 @@
       }
     },
     {
+      id: 'cosmic',
+      name: 'Cosmic Midnight (Indigo)',
+      swatch: '#4f46e5',
+      vars: {
+        '--bg': '#08091a',
+        '--surface-1': '#10122e',
+        '--surface-2': '#191c44',
+        '--surface-3': '#24285f',
+        '--border': '#333882',
+        '--border-light': '#484eb3',
+        '--text': '#ffffff',
+        '--text-sec': '#c7d2fe',
+        '--text-mut': '#a5b4fc',
+        '--blue': '#818cf8',
+        '--blue-glow': 'rgba(129, 140, 248, 0.5)'
+      }
+    },
+    {
       id: 'red',
-      name: 'Blood Crimson',
+      name: 'Blood Crimson (Bloedrood)',
       swatch: '#dc2626',
       vars: {
         '--bg': '#170607',
@@ -2148,8 +2317,26 @@
       }
     },
     {
+      id: 'ruby',
+      name: 'Ruby Wine (Bordeaux)',
+      swatch: '#9f1239',
+      vars: {
+        '--bg': '#17050b',
+        '--surface-1': '#280a15',
+        '--surface-2': '#3d1021',
+        '--surface-3': '#55172f',
+        '--border': '#732140',
+        '--border-light': '#9d3058',
+        '--text': '#ffffff',
+        '--text-sec': '#fecdd3',
+        '--text-mut': '#fda4af',
+        '--blue': '#fb7185',
+        '--blue-glow': 'rgba(251, 113, 133, 0.5)'
+      }
+    },
+    {
       id: 'orange',
-      name: 'Solar Amber',
+      name: 'Solar Amber (Oranje/Goud)',
       swatch: '#d97706',
       vars: {
         '--bg': '#170c02',
@@ -2166,8 +2353,26 @@
       }
     },
     {
+      id: 'electricgold',
+      name: 'Electric Gold (Geel/Bumblebee)',
+      swatch: '#ca8a04',
+      vars: {
+        '--bg': '#161302',
+        '--surface-1': '#292305',
+        '--surface-2': '#3d3408',
+        '--surface-3': '#55490c',
+        '--border': '#736311',
+        '--border-light': '#9e8818',
+        '--text': '#ffffff',
+        '--text-sec': '#fef08a',
+        '--text-mut': '#fde047',
+        '--blue': '#facc15',
+        '--blue-glow': 'rgba(250, 204, 21, 0.5)'
+      }
+    },
+    {
       id: 'pink',
-      name: 'Neon Pink',
+      name: 'Neon Pink (Cyber Roze)',
       swatch: '#db2777',
       vars: {
         '--bg': '#180511',
@@ -2185,7 +2390,7 @@
     },
     {
       id: 'white',
-      name: 'Clean Light',
+      name: 'Clean Light (Fris Wit)',
       swatch: '#f8fafc',
       vars: {
         '--bg': '#f8fafc',
