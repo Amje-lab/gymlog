@@ -868,23 +868,31 @@
     </div>
   </div>
 
-  <!-- CELEBRATION MODAL MET DIER BADGE & KILO VIERKANT -->
+  <!-- CELEBRATION MODAL MET ECHTE FOTO VAN HET DIER & KILO STATS -->
   <div class="modal-overlay" id="animalCelebrationModal">
-    <div class="modal-dialog" style="text-align:center;">
+    <div class="modal-dialog" style="text-align:center; max-width:380px; padding:20px;">
       <div class="animal-popup-card">
-        <div class="celebration-badge-container" id="popupAnimalBadge"></div>
-        <div class="animal-congrats-title" id="popupAnimalTitle">OVERLOAD VOLTOOID</div>
-        
-        <div class="animal-volume-box">
-          <div class="animal-vol-label">TOTAAL VOLUME</div>
-          <div class="animal-vol-display" id="popupAnimalVolume">0 kg</div>
+        <!-- ECHTE FOTO VAN HET DIER -->
+        <div style="width:100%; height:190px; border-radius:18px; overflow:hidden; margin-bottom:14px; border:2px solid var(--border-light); box-shadow:0 6px 24px rgba(0,0,0,0.6); position:relative; background:#000;">
+          <img id="popupAnimalImg" src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop" alt="Dier Foto" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <div id="popupAnimalBadge" style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); padding:4px 10px; border-radius:10px; font-size:11px; font-weight:800; color:#fff; border:1px solid rgba(255,255,255,0.2);">
+            DIER PRESTIGE
+          </div>
         </div>
 
-        <div class="animal-desc-text" id="popupAnimalDesc">
-          Elke set en kilo telt. Progressive overload behaald!
+        <div class="animal-congrats-title" id="popupAnimalTitle">AFRIKAANSE SAVANNE OLIFANT</div>
+        
+        <div class="animal-volume-box" style="margin:10px 0;">
+          <div class="animal-vol-label">TOTAAL VOLUME GELOGD</div>
+          <div class="animal-vol-display" id="popupAnimalVolume">6.000 kg</div>
         </div>
-        <button class="session-btn start" id="btnCelebrationClose" style="width:auto; padding:12px 36px; margin:0 auto;" onclick="closeAnimalModal()">
-          Sluiten
+
+        <div class="animal-desc-text" id="popupAnimalDesc" style="font-size:12px; color:var(--text-sec); line-height:1.5; margin-bottom:14px;">
+          Je verplaatste vandaag evenveel gewicht als een Afrikaanse Savanne Olifant (6 ton)! Het grootste landzoogdier ter wereld.
+        </div>
+
+        <button class="session-btn start" id="btnCelebrationClose" style="width:100%; padding:12px 20px;" onclick="closeAnimalModal()">
+          Geweldig!
         </button>
       </div>
     </div>
@@ -1546,51 +1554,43 @@
     }
   }
 
-  // === ACCURATE 18-TIER DIEREN DATABASE & ANIMATED CELEBRATION ===
+  // === ACCURATE 18-TIER DIEREN DATABASE & ECHTE FOTO CELEBRATION ===
   const ACCURATE_ANIMAL_DATABASE = [
-    { minKg: 0, maxKg: 20, name: "Huiskat", weightKg: 4, gif: "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif", desc: "Snel en lenig. Een goede opstart!" },
-    { minKg: 20, maxKg: 60, name: "Europese Wolf", weightKg: 45, gif: "https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif", desc: "Jagersfocus en onvermoeibare energie." },
-    { minKg: 60, maxKg: 120, name: "Cheetah", weightKg: 60, gif: "https://media.giphy.com/media/26AHPxxnSw1L9T1rW/giphy.gif", desc: "Explosieve snelheid en spierkracht." },
-    { minKg: 120, maxKg: 250, name: "Afrikaanse Leeuw", weightKg: 190, gif: "https://media.giphy.com/media/OqFpgF7betq5G/giphy.gif", desc: "Koning van de savanne!" },
-    { minKg: 250, maxKg: 500, name: "Zilverrug Gorilla", weightKg: 200, gif: "https://media.giphy.com/media/5Zesu5VPNGJlm/giphy.gif", desc: "Puur spierweefsel en brute oerkracht." },
-    { minKg: 500, maxKg: 900, name: "Grizzly Beer", weightKg: 400, gif: "https://media.giphy.com/media/3o7TKMt1VVNkHV2PaE/giphy.gif", desc: "Massief, dominant en niet te stoppen." },
-    { minKg: 900, maxKg: 1500, name: "Amerikaanse Bizon", weightKg: 1000, gif: "https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif", desc: "Een ton aan pure spierkracht verplaatst!" },
-    { minKg: 1500, maxKg: 2500, name: "Witte Neushoorn", weightKg: 2300, gif: "https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif", desc: "Een gepantserde zwaargewicht tank!" },
-    { minKg: 2500, maxKg: 4000, name: "Nijlpaard", weightKg: 3000, gif: "https://media.giphy.com/media/3o7btUg31RUH5vXRIE/giphy.gif", desc: "De gevaarlijkste gigant van het water." },
-    { minKg: 4000, maxKg: 6000, name: "Aziatische Olifant", weightKg: 4500, gif: "https://media.giphy.com/media/l41lI4bYmcsPJX9Go/giphy.gif", desc: "Enorme power en uithoudingsvermogen!" },
-    { minKg: 6000, maxKg: 8500, name: "Afrikaanse Savanne Olifant", weightKg: 6000, gif: "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif", desc: "Het grootste landzoogdier ter wereld!" },
-    { minKg: 8500, maxKg: 12000, name: "Tyrannosaurus Rex", weightKg: 8000, gif: "https://media.giphy.com/media/3o7TKqm1mNujcBPSpy/giphy.gif", desc: "Apex prehistorisch roofdier!" },
-    { minKg: 12000, maxKg: 20000, name: "Wolharige Mammoet", weightKg: 12000, gif: "https://media.giphy.com/media/3o7TKsQ8UQd19Dze2Q/giphy.gif", desc: "Prehistorische ijskrijger!" },
-    { minKg: 20000, maxKg: 35000, name: "Megalodon", weightKg: 18000, gif: "https://media.giphy.com/media/3o7TKF5DTHxUGwEGE8/giphy.gif", desc: "Oergigant van de diepzee!" },
-    { minKg: 35000, maxKg: 60000, name: "Bultrug Walvis", weightKg: 30000, gif: "https://media.giphy.com/media/26AHLsZz654wB4f1K/giphy.gif", desc: "Oceaan-kolos! Ongelofelijk volume." },
-    { minKg: 60000, maxKg: 100000, name: "Brachiosaurus", weightKg: 50000, gif: "https://media.giphy.com/media/3o7TKxOzWkgxI46vAc/giphy.gif", desc: "Torenhoge dinosaurus gigant!" },
-    { minKg: 100000, maxKg: 150000, name: "Argentinosaurus", weightKg: 80000, gif: "https://media.giphy.com/media/l0HlOBZRezdd8PU08/giphy.gif", desc: "Het zwaarste landdier dat ooit leefde!" },
-    { minKg: 150000, maxKg: 999999999, name: "Blauwe Vinvis", weightKg: 150000, gif: "https://media.giphy.com/media/26AHpM8P7YhD8vWIE/giphy.gif", desc: "Het allergrootste dier ooit in het heelal!" }
+    { minKg: 0, maxKg: 20, name: "Huiskat", weightKg: 4, photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&auto=format&fit=crop", desc: "Snel en lenig. Een goede opstart!" },
+    { minKg: 20, maxKg: 60, name: "Europese Wolf", weightKg: 45, photo: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=800&auto=format&fit=crop", desc: "Jagersfocus en onvermoeibare energie." },
+    { minKg: 60, maxKg: 120, name: "Cheetah", weightKg: 60, photo: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&auto=format&fit=crop", desc: "Explosieve snelheid en spierkracht." },
+    { minKg: 120, maxKg: 250, name: "Afrikaanse Leeuw", weightKg: 190, photo: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&auto=format&fit=crop", desc: "Koning van de savanne!" },
+    { minKg: 250, maxKg: 500, name: "Zilverrug Gorilla", weightKg: 200, photo: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=800&auto=format&fit=crop", desc: "Puur spierweefsel en brute oerkracht." },
+    { minKg: 500, maxKg: 900, name: "Grizzly Beer", weightKg: 400, photo: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=800&auto=format&fit=crop", desc: "Massief, dominant en niet te stoppen." },
+    { minKg: 900, maxKg: 1500, name: "Amerikaanse Bizon", weightKg: 1000, photo: "https://images.unsplash.com/photo-1579613832125-5d34a13ffe2a?w=800&auto=format&fit=crop", desc: "Een ton aan pure spierkracht verplaatst!" },
+    { minKg: 1500, maxKg: 2500, name: "Witte Neushoorn", weightKg: 2300, photo: "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?w=800&auto=format&fit=crop", desc: "Een gepantserde zwaargewicht tank!" },
+    { minKg: 2500, maxKg: 4000, name: "Nijlpaard", weightKg: 3000, photo: "https://images.unsplash.com/photo-1568454537842-d933259bb258?w=800&auto=format&fit=crop", desc: "De gevaarlijkste gigant van het water." },
+    { minKg: 4000, maxKg: 6000, name: "Aziatische Olifant", weightKg: 4500, photo: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&auto=format&fit=crop", desc: "Enorme power en uithoudingsvermogen!" },
+    { minKg: 6000, maxKg: 8500, name: "Afrikaanse Savanne Olifant", weightKg: 6000, photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Het grootste landzoogdier ter wereld!" },
+    { minKg: 8500, maxKg: 12000, name: "Tyrannosaurus Rex", weightKg: 8000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Apex prehistorisch roofdier!" },
+    { minKg: 12000, maxKg: 20000, name: "Wolharige Mammoet", weightKg: 12000, photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Prehistorische ijskrijger!" },
+    { minKg: 20000, maxKg: 35000, name: "Megalodon", weightKg: 18000, photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Oergigant van de diepzee!" },
+    { minKg: 35000, maxKg: 60000, name: "Bultrug Walvis", weightKg: 30000, photo: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&auto=format&fit=crop", desc: "Oceaan-kolos! Ongelofelijk volume." },
+    { minKg: 60000, maxKg: 100000, name: "Brachiosaurus", weightKg: 50000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Torenhoge dinosaurus gigant!" },
+    { minKg: 100000, maxKg: 150000, name: "Argentinosaurus", weightKg: 80000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Het zwaarste landdier dat ooit leefde!" },
+    { minKg: 150000, maxKg: 999999999, name: "Blauwe Vinvis", weightKg: 150000, photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Het allergrootste dier ooit in het heelal!" }
   ];
-
-  function getAnimalBadgeStickerHtml(volKg, size = 100) {
-    const animal = ACCURATE_ANIMAL_DATABASE.find(a => volKg >= a.minKg && volKg < a.maxKg) || ACCURATE_ANIMAL_DATABASE[ACCURATE_ANIMAL_DATABASE.length - 1];
-
-    return `
-      <div style="width:${size}px; height:${size}px; border-radius:20px; background:#ffffff; border:3px solid var(--blue); box-shadow:0 0 20px var(--blue-glow); overflow:hidden; display:inline-flex; align-items:center; justify-content:center;">
-        <img src="${animal.gif}" alt="${animal.name}" style="width:100%; height:100%; object-fit:cover; display:block;" />
-      </div>
-    `;
-  }
 
   function showAnimalCelebration(sessionVol) {
     const animal = ACCURATE_ANIMAL_DATABASE.find(a => sessionVol >= a.minKg && sessionVol < a.maxKg) || ACCURATE_ANIMAL_DATABASE[ACCURATE_ANIMAL_DATABASE.length - 1];
 
-    const title = `${animal.name.toUpperCase()} OVERLOAD!`;
-    const desc = `Je verplaatste vandaag evenveel gewicht als een ${animal.name} (${animal.weightKg >= 1000 ? (animal.weightKg/1000).toFixed(1) + ' ton' : animal.weightKg + ' kg'})! ${animal.desc}`;
+    const title = `${animal.name.toUpperCase()}`;
+    const desc = `Je tilde vandaag ${Math.round(sessionVol).toLocaleString('nl-NL')} kg! Dat is exact evenveel gewicht als een ${animal.name} (${animal.weightKg >= 1000 ? (animal.weightKg/1000).toFixed(1) + ' ton' : animal.weightKg + ' kg'}). ${animal.desc}`;
+
+    const imgEl = document.getElementById('popupAnimalImg');
+    if (imgEl) {
+      imgEl.src = animal.photo;
+      imgEl.alt = animal.name;
+    }
 
     const badgeEl = document.getElementById('popupAnimalBadge');
     if (badgeEl) {
-      badgeEl.innerHTML = `
-        <div style="width:110px; height:110px; border-radius:22px; background:#ffffff; border:3px solid var(--blue); box-shadow:0 0 24px var(--blue-glow); overflow:hidden; display:inline-flex; align-items:center; justify-content:center;">
-          <img src="${animal.gif}" alt="${animal.name}" style="width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-      `;
+      badgeEl.textContent = `${animal.name} (${animal.weightKg >= 1000 ? (animal.weightKg/1000).toFixed(1) + 't' : animal.weightKg + 'kg'})`;
     }
 
     document.getElementById('popupAnimalTitle').textContent = title;
@@ -2778,6 +2778,16 @@
       const matchCat = !activeCategoryFilter || data.category === activeCategoryFilter;
       const matchEq = !activeEquipmentFilter || data.equipment === activeEquipmentFilter;
       return matchQ && matchCat && matchEq;
+    });
+
+    const TIER_SORT_WEIGHT = { 'S': 1, 'A': 2, 'B': 3, 'C': 4, 'D': 5 };
+    entries.sort((a, b) => {
+      const tierA = (a[1].tier || 'B').toUpperCase();
+      const tierB = (b[1].tier || 'B').toUpperCase();
+      const scoreA = TIER_SORT_WEIGHT[tierA] || 99;
+      const scoreB = TIER_SORT_WEIGHT[tierB] || 99;
+      if (scoreA !== scoreB) return scoreA - scoreB;
+      return a[0].localeCompare(b[0]);
     });
 
     if (entries.length === 0) {
