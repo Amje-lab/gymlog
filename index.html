@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>OVERLOAD</title>
-  <meta name="description" content="OVERLOAD â€“ Progressive Gym Workout Tracker" />
+  <meta name="description" content="OVERLOAD - Progressive Gym Workout Tracker" />
   <meta name="theme-color" content="#343748" id="themeColorMeta" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -88,7 +88,6 @@
       letter-spacing: 0.12em; color: var(--text-sec);
     }
     
-    /* NEW OVERLOAD / NON-WHITE LOGO BRANDING */
     .brand-logo-text {
       font-size: 20px; font-weight: 900; letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -471,7 +470,7 @@
       cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
 
-    /* â”€â”€ PROFILE VIEW â”€â”€ */
+    /* â”€â”€ PROFILE VIEW & RICH SETTINGS â”€â”€ */
     .profile-card {
       background: var(--surface-1); border: 1px solid var(--border);
       border-radius: var(--card-radius); padding: 18px 16px; margin-bottom: 14px;
@@ -484,6 +483,9 @@
       width: 100%; background: var(--surface-2); border: 1px solid var(--border);
       border-radius: 10px; padding: 10px 14px; font-family: inherit;
       font-size: 14px; font-weight: 700; color: var(--text); outline: none;
+    }
+    .profile-grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
     }
     .profile-row {
       display: flex; justify-content: space-between; align-items: center;
@@ -536,13 +538,22 @@
     }
     .modal-gif-box img { width: 100%; height: 100%; object-fit: contain; }
 
-    /* â”€â”€ ANIMAL CELEBRATION POPUP â”€â”€ */
+    /* â”€â”€ CELEBRATION POPUP WITH COOL BADGE/IMAGE â”€â”€ */
     .animal-popup-card {
       text-align: center; padding: 10px 0;
     }
-    .animal-congrats-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
-    .animal-vol-display { font-size: 36px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
-    .animal-desc-text { font-size: 14px; color: var(--text-sec); margin-bottom: 20px; line-height: 1.4; }
+    .celebration-badge-container {
+      width: 110px; height: 110px; margin: 0 auto 16px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, rgba(10, 132, 255, 0.05) 70%);
+      border: 2px solid var(--cyan); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+    }
+    .celebration-badge-svg {
+      width: 60px; height: 60px; fill: var(--cyan);
+    }
+    .animal-congrats-title { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 6px; letter-spacing: 0.02em; }
+    .animal-vol-display { font-size: 38px; font-weight: 900; color: var(--green); margin-bottom: 4px; line-height: 1.1; }
+    .animal-desc-text { font-size: 13px; color: var(--text-sec); margin-bottom: 20px; line-height: 1.4; padding: 0 10px; }
 
     /* â”€â”€ TOAST â”€â”€ */
     #toast {
@@ -690,16 +701,60 @@
       <div class="lib-list" id="searchLibraryList"></div>
     </div>
 
-    <!-- VIEW 5: PROFILE & SETTINGS -->
+    <!-- VIEW 5: PROFILE & RICH SETTINGS -->
     <div id="viewProfile" style="display: none;">
       <h3 class="section-title" id="titleMyProfile">Mijn Profiel</h3>
+      
+      <!-- PERSOONLIJKE GEGEVENS -->
       <div class="profile-card">
         <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
         <input type="text" class="profile-input" id="profileNameInput" value="Amier Mahmoud" onchange="saveProfileSettings()" />
+        
+        <div class="profile-grid-2" style="margin-top:12px;">
+          <div>
+            <div class="profile-field-label" id="lblBodyweight">Gewicht (kg)</div>
+            <input type="number" step="0.5" class="profile-input" id="profileWeightInput" placeholder="bijv. 78" onchange="saveProfileSettings()" />
+          </div>
+          <div>
+            <div class="profile-field-label" id="lblHeight">Lengte (cm)</div>
+            <input type="number" class="profile-input" id="profileHeightInput" placeholder="bijv. 182" onchange="saveProfileSettings()" />
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="profile-field-label" id="lblGoal">Trainingsdoel</div>
+          <select class="profile-input" id="profileGoalSelect" onchange="saveProfileSettings()">
+            <option value="hypertrophy">Spieropbouw (Hypertrofie)</option>
+            <option value="strength">Maximale Kracht (Powerlifting)</option>
+            <option value="cut">Droogtrainen (Vetverlies)</option>
+            <option value="fitness">Algemene Conditie & Fitheid</option>
+          </select>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="profile-field-label" id="lblExperience">Ervaringsniveau</div>
+          <select class="profile-input" id="profileExpSelect" onchange="saveProfileSettings()">
+            <option value="beginner">Beginner (&lt; 1 jaar)</option>
+            <option value="intermediate">Gevorderd (1 - 3 jaar)</option>
+            <option value="advanced">Elite Gymrat (3+ jaar)</option>
+          </select>
+        </div>
       </div>
 
+      <!-- WORKOUT & TIMER INSTELLINGEN -->
+      <h3 class="section-title" id="titleWorkoutSettings">Workout & Timer Instellingen</h3>
       <div class="profile-card">
-        <div class="profile-row">
+        <div style="margin-bottom:14px;">
+          <div class="profile-field-label" id="lblRestTimer">Standaard Rusttijd Tussen Sets</div>
+          <select class="profile-input" id="profileRestSelect" onchange="saveProfileSettings()">
+            <option value="60">60 seconden (Kort)</option>
+            <option value="90">90 seconden (Standaard)</option>
+            <option value="120">2 minuten (Heavy Compound)</option>
+            <option value="180">3 minuten (Max Strength)</option>
+          </select>
+        </div>
+
+        <div class="profile-row" style="margin-bottom:14px;">
           <div>
             <div class="profile-field-label" id="lblDarkMode" style="margin-bottom:2px;">Dark Mode</div>
             <div style="font-size:12px; color:var(--text-sec);" id="subDarkMode">Schakel tussen donker en licht</div>
@@ -709,10 +764,8 @@
             <span class="toggle-slider"></span>
           </label>
         </div>
-      </div>
 
-      <div class="profile-card">
-        <div class="profile-row">
+        <div class="profile-row" style="margin-bottom:14px;">
           <div>
             <div class="profile-field-label" id="lblAutoShift" style="margin-bottom:2px;">Gemiste Dag Doorschuiven</div>
             <div style="font-size:12px; color:var(--text-sec);" id="subAutoShift">Verschuift gemiste training automatisch</div>
@@ -722,35 +775,54 @@
             <span class="toggle-slider"></span>
           </label>
         </div>
+
+        <div class="profile-row">
+          <div>
+            <div class="profile-field-label" id="lblHaptics" style="margin-bottom:2px;">Trilfeedback bij afvinken</div>
+            <div style="font-size:12px; color:var(--text-sec);" id="subHaptics">Korte trilling op mobiel bij voltooide set</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="hapticsToggle" checked onchange="saveProfileSettings()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
       </div>
 
+      <!-- TAAL SELECTIE MET SCHONE ASCII LABELS -->
       <div class="profile-card">
         <div class="profile-field-label" id="lblSelectLanguage">Taal Selecteren (Live Vertaling)</div>
         <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
           <option value="nl">Nederlands (Dutch)</option>
           <option value="en">English (US/UK)</option>
           <option value="de">Deutsch (German)</option>
-          <option value="fr">FranÃ§ais (French)</option>
-          <option value="es">EspaÃ±ol (Spanish)</option>
+          <option value="fr">Francais (French)</option>
+          <option value="es">Espanol (Spanish)</option>
           <option value="it">Italiano (Italian)</option>
-          <option value="pt">PortuguÃªs (Portuguese)</option>
-          <option value="tr">TÃ¼rkÃ§e (Turkish)</option>
-          <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Arabic)</option>
+          <option value="pt">Portugues (Portuguese)</option>
+          <option value="tr">Turkce (Turkish)</option>
+          <option value="ar">Arabic</option>
           <option value="pl">Polski (Polish)</option>
-          <option value="ru">Ð ÑƒÑÑÐºÐ¸Ð¹ (Russian)</option>
-          <option value="ja">æ—¥æœ¬èªž (Japanese)</option>
-          <option value="zh">ä¸­æ–‡ (Chinese)</option>
-          <option value="ko">í•œêµ­ì–´ (Korean)</option>
+          <option value="ru">Russian</option>
+          <option value="ja">Japanese</option>
+          <option value="zh">Chinese</option>
+          <option value="ko">Korean</option>
           <option value="sv">Svenska (Swedish)</option>
           <option value="no">Norsk (Norwegian)</option>
           <option value="da">Dansk (Danish)</option>
         </select>
       </div>
 
-      <div class="profile-card" style="text-align:center;">
-        <button onclick="resetAllDataConfirmation()" id="btnResetAll" style="background:transparent; border:1px solid var(--red); color:var(--red); padding:10px 16px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
-          Reset Alle Data en Routine
-        </button>
+      <!-- DATA BACKUP & EXPORT -->
+      <div class="profile-card">
+        <div class="profile-field-label" id="lblDataManagement">Data Beheer & Back-up</div>
+        <div style="display:flex; gap:10px; margin-top:8px;">
+          <button onclick="exportDataBackup()" style="flex:1; padding:10px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border); color:var(--text); font-weight:700; font-size:12px; cursor:pointer;">
+            Download Back-up
+          </button>
+          <button onclick="resetAllDataConfirmation()" id="btnResetAll" style="flex:1; background:transparent; border:1px solid var(--red); color:var(--red); padding:10px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
+            Reset Routine
+          </button>
+        </div>
       </div>
     </div>
   </main>
@@ -797,16 +869,21 @@
     </div>
   </div>
 
-  <!-- ANIMAL CELEBRATION MODAL (POPUP NA SESSIE AFRONDEN) -->
+  <!-- CELEBRATION MODAL MET TITAN BADGE / ILLUSTRATIE -->
   <div class="modal-overlay" id="animalCelebrationModal">
     <div class="modal-dialog" style="text-align:center;">
       <div class="animal-popup-card">
-        <div class="animal-congrats-title" id="popupAnimalTitle">Sessie Afgerond!</div>
+        <div class="celebration-badge-container">
+          <svg class="celebration-badge-svg" viewBox="0 0 24 24">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.43 1.43 2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43 1.71-1.57z"/>
+          </svg>
+        </div>
+        <div class="animal-congrats-title" id="popupAnimalTitle">OVERLOAD VOLTOOID</div>
         <div class="animal-vol-display" id="popupAnimalVolume">0 kg</div>
         <div class="animal-desc-text" id="popupAnimalDesc">
-          Lekker bezig! Elke kilo telt.
+          Elke set en kilo telt. Progressive overload behaald!
         </div>
-        <button class="session-btn start" id="btnCelebrationClose" style="width:auto; padding:12px 32px;" onclick="closeAnimalModal()">
+        <button class="session-btn start" id="btnCelebrationClose" style="width:auto; padding:12px 36px;" onclick="closeAnimalModal()">
           Sluiten
         </button>
       </div>
@@ -871,7 +948,7 @@
       autoShift: "Gemiste Dag Doorschuiven",
       subAutoShift: "Verschuift gemiste training automatisch",
       selectLanguage: "Taal Selecteren (Live Vertaling)",
-      resetAll: "Reset Alle Data en Routine",
+      resetAll: "Reset Routine",
       navHome: "Home",
       navAgenda: "Agenda",
       navTracker: "Tracker",
@@ -914,7 +991,7 @@
       autoShift: "Auto-Shift Missed Day",
       subAutoShift: "Automatically moves missed workout forward",
       selectLanguage: "Select Language (Live Translation)",
-      resetAll: "Reset All Data and Routine",
+      resetAll: "Reset Routine",
       navHome: "Home",
       navAgenda: "Schedule",
       navTracker: "Tracker",
@@ -927,17 +1004,17 @@
       dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     },
     de: {
-      welcome: "WILLKOMMEN ZURÃœCK",
+      welcome: "WILLKOMMEN ZURUECK",
       startSession: "Training Starten",
       stopSession: "Training Beenden",
       sessionStatus: "Sitzungsstatus",
       activeWorkout: "TRAINING AKTIV",
-      sets: "SÃ¤tze",
-      exercises: "Ãœbungen",
+      sets: "Saetze",
+      exercises: "Uebungen",
       volume: "Volumen (kg)",
       restDayToday: "Heute Ruhetag",
-      restDaySub: "Zeit fÃ¼r Regeneration und gute ErnÃ¤hrung!",
-      addSet: "+ Satz hinzufÃ¼gen",
+      restDaySub: "Zeit fuer Regeneration und gute Ernaehrung!",
+      addSet: "+ Satz hinzufuegen",
       generalStats: "Gesamtstatistik",
       daysPerWeek: "Tage / Woche",
       avgDuration: "Durchschn. Dauer",
@@ -945,45 +1022,45 @@
       volumeAchievements: "Volumen-Leistungen",
       thisWeek: "Diese Woche",
       thisMonth: "Diesen Monat",
-      progressionPr: "Ãœbungsfortschritt & PR",
+      progressionPr: "Uebungsfortschritt & PR",
       allTimePr: "All-Time Max Gewicht (PR)",
-      weeklyPhotos: "WÃ¶chentliche Fortschrittsfotos",
-      uploadPhoto: "Wochenfoto hinzufÃ¼gen",
-      searchPlaceholder: "Jede Ãœbung im Gym suchen...",
+      weeklyPhotos: "Woechentliche Fortschrittsfotos",
+      uploadPhoto: "Wochenfoto hinzufuegen",
+      searchPlaceholder: "Jede Uebung im Gym suchen...",
       myProfile: "Mein Profil",
       yourName: "Dein Name",
       darkMode: "Dunkelmodus",
       subDarkMode: "Zwischen Dunkel und Hell wechseln",
       autoShift: "Verpassten Tag verschieben",
       subAutoShift: "Verschiebt verpasstes Training automatisch",
-      selectLanguage: "Sprache wÃ¤hlen (Live-Ãœbersetzung)",
-      resetAll: "Alle Daten und Routinen zurÃ¼cksetzen",
+      selectLanguage: "Sprache waehlen (Live-Uebersetzung)",
+      resetAll: "Routine zuruecksetzen",
       navHome: "Home",
       navAgenda: "Kalender",
       navTracker: "Tracker",
       navSearch: "Suche",
       navProfile: "Profil",
       todayBadge: "HEUTE",
-      upcomingBadge: "DEMNÃ„CHST",
-      addToDay: "+ HinzufÃ¼gen zu...",
+      upcomingBadge: "DEMNAECHST",
+      addToDay: "+ Hinzufuegen zu...",
       daysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
       dayNames: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
     },
     fr: {
       welcome: "BIENVENUE",
-      startSession: "DÃ©marrer la sÃ©ance",
-      stopSession: "Terminer la sÃ©ance",
-      sessionStatus: "Statut de sÃ©ance",
-      activeWorkout: "ENTRAÃŽNEMENT ACTIF",
-      sets: "SÃ©ries",
+      startSession: "Demarrer la seance",
+      stopSession: "Terminer la seance",
+      sessionStatus: "Statut de seance",
+      activeWorkout: "ENTRAINEMENT ACTIF",
+      sets: "Series",
       exercises: "Exercices",
       volume: "Volume (kg)",
       restDayToday: "Jour de repos aujourd'hui",
-      restDaySub: "Temps pour la rÃ©cupÃ©ration et la nutrition !",
-      addSet: "+ Ajouter une sÃ©rie",
-      generalStats: "Statistiques GÃ©nÃ©rales",
+      restDaySub: "Temps pour la recuperation et la nutrition !",
+      addSet: "+ Ajouter une serie",
+      generalStats: "Statistiques Generales",
       daysPerWeek: "Jours / Semaine",
-      avgDuration: "DurÃ©e Moy.",
+      avgDuration: "Duree Moy.",
       allTimeVolume: "Volume Total",
       volumeAchievements: "Performances de Volume",
       thisWeek: "Cette Semaine",
@@ -997,149 +1074,106 @@
       yourName: "Votre Nom",
       darkMode: "Mode Sombre",
       subDarkMode: "Basculer entre sombre et clair",
-      autoShift: "DÃ©caler jour manquÃ©",
-      subAutoShift: "DÃ©place automatiquement l'entraÃ®nement manquÃ©",
-      selectLanguage: "SÃ©lectionner la langue",
-      resetAll: "RÃ©initialiser les donnÃ©es",
+      autoShift: "Decaler jour manque",
+      subAutoShift: "Deplace automatiquement l'entrainement manque",
+      selectLanguage: "Selectionner la langue",
+      resetAll: "Reinitialiser",
       navHome: "Accueil",
       navAgenda: "Planning",
       navTracker: "Suivi",
       navSearch: "Recherche",
       navProfile: "Profil",
       todayBadge: "AUJOURD'HUI",
-      upcomingBadge: "Ã€ VENIR",
-      addToDay: "+ Ajouter Ã ...",
+      upcomingBadge: "A VENIR",
+      addToDay: "+ Ajouter a...",
       daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
     },
     es: {
-      welcome: "BIENVENIDO DE NUEVO",
-      startSession: "Iniciar SesiÃ³n",
-      stopSession: "Finalizar SesiÃ³n",
-      sessionStatus: "Estado de SesiÃ³n",
+      welcome: "BIENVENIDO",
+      startSession: "Iniciar Sesion",
+      stopSession: "Finalizar Sesion",
+      sessionStatus: "Estado de Sesion",
       activeWorkout: "ENTRENAMIENTO ACTIVO",
       sets: "Series",
       exercises: "Ejercicios",
       volume: "Volumen (kg)",
-      restDayToday: "DÃ­a de Descanso Hoy",
-      restDaySub: "Â¡Tiempo para recuperaciÃ³n y nutriciÃ³n!",
-      addSet: "+ AÃ±adir Serie",
-      generalStats: "EstadÃ­sticas Generales",
-      daysPerWeek: "DÃ­as / Semana",
-      avgDuration: "DuraciÃ³n Media",
+      restDayToday: "Dia de Descanso Hoy",
+      restDaySub: "Tiempo para recuperacion y nutricion!",
+      addSet: "+ Anadir Serie",
+      generalStats: "Estadisticas Generales",
+      daysPerWeek: "Dias / Semana",
+      avgDuration: "Duracion Media",
       allTimeVolume: "Volumen Total",
       volumeAchievements: "Logros de Volumen",
       thisWeek: "Esta Semana",
       thisMonth: "Este Mes",
-      progressionPr: "ProgresiÃ³n y RÃ©cord (PR)",
-      allTimePr: "Peso MÃ¡ximo HistÃ³rico (PR)",
+      progressionPr: "Progresion y Record (PR)",
+      allTimePr: "Peso Maximo Historico (PR)",
       weeklyPhotos: "Fotos de Progreso Semanal",
-      uploadPhoto: "AÃ±adir Foto Semanal",
+      uploadPhoto: "Anadir Foto Semanal",
       searchPlaceholder: "Buscar cualquier ejercicio...",
       myProfile: "Mi Perfil",
       yourName: "Tu Nombre",
       darkMode: "Modo Oscuro",
       subDarkMode: "Cambiar entre oscuro y claro",
-      autoShift: "Desplazar DÃ­a Perdido",
-      subAutoShift: "Mueve automÃ¡ticamente el entrenamiento perdido",
+      autoShift: "Desplazar Dia Perdido",
+      subAutoShift: "Mueve automaticamente el entrenamiento",
       selectLanguage: "Seleccionar Idioma",
-      resetAll: "Reiniciar Todos los Datos",
+      resetAll: "Reiniciar",
       navHome: "Inicio",
       navAgenda: "Agenda",
       navTracker: "Progreso",
       navSearch: "Buscar",
       navProfile: "Perfil",
       todayBadge: "HOY",
-      upcomingBadge: "PRÃ“XIMO",
-      addToDay: "+ AÃ±adir a...",
-      daysShort: ['Lun', 'Mar', 'MiÃ©', 'Jue', 'Vie', 'SÃ¡b', 'Dom'],
-      dayNames: ['Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado', 'Domingo']
+      upcomingBadge: "PROXIMO",
+      addToDay: "+ Anadir a...",
+      daysShort: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+      dayNames: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
     },
     tr: {
-      welcome: "TEKRAR HOÅž GELDÄ°N",
-      startSession: "AntrenmanÄ± BaÅŸlat",
-      stopSession: "AntrenmanÄ± Bitir",
+      welcome: "HOS GELDIN",
+      startSession: "Antrenmani Baslat",
+      stopSession: "Antrenmani Bitir",
       sessionStatus: "Seans Durumu",
-      activeWorkout: "ANTRENMAN AKTÄ°F",
+      activeWorkout: "ANTRENMAN AKTIF",
       sets: "Setler",
       exercises: "Egzersizler",
       volume: "Hacim (kg)",
-      restDayToday: "BugÃ¼n Dinlenme GÃ¼nÃ¼",
-      restDaySub: "Ä°yileÅŸme ve beslenme zamanÄ±!",
+      restDayToday: "Bugun Dinlenme Gunu",
+      restDaySub: "Toparlanma ve beslenme zamani!",
       addSet: "+ Set Ekle",
-      generalStats: "Genel Ä°statistikler",
-      daysPerWeek: "GÃ¼n / Hafta",
-      avgDuration: "Ort. SÃ¼re",
-      allTimeVolume: "TÃ¼m ZamanlarÄ±n Hacmi",
-      volumeAchievements: "Hacim BaÅŸarÄ±larÄ±",
+      generalStats: "Genel Istatistikler",
+      daysPerWeek: "Gun / Hafta",
+      avgDuration: "Ort. Sure",
+      allTimeVolume: "Toplam Hacim",
+      volumeAchievements: "Hacim Basarilari",
       thisWeek: "Bu Hafta",
       thisMonth: "Bu Ay",
-      progressionPr: "Egzersiz Ä°lerlemesi & PR",
-      allTimePr: "TÃ¼m ZamanlarÄ±n En YÃ¼ksek AÄŸÄ±rlÄ±ÄŸÄ± (PR)",
-      weeklyPhotos: "HaftalÄ±k Ä°lerleme FotoÄŸraflarÄ±",
-      uploadPhoto: "HaftalÄ±k FotoÄŸraf Ekle",
-      searchPlaceholder: "Spor salonundaki tÃ¼m egzersizleri ara...",
+      progressionPr: "Egzersiz Ilerlemesi & PR",
+      allTimePr: "En Yuksek Agirlik (PR)",
+      weeklyPhotos: "Haftalik Fotograflar",
+      uploadPhoto: "Fotograf Ekle",
+      searchPlaceholder: "Egzersiz ara...",
       myProfile: "Profilim",
-      yourName: "AdÄ±nÄ±z",
-      darkMode: "KaranlÄ±k Mod",
-      subDarkMode: "KaranlÄ±k ve aydÄ±nlÄ±k arasÄ±nda geÃ§iÅŸ yap",
-      autoShift: "KaÃ§Ä±rÄ±lan GÃ¼nÃ¼ KaydÄ±r",
-      subAutoShift: "KaÃ§Ä±rÄ±lan antrenmanÄ± otomatik olarak kaydÄ±rÄ±r",
-      selectLanguage: "Dil SeÃ§in (CanlÄ± Ã‡eviri)",
-      resetAll: "TÃ¼m Verileri SÄ±fÄ±rla",
+      yourName: "Adiniz",
+      darkMode: "Karanlik Mod",
+      subDarkMode: "Karanlik ve aydinlik mod",
+      autoShift: "Kacirilan Gunu Kaydir",
+      subAutoShift: "Kacirilan antrenmani otomatik kaydirir",
+      selectLanguage: "Dil Secin",
+      resetAll: "Sifirla",
       navHome: "Ana Sayfa",
       navAgenda: "Program",
       navTracker: "Takip",
       navSearch: "Ara",
       navProfile: "Profil",
-      todayBadge: "BUGÃœN",
+      todayBadge: "BUGUN",
       upcomingBadge: "YAKINDA",
-      addToDay: "+ GÃ¼ne Ekle...",
-      daysShort: ['Pzt', 'Sal', 'Ã‡ar', 'Per', 'Cum', 'Cmt', 'Paz'],
-      dayNames: ['Pazartesi', 'SalÄ±', 'Ã‡arÅŸamba', 'PerÅŸembe', 'Cuma', 'Cumartesi', 'Pazar']
-    },
-    ar: {
-      welcome: "Ø£Ù‡Ù„Ø§Ù‹ Ø¨Ùƒ Ù…Ø¬Ø¯Ø¯Ø§Ù‹",
-      startSession: "Ø¨Ø¯Ø¡ Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
-      stopSession: "Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
-      sessionStatus: "Ø­Ø§Ù„Ø© Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
-      activeWorkout: "ØªÙ…Ø±ÙŠÙ† Ù†Ø´Ø·",
-      sets: "Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª",
-      exercises: "Ø§Ù„ØªÙ…Ø§Ø±ÙŠÙ†",
-      volume: "Ø§Ù„Ø­Ø¬Ù… (ÙƒØº)",
-      restDayToday: "Ø§Ù„ÙŠÙˆÙ… ÙŠÙˆÙ… Ø±Ø§Ø­Ø©",
-      restDaySub: "ÙˆÙ‚Øª Ø§Ù„Ø§Ø³ØªØ´ÙØ§Ø¡ ÙˆØ§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ø¬ÙŠØ¯Ø©!",
-      addSet: "+ Ø¥Ø¶Ø§ÙØ© Ù…Ø¬Ù…ÙˆØ¹Ø©",
-      generalStats: "Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø¹Ø§Ù…Ø©",
-      daysPerWeek: "Ø£ÙŠØ§Ù… / Ø£Ø³Ø¨ÙˆØ¹",
-      avgDuration: "Ù…ØªÙˆØ³Ø· Ø§Ù„Ù…Ø¯Ø©",
-      allTimeVolume: "Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø­Ø¬Ù…",
-      volumeAchievements: "Ø¥Ù†Ø¬Ø§Ø²Ø§Øª Ø§Ù„Ø­Ø¬Ù…",
-      thisWeek: "Ù‡Ø°Ø§ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹",
-      thisMonth: "Ù‡Ø°Ø§ Ø§Ù„Ø´Ù‡Ø±",
-      progressionPr: "ØªÙ‚Ø¯Ù… Ø§Ù„ØªÙ…Ø±ÙŠÙ† ÙˆØ§Ù„Ø±Ù‚Ù… Ø§Ù„Ù‚ÙŠØ§Ø³ÙŠ",
-      allTimePr: "Ø£Ø¹Ù„Ù‰ ÙˆØ²Ù† Ù‚ÙŠØ§Ø³ÙŠ (PR)",
-      weeklyPhotos: "ØµÙˆØ± Ø§Ù„ØªÙ‚Ø¯Ù… Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©",
-      uploadPhoto: "Ø¥Ø¶Ø§ÙØ© ØµÙˆØ±Ø© Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©",
-      searchPlaceholder: "Ø§Ø¨Ø­Ø« Ø¹Ù† Ø£ÙŠ ØªÙ…Ø±ÙŠÙ†...",
-      myProfile: "Ù…Ù„ÙÙŠ Ø§Ù„Ø´Ø®ØµÙŠ",
-      yourName: "Ø§Ø³Ù…Ùƒ",
-      darkMode: "Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ",
-      subDarkMode: "Ø§Ù„ØªØ¨Ø¯ÙŠÙ„ Ø¨ÙŠÙ† Ø§Ù„Ø¯Ø§ÙƒÙ† ÙˆØ§Ù„ÙØ§ØªØ­",
-      autoShift: "ØªØ±Ø­ÙŠÙ„ Ø§Ù„ÙŠÙˆÙ… Ø§Ù„ÙØ§Ø¦Øª",
-      subAutoShift: "ØªØ±Ø­ÙŠÙ„ Ø§Ù„ØªÙ…Ø±ÙŠÙ† Ø§Ù„ÙØ§Ø¦Øª ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹",
-      selectLanguage: "Ø§Ø®ØªØ± Ø§Ù„Ù„ØºØ©",
-      resetAll: "Ø¥Ø¹Ø§Ø¯Ø© Ø¶Ø¨Ø· Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª",
-      navHome: "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
-      navAgenda: "Ø§Ù„Ø¬Ø¯ÙˆÙ„",
-      navTracker: "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø©",
-      navSearch: "Ø§Ù„Ø¨Ø­Ø«",
-      navProfile: "Ø§Ù„Ø­Ø³Ø§Ø¨",
-      todayBadge: "Ø§Ù„ÙŠÙˆÙ…",
-      upcomingBadge: "Ù‚Ø±ÙŠØ¨Ø§Ù‹",
-      addToDay: "+ Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰...",
-      daysShort: ['Ø¥Ø«Ù†', 'Ø«Ù„Ø§', 'Ø£Ø±Ø¨', 'Ø®Ù…ÙŠ', 'Ø¬Ù…Ø¹', 'Ø³Ø¨Øª', 'Ø£Ø­Ø¯'],
-      dayNames: ['Ø§Ù„Ø¥Ø«Ù†ÙŠÙ†', 'Ø§Ù„Ø«Ù„Ø§Ø«Ø§Ø¡', 'Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡', 'Ø§Ù„Ø®Ù…ÙŠØ³', 'Ø§Ù„Ø¬Ù…Ø¹Ø©', 'Ø§Ù„Ø³Ø¨Øª', 'Ø§Ù„Ø£Ø­Ø¯']
+      addToDay: "+ Gune Ekle...",
+      daysShort: ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt', 'Paz'],
+      dayNames: ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar']
     }
   };
 
@@ -1182,7 +1216,7 @@
     setTxt('lblAutoShift', dict.autoShift || 'Gemiste Dag Doorschuiven');
     setTxt('subAutoShift', dict.subAutoShift || 'Verschuift gemiste training automatisch');
     setTxt('lblSelectLanguage', dict.selectLanguage || 'Taal Selecteren (Live Vertaling)');
-    setTxt('btnResetAll', dict.resetAll || 'Reset Alle Data en Routine');
+    setTxt('btnResetAll', dict.resetAll || 'Reset Routine');
     setTxt('navLblHome', dict.navHome || 'Home');
     setTxt('navLblAgenda', dict.navAgenda || 'Agenda');
     setTxt('navLblTracker', dict.navTracker || 'Tracker');
@@ -1192,7 +1226,6 @@
     const searchInp = document.getElementById('searchInput');
     if (searchInp) searchInp.placeholder = dict.searchPlaceholder || 'Zoek elke oefening in de gym...';
 
-    // Update calendar headers
     const calHdr = document.getElementById('calGridHeaderDays');
     if (calHdr && dict.daysShort) {
       calHdr.innerHTML = dict.daysShort.map(d => `<span>${d}</span>`).join('');
@@ -1214,7 +1247,7 @@
     else if (activeTab === 'agenda') renderAgendaView();
     else if (activeTab === 'tracker') renderTrackerView();
     else if (activeTab === 'search') initSearchLibrary();
-    triggerToast(t('welcome'));
+    triggerToast('âœ“');
   }
 
   // â”€â”€â”€ DEFAULT ROUTINE SCHEMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -1352,6 +1385,11 @@
     el.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+
+    const haptics = localStorage.getItem('gymlog_haptics') !== 'false';
+    if (haptics && navigator.vibrate) {
+      try { navigator.vibrate(30); } catch(e) {}
+    }
   }
 
   // â”€â”€â”€ APP INITIALIZATION & ROUTING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -1817,7 +1855,7 @@
     if (isFuture) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:24px;text-align:center;color:var(--text-sec);">
-          ${t('upcomingBadge')} â€“ ${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})}
+          ${t('upcomingBadge')} - ${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})}
         </div>
       `;
       return;
@@ -1926,7 +1964,7 @@
 
     const wrapper = document.getElementById('svgChartWrapper');
     if (history.length === 0) {
-      wrapper.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text-sec);font-size:12px;">â€“</div>`;
+      wrapper.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text-sec);font-size:12px;">-</div>`;
       return;
     }
 
@@ -1976,7 +2014,7 @@
     grid.innerHTML = '';
 
     if (photos.length === 0) {
-      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">â€“</div>`;
+      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">-</div>`;
       return;
     }
 
@@ -2051,7 +2089,7 @@
     filtered.sort((a,b) => (tierOrder[a[1].tier]||5) - (tierOrder[b[1].tier]||5));
 
     if (filtered.length === 0) {
-      container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-sec);font-size:14px;">â€“</div>`;
+      container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-sec);font-size:14px;">-</div>`;
       return;
     }
 
@@ -2128,6 +2166,12 @@
     document.getElementById('headerGreetingName').textContent = 'OVERLOAD';
     document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
+    document.getElementById('profileWeightInput').value = localStorage.getItem('gymlog_bodyweight') || '78';
+    document.getElementById('profileHeightInput').value = localStorage.getItem('gymlog_height') || '182';
+    document.getElementById('profileGoalSelect').value = localStorage.getItem('gymlog_goal') || 'hypertrophy';
+    document.getElementById('profileExpSelect').value = localStorage.getItem('gymlog_exp') || 'intermediate';
+    document.getElementById('profileRestSelect').value = localStorage.getItem('gymlog_rest') || '90';
+
     const isDark = localStorage.getItem('gymlog_theme') !== 'light';
     document.getElementById('darkModeToggle').checked = isDark;
     toggleDarkMode(isDark);
@@ -2138,6 +2182,9 @@
     const autoShift = localStorage.getItem('gymlog_autoshift') !== 'false';
     document.getElementById('autoShiftToggle').checked = autoShift;
 
+    const haptics = localStorage.getItem('gymlog_haptics') !== 'false';
+    document.getElementById('hapticsToggle').checked = haptics;
+
     applyLanguageStrings();
   }
 
@@ -2146,9 +2193,19 @@
     localStorage.setItem('gymlog_username', name);
     document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
+    localStorage.setItem('gymlog_bodyweight', document.getElementById('profileWeightInput').value);
+    localStorage.setItem('gymlog_height', document.getElementById('profileHeightInput').value);
+    localStorage.setItem('gymlog_goal', document.getElementById('profileGoalSelect').value);
+    localStorage.setItem('gymlog_exp', document.getElementById('profileExpSelect').value);
+    localStorage.setItem('gymlog_rest', document.getElementById('profileRestSelect').value);
+
     const autoShift = document.getElementById('autoShiftToggle').checked;
     localStorage.setItem('gymlog_autoshift', autoShift ? 'true' : 'false');
-    triggerToast('âœ“');
+
+    const haptics = document.getElementById('hapticsToggle').checked;
+    localStorage.setItem('gymlog_haptics', haptics ? 'true' : 'false');
+
+    triggerToast('âœ“ Opgeslagen');
   }
 
   function toggleDarkMode(isDark) {
@@ -2163,8 +2220,24 @@
     }
   }
 
+  function exportDataBackup() {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_')) data[k] = localStorage.getItem(k);
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `overload_gym_backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    triggerToast('Backup gedownload!');
+  }
+
   function resetAllDataConfirmation() {
-    if (confirm('Reset?')) {
+    if (confirm('Weet je zeker dat je jouw routine wilt resetten?')) {
       localStorage.clear();
       location.reload();
     }
@@ -2232,10 +2305,10 @@
       }
     }
 
-    let title = 'OVERLOAD COMPLETED', desc = 'Elke set en kilo telt.';
-    if (sessionVol >= 10000) { title = 'TITAN OVERLOAD'; desc = 'Onvoorstelbaar volume verplaatst!'; }
-    else if (sessionVol >= 5000) { title = 'HEAVY OVERLOAD'; desc = 'Brute kracht en progressie!'; }
-    else if (sessionVol >= 2000) { title = 'SOLID OVERLOAD'; desc = 'Goede progressieve overload!'; }
+    let title = 'OVERLOAD VOLTOOID', desc = 'Elke set en kilo telt. Progressive overload behaald!';
+    if (sessionVol >= 10000) { title = 'TITAN OVERLOAD'; desc = 'Onvoorstelbare brute prestatie vandaag!'; }
+    else if (sessionVol >= 5000) { title = 'HEAVY OVERLOAD'; desc = 'Gigantisch volume verplaatst!'; }
+    else if (sessionVol >= 2000) { title = 'SOLID OVERLOAD'; desc = 'Sterke workout neergezet!'; }
 
     document.getElementById('popupAnimalTitle').textContent = title;
     document.getElementById('popupAnimalVolume').textContent = `${Math.round(sessionVol)} kg`;
