@@ -2359,9 +2359,13 @@
 
     if (dayData.groups.length === 0 || dayData.label.includes('RUST') || dayData.label.includes('REST')) {
       container.innerHTML += `
-        <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:36px 20px;text-align:center;">
-          <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">${t('restDayToday')}</div>
-          <div style="font-size:13px;color:var(--text-sec);">${t('restDaySub')}</div>
+        <div style="background:var(--surface-1);border:1.5px solid var(--border);border-radius:var(--card-radius);padding:32px 20px;text-align:center;margin-bottom:16px;">
+          <div style="font-size:36px;margin-bottom:8px;">🛋️</div>
+          <div style="font-size:18px;font-weight:900;color:var(--text);margin-bottom:6px;">${t('restDayToday') || 'Vandaag is een Rustdag'}</div>
+          <div style="font-size:13px;color:var(--text-sec);margin-bottom:18px;">${t('restDaySub') || 'Tijd voor herstel en goede voeding! Toch trainen vandaag?'}</div>
+          <button onclick="switchTab('search')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 26px;border-radius:14px;border:none;background:linear-gradient(135deg, #0a84ff 0%, #00d2ff 100%);color:#000;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(0, 210, 255, 0.35);">
+            + Kies Oefening om te Trainen
+          </button>
         </div>
       `;
       updateHomeStats(dateStr, dayIdx, []);
@@ -2372,7 +2376,6 @@
     updateHomeStats(dateStr, dayIdx, allExercises);
 
     dayData.groups.forEach((grp, gIdx) => {
-      if (grp.exercises.length === 0) return;
       const grpEl = document.createElement('div');
       grpEl.className = 'grp-section';
       grpEl.innerHTML = `
@@ -2384,8 +2387,13 @@
 
       if (!grp.exercises || grp.exercises.length === 0) {
         const emptyCard = document.createElement('div');
-        emptyCard.style.cssText = 'background:var(--surface-1);border:1.5px dashed var(--border-light);border-radius:14px;padding:18px 14px;text-align:center;margin-bottom:10px;';
-        emptyCard.innerHTML = '<div style="font-size:12px;color:var(--text-sec);font-weight:700;margin-bottom:8px;">Nog geen oefeningen toegevoegd aan ' + grp.title + '</div><button onclick="activeCategoryFilter=\'' + grp.title + '\'; switchTab(\'search\');" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:10px;border:1.5px solid var(--blue);background:var(--surface-2);color:var(--blue);font-size:11px;font-weight:800;cursor:pointer;">+ Zoek &amp; Voeg ' + grp.title + ' Oefening Toe</button>';
+        emptyCard.style.cssText = 'background:var(--surface-1);border:1.5px dashed var(--border-light);border-radius:14px;padding:20px 16px;text-align:center;margin-bottom:14px;';
+        emptyCard.innerHTML = `
+          <div style="font-size:13px;color:var(--text-sec);font-weight:700;margin-bottom:10px;">Nog geen oefeningen toegevoegd aan ${grp.title}</div>
+          <button onclick="activeCategoryFilter='${grp.title}'; switchTab('search');" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;border:1.5px solid var(--blue);background:var(--surface-2);color:var(--blue);font-size:12px;font-weight:800;cursor:pointer;">
+            + Zoek &amp; Voeg ${grp.title} Oefening Toe
+          </button>
+        `;
         grpEl.appendChild(emptyCard);
       } else {
         grp.exercises.forEach(exName => {
@@ -2851,7 +2859,6 @@
 
     const allExercises = dayData.groups.flatMap(g => g.exercises);
     dayData.groups.forEach((grp, gIdx) => {
-      if (grp.exercises.length === 0) return;
       const grpEl = document.createElement('div');
       grpEl.className = 'grp-section';
       grpEl.innerHTML = `
@@ -2860,10 +2867,22 @@
           <div class="grp-line"></div>
         </div>
       `;
-      grp.exercises.forEach(exName => {
-        const card = createExerciseCard(exName, dateStr, dIdx, gIdx, allExercises);
-        grpEl.appendChild(card);
-      });
+      if (!grp.exercises || grp.exercises.length === 0) {
+        const emptyCard = document.createElement('div');
+        emptyCard.style.cssText = 'background:var(--surface-1);border:1.5px dashed var(--border-light);border-radius:14px;padding:20px 16px;text-align:center;margin-bottom:14px;';
+        emptyCard.innerHTML = `
+          <div style="font-size:13px;color:var(--text-sec);font-weight:700;margin-bottom:10px;">Nog geen oefeningen toegevoegd aan ${grp.title}</div>
+          <button onclick="activeCategoryFilter='${grp.title}'; switchTab('search');" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;border:1.5px solid var(--blue);background:var(--surface-2);color:var(--blue);font-size:12px;font-weight:800;cursor:pointer;">
+            + Zoek &amp; Voeg ${grp.title} Oefening Toe
+          </button>
+        `;
+        grpEl.appendChild(emptyCard);
+      } else {
+        grp.exercises.forEach(exName => {
+          const card = createExerciseCard(exName, dateStr, dIdx, gIdx, allExercises);
+          grpEl.appendChild(card);
+        });
+      }
       container.appendChild(grpEl);
     });
   }
