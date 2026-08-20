@@ -4484,18 +4484,7 @@
   }
 
   function checkMandatoryAuthGate() {
-    const isRegistered = localStorage.getItem('gymlog_user_registered') === 'true' || localStorage.getItem('gymlog_user_email');
-    if (!isRegistered) {
-      setTimeout(() => {
-        setAuthTab('register');
-        const titleEl = document.getElementById('authModalTitle');
-        const descEl = document.getElementById('authModalDesc');
-        const modal = document.getElementById('authModal');
-        if (titleEl) titleEl.textContent = 'Welkom bij OVERLOAD!';
-        if (descEl) descEl.textContent = 'Maak een account aan om te starten en zodat al je gym buddies je online kunnen vinden via je @gebruikersnaam!';
-        if (modal) modal.classList.add('open');
-      }, 600);
-    }
+    // Disabled - using simple welcome screen instead
   }
 
   document.getElementById('exerciseDetailModal').onclick = (e) => {
@@ -4516,7 +4505,7 @@
 
   // === AUTH GATE & SESSION CHECK ===
   function isUserLoggedIn() {
-    return localStorage.getItem('gymlog_auth_session') === 'true';
+    return localStorage.getItem('gymlog_auth_session') === 'true' && !!localStorage.getItem('gymlog_username');
   }
 
   function checkAuthGate() {
@@ -4524,27 +4513,45 @@
     if (!authGate) return;
     if (isUserLoggedIn()) {
       authGate.style.display = 'none';
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
     } else {
       authGate.style.display = 'flex';
     }
   }
 
   function enterApp() {
-    const nameVal = (document.getElementById('welcomeNameInput').value || '').trim();
-    if (!nameVal) { document.getElementById('welcomeNameInput').placeholder = 'Vul je naam in!'; return; }
+    const input = document.getElementById('welcomeNameInput');
+    const nameVal = (input ? input.value : '').trim();
+    if (!nameVal) {
+      if (input) {
+        input.placeholder = 'Vul je naam in!';
+        input.focus();
+      }
+      return;
+    }
     localStorage.setItem('gymlog_auth_session', 'true');
+    localStorage.setItem('gymlog_user_registered', 'true');
     localStorage.setItem('gymlog_username', nameVal);
-    const handle = nameVal.toLowerCase().replace(/[^a-z0-9_]/g, '').replace(/\\s+/g, '_');
+    const handle = nameVal.toLowerCase().replace(/[^a-z0-9_]/g, '');
     localStorage.setItem('gymlog_user_handle', handle);
-    document.getElementById('viewAuthGate').style.display = 'none';
+
+    const gate = document.getElementById('viewAuthGate');
+    if (gate) gate.style.display = 'none';
+
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+
     loadProfileSettings();
     renderHomeView();
+    renderFriendsView();
     triggerToast('Welkom, ' + nameVal + '!');
   }
 
   function logoutUser() {
     if (confirm('Weet je zeker dat je wilt uitloggen?')) {
       localStorage.setItem('gymlog_auth_session', 'false');
+      localStorage.removeItem('gymlog_username');
+      const input = document.getElementById('welcomeNameInput');
+      if (input) input.value = '';
       checkAuthGate();
     }
   }
@@ -4689,7 +4696,7 @@
   loadProfileSettings();
   renderHomeView();
   renderFriendsView();
-  checkMandatoryAuthGate();
+  checkAuthGate();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
