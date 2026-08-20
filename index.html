@@ -16,19 +16,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     :root {
-      --bg-top:       #1c1e2b;
-      --bg-mid:       #161722;
-      --bg-bot:       #090a0f;
+      --bg-top:       #121316;
+      --bg-mid:       #0c0d10;
+      --bg-bot:       #060709;
       
-      --surface-1:    rgba(34, 36, 48, 0.88);
-      --surface-2:    #1f212d;
-      --surface-3:    #2a2c3a;
-      --border:       #373a4d;
-      --border-light: #4c5068;
+      --surface-1:    rgba(22, 24, 30, 0.92);
+      --surface-2:    #181a20;
+      --surface-3:    #242630;
+      --border:       #2e323e;
+      --border-light: #424656;
       
-      --accent:       #0a84ff;
-      --accent-glow:  rgba(10, 132, 255, 0.35);
-      --cyan:         #00d2ff;
+      --accent:       #e2e8f0;
+      --accent-glow:  rgba(226, 232, 240, 0.2);
+      --cyan:         #e2e8f0;
+      --silver:       #e2e8f0;
       --red:          #ff3b30;
       --green:        #30d158;
       --green-glow:   rgba(48, 209, 88, 0.35);
@@ -69,7 +70,7 @@
     /* â”€â”€ HEADER â”€â”€ */
     header {
       position: sticky; top: 0; z-index: 90;
-      background: rgba(20, 21, 32, 0.95);
+      background: rgba(14, 15, 19, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -89,9 +90,9 @@
     }
     
     .brand-logo-text {
-      font-size: 20px; font-weight: 900; letter-spacing: 0.04em;
+      font-size: 20px; font-weight: 900; letter-spacing: 0.05em;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 60%, #9da3b4 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 55%, #71717a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: flex; align-items: center; gap: 4px;
@@ -105,11 +106,11 @@
     .header-date { font-size: 12px; color: var(--text-sec); font-weight: 600; }
     .header-avatar-btn {
       width: 36px; height: 36px; border-radius: 50%;
-      background: var(--surface-3); border: 1.5px solid var(--accent);
+      background: var(--surface-3); border: 1.5px solid #64748b;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; overflow: hidden; font-size: 14px; font-weight: 900;
-      color: var(--cyan);
-      box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
     }
 
     /* â”€â”€ CONTAINER â”€â”€ */
@@ -118,7 +119,7 @@
     /* â”€â”€ BOTTOM NAVIGATION â”€â”€ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(20, 21, 28, 0.96);
+      background: rgba(14, 15, 19, 0.96);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-around; align-items: center;
@@ -132,7 +133,7 @@
       flex: 1; height: 100%; color: var(--text-mut); text-decoration: none;
       cursor: pointer; transition: all 0.2s; background: none; border: none;
     }
-    .nav-item.active { color: var(--cyan); }
+    .nav-item.active { color: #ffffff; }
     .nav-icon { width: 22px; height: 22px; margin-bottom: 3px; fill: currentColor; }
     .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 
@@ -153,9 +154,9 @@
       letter-spacing: 0.04em; cursor: pointer; transition: all 0.2s;
     }
     .session-btn.start {
-      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
       color: #000000; font-weight: 900;
-      box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
     }
     .session-btn.stop {
       background: var(--red); color: #ffffff;
@@ -221,7 +222,7 @@
     }
     .tag-tier-s { color: #000; background: var(--gold); border-color: var(--gold); font-weight: 900; }
     .tag-tier-a { color: #000; background: var(--green); border-color: var(--green); font-weight: 900; }
-    .tag-tier-b { color: #fff; background: var(--accent); border-color: var(--accent); font-weight: 800; }
+    .tag-tier-b { color: #fff; background: var(--surface-3); border-color: var(--border-light); font-weight: 800; }
 
     .action-icon-btn {
       width: 32px; height: 32px; border-radius: 50%;
@@ -276,7 +277,7 @@
       padding: 7px 4px; font-family: inherit; font-size: 13px; font-weight: 700;
       color: var(--text); text-align: center; outline: none; transition: border-color 0.2s;
     }
-    .set-input:focus { border-color: var(--accent); }
+    .set-input:focus { border-color: #94a3b8; }
     .set-input::placeholder { color: var(--text-mut); font-weight: 500; font-size: 11px; }
     .set-row.is-done .set-input { opacity: 0.5; }
 
@@ -309,7 +310,7 @@
       font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
       display: flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .add-set-link:hover { border-color: var(--cyan); color: var(--cyan); }
+    .add-set-link:hover { border-color: #cbd5e1; color: #ffffff; }
 
     /* â”€â”€ STREAK & AGENDA 4-WEEK ROOSTER â”€â”€ */
     .streak-container {
@@ -362,8 +363,8 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       cursor: pointer; transition: all 0.2s; position: relative;
     }
-    .cal-cell.today { border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,210,255,0.3); }
-    .cal-cell.active { border-color: var(--accent); background: var(--surface-3); }
+    .cal-cell.today { border-color: #ffffff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.22); }
+    .cal-cell.active { border-color: #94a3b8; background: var(--surface-3); }
     .cal-cell.completed {
       background: rgba(48, 209, 88, 0.18); border-color: var(--green); color: var(--green);
     }
@@ -383,7 +384,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: 14px center; background-size: 18px;
     }
-    .search-input:focus { border-color: var(--cyan); }
+    .search-input:focus { border-color: #cbd5e1; }
 
     .chips-scroll {
       display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;
@@ -395,7 +396,7 @@
       background: var(--surface-1); color: var(--text-sec); font-family: inherit;
       font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.2s;
     }
-    .filter-chip.active { background: var(--cyan); color: #000; border-color: var(--cyan); font-weight: 900; }
+    .filter-chip.active { background: #ffffff; color: #000; border-color: #ffffff; font-weight: 900; }
 
     .lib-list { display: flex; flex-direction: column; gap: 10px; }
     .lib-card {
@@ -538,22 +539,37 @@
     }
     .modal-gif-box img { width: 100%; height: 100%; object-fit: contain; }
 
-    /* â”€â”€ CELEBRATION POPUP WITH COOL BADGE/IMAGE â”€â”€ */
+    /* â”€â”€ CELEBRATION POPUP WITH ANIMAL BADGE & VOLUME SQUARE â”€â”€ */
     .animal-popup-card {
-      text-align: center; padding: 10px 0;
+      text-align: center; padding: 6px 0;
     }
     .celebration-badge-container {
-      width: 110px; height: 110px; margin: 0 auto 16px;
-      border-radius: 50%; background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, rgba(10, 132, 255, 0.05) 70%);
-      border: 2px solid var(--cyan); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+      width: 96px; height: 96px; margin: 0 auto 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(20, 22, 28, 0.95) 100%);
+      border: 2px solid #64748b; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.12);
+      font-size: 48px; line-height: 1; user-select: none;
     }
-    .celebration-badge-svg {
-      width: 60px; height: 60px; fill: var(--cyan);
+    .animal-congrats-title {
+      font-size: 19px; font-weight: 900; color: #ffffff; margin-bottom: 12px;
+      letter-spacing: 0.04em; text-transform: uppercase;
     }
-    .animal-congrats-title { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 6px; letter-spacing: 0.02em; }
-    .animal-vol-display { font-size: 38px; font-weight: 900; color: var(--green); margin-bottom: 4px; line-height: 1.1; }
-    .animal-desc-text { font-size: 13px; color: var(--text-sec); margin-bottom: 20px; line-height: 1.4; padding: 0 10px; }
+    .animal-volume-box {
+      background: var(--surface-1); border: 1.5px solid var(--border-light);
+      border-radius: 14px; padding: 14px 18px; margin: 0 auto 14px;
+      max-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .animal-vol-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-sec); margin-bottom: 4px;
+    }
+    .animal-vol-display {
+      font-size: 32px; font-weight: 900; color: var(--green); line-height: 1.1;
+    }
+    .animal-desc-text {
+      font-size: 13px; color: var(--text-sec); margin-bottom: 18px; line-height: 1.4; padding: 0 10px;
+    }
 
     /* â”€â”€ TOAST â”€â”€ */
     #toast {
@@ -705,6 +721,27 @@
     <div id="viewProfile" style="display: none;">
       <h3 class="section-title" id="titleMyProfile">Mijn Profiel</h3>
       
+      <!-- PROFIELFOTO KAART -->
+      <div class="profile-card" style="text-align:center; padding: 22px 16px;">
+        <div style="position:relative; width:92px; height:92px; margin:0 auto 12px;">
+          <div id="profilePhotoDisplay" style="width:92px; height:92px; border-radius:50%; background:var(--surface-3); border:2px solid #64748b; display:flex; align-items:center; justify-content:center; overflow:hidden; font-size:32px; font-weight:900; color:#fff; box-shadow:0 0 20px rgba(255,255,255,0.1);">
+            <span id="profilePhotoInitial">A</span>
+          </div>
+          <button type="button" onclick="document.getElementById('profilePhotoInput').click()" style="position:absolute; bottom:0; right:0; width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #121316; color:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.5);" title="Kies Foto">
+            <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+          </button>
+        </div>
+        <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;" onchange="handleProfilePhotoUpload(event)" />
+        <div style="display:flex; justify-content:center; gap:8px;">
+          <button type="button" onclick="document.getElementById('profilePhotoInput').click()" style="padding:7px 16px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border-light); color:var(--text); font-size:12px; font-weight:700; cursor:pointer;">
+            Foto Wijzigen
+          </button>
+          <button type="button" id="btnRemoveProfilePhoto" onclick="removeProfilePhoto()" style="padding:7px 14px; border-radius:8px; background:transparent; border:1px solid var(--border); color:var(--red); font-size:12px; font-weight:700; cursor:pointer; display:none;">
+            Verwijderen
+          </button>
+        </div>
+      </div>
+
       <!-- PERSOONLIJKE GEGEVENS -->
       <div class="profile-card">
         <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
@@ -869,17 +906,20 @@
     </div>
   </div>
 
-  <!-- CELEBRATION MODAL MET TITAN BADGE / ILLUSTRATIE -->
+  <!-- CELEBRATION MODAL MET DIER BADGE & KILO VIERKANT -->
   <div class="modal-overlay" id="animalCelebrationModal">
     <div class="modal-dialog" style="text-align:center;">
       <div class="animal-popup-card">
-        <div class="celebration-badge-container">
-          <svg class="celebration-badge-svg" viewBox="0 0 24 24">
-            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43 1.43 1.43 2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43 1.71-1.57z"/>
-          </svg>
+        <div class="celebration-badge-container" id="popupAnimalBadge">
+          <span id="popupAnimalEmoji">ðŸ¦</span>
         </div>
         <div class="animal-congrats-title" id="popupAnimalTitle">OVERLOAD VOLTOOID</div>
-        <div class="animal-vol-display" id="popupAnimalVolume">0 kg</div>
+        
+        <div class="animal-volume-box">
+          <div class="animal-vol-label">TOTAAL VOLUME</div>
+          <div class="animal-vol-display" id="popupAnimalVolume">0 kg</div>
+        </div>
+
         <div class="animal-desc-text" id="popupAnimalDesc">
           Elke set en kilo telt. Progressive overload behaald!
         </div>
@@ -2024,6 +2064,57 @@
     });
   }
 
+  // â”€â”€â”€ ACCURATE REAL-WORLD ANIMAL WEIGHT DATABASE (>= 50 KG) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const ACCURATE_ANIMAL_DATABASE = [
+    { minKg: 120000, name: 'Blauwe Vinvis', emoji: 'ðŸ³', kg: 130000, desc: 'Grootste wezen ooit op aarde! Onvoorstelbare kosmische overload!' },
+    { minKg: 80000,  name: 'Titanosaurus', emoji: 'ðŸ¦•', kg: 85000, desc: 'Prehistorische kolos! Gigantische oerkracht!' },
+    { minKg: 50000,  name: 'Potvis', emoji: 'ðŸ‹', kg: 50000, desc: 'Heerser van de diepzee! Kolossale massa verplaatst!' },
+    { minKg: 35000,  name: 'Bultrug Walvis', emoji: 'ðŸ‹', kg: 36000, desc: 'Oceanische reus! Onwaarschijnlijk volume!' },
+    { minKg: 20000,  name: 'Brachiosaurus', emoji: 'ðŸ¦•', kg: 25000, desc: 'Prehistorische reus! Onbreekbare kracht!' },
+    { minKg: 14000,  name: 'Spinosaurus', emoji: 'ðŸ¦–', kg: 14000, desc: 'Grootste roofdier ooit! Pure brute kracht!' },
+    { minKg: 10000,  name: 'T-Rex Apex', emoji: 'ðŸ¦–', kg: 10000, desc: 'Apex roofdier koning! Brute oerkracht behaald!' },
+    { minKg: 8000,   name: 'Wolharige Mammoet', emoji: 'ðŸ¦£', kg: 8000, desc: 'IJstijd gigant! Onstopbare mammoetkracht!' },
+    { minKg: 6000,   name: 'Savanne Olifant', emoji: 'ðŸ˜', kg: 6000, desc: 'Grootste landdier op aarde! Pure titanenkracht!' },
+    { minKg: 4000,   name: 'Aziatische Olifant', emoji: 'ðŸ˜', kg: 4200, desc: 'Massieve jungle-olifant! Enorme kiloâ€™s verplaatst!' },
+    { minKg: 3000,   name: 'Volwassen Giraffe', emoji: 'ðŸ¦’', kg: 3000, desc: 'Savannah reus! Massief gewicht getild!' },
+    { minKg: 2300,   name: 'Witte Neushoorn', emoji: 'ðŸ¦', kg: 2300, desc: 'Gepantserde zwaargewicht neushoorn!' },
+    { minKg: 1800,   name: 'Zwarte Neushoorn', emoji: 'ðŸ¦', kg: 1800, desc: 'Stormachtige beestachtige aanvalskracht!' },
+    { minKg: 1400,   name: 'Nijlpaard', emoji: 'ðŸ¦›', kg: 1400, desc: 'Gevaarlijkste zwaargewicht van de rivier!' },
+    { minKg: 1100,   name: 'Amerikaanse Bizon', emoji: 'ðŸ¦¬', kg: 1100, desc: 'De buffelkoning van de prairie!' },
+    { minKg: 900,    name: 'Kaapse Buffel', emoji: 'ðŸƒ', kg: 900, desc: 'Onbevreesde Black Death krachtpatser!' },
+    { minKg: 750,    name: 'Zoutwaterkrokodil', emoji: 'ðŸŠ', kg: 800, desc: 'Grootste reptiel ter wereld met dodelijke beet!' },
+    { minKg: 600,    name: 'Arctische IJsbeer', emoji: 'ðŸ»â€â„ï¸', kg: 650, desc: 'Grootste landroofdier van de noordpool!' },
+    { minKg: 480,    name: 'Grizzlybeer', emoji: 'ðŸ»', kg: 500, desc: 'Massieve Noord-Amerikaanse grizzlybeer!' },
+    { minKg: 380,    name: 'Grote Eland', emoji: 'ðŸ¦Œ', kg: 420, desc: 'De koning van het noordelijke woud!' },
+    { minKg: 300,    name: 'Siberische Tijger', emoji: 'ðŸ…', kg: 320, desc: 'Grootste en zwaarste katachtige ooit!' },
+    { minKg: 240,    name: 'Bengaalse Tijger', emoji: 'ðŸ…', kg: 260, desc: 'Krachtige jager van de jungle!' },
+    { minKg: 200,    name: 'Afrikaanse Leeuw', emoji: 'ðŸ¦', kg: 220, desc: 'De Koning der Dieren! Majestueuze kracht!' },
+    { minKg: 160,    name: 'Zilverrug Gorilla', emoji: 'ðŸ¦', kg: 180, desc: 'Silverback power! Spierbundel van de jungle!' },
+    { minKg: 130,    name: 'Wild Zwijn Keiler', emoji: 'ðŸ—', kg: 150, desc: 'Ongetemde brute stormram!' },
+    { minKg: 100,    name: 'Reuzenschildpad', emoji: 'ðŸ¢', kg: 120, desc: 'Massieve tank van de Galapagos!' },
+    { minKg: 85,     name: 'Jaguar / Panter', emoji: 'ðŸ†', kg: 95, desc: 'Sterkste beet van alle katachtigen!' },
+    { minKg: 70,     name: 'Grijze Wolf', emoji: 'ðŸº', kg: 75, desc: 'Leider van de roedel! Uithoudingsvermogen & kracht!' },
+    { minKg: 55,     name: 'Sneeuwpanter', emoji: 'ðŸ†', kg: 60, desc: 'Koninklijke bergjager van de Himalaya!' },
+    { minKg: 45,     name: 'Jachtluipaard', emoji: 'ðŸ†', kg: 50, desc: 'Snelste sprinter van de savanne!' }
+  ];
+
+  function getAnimalByWeight(volKg) {
+    if (volKg < 45) {
+      return {
+        name: 'Opstart Fase',
+        emoji: 'ðŸ”¥',
+        kg: 50,
+        desc: 'Eerste stap naar echte overloads! Blijf doorpakken!'
+      };
+    }
+    for (const a of ACCURATE_ANIMAL_DATABASE) {
+      if (volKg >= a.minKg) {
+        return a;
+      }
+    }
+    return ACCURATE_ANIMAL_DATABASE[ACCURATE_ANIMAL_DATABASE.length - 1];
+  }
+
   function updateHomeStats(dateStr, dayIdx, allExercises) {
     let completedSetsCount = 0;
     let completedExCount = 0;
@@ -2037,9 +2128,7 @@
           sets.forEach(s => {
             if (s.done) {
               completedSetsCount++;
-              const w = parseFloat(s.weight) || 0;
-              const r = parseFloat(s.reps) || 0;
-              totalVolKg += (w * r);
+              totalVolKg += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
             }
           });
         } catch(e) {}
@@ -2483,7 +2572,25 @@
 
     const sel = document.getElementById('exerciseChartSelect');
     sel.innerHTML = '';
-    const exList = Object.keys(ALL_EXERCISES_DATABASE);
+    
+    // Alleen oefeningen die op het actieve schema / rooster staan
+    const schema = getActiveRoutineSchema();
+    const routineExercises = new Set();
+    Object.values(schema).forEach(day => {
+      if (day && day.groups) {
+        day.groups.forEach(g => {
+          if (g.exercises) {
+            g.exercises.forEach(ex => routineExercises.add(ex));
+          }
+        });
+      }
+    });
+
+    const exList = Array.from(routineExercises);
+    if (exList.length === 0) {
+      ['Dumbbell Incline Bench Press', 'Barbell Squat', 'Cable Lat Pulldown Full Range Of Motion', 'Dumbbell Bicep Curl', 'Cable Pushdown'].forEach(e => exList.push(e));
+    }
+
     exList.forEach(name => {
       const opt = document.createElement('option');
       opt.value = name;
@@ -2720,11 +2827,73 @@
   }
 
   // â”€â”€â”€ PROFILE & SETTINGS VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  function updateAvatarDisplays() {
+    const photo = localStorage.getItem('gymlog_profile_photo');
+    const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
+    const initial = name.charAt(0).toUpperCase() || 'A';
+
+    const headerBtn = document.getElementById('headerAvatarBtn');
+    const profileDisplay = document.getElementById('profilePhotoDisplay');
+    const removeBtn = document.getElementById('btnRemoveProfilePhoto');
+
+    if (photo) {
+      if (headerBtn) headerBtn.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" alt="Avatar" />`;
+      if (profileDisplay) profileDisplay.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" alt="Profielfoto" />`;
+      if (removeBtn) removeBtn.style.display = 'inline-block';
+    } else {
+      if (headerBtn) headerBtn.innerHTML = `<span id="avatarLetter">${initial}</span>`;
+      if (profileDisplay) profileDisplay.innerHTML = `<span id="profilePhotoInitial">${initial}</span>`;
+      if (removeBtn) removeBtn.style.display = 'none';
+    }
+  }
+
+  function handleProfilePhotoUpload(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const maxDim = 320;
+        let w = img.width, h = img.height;
+        if (w > h) {
+          if (w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; }
+        } else {
+          if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        
+        try {
+          localStorage.setItem('gymlog_profile_photo', dataUrl);
+          updateAvatarDisplays();
+          triggerToast('âœ“ Profielfoto opgeslagen!');
+        } catch(err) {
+          triggerToast('Foto te groot voor lokale opslag');
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    event.target.value = '';
+  }
+
+  function removeProfilePhoto() {
+    localStorage.removeItem('gymlog_profile_photo');
+    updateAvatarDisplays();
+    triggerToast('Profielfoto verwijderd');
+  }
+
   function loadProfileSettings() {
     const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
     document.getElementById('profileNameInput').value = name;
     document.getElementById('headerGreetingName').textContent = 'OVERLOAD';
-    document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+    updateAvatarDisplays();
 
     document.getElementById('profileWeightInput').value = localStorage.getItem('gymlog_bodyweight') || '78';
     document.getElementById('profileHeightInput').value = localStorage.getItem('gymlog_height') || '182';
@@ -2751,7 +2920,7 @@
   function saveProfileSettings() {
     const name = document.getElementById('profileNameInput').value.trim() || 'Amier';
     localStorage.setItem('gymlog_username', name);
-    document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+    updateAvatarDisplays();
 
     localStorage.setItem('gymlog_bodyweight', document.getElementById('profileWeightInput').value);
     localStorage.setItem('gymlog_height', document.getElementById('profileHeightInput').value);
@@ -2865,14 +3034,26 @@
       }
     }
 
-    let title = 'OVERLOAD VOLTOOID', desc = 'Elke set en kilo telt. Progressive overload behaald!';
-    if (sessionVol >= 10000) { title = 'TITAN OVERLOAD'; desc = 'Onvoorstelbare brute prestatie vandaag!'; }
-    else if (sessionVol >= 5000) { title = 'HEAVY OVERLOAD'; desc = 'Gigantisch volume verplaatst!'; }
-    else if (sessionVol >= 2000) { title = 'SOLID OVERLOAD'; desc = 'Sterke workout neergezet!'; }
+    const animal = getAnimalByWeight(sessionVol);
 
-    document.getElementById('popupAnimalTitle').textContent = title;
-    document.getElementById('popupAnimalVolume').textContent = `${Math.round(sessionVol)} kg`;
-    document.getElementById('popupAnimalDesc').textContent = desc;
+    const emojiEl = document.getElementById('popupAnimalEmoji');
+    if (emojiEl) emojiEl.textContent = animal.emoji;
+
+    const titleEl = document.getElementById('popupAnimalTitle');
+    if (titleEl) titleEl.textContent = `${animal.name.toUpperCase()} OVERLOAD`;
+
+    const volEl = document.getElementById('popupAnimalVolume');
+    if (volEl) volEl.textContent = `${Math.round(sessionVol).toLocaleString()} kg`;
+
+    const descEl = document.getElementById('popupAnimalDesc');
+    if (descEl) {
+      if (sessionVol >= 45) {
+        descEl.textContent = `Je hebt het gewicht van een ${animal.name} (${animal.kg >= 1000 ? (animal.kg/1000).toFixed(1) + ' ton' : animal.kg + ' kg'}) verplaatst! ${animal.desc}`;
+      } else {
+        descEl.textContent = animal.desc;
+      }
+    }
+
     document.getElementById('animalCelebrationModal').classList.add('open');
   }
 

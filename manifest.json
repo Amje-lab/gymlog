@@ -1,11 +1,11 @@
-{
-  "name": "GymLog – Amier",
-  "short_name": "GymLog",
-  "description": "Dagelijkse workout tracker voor Amier Mahmoud",
+﻿{
+  "name": "Overload",
+  "short_name": "Overload",
+  "description": "Overload - Workout Tracker voor Amier Mahmoud",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#070b14",
-  "theme_color": "#4f8ef7",
+  "background_color": "#060709",
+  "theme_color": "#121316",
   "orientation": "portrait",
   "icons": [
     {
