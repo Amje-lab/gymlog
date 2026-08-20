@@ -3,70 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GymLog â€“ Workout Tracker</title>
-  <meta name="description" content="GymLog Workout Tracker voor Amier met streaks, live timer, progressiegrafieken en dier-volume vergelijkingen." />
-  <meta name="theme-color" content="#2c2d38" id="themeColorMeta" />
+  <title>GymLog</title>
+  <meta name="description" content="GymLog Workout Tracker" />
+  <meta name="theme-color" content="#24252e" id="themeColorMeta" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="GymLog" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     :root {
-      --bg-top:       #2c2d38;
-      --bg-mid:       #15161c;
-      --bg-bot:       #090a0f;
+      --bg-top:       #2e303d;
+      --bg-mid:       #171821;
+      --bg-bot:       #0a0b10;
       
-      --surface-1:    rgba(28, 29, 36, 0.85);
-      --surface-2:    #1f2029;
-      --surface-3:    #2a2c38;
-      --border:       #313342;
-      --border-light: #44475a;
+      --surface-1:    rgba(32, 34, 44, 0.85);
+      --surface-2:    #21232d;
+      --surface-3:    #2c2f3d;
+      --border:       #373a4b;
+      --border-light: #4c5067;
       
       --accent:       #0a84ff;
-      --accent-glow:  rgba(10, 132, 255, 0.35);
       --red:          #ff3b30;
-      --red-glow:     rgba(255, 59, 48, 0.4);
       --green:        #30d158;
-      --green-glow:   rgba(48, 209, 88, 0.3);
+      --green-glow:   rgba(48, 209, 88, 0.35);
       --gold:         #ffd60a;
-      --gold-glow:    rgba(255, 214, 10, 0.3);
       --flame:        #ff9500;
 
       --text:         #ffffff;
-      --text-sec:     #9ea3b5;
-      --text-mut:     #686d80;
+      --text-sec:     #9da3b4;
+      --text-mut:     #6a7082;
 
-      --card-radius:  18px;
+      --card-radius:  16px;
       --btn-radius:   12px;
     }
 
     [data-theme="light"] {
-      --bg-top:       #f2f4f8;
-      --bg-mid:       #e8ebf2;
-      --bg-bot:       #dce1eb;
+      --bg-top:       #f0f2f7;
+      --bg-mid:       #e4e8f1;
+      --bg-bot:       #d8dde8;
       
-      --surface-1:    rgba(255, 255, 255, 0.92);
+      --surface-1:    rgba(255, 255, 255, 0.95);
       --surface-2:    #ffffff;
-      --surface-3:    #edf0f7;
-      --border:       #d5d9e5;
-      --border-light: #c0c6d6;
+      --surface-3:    #eaedf5;
+      --border:       #d2d7e5;
+      --border-light: #bcc2d4;
       
-      --text:         #111318;
-      --text-sec:     #4b5063;
-      --text-mut:     #7e8499;
+      --text:         #12141a;
+      --text-sec:     #4d5366;
+      --text-mut:     #7f869c;
     }
 
     html, body {
       background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 35%, var(--bg-bot) 100%) fixed;
       color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       min-height: 100vh; width: 100%; overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
@@ -74,14 +68,14 @@
     /* â”€â”€ HEADER â”€â”€ */
     header {
       position: sticky; top: 0; z-index: 90;
-      background: rgba(30, 31, 40, 0.75);
+      background: rgba(36, 38, 48, 0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 0 16px;
     }
     [data-theme="light"] header {
-      background: rgba(245, 247, 252, 0.85);
+      background: rgba(240, 242, 247, 0.85);
     }
     .header-inner {
       max-width: 680px; margin: 0 auto; height: 60px;
@@ -93,9 +87,7 @@
       letter-spacing: 0.08em; color: var(--text-sec);
     }
     .user-greeting {
-      font-family: 'Outfit', sans-serif;
-      font-size: 20px; font-weight: 900;
-      letter-spacing: -0.02em;
+      font-size: 20px; font-weight: 800; letter-spacing: -0.02em;
     }
     .user-greeting .g-white { color: var(--text); }
     .user-greeting .g-gray { color: var(--text-mut); margin-left: 2px; }
@@ -109,7 +101,6 @@
       cursor: pointer; overflow: hidden; font-size: 14px; font-weight: 800;
       color: var(--text);
     }
-    .header-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
 
     /* â”€â”€ CONTAINER â”€â”€ */
     main { max-width: 680px; margin: 0 auto; padding: 16px 14px 120px; }
@@ -117,14 +108,14 @@
     /* â”€â”€ BOTTOM NAVIGATION â”€â”€ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(18, 19, 24, 0.94);
+      background: rgba(20, 21, 27, 0.95);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-around; align-items: center;
       height: 64px; max-width: 680px; margin: 0 auto;
     }
     [data-theme="light"] .bottom-nav {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
     }
     .nav-item {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -145,20 +136,20 @@
       display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
     }
     .session-label { font-size: 11px; font-weight: 800; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.08em; }
-    .session-timer-display { font-family: 'Outfit', monospace; font-size: 22px; font-weight: 900; color: var(--text); }
+    .session-timer-display { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); }
     .session-btn {
       width: 100%; padding: 12px; border-radius: var(--btn-radius); border: none;
-      font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 900;
+      font-size: 13px; font-weight: 800;
       letter-spacing: 0.04em; cursor: pointer; transition: all 0.2s;
     }
     .session-btn.start {
       background: #ffffff; color: #000000; box-shadow: 0 4px 16px rgba(255,255,255,0.2);
     }
     [data-theme="light"] .session-btn.start {
-      background: #111318; color: #ffffff;
+      background: #12141a; color: #ffffff;
     }
     .session-btn.stop {
-      background: var(--red); color: #ffffff; box-shadow: 0 4px 16px var(--red-glow);
+      background: var(--red); color: #ffffff;
     }
     .session-btn:active { transform: scale(0.98); }
 
@@ -171,23 +162,23 @@
       background: var(--surface-1); border: 1px solid var(--border);
       border-radius: var(--btn-radius); padding: 12px 10px; text-align: center;
     }
-    .stat-val { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 900; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
+    .stat-val { font-size: 20px; font-weight: 800; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
     .stat-lbl { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mut); }
     .stat-sub { font-size: 10px; color: var(--text-sec); font-weight: 600; margin-top: 2px; }
 
     /* â”€â”€ DAY HEADER â”€â”€ */
     .day-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .day-title { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: -0.02em; }
+    .day-title { font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
     .workout-badge {
       padding: 5px 12px; border-radius: 20px;
-      font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
       background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
     }
 
     /* â”€â”€ MUSCLE GROUP SECTION â”€â”€ */
     .grp-section { margin-bottom: 20px; }
     .grp-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .grp-title { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mut); }
+    .grp-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mut); }
     .grp-line { flex: 1; height: 1px; background: var(--border); }
 
     /* â”€â”€ EXERCISE CARD â”€â”€ */
@@ -209,7 +200,7 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; cursor: pointer; position: relative; overflow: hidden;
     }
-    .ex-thumb img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); background: #fff; }
+    .ex-thumb img { width: 100%; height: 100%; object-fit: cover; background: #fff; }
     
     .ex-meta { flex: 1; min-width: 0; cursor: pointer; }
     .ex-title-text { font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.25; margin-bottom: 4px; }
@@ -319,17 +310,17 @@
       margin-bottom: 20px;
     }
     .streak-fire-wrapper {
-      position: relative; display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 4px;
     }
     .streak-flame-icon {
-      font-size: 40px; line-height: 1; transition: all 0.3s;
+      font-size: 42px; line-height: 1; transition: all 0.3s;
     }
     .streak-flame-gray { filter: grayscale(100%) opacity(0.35); }
     .streak-flame-1 { filter: drop-shadow(0 0 8px rgba(255,149,0,0.5)); }
-    .streak-flame-10 { animation: firePulse 1.2s infinite alternate; font-size: 46px; filter: drop-shadow(0 0 14px rgba(255,100,0,0.8)); }
-    .streak-flame-30 { animation: fireWiggle 0.6s infinite alternate; font-size: 50px; filter: drop-shadow(0 0 20px rgba(255,50,0,0.9)); }
-    .streak-flame-50 { animation: fireWiggle 0.4s infinite alternate; font-size: 56px; filter: drop-shadow(0 0 26px rgba(255,0,0,1)); }
+    .streak-flame-10 { animation: firePulse 1.2s infinite alternate; font-size: 48px; filter: drop-shadow(0 0 14px rgba(255,100,0,0.8)); }
+    .streak-flame-30 { animation: fireWiggle 0.6s infinite alternate; font-size: 52px; filter: drop-shadow(0 0 20px rgba(255,50,0,0.9)); }
+    .streak-flame-50 { animation: fireWiggle 0.4s infinite alternate; font-size: 58px; filter: drop-shadow(0 0 26px rgba(255,0,0,1)); }
     
     @keyframes firePulse {
       0% { transform: scale(1); }
@@ -341,7 +332,6 @@
     }
 
     .streak-count-number {
-      font-family: 'Outfit', sans-serif;
       font-size: 24px; font-weight: 900; color: var(--text); line-height: 1;
     }
 
@@ -370,7 +360,7 @@
     .cal-cell.locked {
       opacity: 0.45; cursor: not-allowed;
     }
-    .cal-num { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); }
+    .cal-num { font-size: 14px; font-weight: 800; color: var(--text); }
     .cal-cell.completed .cal-num { color: var(--green); }
     .cal-status-icon { margin-top: 2px; font-size: 10px; }
 
@@ -419,8 +409,7 @@
 
     /* â”€â”€ TRACKER & GRAPHS VIEW â”€â”€ */
     .section-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 20px; font-weight: 900; color: var(--text);
+      font-size: 18px; font-weight: 800; color: var(--text);
       margin-bottom: 12px; margin-top: 20px;
     }
     .tracker-animal-card {
@@ -446,7 +435,7 @@
       background: var(--surface-2); padding: 10px 14px; border-radius: 10px; margin-bottom: 12px;
     }
     .pr-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-sec); }
-    .pr-val { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 900; color: var(--gold); }
+    .pr-val { font-size: 18px; font-weight: 900; color: var(--gold); }
     .svg-chart { width: 100%; height: 160px; }
 
     /* â”€â”€ PROGRESSION PHOTOS â”€â”€ */
@@ -525,7 +514,7 @@
     .modal-hdr {
       display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
     }
-    .modal-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
+    .modal-title { font-size: 18px; font-weight: 800; color: var(--text); }
     .modal-close-btn {
       width: 32px; height: 32px; border-radius: 50%;
       background: var(--surface-3); border: none; color: var(--text);
@@ -542,8 +531,8 @@
       text-align: center; padding: 10px 0;
     }
     .animal-big-emoji { font-size: 72px; line-height: 1; margin-bottom: 12px; }
-    .animal-congrats-title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
-    .animal-vol-display { font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+    .animal-congrats-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+    .animal-vol-display { font-size: 36px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
     .animal-desc-text { font-size: 14px; color: var(--text-sec); margin-bottom: 20px; line-height: 1.4; }
 
     /* â”€â”€ TOAST â”€â”€ */
@@ -590,7 +579,7 @@
           <span class="session-timer-display" id="sessionTimerText">00:00</span>
         </div>
         <button class="session-btn start" id="sessionToggleBtn" onclick="toggleWorkoutSession()">
-          â–¶ START SESSIE
+          Start Sessie
         </button>
       </div>
 
@@ -738,17 +727,17 @@
           <option value="nl">Nederlands (Dutch)</option>
           <option value="en">English (US/UK)</option>
           <option value="de">Deutsch (German)</option>
-          <option value="fr">FranÃ§ais (French)</option>
-          <option value="es">EspaÃ±ol (Spanish)</option>
+          <option value="fr">Francais (French)</option>
+          <option value="es">Espanol (Spanish)</option>
           <option value="it">Italiano (Italian)</option>
-          <option value="pt">PortuguÃªs (Portuguese)</option>
-          <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Arabic)</option>
-          <option value="tr">TÃ¼rkÃ§e (Turkish)</option>
+          <option value="pt">Portugues (Portuguese)</option>
+          <option value="ar">Arabic</option>
+          <option value="tr">Turkce (Turkish)</option>
           <option value="pl">Polski (Polish)</option>
-          <option value="ru">Ð ÑƒÑÑÐºÐ¸Ð¹ (Russian)</option>
-          <option value="ja">æ—¥æœ¬èªž (Japanese)</option>
-          <option value="zh">ä¸­æ–‡ (Chinese)</option>
-          <option value="ko">í•œêµ­ì–´ (Korean)</option>
+          <option value="ru">Russian</option>
+          <option value="ja">Japanese</option>
+          <option value="zh">Chinese</option>
+          <option value="ko">Korean</option>
           <option value="sv">Svenska (Swedish)</option>
           <option value="no">Norsk (Norwegian)</option>
           <option value="da">Dansk (Danish)</option>
@@ -757,7 +746,7 @@
 
       <div class="profile-card" style="text-align:center;">
         <button onclick="resetAllDataConfirmation()" style="background:transparent; border:1px solid var(--red); color:var(--red); padding:10px 16px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
-          âš ï¸ Reset Alle Data & Routine
+          Reset Alle Data en Routine
         </button>
       </div>
     </div>
@@ -792,7 +781,7 @@
     <div class="modal-dialog">
       <div class="modal-hdr">
         <span class="modal-title" id="modalExTitle">Oefening Details</span>
-        <button class="modal-close-btn" onclick="closeDetailModal()">âœ•</button>
+        <button class="modal-close-btn" onclick="closeDetailModal()">&#10005;</button>
       </div>
       <div class="modal-gif-box">
         <img id="modalExGif" src="" alt="Exercise Motion" />
@@ -872,12 +861,12 @@
 
   // â”€â”€â”€ LOCAL STORAGE HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function getActiveRoutineSchema() {
-    const saved = localStorage.getItem('gymlog_schema_v3');
+    const saved = localStorage.getItem('gymlog_schema_v4');
     return saved ? JSON.parse(saved) : DEFAULT_ROUTINE_SCHEMA;
   }
 
   function saveActiveRoutineSchema(schema) {
-    localStorage.setItem('gymlog_schema_v3', JSON.stringify(schema));
+    localStorage.setItem('gymlog_schema_v4', JSON.stringify(schema));
   }
 
   function formatDateKey(d) {
@@ -1048,13 +1037,13 @@
     document.getElementById('valDoneEx').textContent = `${completedExCount}/${allExercises.length}`;
     
     let animalTag = 'Geen lift';
-    if (totalVolKg >= 10000) animalTag = 'ðŸš€ Raket / Vinvis';
-    else if (totalVolKg >= 6000) animalTag = 'ðŸ¦– T-Rex';
-    else if (totalVolKg >= 3000) animalTag = 'ðŸ˜ Olifant';
-    else if (totalVolKg >= 1500) animalTag = 'ðŸ¦ Neushoorn';
-    else if (totalVolKg >= 500) animalTag = 'ðŸš— Kleine Auto';
-    else if (totalVolKg >= 250) animalTag = 'ðŸï¸ Motorfiets';
-    else if (totalVolKg > 0) animalTag = 'ðŸ± Huiskat';
+    if (totalVolKg >= 10000) animalTag = 'Raket / Vinvis';
+    else if (totalVolKg >= 6000) animalTag = 'T-Rex';
+    else if (totalVolKg >= 3000) animalTag = 'Olifant';
+    else if (totalVolKg >= 1500) animalTag = 'Neushoorn';
+    else if (totalVolKg >= 500) animalTag = 'Kleine Auto';
+    else if (totalVolKg >= 250) animalTag = 'Motorfiets';
+    else if (totalVolKg > 0) animalTag = 'Huiskat';
 
     document.getElementById('valVolume').textContent = totalVolKg >= 1000 ? (totalVolKg/1000).toFixed(1) + 'k' : Math.round(totalVolKg);
     document.getElementById('valVolumeAnimal').textContent = animalTag;
@@ -1170,7 +1159,7 @@
         const calc1RM = () => {
           const w = parseFloat(weightInp.value) || 0;
           const r = parseFloat(repsInp.value) || 0;
-          return (w > 0 && r > 0) ? (r === 1 ? w : Math.round(w * (1 + r / 30))) + 'kg' : 'â€“';
+          return (w > 0 && r > 0) ? (r === 1 ? w : Math.round(w * (1 + r / 30))) + 'kg' : '-';
         };
         oneRmEl.textContent = calc1RM();
 
@@ -1227,7 +1216,7 @@
 
     const addSetBtn = document.createElement('button');
     addSetBtn.className = 'add-set-link';
-    addSetBtn.innerHTML = 'ï¼‹ Set toevoegen';
+    addSetBtn.innerHTML = '+ Set toevoegen';
     addSetBtn.onclick = () => {
       sets.push({ weight: '', reps: '', done: false });
       saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -1329,7 +1318,7 @@
       let statusHtml = '';
       if (isCompleted) statusHtml = 'âœ“';
       else if (isFuture) statusHtml = 'ðŸ”’';
-      else if (allEx.length === 0) statusHtml = 'â€“';
+      else if (allEx.length === 0) statusHtml = '-';
 
       cell.innerHTML = `
         <div class="cal-num">${cellDate.getDate()}</div>
@@ -1365,14 +1354,14 @@
     hdr.style.marginTop = '16px';
     hdr.innerHTML = `
       <div class="day-title">${dayData.name} (${d.getDate()} ${d.toLocaleDateString('nl-NL', {month:'short'})})</div>
-      <div class="workout-badge">${isFuture ? 'ðŸ”’ VERGRENDELD' : dayData.label}</div>
+      <div class="workout-badge">${isFuture ? 'VERGRENDELD' : dayData.label}</div>
     `;
     container.appendChild(hdr);
 
     if (isFuture) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:24px;text-align:center;color:var(--text-sec);">
-          ðŸ”’ Deze dag is nog niet aangebroken. Je kunt pas workouts loggen op de dag zelf!
+          Deze dag is nog niet aangebroken. Je kunt pas workouts loggen op de dag zelf!
         </div>
       `;
       return;
@@ -1408,7 +1397,6 @@
 
   // â”€â”€â”€ TRACKER & PROGRESSION VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function renderTrackerView() {
-    // Calc stats
     const doneDays = [];
     let allTimeVol = 0;
     const sessionTimes = JSON.parse(localStorage.getItem('gymlog_durations_v2') || '[]');
@@ -1436,7 +1424,6 @@
     document.getElementById('trkAvgSessionTime').textContent = avgMins + 'm';
     document.getElementById('trkAllTimeVolume').textContent = (allTimeVol >= 1000 ? (allTimeVol/1000).toFixed(1) + ' ton' : allTimeVol + ' kg');
 
-    // Weekly & Monthly Animal volume
     const weekVol = Math.round(allTimeVol * 0.25);
     const monthVol = Math.round(allTimeVol * 0.8);
     document.getElementById('weekAnimalEmoji').textContent = weekVol >= 5000 ? 'ðŸ¦–' : (weekVol >= 2000 ? 'ðŸ˜' : 'ðŸš—');
@@ -1444,7 +1431,6 @@
     document.getElementById('monthAnimalEmoji').textContent = monthVol >= 15000 ? 'ðŸš€' : (monthVol >= 8000 ? 'ðŸ¦–' : 'ðŸ˜');
     document.getElementById('monthAnimalText').textContent = `${monthVol} kg getild deze maand`;
 
-    // Populate chart select
     const sel = document.getElementById('exerciseChartSelect');
     sel.innerHTML = '';
     const exList = Object.keys(ALL_EXERCISES_DATABASE);
@@ -1465,7 +1451,6 @@
     const pr = getExerciseMaxWeight(exName);
     document.getElementById('chartPrDisplay').textContent = pr > 0 ? `${pr} kg` : 'Nog geen PR';
 
-    // Collect weights history
     const history = [];
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
@@ -1491,7 +1476,6 @@
       return;
     }
 
-    // Draw SVG Chart
     const maxVal = Math.max(...history.map(h => h.weight), 10);
     const minVal = Math.min(...history.map(h => h.weight), 0);
     const w = 320, h = 130;
@@ -1538,7 +1522,7 @@
     grid.innerHTML = '';
 
     if (photos.length === 0) {
-      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">Nog geen progressiefoto's geÃ¼pload.</div>`;
+      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">Nog geen progressiefoto's geupload.</div>`;
       return;
     }
 
@@ -1549,7 +1533,7 @@
         <img src="${p.data}" alt="Progressie" />
         <div class="photo-date-tag">
           <span>${p.date}</span>
-          <button class="photo-del-btn" onclick="deleteProgressionPhoto(${p.id})">âœ•</button>
+          <button class="photo-del-btn" onclick="deleteProgressionPhoto(${p.id})">&#10005;</button>
         </div>
       `;
       grid.appendChild(card);
@@ -1566,7 +1550,6 @@
 
   // â”€â”€â”€ SEARCH & LIBRARY VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function initSearchLibrary() {
-    // Muscle category chips (NO "Alles")
     const mContainer = document.getElementById('muscleFilterChips');
     mContainer.innerHTML = '';
     CATEGORY_LIST.forEach(cat => {
@@ -1580,7 +1563,6 @@
       mContainer.appendChild(chip);
     });
 
-    // Equipment filter chips
     const eqContainer = document.getElementById('equipmentFilterChips');
     eqContainer.innerHTML = '';
     EQUIPMENT_LIST.forEach(eq => {
@@ -1636,7 +1618,7 @@
           </div>
         </div>
         <select class="add-to-day-select" onchange="autoAddExerciseToMuscleGroup('${name}', this)">
-          <option value="">ï¼‹ Voeg toe...</option>
+          <option value="">+ Voeg toe...</option>
           <option value="0">Maandag</option>
           <option value="1">Dinsdag</option>
           <option value="2">Woensdag</option>
@@ -1662,7 +1644,6 @@
     const exData = ALL_EXERCISES_DATABASE[exName] || { category: 'Overig' };
     const catName = exData.category;
 
-    // Find matching muscle group on that day, or create it automatically
     let group = schema[dayIdx].groups.find(g => g.title.toLowerCase() === catName.toLowerCase());
     if (!group) {
       group = { title: catName, exercises: [] };
@@ -1719,11 +1700,11 @@
     if (isDark) {
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('gymlog_theme', 'dark');
-      document.getElementById('themeColorMeta').content = '#2c2d38';
+      document.getElementById('themeColorMeta').content = '#2e303d';
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem('gymlog_theme', 'light');
-      document.getElementById('themeColorMeta').content = '#f2f4f8';
+      document.getElementById('themeColorMeta').content = '#f0f2f7';
     }
   }
 
@@ -1743,7 +1724,7 @@
       isSessionActive = true;
       sessionStartTime = Date.now();
       sessionTimerInterval = setInterval(updateSessionTimerDisplay, 1000);
-      btn.textContent = 'â¹ SESSIE AFRONDEN';
+      btn.textContent = 'Sessie Afronden';
       btn.className = 'session-btn stop';
       label.textContent = 'WORKOUT ACTIEF';
       triggerToast('Sessie gestart! Zet hem op!');
@@ -1756,12 +1737,11 @@
       sessionTimes.push(elapsedSeconds);
       localStorage.setItem('gymlog_durations_v2', JSON.stringify(sessionTimes));
 
-      btn.textContent = 'â–¶ START SESSIE';
+      btn.textContent = 'Start Sessie';
       btn.className = 'session-btn start';
       label.textContent = 'SESSIE STATUS';
       document.getElementById('sessionTimerText').textContent = '00:00';
 
-      // Trigger Animal Celebration Modal
       showAnimalCelebration(elapsedSeconds);
     }
   }
@@ -1831,7 +1811,6 @@
     document.getElementById('exerciseDetailModal').classList.remove('open');
   }
 
-  // Close modal when clicking outside
   document.getElementById('exerciseDetailModal').onclick = (e) => {
     if (e.target.id === 'exerciseDetailModal') closeDetailModal();
   };
