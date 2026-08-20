@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GymLog</title>
-  <meta name="description" content="GymLog Workout Tracker" />
+  <title>OVERLOAD</title>
+  <meta name="description" content="OVERLOAD â€“ Progressive Gym Workout Tracker" />
   <meta name="theme-color" content="#343748" id="themeColorMeta" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="GymLog" />
+  <meta name="apple-mobile-web-app-title" content="OVERLOAD" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
 
@@ -16,8 +16,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     :root {
-      --bg-top:       #343748;
-      --bg-mid:       #171822;
+      --bg-top:       #323547;
+      --bg-mid:       #161722;
       --bg-bot:       #090a0f;
       
       --surface-1:    rgba(34, 36, 48, 0.88);
@@ -27,6 +27,8 @@
       --border-light: #4c5068;
       
       --accent:       #0a84ff;
+      --accent-glow:  rgba(10, 132, 255, 0.35);
+      --cyan:         #00d2ff;
       --red:          #ff3b30;
       --green:        #30d158;
       --green-glow:   rgba(48, 209, 88, 0.35);
@@ -67,7 +69,7 @@
     /* â”€â”€ HEADER â”€â”€ */
     header {
       position: sticky; top: 0; z-index: 90;
-      background: rgba(38, 40, 52, 0.85);
+      background: rgba(36, 38, 52, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -82,23 +84,33 @@
     }
     .brand-group { display: flex; flex-direction: column; }
     .welcome-title {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-sec);
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--text-sec);
     }
-    .user-greeting {
-      font-size: 20px; font-weight: 800; letter-spacing: -0.02em;
+    
+    /* NEW OVERLOAD / NON-WHITE LOGO BRANDING */
+    .brand-logo-text {
+      font-size: 20px; font-weight: 900; letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 60%, #9da3b4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex; align-items: center; gap: 4px;
     }
-    .user-greeting .g-white { color: var(--text); }
-    .user-greeting .g-gray { color: var(--text-mut); margin-left: 2px; }
+    .brand-logo-sub {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      color: var(--text-sec);
+    }
     
     .header-right { display: flex; align-items: center; gap: 12px; }
     .header-date { font-size: 12px; color: var(--text-sec); font-weight: 600; }
     .header-avatar-btn {
       width: 36px; height: 36px; border-radius: 50%;
-      background: var(--surface-3); border: 1.5px solid var(--border);
+      background: var(--surface-3); border: 1.5px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; overflow: hidden; font-size: 14px; font-weight: 800;
-      color: var(--text);
+      cursor: pointer; overflow: hidden; font-size: 14px; font-weight: 900;
+      color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
     }
 
     /* â”€â”€ CONTAINER â”€â”€ */
@@ -121,7 +133,7 @@
       flex: 1; height: 100%; color: var(--text-mut); text-decoration: none;
       cursor: pointer; transition: all 0.2s; background: none; border: none;
     }
-    .nav-item.active { color: var(--accent); }
+    .nav-item.active { color: var(--cyan); }
     .nav-icon { width: 22px; height: 22px; margin-bottom: 3px; fill: currentColor; }
     .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 
@@ -142,10 +154,9 @@
       letter-spacing: 0.04em; cursor: pointer; transition: all 0.2s;
     }
     .session-btn.start {
-      background: #ffffff; color: #000000; box-shadow: 0 4px 16px rgba(255,255,255,0.2);
-    }
-    [data-theme="light"] .session-btn.start {
-      background: #111318; color: #ffffff;
+      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 100%);
+      color: #000000; font-weight: 900;
+      box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
     }
     .session-btn.stop {
       background: var(--red); color: #ffffff;
@@ -299,7 +310,7 @@
       font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
       display: flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .add-set-link:hover { border-color: var(--accent); color: var(--accent); }
+    .add-set-link:hover { border-color: var(--cyan); color: var(--cyan); }
 
     /* â”€â”€ STREAK & AGENDA 4-WEEK ROOSTER â”€â”€ */
     .streak-container {
@@ -316,24 +327,11 @@
       font-size: 46px; line-height: 1; transition: all 0.3s;
       user-select: none;
     }
-    .streak-flame-gray {
-      filter: grayscale(100%) opacity(0.3);
-    }
-    .streak-flame-1 {
-      filter: drop-shadow(0 0 10px rgba(255,149,0,0.6));
-    }
-    .streak-flame-10 {
-      animation: firePulse 1.2s infinite alternate; font-size: 52px;
-      filter: drop-shadow(0 0 16px rgba(255,100,0,0.85));
-    }
-    .streak-flame-30 {
-      animation: fireWiggle 0.6s infinite alternate; font-size: 58px;
-      filter: drop-shadow(0 0 22px rgba(255,50,0,0.95));
-    }
-    .streak-flame-50 {
-      animation: fireWiggle 0.4s infinite alternate; font-size: 64px;
-      filter: drop-shadow(0 0 28px rgba(255,0,0,1));
-    }
+    .streak-flame-gray { filter: grayscale(100%) opacity(0.3); }
+    .streak-flame-1 { filter: drop-shadow(0 0 10px rgba(255,149,0,0.6)); }
+    .streak-flame-10 { animation: firePulse 1.2s infinite alternate; font-size: 52px; filter: drop-shadow(0 0 16px rgba(255,100,0,0.85)); }
+    .streak-flame-30 { animation: fireWiggle 0.6s infinite alternate; font-size: 58px; filter: drop-shadow(0 0 22px rgba(255,50,0,0.95)); }
+    .streak-flame-50 { animation: fireWiggle 0.4s infinite alternate; font-size: 64px; filter: drop-shadow(0 0 28px rgba(255,0,0,1)); }
     
     @keyframes firePulse {
       0% { transform: scale(1); }
@@ -365,7 +363,7 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       cursor: pointer; transition: all 0.2s; position: relative;
     }
-    .cal-cell.today { border-color: var(--text); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+    .cal-cell.today { border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,210,255,0.3); }
     .cal-cell.active { border-color: var(--accent); background: var(--surface-3); }
     .cal-cell.completed {
       background: rgba(48, 209, 88, 0.18); border-color: var(--green); color: var(--green);
@@ -386,7 +384,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: 14px center; background-size: 18px;
     }
-    .search-input:focus { border-color: var(--accent); }
+    .search-input:focus { border-color: var(--cyan); }
 
     .chips-scroll {
       display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;
@@ -398,7 +396,7 @@
       background: var(--surface-1); color: var(--text-sec); font-family: inherit;
       font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.2s;
     }
-    .filter-chip.active { background: var(--text); color: var(--bg-bot); border-color: var(--text); font-weight: 900; }
+    .filter-chip.active { background: var(--cyan); color: #000; border-color: var(--cyan); font-weight: 900; }
 
     .lib-list { display: flex; flex-direction: column; gap: 10px; }
     .lib-card {
@@ -564,16 +562,16 @@
   <header>
     <div class="header-inner">
       <div class="brand-group">
-        <span class="welcome-title">Welkom terug</span>
-        <div class="user-greeting">
-          <span class="g-white" id="headerGreetingName">Amier</span>
-          <span class="g-gray">Log</span>
+        <span class="welcome-title" id="txtWelcome">WELKOM TERUG</span>
+        <div class="brand-logo-text">
+          <span id="headerGreetingName">OVERLOAD</span>
+          <span class="brand-logo-sub" id="headerSubBrand">GYM</span>
         </div>
       </div>
       <div class="header-right">
         <span class="header-date" id="headerDateDisplay"></span>
         <button class="header-avatar-btn" onclick="switchTab('profile')" id="headerAvatarBtn" title="Profiel">
-          <span id="avatarLetter">A</span>
+          <span id="avatarLetter">O</span>
         </button>
       </div>
     </div>
@@ -598,15 +596,15 @@
       <div class="stats-grid" id="homeStatsGrid">
         <div class="stat-card">
           <div class="stat-val" id="valTotalSets">0</div>
-          <div class="stat-lbl">Sets</div>
+          <div class="stat-lbl" id="lblSets">Sets</div>
         </div>
         <div class="stat-card">
           <div class="stat-val" id="valDoneEx">0/0</div>
-          <div class="stat-lbl">Oefeningen</div>
+          <div class="stat-lbl" id="lblExercises">Oefeningen</div>
         </div>
         <div class="stat-card">
           <div class="stat-val" id="valVolume">0</div>
-          <div class="stat-lbl">Volume (kg)</div>
+          <div class="stat-lbl" id="lblVolume">Volume (kg)</div>
           <div class="stat-sub" id="valVolumeAnimal">Geen lift</div>
         </div>
       </div>
@@ -626,7 +624,7 @@
       </div>
 
       <!-- CALENDAR 4-WEEKS GRID -->
-      <div class="cal-grid-header">
+      <div class="cal-grid-header" id="calGridHeaderDays">
         <span>Ma</span><span>Di</span><span>Wo</span><span>Do</span><span>Vr</span><span>Za</span><span>Zo</span>
       </div>
       <div class="cal-grid" id="agendaGridContainer"></div>
@@ -637,48 +635,48 @@
 
     <!-- VIEW 3: TRACKER & PROGRESSION -->
     <div id="viewTracker" style="display: none;">
-      <h3 class="section-title">Algemene Statistieken</h3>
+      <h3 class="section-title" id="titleGeneralStats">Algemene Statistieken</h3>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-val" id="trkAvgGymDays">0.0</div>
-          <div class="stat-lbl">Dagen / Week</div>
+          <div class="stat-lbl" id="lblDaysPerWeek">Dagen / Week</div>
         </div>
         <div class="stat-card">
           <div class="stat-val" id="trkAvgSessionTime">0m</div>
-          <div class="stat-lbl">Gem. Duur</div>
+          <div class="stat-lbl" id="lblAvgDuration">Gem. Duur</div>
         </div>
         <div class="stat-card">
           <div class="stat-val" id="trkAllTimeVolume">0 t</div>
-          <div class="stat-lbl">All-Time Volume</div>
+          <div class="stat-lbl" id="lblAllTimeVolume">All-Time Volume</div>
         </div>
       </div>
 
       <!-- VOLUME ACHIEVEMENTS -->
-      <h3 class="section-title">Volume Prestaties</h3>
+      <h3 class="section-title" id="titleVolumeAchievements">Volume Prestaties</h3>
       <div class="tracker-stat-box">
-        <h4>Deze Week</h4>
+        <h4 id="lblThisWeek">Deze Week</h4>
         <p id="weekAnimalText">0 kg getild</p>
       </div>
       <div class="tracker-stat-box">
-        <h4>Deze Maand</h4>
+        <h4 id="lblThisMonth">Deze Maand</h4>
         <p id="monthAnimalText">0 kg getild</p>
       </div>
 
       <!-- EXERCISE PROGRESSION & PR GRAPH -->
-      <h3 class="section-title">Oefening Progressie en PR</h3>
+      <h3 class="section-title" id="titleProgressionPr">Oefening Progressie en PR</h3>
       <div class="chart-container">
         <select class="chart-select" id="exerciseChartSelect" onchange="renderExerciseProgressionChart()"></select>
         <div class="pr-badge-box">
-          <span class="pr-title">All-Time Max Gewicht (PR)</span>
+          <span class="pr-title" id="lblAllTimePr">All-Time Max Gewicht (PR)</span>
           <span class="pr-val" id="chartPrDisplay">0 kg</span>
         </div>
         <div id="svgChartWrapper"></div>
       </div>
 
       <!-- WEEKLY PROGRESSION PHOTOS -->
-      <h3 class="section-title">Wekelijkse Progressiefoto's</h3>
+      <h3 class="section-title" id="titleWeeklyPhotos">Wekelijkse Progressiefoto's</h3>
       <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)" />
-      <button class="upload-photo-btn" onclick="document.getElementById('photoFileInput').click()">
+      <button class="upload-photo-btn" id="btnUploadPhoto" onclick="document.getElementById('photoFileInput').click()">
         Voeg Weekfoto Toe
       </button>
       <div class="photo-grid" id="progressPhotoGrid"></div>
@@ -694,17 +692,17 @@
 
     <!-- VIEW 5: PROFILE & SETTINGS -->
     <div id="viewProfile" style="display: none;">
-      <h3 class="section-title">Mijn Profiel</h3>
+      <h3 class="section-title" id="titleMyProfile">Mijn Profiel</h3>
       <div class="profile-card">
-        <div class="profile-field-label">Jouw Naam</div>
+        <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
         <input type="text" class="profile-input" id="profileNameInput" value="Amier Mahmoud" onchange="saveProfileSettings()" />
       </div>
 
       <div class="profile-card">
         <div class="profile-row">
           <div>
-            <div class="profile-field-label" style="margin-bottom:2px;">Dark Mode</div>
-            <div style="font-size:12px; color:var(--text-sec);">Schakel tussen donker en licht</div>
+            <div class="profile-field-label" id="lblDarkMode" style="margin-bottom:2px;">Dark Mode</div>
+            <div style="font-size:12px; color:var(--text-sec);" id="subDarkMode">Schakel tussen donker en licht</div>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="darkModeToggle" checked onchange="toggleDarkMode(this.checked)">
@@ -716,8 +714,8 @@
       <div class="profile-card">
         <div class="profile-row">
           <div>
-            <div class="profile-field-label" style="margin-bottom:2px;">Gemiste Dag Doorschuiven</div>
-            <div style="font-size:12px; color:var(--text-sec);">Verschuift gemiste training automatisch</div>
+            <div class="profile-field-label" id="lblAutoShift" style="margin-bottom:2px;">Gemiste Dag Doorschuiven</div>
+            <div style="font-size:12px; color:var(--text-sec);" id="subAutoShift">Verschuift gemiste training automatisch</div>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="autoShiftToggle" checked onchange="saveProfileSettings()">
@@ -727,22 +725,22 @@
       </div>
 
       <div class="profile-card">
-        <div class="profile-field-label">Taal Selecteren (Alle Talen)</div>
-        <select class="profile-input" id="languageSelect" onchange="saveProfileSettings()">
+        <div class="profile-field-label" id="lblSelectLanguage">Taal Selecteren (Live Vertaling)</div>
+        <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
           <option value="nl">Nederlands (Dutch)</option>
           <option value="en">English (US/UK)</option>
           <option value="de">Deutsch (German)</option>
-          <option value="fr">Francais (French)</option>
-          <option value="es">Espanol (Spanish)</option>
+          <option value="fr">FranÃ§ais (French)</option>
+          <option value="es">EspaÃ±ol (Spanish)</option>
           <option value="it">Italiano (Italian)</option>
-          <option value="pt">Portugues (Portuguese)</option>
-          <option value="ar">Arabic</option>
-          <option value="tr">Turkce (Turkish)</option>
+          <option value="pt">PortuguÃªs (Portuguese)</option>
+          <option value="tr">TÃ¼rkÃ§e (Turkish)</option>
+          <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Arabic)</option>
           <option value="pl">Polski (Polish)</option>
-          <option value="ru">Russian</option>
-          <option value="ja">Japanese</option>
-          <option value="zh">Chinese</option>
-          <option value="ko">Korean</option>
+          <option value="ru">Ð ÑƒÑÑÐºÐ¸Ð¹ (Russian)</option>
+          <option value="ja">æ—¥æœ¬èªž (Japanese)</option>
+          <option value="zh">ä¸­æ–‡ (Chinese)</option>
+          <option value="ko">í•œêµ­ì–´ (Korean)</option>
           <option value="sv">Svenska (Swedish)</option>
           <option value="no">Norsk (Norwegian)</option>
           <option value="da">Dansk (Danish)</option>
@@ -750,7 +748,7 @@
       </div>
 
       <div class="profile-card" style="text-align:center;">
-        <button onclick="resetAllDataConfirmation()" style="background:transparent; border:1px solid var(--red); color:var(--red); padding:10px 16px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
+        <button onclick="resetAllDataConfirmation()" id="btnResetAll" style="background:transparent; border:1px solid var(--red); color:var(--red); padding:10px 16px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer;">
           Reset Alle Data en Routine
         </button>
       </div>
@@ -761,23 +759,23 @@
   <nav class="bottom-nav">
     <button class="nav-item active" id="navBtnHome" onclick="switchTab('home')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span class="nav-label">Home</span>
+      <span class="nav-label" id="navLblHome">Home</span>
     </button>
     <button class="nav-item" id="navBtnAgenda" onclick="switchTab('agenda')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
-      <span class="nav-label">Agenda</span>
+      <span class="nav-label" id="navLblAgenda">Agenda</span>
     </button>
     <button class="nav-item" id="navBtnTracker" onclick="switchTab('tracker')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-      <span class="nav-label">Tracker</span>
+      <span class="nav-label" id="navLblTracker">Tracker</span>
     </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchTab('search')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <span class="nav-label">Zoeken</span>
+      <span class="nav-label" id="navLblSearch">Zoeken</span>
     </button>
     <button class="nav-item" id="navBtnProfile" onclick="switchTab('profile')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span class="nav-label">Profiel</span>
+      <span class="nav-label" id="navLblProfile">Profiel</span>
     </button>
   </nav>
 
@@ -793,7 +791,7 @@
       </div>
       <div style="display:flex; gap:6px; margin-bottom:14px;" id="modalExTags"></div>
       <div class="pr-badge-box">
-        <span class="pr-title">Jouw Max Gewicht (PR)</span>
+        <span class="pr-title" id="lblModalPr">Jouw Max Gewicht (PR)</span>
         <span class="pr-val" id="modalExPr">0 kg</span>
       </div>
     </div>
@@ -808,7 +806,7 @@
         <div class="animal-desc-text" id="popupAnimalDesc">
           Lekker bezig! Elke kilo telt.
         </div>
-        <button class="session-btn start" style="width:auto; padding:12px 32px;" onclick="closeAnimalModal()">
+        <button class="session-btn start" id="btnCelebrationClose" style="width:auto; padding:12px 32px;" onclick="closeAnimalModal()">
           Sluiten
         </button>
       </div>
@@ -838,6 +836,385 @@
     if (exData && exData.gif && exData.gif.trim() !== '') return exData.gif;
     const cat = exData ? exData.category : 'Overig';
     return CATEGORY_FALLBACK_GIFS[cat] || CATEGORY_FALLBACK_GIFS['Overig'];
+  }
+
+  // â”€â”€â”€ FULL LIVE MULTI-LANGUAGE TRANSLATIONS (I18N) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  const TRANSLATIONS = {
+    nl: {
+      welcome: "WELKOM TERUG",
+      startSession: "Start Sessie",
+      stopSession: "Sessie Afronden",
+      sessionStatus: "Sessie Status",
+      activeWorkout: "WORKOUT ACTIEF",
+      sets: "Sets",
+      exercises: "Oefeningen",
+      volume: "Volume (kg)",
+      restDayToday: "Rustdag Vandaag",
+      restDaySub: "Tijd voor herstel en goede voeding!",
+      addSet: "+ Set toevoegen",
+      generalStats: "Algemene Statistieken",
+      daysPerWeek: "Dagen / Week",
+      avgDuration: "Gem. Duur",
+      allTimeVolume: "All-Time Volume",
+      volumeAchievements: "Volume Prestaties",
+      thisWeek: "Deze Week",
+      thisMonth: "Deze Maand",
+      progressionPr: "Oefening Progressie en PR",
+      allTimePr: "All-Time Max Gewicht (PR)",
+      weeklyPhotos: "Wekelijkse Progressiefoto's",
+      uploadPhoto: "Voeg Weekfoto Toe",
+      searchPlaceholder: "Zoek elke oefening in de gym...",
+      myProfile: "Mijn Profiel",
+      yourName: "Jouw Naam",
+      darkMode: "Dark Mode",
+      subDarkMode: "Schakel tussen donker en licht",
+      autoShift: "Gemiste Dag Doorschuiven",
+      subAutoShift: "Verschuift gemiste training automatisch",
+      selectLanguage: "Taal Selecteren (Live Vertaling)",
+      resetAll: "Reset Alle Data en Routine",
+      navHome: "Home",
+      navAgenda: "Agenda",
+      navTracker: "Tracker",
+      navSearch: "Zoeken",
+      navProfile: "Profiel",
+      todayBadge: "VANDAAG",
+      upcomingBadge: "BINNENKORT",
+      addToDay: "+ Voeg toe...",
+      daysShort: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'],
+      dayNames: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag']
+    },
+    en: {
+      welcome: "WELCOME BACK",
+      startSession: "Start Session",
+      stopSession: "Finish Session",
+      sessionStatus: "Session Status",
+      activeWorkout: "WORKOUT ACTIVE",
+      sets: "Sets",
+      exercises: "Exercises",
+      volume: "Volume (kg)",
+      restDayToday: "Rest Day Today",
+      restDaySub: "Time for recovery and good nutrition!",
+      addSet: "+ Add Set",
+      generalStats: "Overall Statistics",
+      daysPerWeek: "Days / Week",
+      avgDuration: "Avg Duration",
+      allTimeVolume: "All-Time Volume",
+      volumeAchievements: "Volume Achievements",
+      thisWeek: "This Week",
+      thisMonth: "This Month",
+      progressionPr: "Exercise Progression & PR",
+      allTimePr: "All-Time Max Weight (PR)",
+      weeklyPhotos: "Weekly Progress Photos",
+      uploadPhoto: "Add Weekly Photo",
+      searchPlaceholder: "Search any exercise in the gym...",
+      myProfile: "My Profile",
+      yourName: "Your Name",
+      darkMode: "Dark Mode",
+      subDarkMode: "Toggle dark and light theme",
+      autoShift: "Auto-Shift Missed Day",
+      subAutoShift: "Automatically moves missed workout forward",
+      selectLanguage: "Select Language (Live Translation)",
+      resetAll: "Reset All Data and Routine",
+      navHome: "Home",
+      navAgenda: "Schedule",
+      navTracker: "Tracker",
+      navSearch: "Search",
+      navProfile: "Profile",
+      todayBadge: "TODAY",
+      upcomingBadge: "UPCOMING",
+      addToDay: "+ Add to...",
+      daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    },
+    de: {
+      welcome: "WILLKOMMEN ZURÃœCK",
+      startSession: "Training Starten",
+      stopSession: "Training Beenden",
+      sessionStatus: "Sitzungsstatus",
+      activeWorkout: "TRAINING AKTIV",
+      sets: "SÃ¤tze",
+      exercises: "Ãœbungen",
+      volume: "Volumen (kg)",
+      restDayToday: "Heute Ruhetag",
+      restDaySub: "Zeit fÃ¼r Regeneration und gute ErnÃ¤hrung!",
+      addSet: "+ Satz hinzufÃ¼gen",
+      generalStats: "Gesamtstatistik",
+      daysPerWeek: "Tage / Woche",
+      avgDuration: "Durchschn. Dauer",
+      allTimeVolume: "Gesamtvolumen",
+      volumeAchievements: "Volumen-Leistungen",
+      thisWeek: "Diese Woche",
+      thisMonth: "Diesen Monat",
+      progressionPr: "Ãœbungsfortschritt & PR",
+      allTimePr: "All-Time Max Gewicht (PR)",
+      weeklyPhotos: "WÃ¶chentliche Fortschrittsfotos",
+      uploadPhoto: "Wochenfoto hinzufÃ¼gen",
+      searchPlaceholder: "Jede Ãœbung im Gym suchen...",
+      myProfile: "Mein Profil",
+      yourName: "Dein Name",
+      darkMode: "Dunkelmodus",
+      subDarkMode: "Zwischen Dunkel und Hell wechseln",
+      autoShift: "Verpassten Tag verschieben",
+      subAutoShift: "Verschiebt verpasstes Training automatisch",
+      selectLanguage: "Sprache wÃ¤hlen (Live-Ãœbersetzung)",
+      resetAll: "Alle Daten und Routinen zurÃ¼cksetzen",
+      navHome: "Home",
+      navAgenda: "Kalender",
+      navTracker: "Tracker",
+      navSearch: "Suche",
+      navProfile: "Profil",
+      todayBadge: "HEUTE",
+      upcomingBadge: "DEMNÃ„CHST",
+      addToDay: "+ HinzufÃ¼gen zu...",
+      daysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+      dayNames: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+    },
+    fr: {
+      welcome: "BIENVENUE",
+      startSession: "DÃ©marrer la sÃ©ance",
+      stopSession: "Terminer la sÃ©ance",
+      sessionStatus: "Statut de sÃ©ance",
+      activeWorkout: "ENTRAÃŽNEMENT ACTIF",
+      sets: "SÃ©ries",
+      exercises: "Exercices",
+      volume: "Volume (kg)",
+      restDayToday: "Jour de repos aujourd'hui",
+      restDaySub: "Temps pour la rÃ©cupÃ©ration et la nutrition !",
+      addSet: "+ Ajouter une sÃ©rie",
+      generalStats: "Statistiques GÃ©nÃ©rales",
+      daysPerWeek: "Jours / Semaine",
+      avgDuration: "DurÃ©e Moy.",
+      allTimeVolume: "Volume Total",
+      volumeAchievements: "Performances de Volume",
+      thisWeek: "Cette Semaine",
+      thisMonth: "Ce Mois",
+      progressionPr: "Progression & Record (PR)",
+      allTimePr: "Poids Max Record (PR)",
+      weeklyPhotos: "Photos de progression",
+      uploadPhoto: "Ajouter une photo",
+      searchPlaceholder: "Chercher un exercice...",
+      myProfile: "Mon Profil",
+      yourName: "Votre Nom",
+      darkMode: "Mode Sombre",
+      subDarkMode: "Basculer entre sombre et clair",
+      autoShift: "DÃ©caler jour manquÃ©",
+      subAutoShift: "DÃ©place automatiquement l'entraÃ®nement manquÃ©",
+      selectLanguage: "SÃ©lectionner la langue",
+      resetAll: "RÃ©initialiser les donnÃ©es",
+      navHome: "Accueil",
+      navAgenda: "Planning",
+      navTracker: "Suivi",
+      navSearch: "Recherche",
+      navProfile: "Profil",
+      todayBadge: "AUJOURD'HUI",
+      upcomingBadge: "Ã€ VENIR",
+      addToDay: "+ Ajouter Ã ...",
+      daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+      dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+    },
+    es: {
+      welcome: "BIENVENIDO DE NUEVO",
+      startSession: "Iniciar SesiÃ³n",
+      stopSession: "Finalizar SesiÃ³n",
+      sessionStatus: "Estado de SesiÃ³n",
+      activeWorkout: "ENTRENAMIENTO ACTIVO",
+      sets: "Series",
+      exercises: "Ejercicios",
+      volume: "Volumen (kg)",
+      restDayToday: "DÃ­a de Descanso Hoy",
+      restDaySub: "Â¡Tiempo para recuperaciÃ³n y nutriciÃ³n!",
+      addSet: "+ AÃ±adir Serie",
+      generalStats: "EstadÃ­sticas Generales",
+      daysPerWeek: "DÃ­as / Semana",
+      avgDuration: "DuraciÃ³n Media",
+      allTimeVolume: "Volumen Total",
+      volumeAchievements: "Logros de Volumen",
+      thisWeek: "Esta Semana",
+      thisMonth: "Este Mes",
+      progressionPr: "ProgresiÃ³n y RÃ©cord (PR)",
+      allTimePr: "Peso MÃ¡ximo HistÃ³rico (PR)",
+      weeklyPhotos: "Fotos de Progreso Semanal",
+      uploadPhoto: "AÃ±adir Foto Semanal",
+      searchPlaceholder: "Buscar cualquier ejercicio...",
+      myProfile: "Mi Perfil",
+      yourName: "Tu Nombre",
+      darkMode: "Modo Oscuro",
+      subDarkMode: "Cambiar entre oscuro y claro",
+      autoShift: "Desplazar DÃ­a Perdido",
+      subAutoShift: "Mueve automÃ¡ticamente el entrenamiento perdido",
+      selectLanguage: "Seleccionar Idioma",
+      resetAll: "Reiniciar Todos los Datos",
+      navHome: "Inicio",
+      navAgenda: "Agenda",
+      navTracker: "Progreso",
+      navSearch: "Buscar",
+      navProfile: "Perfil",
+      todayBadge: "HOY",
+      upcomingBadge: "PRÃ“XIMO",
+      addToDay: "+ AÃ±adir a...",
+      daysShort: ['Lun', 'Mar', 'MiÃ©', 'Jue', 'Vie', 'SÃ¡b', 'Dom'],
+      dayNames: ['Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado', 'Domingo']
+    },
+    tr: {
+      welcome: "TEKRAR HOÅž GELDÄ°N",
+      startSession: "AntrenmanÄ± BaÅŸlat",
+      stopSession: "AntrenmanÄ± Bitir",
+      sessionStatus: "Seans Durumu",
+      activeWorkout: "ANTRENMAN AKTÄ°F",
+      sets: "Setler",
+      exercises: "Egzersizler",
+      volume: "Hacim (kg)",
+      restDayToday: "BugÃ¼n Dinlenme GÃ¼nÃ¼",
+      restDaySub: "Ä°yileÅŸme ve beslenme zamanÄ±!",
+      addSet: "+ Set Ekle",
+      generalStats: "Genel Ä°statistikler",
+      daysPerWeek: "GÃ¼n / Hafta",
+      avgDuration: "Ort. SÃ¼re",
+      allTimeVolume: "TÃ¼m ZamanlarÄ±n Hacmi",
+      volumeAchievements: "Hacim BaÅŸarÄ±larÄ±",
+      thisWeek: "Bu Hafta",
+      thisMonth: "Bu Ay",
+      progressionPr: "Egzersiz Ä°lerlemesi & PR",
+      allTimePr: "TÃ¼m ZamanlarÄ±n En YÃ¼ksek AÄŸÄ±rlÄ±ÄŸÄ± (PR)",
+      weeklyPhotos: "HaftalÄ±k Ä°lerleme FotoÄŸraflarÄ±",
+      uploadPhoto: "HaftalÄ±k FotoÄŸraf Ekle",
+      searchPlaceholder: "Spor salonundaki tÃ¼m egzersizleri ara...",
+      myProfile: "Profilim",
+      yourName: "AdÄ±nÄ±z",
+      darkMode: "KaranlÄ±k Mod",
+      subDarkMode: "KaranlÄ±k ve aydÄ±nlÄ±k arasÄ±nda geÃ§iÅŸ yap",
+      autoShift: "KaÃ§Ä±rÄ±lan GÃ¼nÃ¼ KaydÄ±r",
+      subAutoShift: "KaÃ§Ä±rÄ±lan antrenmanÄ± otomatik olarak kaydÄ±rÄ±r",
+      selectLanguage: "Dil SeÃ§in (CanlÄ± Ã‡eviri)",
+      resetAll: "TÃ¼m Verileri SÄ±fÄ±rla",
+      navHome: "Ana Sayfa",
+      navAgenda: "Program",
+      navTracker: "Takip",
+      navSearch: "Ara",
+      navProfile: "Profil",
+      todayBadge: "BUGÃœN",
+      upcomingBadge: "YAKINDA",
+      addToDay: "+ GÃ¼ne Ekle...",
+      daysShort: ['Pzt', 'Sal', 'Ã‡ar', 'Per', 'Cum', 'Cmt', 'Paz'],
+      dayNames: ['Pazartesi', 'SalÄ±', 'Ã‡arÅŸamba', 'PerÅŸembe', 'Cuma', 'Cumartesi', 'Pazar']
+    },
+    ar: {
+      welcome: "Ø£Ù‡Ù„Ø§Ù‹ Ø¨Ùƒ Ù…Ø¬Ø¯Ø¯Ø§Ù‹",
+      startSession: "Ø¨Ø¯Ø¡ Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
+      stopSession: "Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
+      sessionStatus: "Ø­Ø§Ù„Ø© Ø§Ù„ØªÙ…Ø±ÙŠÙ†",
+      activeWorkout: "ØªÙ…Ø±ÙŠÙ† Ù†Ø´Ø·",
+      sets: "Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹Ø§Øª",
+      exercises: "Ø§Ù„ØªÙ…Ø§Ø±ÙŠÙ†",
+      volume: "Ø§Ù„Ø­Ø¬Ù… (ÙƒØº)",
+      restDayToday: "Ø§Ù„ÙŠÙˆÙ… ÙŠÙˆÙ… Ø±Ø§Ø­Ø©",
+      restDaySub: "ÙˆÙ‚Øª Ø§Ù„Ø§Ø³ØªØ´ÙØ§Ø¡ ÙˆØ§Ù„ØªØºØ°ÙŠØ© Ø§Ù„Ø¬ÙŠØ¯Ø©!",
+      addSet: "+ Ø¥Ø¶Ø§ÙØ© Ù…Ø¬Ù…ÙˆØ¹Ø©",
+      generalStats: "Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø¹Ø§Ù…Ø©",
+      daysPerWeek: "Ø£ÙŠØ§Ù… / Ø£Ø³Ø¨ÙˆØ¹",
+      avgDuration: "Ù…ØªÙˆØ³Ø· Ø§Ù„Ù…Ø¯Ø©",
+      allTimeVolume: "Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø­Ø¬Ù…",
+      volumeAchievements: "Ø¥Ù†Ø¬Ø§Ø²Ø§Øª Ø§Ù„Ø­Ø¬Ù…",
+      thisWeek: "Ù‡Ø°Ø§ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹",
+      thisMonth: "Ù‡Ø°Ø§ Ø§Ù„Ø´Ù‡Ø±",
+      progressionPr: "ØªÙ‚Ø¯Ù… Ø§Ù„ØªÙ…Ø±ÙŠÙ† ÙˆØ§Ù„Ø±Ù‚Ù… Ø§Ù„Ù‚ÙŠØ§Ø³ÙŠ",
+      allTimePr: "Ø£Ø¹Ù„Ù‰ ÙˆØ²Ù† Ù‚ÙŠØ§Ø³ÙŠ (PR)",
+      weeklyPhotos: "ØµÙˆØ± Ø§Ù„ØªÙ‚Ø¯Ù… Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©",
+      uploadPhoto: "Ø¥Ø¶Ø§ÙØ© ØµÙˆØ±Ø© Ø£Ø³Ø¨ÙˆØ¹ÙŠØ©",
+      searchPlaceholder: "Ø§Ø¨Ø­Ø« Ø¹Ù† Ø£ÙŠ ØªÙ…Ø±ÙŠÙ†...",
+      myProfile: "Ù…Ù„ÙÙŠ Ø§Ù„Ø´Ø®ØµÙŠ",
+      yourName: "Ø§Ø³Ù…Ùƒ",
+      darkMode: "Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù„ÙŠÙ„ÙŠ",
+      subDarkMode: "Ø§Ù„ØªØ¨Ø¯ÙŠÙ„ Ø¨ÙŠÙ† Ø§Ù„Ø¯Ø§ÙƒÙ† ÙˆØ§Ù„ÙØ§ØªØ­",
+      autoShift: "ØªØ±Ø­ÙŠÙ„ Ø§Ù„ÙŠÙˆÙ… Ø§Ù„ÙØ§Ø¦Øª",
+      subAutoShift: "ØªØ±Ø­ÙŠÙ„ Ø§Ù„ØªÙ…Ø±ÙŠÙ† Ø§Ù„ÙØ§Ø¦Øª ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹",
+      selectLanguage: "Ø§Ø®ØªØ± Ø§Ù„Ù„ØºØ©",
+      resetAll: "Ø¥Ø¹Ø§Ø¯Ø© Ø¶Ø¨Ø· Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª",
+      navHome: "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
+      navAgenda: "Ø§Ù„Ø¬Ø¯ÙˆÙ„",
+      navTracker: "Ø§Ù„Ù…ØªØ§Ø¨Ø¹Ø©",
+      navSearch: "Ø§Ù„Ø¨Ø­Ø«",
+      navProfile: "Ø§Ù„Ø­Ø³Ø§Ø¨",
+      todayBadge: "Ø§Ù„ÙŠÙˆÙ…",
+      upcomingBadge: "Ù‚Ø±ÙŠØ¨Ø§Ù‹",
+      addToDay: "+ Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰...",
+      daysShort: ['Ø¥Ø«Ù†', 'Ø«Ù„Ø§', 'Ø£Ø±Ø¨', 'Ø®Ù…ÙŠ', 'Ø¬Ù…Ø¹', 'Ø³Ø¨Øª', 'Ø£Ø­Ø¯'],
+      dayNames: ['Ø§Ù„Ø¥Ø«Ù†ÙŠÙ†', 'Ø§Ù„Ø«Ù„Ø§Ø«Ø§Ø¡', 'Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡', 'Ø§Ù„Ø®Ù…ÙŠØ³', 'Ø§Ù„Ø¬Ù…Ø¹Ø©', 'Ø§Ù„Ø³Ø¨Øª', 'Ø§Ù„Ø£Ø­Ø¯']
+    }
+  };
+
+  function getLang() {
+    return localStorage.getItem('gymlog_lang') || 'nl';
+  }
+
+  function t(key) {
+    const lang = getLang();
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS['nl'] || TRANSLATIONS['en'];
+    return (dict && dict[key]) ? dict[key] : (TRANSLATIONS['en'][key] || key);
+  }
+
+  function applyLanguageStrings() {
+    const l = getLang();
+    const dict = TRANSLATIONS[l] || TRANSLATIONS['en'];
+    if (!dict) return;
+
+    const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+    setTxt('txtWelcome', dict.welcome || 'WELKOM TERUG');
+    setTxt('lblSets', dict.sets || 'Sets');
+    setTxt('lblExercises', dict.exercises || 'Oefeningen');
+    setTxt('lblVolume', dict.volume || 'Volume (kg)');
+    setTxt('titleGeneralStats', dict.generalStats || 'Algemene Statistieken');
+    setTxt('lblDaysPerWeek', dict.daysPerWeek || 'Dagen / Week');
+    setTxt('lblAvgDuration', dict.avgDuration || 'Gem. Duur');
+    setTxt('lblAllTimeVolume', dict.allTimeVolume || 'All-Time Volume');
+    setTxt('titleVolumeAchievements', dict.volumeAchievements || 'Volume Prestaties');
+    setTxt('lblThisWeek', dict.thisWeek || 'Deze Week');
+    setTxt('lblThisMonth', dict.thisMonth || 'Deze Maand');
+    setTxt('titleProgressionPr', dict.progressionPr || 'Oefening Progressie en PR');
+    setTxt('lblAllTimePr', dict.allTimePr || 'All-Time Max Gewicht (PR)');
+    setTxt('titleWeeklyPhotos', dict.weeklyPhotos || "Wekelijkse Progressiefoto's");
+    setTxt('btnUploadPhoto', dict.uploadPhoto || 'Voeg Weekfoto Toe');
+    setTxt('titleMyProfile', dict.myProfile || 'Mijn Profiel');
+    setTxt('lblYourName', dict.yourName || 'Jouw Naam');
+    setTxt('lblDarkMode', dict.darkMode || 'Dark Mode');
+    setTxt('subDarkMode', dict.subDarkMode || 'Schakel tussen donker en licht');
+    setTxt('lblAutoShift', dict.autoShift || 'Gemiste Dag Doorschuiven');
+    setTxt('subAutoShift', dict.subAutoShift || 'Verschuift gemiste training automatisch');
+    setTxt('lblSelectLanguage', dict.selectLanguage || 'Taal Selecteren (Live Vertaling)');
+    setTxt('btnResetAll', dict.resetAll || 'Reset Alle Data en Routine');
+    setTxt('navLblHome', dict.navHome || 'Home');
+    setTxt('navLblAgenda', dict.navAgenda || 'Agenda');
+    setTxt('navLblTracker', dict.navTracker || 'Tracker');
+    setTxt('navLblSearch', dict.navSearch || 'Zoeken');
+    setTxt('navLblProfile', dict.navProfile || 'Profiel');
+
+    const searchInp = document.getElementById('searchInput');
+    if (searchInp) searchInp.placeholder = dict.searchPlaceholder || 'Zoek elke oefening in de gym...';
+
+    // Update calendar headers
+    const calHdr = document.getElementById('calGridHeaderDays');
+    if (calHdr && dict.daysShort) {
+      calHdr.innerHTML = dict.daysShort.map(d => `<span>${d}</span>`).join('');
+    }
+
+    if (!isSessionActive) {
+      setTxt('sessionToggleBtn', dict.startSession || 'Start Sessie');
+      setTxt('sessionStateLabel', dict.sessionStatus || 'Sessie Status');
+    } else {
+      setTxt('sessionToggleBtn', dict.stopSession || 'Sessie Afronden');
+      setTxt('sessionStateLabel', dict.activeWorkout || 'WORKOUT ACTIEF');
+    }
+  }
+
+  function changeAppLanguage(newLang) {
+    localStorage.setItem('gymlog_lang', newLang);
+    applyLanguageStrings();
+    if (activeTab === 'home') renderHomeView();
+    else if (activeTab === 'agenda') renderAgendaView();
+    else if (activeTab === 'tracker') renderTrackerView();
+    else if (activeTab === 'search') initSearchLibrary();
+    triggerToast(t('welcome'));
   }
 
   // â”€â”€â”€ DEFAULT ROUTINE SCHEMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -906,12 +1283,12 @@
 
   // â”€â”€â”€ LOCAL STORAGE HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function getActiveRoutineSchema() {
-    const saved = localStorage.getItem('gymlog_schema_v5');
+    const saved = localStorage.getItem('gymlog_schema_v6');
     return saved ? JSON.parse(saved) : DEFAULT_ROUTINE_SCHEMA;
   }
 
   function saveActiveRoutineSchema(schema) {
-    localStorage.setItem('gymlog_schema_v5', JSON.stringify(schema));
+    localStorage.setItem('gymlog_schema_v6', JSON.stringify(schema));
   }
 
   function makeStorageKey(dateStr, dayIdx, exName) {
@@ -1003,7 +1380,8 @@
     const dayOfWeek = today.getDay();
     const dayIdx = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
 
-    document.getElementById('headerDateDisplay').textContent = today.toLocaleDateString('nl-NL', {
+    const lang = getLang();
+    document.getElementById('headerDateDisplay').textContent = today.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {
       weekday: 'short', day: 'numeric', month: 'short'
     });
 
@@ -1020,11 +1398,11 @@
     `;
     container.appendChild(hdr);
 
-    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
+    if (dayData.groups.length === 0 || dayData.label.includes('RUST') || dayData.label.includes('REST')) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:36px 20px;text-align:center;">
-          <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">Rustdag Vandaag</div>
-          <div style="font-size:13px;color:var(--text-sec);">Tijd voor herstel en goede voeding!</div>
+          <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">${t('restDayToday')}</div>
+          <div style="font-size:13px;color:var(--text-sec);">${t('restDaySub')}</div>
         </div>
       `;
       updateHomeStats(dateStr, dayIdx, []);
@@ -1058,7 +1436,6 @@
     let completedExCount = 0;
     let totalVolKg = 0;
 
-    // Scan all logged sets for today's date across all keys to guarantee accurate volume
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
       if (k && k.startsWith(`gymlog_sets:${dateStr}:`)) {
@@ -1096,7 +1473,7 @@
     document.getElementById('valVolumeAnimal').textContent = animalTag;
   }
 
-  // â”€â”€â”€ EXERCISE CARD COMPONENT (WITH AUTO-COMPLETE ON KG + REPS) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ EXERCISE CARD COMPONENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
     let sets = loadExerciseSets(dateStr, dayIdx, exName);
     let isCompleted = loadExerciseDoneState(dateStr, dayIdx, exName);
@@ -1140,10 +1517,10 @@
 
     const delBtn = document.createElement('button');
     delBtn.className = 'action-icon-btn delete-btn';
-    delBtn.title = 'Oefening verwijderen';
+    delBtn.title = 'Verwijderen';
     delBtn.innerHTML = `<svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
     delBtn.onclick = () => {
-      if (confirm(`Weet je zeker dat je "${exName}" wilt verwijderen van deze dag?`)) {
+      if (confirm(`"${exName}" verwijderen?`)) {
         removeExerciseFromDay(dayIdx, groupIdx, exName);
       }
     };
@@ -1154,7 +1531,7 @@
     finishBtn.onclick = () => {
       isCompleted = !isCompleted;
       saveExerciseDoneState(dateStr, dayIdx, exName, isCompleted);
-      triggerToast(isCompleted ? `${exName} voltooid!` : `${exName} heropend`);
+      triggerToast(isCompleted ? `${exName} âœ“` : `${exName}`);
       card.classList.toggle('completed', isCompleted);
       finishBtn.classList.toggle('done', isCompleted);
       updateHomeStats(dateStr, dayIdx, allExercises);
@@ -1215,13 +1592,11 @@
         function checkAutoDone() {
           const w = parseFloat(weightInp.value);
           const r = parseFloat(repsInp.value);
-          // AUTO CHECK WHEN BOTH KG AND REPS ARE ENTERED
           if (!isNaN(w) && w > 0 && !isNaN(r) && r > 0) {
             sets[sIdx].done = true;
           }
           saveExerciseSets(dateStr, dayIdx, exName, sets);
 
-          // If all sets in this exercise are done, auto-complete the exercise card
           const allSetsDone = sets.length > 0 && sets.every(s => s.done);
           if (allSetsDone && !isCompleted) {
             isCompleted = true;
@@ -1271,7 +1646,7 @@
         delSetBtn.title = 'Set verwijderen';
         delSetBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
         delSetBtn.onclick = () => {
-          if (sets.length <= 1) { triggerToast('Minimaal 1 set vereist'); return; }
+          if (sets.length <= 1) { triggerToast('Minimaal 1 set'); return; }
           sets.splice(sIdx, 1);
           saveExerciseSets(dateStr, dayIdx, exName, sets);
           renderSetRows();
@@ -1293,7 +1668,7 @@
 
     const addSetBtn = document.createElement('button');
     addSetBtn.className = 'add-set-link';
-    addSetBtn.innerHTML = '+ Set toevoegen';
+    addSetBtn.textContent = t('addSet') || '+ Set toevoegen';
     addSetBtn.onclick = () => {
       sets.push({ weight: '', reps: '', done: false });
       saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -1311,13 +1686,13 @@
     if (schema[dayIdx] && schema[dayIdx].groups[groupIdx]) {
       schema[dayIdx].groups[groupIdx].exercises = schema[dayIdx].groups[groupIdx].exercises.filter(e => e !== exName);
       saveActiveRoutineSchema(schema);
-      triggerToast(`${exName} verwijderd!`);
+      triggerToast(`${exName} -`);
       if (activeTab === 'home') renderHomeView();
       else if (activeTab === 'agenda') renderAgendaView();
     }
   }
 
-  // â”€â”€â”€ AGENDA VIEW (4-WEEK CALENDAR & STREAK) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ AGENDA VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function calculateCurrentStreak() {
     const schema = getActiveRoutineSchema();
     const today = new Date();
@@ -1367,7 +1742,7 @@
     const monday = new Date(today);
     const day = monday.getDay();
     const diff = (day === 0 ? -6 : 1 - day);
-    monday.setDate(monday.getDate() + diff - 7); // 1 week back
+    monday.setDate(monday.getDate() + diff - 7);
 
     const grid = document.getElementById('agendaGridContainer');
     grid.innerHTML = '';
@@ -1426,14 +1801,15 @@
     const dayData = schema[dIdx] || { name: DAY_NAMES_SHORT[dIdx], label: 'WORKOUT', groups: [] };
 
     let statusBadge = dayData.label;
-    if (isToday) statusBadge = 'VANDAAG (' + dayData.label + ')';
-    else if (isFuture) statusBadge = 'BINNENKORT';
+    if (isToday) statusBadge = `${t('todayBadge')} (${dayData.label})`;
+    else if (isFuture) statusBadge = t('upcomingBadge');
 
+    const lang = getLang();
     const hdr = document.createElement('div');
     hdr.className = 'day-hdr';
     hdr.style.marginTop = '16px';
     hdr.innerHTML = `
-      <div class="day-title">${dayData.name} (${d.getDate()} ${d.toLocaleDateString('nl-NL', {month:'short'})})</div>
+      <div class="day-title">${dayData.name} (${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})})</div>
       <div class="workout-badge">${statusBadge}</div>
     `;
     container.appendChild(hdr);
@@ -1441,16 +1817,16 @@
     if (isFuture) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:24px;text-align:center;color:var(--text-sec);">
-          Deze dag is nog niet aangebroken. Je kunt pas workouts loggen op de dag zelf!
+          ${t('upcomingBadge')} â€“ ${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})}
         </div>
       `;
       return;
     }
 
-    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
+    if (dayData.groups.length === 0 || dayData.label.includes('RUST') || dayData.label.includes('REST')) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:24px;text-align:center;color:var(--text-sec);">
-          Rustdag voor deze datum.
+          ${t('restDayToday')}
         </div>
       `;
       return;
@@ -1506,8 +1882,8 @@
 
     const weekVol = Math.round(allTimeVol * 0.25);
     const monthVol = Math.round(allTimeVol * 0.8);
-    document.getElementById('weekAnimalText').textContent = `${weekVol} kg totaal verplaatst`;
-    document.getElementById('monthAnimalText').textContent = `${monthVol} kg totaal verplaatst`;
+    document.getElementById('weekAnimalText').textContent = `${weekVol} kg ${t('volume')}`;
+    document.getElementById('monthAnimalText').textContent = `${monthVol} kg ${t('volume')}`;
 
     const sel = document.getElementById('exerciseChartSelect');
     sel.innerHTML = '';
@@ -1527,7 +1903,7 @@
     const sel = document.getElementById('exerciseChartSelect');
     const exName = sel.value || Object.keys(ALL_EXERCISES_DATABASE)[0];
     const pr = getExerciseMaxWeight(exName);
-    document.getElementById('chartPrDisplay').textContent = pr > 0 ? `${pr} kg` : 'Nog geen PR';
+    document.getElementById('chartPrDisplay').textContent = pr > 0 ? `${pr} kg` : '-';
 
     const history = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -1550,7 +1926,7 @@
 
     const wrapper = document.getElementById('svgChartWrapper');
     if (history.length === 0) {
-      wrapper.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text-sec);font-size:12px;">Log deze oefening om je progressie-grafiek te zien!</div>`;
+      wrapper.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text-sec);font-size:12px;">â€“</div>`;
       return;
     }
 
@@ -1565,7 +1941,7 @@
 
     wrapper.innerHTML = `
       <svg class="svg-chart" viewBox="0 0 ${w} ${h}">
-        <polyline fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pts}" />
+        <polyline fill="none" stroke="var(--cyan)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${pts}" />
         ${history.map((hObj, idx) => {
           const x = history.length === 1 ? w/2 : (idx / (history.length - 1)) * (w - 30) + 15;
           const y = h - 20 - ((hObj.weight - minVal) / (maxVal - minVal || 1)) * (h - 40);
@@ -1584,12 +1960,12 @@
       const photos = JSON.parse(localStorage.getItem('gymlog_photos') || '[]');
       photos.unshift({
         id: Date.now(),
-        date: new Date().toLocaleDateString('nl-NL', { day:'numeric', month:'short', year:'numeric' }),
+        date: new Date().toLocaleDateString(getLang() === 'nl' ? 'nl-NL' : 'en-US', { day:'numeric', month:'short', year:'numeric' }),
         data: evt.target.result
       });
       localStorage.setItem('gymlog_photos', JSON.stringify(photos));
       renderProgressionPhotos();
-      triggerToast('Progressiefoto opgeslagen!');
+      triggerToast('âœ“');
     };
     reader.readAsDataURL(file);
   }
@@ -1600,7 +1976,7 @@
     grid.innerHTML = '';
 
     if (photos.length === 0) {
-      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">Nog geen progressiefoto's geupload.</div>`;
+      grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:16px;color:var(--text-sec);font-size:12px;">â€“</div>`;
       return;
     }
 
@@ -1619,7 +1995,7 @@
   }
 
   function deleteProgressionPhoto(id) {
-    if (!confirm('Foto verwijderen?')) return;
+    if (!confirm('Verwijderen?')) return;
     let photos = JSON.parse(localStorage.getItem('gymlog_photos') || '[]');
     photos = photos.filter(p => p.id !== id);
     localStorage.setItem('gymlog_photos', JSON.stringify(photos));
@@ -1675,9 +2051,12 @@
     filtered.sort((a,b) => (tierOrder[a[1].tier]||5) - (tierOrder[b[1].tier]||5));
 
     if (filtered.length === 0) {
-      container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-sec);font-size:14px;">Geen oefeningen gevonden.</div>`;
+      container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-sec);font-size:14px;">â€“</div>`;
       return;
     }
+
+    const addText = t('addToDay') || '+ Voeg toe...';
+    const dayNames = (TRANSLATIONS[getLang()] && TRANSLATIONS[getLang()].dayNames) ? TRANSLATIONS[getLang()].dayNames : ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
 
     filtered.forEach(([name, data]) => {
       const card = document.createElement('div');
@@ -1698,14 +2077,14 @@
           </div>
         </div>
         <select class="add-to-day-select" onchange="autoAddExerciseToMuscleGroup('${name}', this)">
-          <option value="">+ Voeg toe...</option>
-          <option value="0">Maandag</option>
-          <option value="1">Dinsdag</option>
-          <option value="2">Woensdag</option>
-          <option value="3">Donderdag</option>
-          <option value="4">Vrijdag</option>
-          <option value="5">Zaterdag</option>
-          <option value="6">Zondag</option>
+          <option value="">${addText}</option>
+          <option value="0">${dayNames[0]}</option>
+          <option value="1">${dayNames[1]}</option>
+          <option value="2">${dayNames[2]}</option>
+          <option value="3">${dayNames[3]}</option>
+          <option value="4">${dayNames[4]}</option>
+          <option value="5">${dayNames[5]}</option>
+          <option value="6">${dayNames[6]}</option>
         </select>
       `;
       container.appendChild(card);
@@ -1728,7 +2107,7 @@
     if (!group) {
       group = { title: catName, exercises: [] };
       schema[dayIdx].groups.push(group);
-      if (schema[dayIdx].label.includes('RUST')) {
+      if (schema[dayIdx].label.includes('RUST') || schema[dayIdx].label.includes('REST')) {
         schema[dayIdx].label = catName.toUpperCase() + ' WORKOUT';
       }
     }
@@ -1736,9 +2115,7 @@
     if (!group.exercises.includes(exName)) {
       group.exercises.push(exName);
       saveActiveRoutineSchema(schema);
-      triggerToast(`${exName} toegevoegd aan ${DAY_NAMES_SHORT[dayIdx]} (${catName})!`);
-    } else {
-      triggerToast(`${exName} staat al op die dag!`);
+      triggerToast(`+ ${exName} (${catName})`);
     }
 
     selectEl.value = '';
@@ -1748,7 +2125,7 @@
   function loadProfileSettings() {
     const name = localStorage.getItem('gymlog_username') || 'Amier Mahmoud';
     document.getElementById('profileNameInput').value = name;
-    document.getElementById('headerGreetingName').textContent = name.split(' ')[0];
+    document.getElementById('headerGreetingName').textContent = 'OVERLOAD';
     document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
     const isDark = localStorage.getItem('gymlog_theme') !== 'light';
@@ -1760,20 +2137,18 @@
 
     const autoShift = localStorage.getItem('gymlog_autoshift') !== 'false';
     document.getElementById('autoShiftToggle').checked = autoShift;
+
+    applyLanguageStrings();
   }
 
   function saveProfileSettings() {
     const name = document.getElementById('profileNameInput').value.trim() || 'Amier';
     localStorage.setItem('gymlog_username', name);
-    document.getElementById('headerGreetingName').textContent = name.split(' ')[0];
     document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
-
-    const lang = document.getElementById('languageSelect').value;
-    localStorage.setItem('gymlog_lang', lang);
 
     const autoShift = document.getElementById('autoShiftToggle').checked;
     localStorage.setItem('gymlog_autoshift', autoShift ? 'true' : 'false');
-    triggerToast('Profiel instellingen opgeslagen!');
+    triggerToast('âœ“');
   }
 
   function toggleDarkMode(isDark) {
@@ -1789,13 +2164,13 @@
   }
 
   function resetAllDataConfirmation() {
-    if (confirm('Weet je zeker dat je alle data en schema wilt resetten naar standaard?')) {
+    if (confirm('Reset?')) {
       localStorage.clear();
       location.reload();
     }
   }
 
-  // â”€â”€â”€ SESSION TIMER & CELEBRATION POPUP (ALL-DAY VOLUME SCAN) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â”€â”€â”€ SESSION TIMER & CELEBRATION POPUP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function toggleWorkoutSession() {
     const btn = document.getElementById('sessionToggleBtn');
     const label = document.getElementById('sessionStateLabel');
@@ -1804,10 +2179,10 @@
       isSessionActive = true;
       sessionStartTime = Date.now();
       sessionTimerInterval = setInterval(updateSessionTimerDisplay, 1000);
-      btn.textContent = 'Sessie Afronden';
+      btn.textContent = t('stopSession') || 'Sessie Afronden';
       btn.className = 'session-btn stop';
-      label.textContent = 'WORKOUT ACTIEF';
-      triggerToast('Sessie gestart! Zet hem op!');
+      label.textContent = t('activeWorkout') || 'WORKOUT ACTIEF';
+      triggerToast('âœ“');
     } else {
       isSessionActive = false;
       clearInterval(sessionTimerInterval);
@@ -1817,9 +2192,9 @@
       sessionTimes.push(elapsedSeconds);
       localStorage.setItem('gymlog_durations_v2', JSON.stringify(sessionTimes));
 
-      btn.textContent = 'Start Sessie';
+      btn.textContent = t('startSession') || 'Start Sessie';
       btn.className = 'session-btn start';
-      label.textContent = 'SESSIE STATUS';
+      label.textContent = t('sessionStatus') || 'SESSIE STATUS';
       document.getElementById('sessionTimerText').textContent = '00:00';
 
       showAnimalCelebration(elapsedSeconds);
@@ -1840,7 +2215,6 @@
     today.setHours(0,0,0,0);
     const dateStr = formatDateKey(today);
 
-    // Accurately sum all volume lifted today across all exercises and days
     let sessionVol = 0;
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
@@ -1858,13 +2232,10 @@
       }
     }
 
-    let title = 'Goed Begin!', desc = 'Lekker getraind! Elke kilo telt.';
-    if (sessionVol >= 10000) { title = 'Raket Kracht!'; desc = 'Onvoorstelbaar! Je hebt vandaag een gigantisch volume getild!'; }
-    else if (sessionVol >= 6000) { title = 'T-Rex Kracht!'; desc = 'Onstuitbaar! Gigantische prestatie neergezet!'; }
-    else if (sessionVol >= 3000) { title = 'Olifant Kracht!'; desc = 'Ongelooflijk! Je hebt vandaag het gewicht van een olifant verplaatst!'; }
-    else if (sessionVol >= 1500) { title = 'Neushoorn Power!'; desc = 'Super zware training! Heel sterk bezig!'; }
-    else if (sessionVol >= 500) { title = 'Auto Niveau!'; desc = 'Top gedaan! Je hebt een hele auto aan gewicht verplaatst!'; }
-    else if (sessionVol >= 250) { title = 'Motorfiets Niveau!'; desc = 'Goed getild! Net zo zwaar als een zware motor!'; }
+    let title = 'OVERLOAD COMPLETED', desc = 'Elke set en kilo telt.';
+    if (sessionVol >= 10000) { title = 'TITAN OVERLOAD'; desc = 'Onvoorstelbaar volume verplaatst!'; }
+    else if (sessionVol >= 5000) { title = 'HEAVY OVERLOAD'; desc = 'Brute kracht en progressie!'; }
+    else if (sessionVol >= 2000) { title = 'SOLID OVERLOAD'; desc = 'Goede progressieve overload!'; }
 
     document.getElementById('popupAnimalTitle').textContent = title;
     document.getElementById('popupAnimalVolume').textContent = `${Math.round(sessionVol)} kg`;
@@ -1893,7 +2264,7 @@
       <span class="tag-pill">${exData.equipment}</span>
     `;
     const pr = getExerciseMaxWeight(exName);
-    document.getElementById('modalExPr').textContent = pr > 0 ? `${pr} kg` : 'Nog geen PR gelogd';
+    document.getElementById('modalExPr').textContent = pr > 0 ? `${pr} kg` : '-';
     document.getElementById('exerciseDetailModal').classList.add('open');
   }
 
