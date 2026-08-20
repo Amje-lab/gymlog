@@ -1650,6 +1650,83 @@
     }
   };
 
+  // â”€â”€â”€ CATEGORY & EQUIPMENT TRANSLATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Internal keys are always NL (matches database). Display labels are localized.
+  const CATEGORY_TRANSLATIONS = {
+    nl: { 'Borst':'Borst','Rug':'Rug','Schouders':'Schouders','Biceps':'Biceps','Triceps':'Triceps','Benen':'Benen','Buik':'Buik','Voorarmen':'Voorarmen' },
+    en: { 'Borst':'Chest','Rug':'Back','Schouders':'Shoulders','Biceps':'Biceps','Triceps':'Triceps','Benen':'Legs','Buik':'Abs','Voorarmen':'Forearms' },
+    de: { 'Borst':'Brust','Rug':'Ruecken','Schouders':'Schultern','Biceps':'Bizeps','Triceps':'Trizeps','Benen':'Beine','Buik':'Bauch','Voorarmen':'Unterarme' },
+    fr: { 'Borst':'Poitrine','Rug':'Dos','Schouders':'Epaules','Biceps':'Biceps','Triceps':'Triceps','Benen':'Jambes','Buik':'Abdos','Voorarmen':'Avant-bras' },
+    es: { 'Borst':'Pecho','Rug':'Espalda','Schouders':'Hombros','Biceps':'Biceps','Triceps':'Triceps','Benen':'Piernas','Buik':'Abdomen','Voorarmen':'Antebrazos' },
+    tr: { 'Borst':'Gogus','Rug':'Sirt','Schouders':'Omuzlar','Biceps':'Biceps','Triceps':'Triceps','Benen':'Bacaklar','Buik':'Karin','Voorarmen':'On Kollar' },
+    it: { 'Borst':'Petto','Rug':'Schiena','Schouders':'Spalle','Biceps':'Bicipite','Triceps':'Tricipite','Benen':'Gambe','Buik':'Addome','Voorarmen':'Avambracci' },
+    pt: { 'Borst':'Peito','Rug':'Costas','Schouders':'Ombros','Biceps':'Biceps','Triceps':'Triceps','Benen':'Pernas','Buik':'Abdomen','Voorarmen':'Antebracoes' },
+    pl: { 'Borst':'Klatka','Rug':'Plecy','Schouders':'Barki','Biceps':'Biceps','Triceps':'Triceps','Benen':'Nogi','Buik':'Brzuch','Voorarmen':'Przedramiona' },
+    ru: { 'Borst':'Grud','Rug':'Spina','Schouders':'Plechi','Biceps':'Biceps','Triceps':'Triceps','Benen':'Nogi','Buik':'Zhivot','Voorarmen':'Predplech' },
+    sv: { 'Borst':'Brost','Rug':'Rygg','Schouders':'Axlar','Biceps':'Biceps','Triceps':'Triceps','Benen':'Ben','Buik':'Mage','Voorarmen':'Underarmar' },
+    no: { 'Borst':'Bryst','Rug':'Rygg','Schouders':'Skuldre','Biceps':'Biceps','Triceps':'Triceps','Benen':'Bein','Buik':'Mage','Voorarmen':'Underarmer' },
+    da: { 'Borst':'Bryst','Rug':'Ryg','Schouders':'Skuldre','Biceps':'Biceps','Triceps':'Triceps','Benen':'Ben','Buik':'Mave','Voorarmen':'Underarme' },
+    ja: { 'Borst':'Mune','Rug':'Se-Naka','Schouders':'Kata','Biceps':'Nitoukinn','Triceps':'Santoukinn','Benen':'Ashi','Buik':'Hara','Voorarmen':'Zentoubu' },
+    zh: { 'Borst':'Xiong','Rug':'Bei','Schouders':'Jianbang','Biceps':'Ertoujin','Triceps':'Santoujin','Benen':'Tui','Buik':'Fubu','Voorarmen':'Qianbei' },
+    ko: { 'Borst':'Gaseum','Rug':'Deung','Schouders':'Eokke','Biceps':'Idugeun','Triceps':'Samdugeun','Benen':'Dari','Buik':'Bae','Voorarmen':'Wanpall' },
+    ar: { 'Borst':'Sadr','Rug':'Zahr','Schouders':'Kitf','Biceps':'Adad Thannai','Triceps':'Adad Thulathi','Benen':'Rijl','Buik':'Batn','Voorarmen':'Saed' }
+  };
+
+  const EQUIPMENT_TRANSLATIONS = {
+    nl: { 'Barbell':'Barbell','Dumbbells':'Dumbbells','Kabelstation':'Kabelstation','Machine':'Machine','Lichaamsgewicht':'Lichaamsgewicht' },
+    en: { 'Barbell':'Barbell','Dumbbells':'Dumbbells','Kabelstation':'Cable Machine','Machine':'Machine','Lichaamsgewicht':'Bodyweight' },
+    de: { 'Barbell':'Langhantel','Dumbbells':'Kurzhantel','Kabelstation':'Kabelzug','Machine':'Maschine','Lichaamsgewicht':'Koerpergewicht' },
+    fr: { 'Barbell':'Barre','Dumbbells':'Halteres','Kabelstation':'Poulie','Machine':'Machine','Lichaamsgewicht':'Poids du corps' },
+    es: { 'Barbell':'Barra','Dumbbells':'Mancuernas','Kabelstation':'Polea','Machine':'Maquina','Lichaamsgewicht':'Peso corporal' },
+    tr: { 'Barbell':'Barbell','Dumbbells':'Dambil','Kabelstation':'Kablo Makinesi','Machine':'Makine','Lichaamsgewicht':'Vucut Agirligi' },
+    it: { 'Barbell':'Bilanciere','Dumbbells':'Manubri','Kabelstation':'Cavo','Machine':'Macchina','Lichaamsgewicht':'Peso corporeo' },
+    pt: { 'Barbell':'Barra','Dumbbells':'Halteres','Kabelstation':'Polia','Machine':'Maquina','Lichaamsgewicht':'Peso corporal' },
+    pl: { 'Barbell':'Sztanga','Dumbbells':'Hantla','Kabelstation':'Wyciag','Machine':'Maszyna','Lichaamsgewicht':'Ciezar ciala' },
+    ru: { 'Barbell':'Shtanga','Dumbbells':'Gantelya','Kabelstation':'Blok','Machine':'Trenazher','Lichaamsgewicht':'Ves Tela' },
+    sv: { 'Barbell':'Skivstang','Dumbbells':'Hantel','Kabelstation':'Kabeldrag','Machine':'Maskin','Lichaamsgewicht':'Kroppsvikt' },
+    no: { 'Barbell':'Vektstang','Dumbbells':'Manual','Kabelstation':'Kabel','Machine':'Maskin','Lichaamsgewicht':'Kroppsvekt' },
+    da: { 'Barbell':'Vaegtstang','Dumbbells':'Haandvaegt','Kabelstation':'Kabel','Machine':'Maskine','Lichaamsgewicht':'Kropsvagt' },
+    ja: { 'Barbell':'Baruberu','Dumbbells':'Damuberu','Kabelstation':'Keiburu','Machine':'Kishini','Lichaamsgewicht':'Jijyu' },
+    zh: { 'Barbell':'Barbell','Dumbbells':'å“‘é“ƒ Yaling','Kabelstation':'Suolan','Machine':'Qixie','Lichaamsgewicht':'Zishen' },
+    ko: { 'Barbell':'Barbell','Dumbbells':'Alyeong','Kabelstation':'Keibul','Machine':'Gige','Lichaamsgewicht':'Cheojung' },
+    ar: { 'Barbell':'Barbell','Dumbbells':'Dambel','Kabelstation':'Bikr','Machine':'Jihaz','Lichaamsgewicht':'Wazn Al-Jism' }
+  };
+
+  function getCatMap() {
+    const l = getLang();
+    return CATEGORY_TRANSLATIONS[l] || CATEGORY_TRANSLATIONS['en'];
+  }
+  function getEqMap() {
+    const l = getLang();
+    return EQUIPMENT_TRANSLATIONS[l] || EQUIPMENT_TRANSLATIONS['en'];
+  }
+  // Translate NL internal key -> localized display label
+  function localizeCategory(nlKey) {
+    return getCatMap()[nlKey] || nlKey;
+  }
+  function localizeEquipment(nlKey) {
+    return getEqMap()[nlKey] || nlKey;
+  }
+  // Translate localized display label -> NL internal key (for filtering)
+  function nlCategory(localLabel) {
+    const map = getCatMap();
+    const found = Object.entries(map).find(([k,v]) => v === localLabel);
+    return found ? found[0] : localLabel;
+  }
+  function nlEquipment(localLabel) {
+    const map = getEqMap();
+    const found = Object.entries(map).find(([k,v]) => v === localLabel);
+    return found ? found[0] : localLabel;
+  }
+  // Get localized day name from dayIdx (0=Mon...6=Sun)
+  function getLocalizedDayName(dayIdx) {
+    const dict = TRANSLATIONS[getLang()] || TRANSLATIONS['nl'];
+    return (dict && dict.dayNames) ? (dict.dayNames[dayIdx] || '') : ['Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag'][dayIdx];
+  }
+  function getLocalizedDayShort(dayIdx) {
+    const dict = TRANSLATIONS[getLang()] || TRANSLATIONS['nl'];
+    return (dict && dict.daysShort) ? (dict.daysShort[dayIdx] || '') : ['Ma','Di','Wo','Do','Vr','Za','Zo'][dayIdx];
+  }
 
   function getLang() {
     return localStorage.getItem('gymlog_lang') || 'nl';
@@ -1660,6 +1737,7 @@
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['nl'] || TRANSLATIONS['en'];
     return (dict && dict[key]) ? dict[key] : (TRANSLATIONS['en'][key] || key);
   }
+
 
   function applyLanguageStrings() {
     const l = getLang();
@@ -1893,21 +1971,24 @@
     const dayIdx = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
 
     const lang = getLang();
-    document.getElementById('headerDateDisplay').textContent = today.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {
+    const localeMap = { nl:'nl-NL', en:'en-US', de:'de-DE', fr:'fr-FR', es:'es-ES', tr:'tr-TR', it:'it-IT', pt:'pt-PT', pl:'pl-PL', ru:'ru-RU', ja:'ja-JP', zh:'zh-CN', ko:'ko-KR', sv:'sv-SE', no:'nb-NO', da:'da-DK', ar:'ar-SA' };
+    const locale = localeMap[lang] || 'en-US';
+    document.getElementById('headerDateDisplay').textContent = today.toLocaleDateString(locale, {
       weekday: 'short', day: 'numeric', month: 'short'
     });
 
     const schema = getActiveRoutineSchema();
-    const dayData = schema[dayIdx] || { name: DAY_NAMES_SHORT[dayIdx], label: 'WORKOUT', groups: [] };
+    const dayData = schema[dayIdx] || { name: getLocalizedDayName(dayIdx), label: 'WORKOUT', groups: [] };
     const container = document.getElementById('todayWorkoutContent');
     container.innerHTML = '';
 
     const hdr = document.createElement('div');
     hdr.className = 'day-hdr';
     hdr.innerHTML = `
-      <div class="day-title">${dayData.name}</div>
+      <div class="day-title">${getLocalizedDayName(dayIdx)}</div>
       <div class="workout-badge">${dayData.label}</div>
     `;
+
     container.appendChild(hdr);
 
     if (dayData.groups.length === 0 || dayData.label.includes('RUST') || dayData.label.includes('REST')) {
@@ -1930,7 +2011,7 @@
       grpEl.className = 'grp-section';
       grpEl.innerHTML = `
         <div class="grp-hdr">
-          <span class="grp-title">${grp.title}</span>
+          <span class="grp-title">${localizeCategory(grp.title)}</span>
           <div class="grp-line"></div>
         </div>
       `;
@@ -2310,18 +2391,20 @@
     const dIdx = (dOfWeek === 0 ? 6 : dOfWeek - 1);
 
     const schema = getActiveRoutineSchema();
-    const dayData = schema[dIdx] || { name: DAY_NAMES_SHORT[dIdx], label: 'WORKOUT', groups: [] };
+    const dayData = schema[dIdx] || { name: getLocalizedDayName(dIdx), label: 'WORKOUT', groups: [] };
 
     let statusBadge = dayData.label;
     if (isToday) statusBadge = `${t('todayBadge')} (${dayData.label})`;
     else if (isFuture) statusBadge = t('upcomingBadge');
 
     const lang = getLang();
+    const localeMap = { nl:'nl-NL', en:'en-US', de:'de-DE', fr:'fr-FR', es:'es-ES', tr:'tr-TR', it:'it-IT', pt:'pt-PT', pl:'pl-PL', ru:'ru-RU', ja:'ja-JP', zh:'zh-CN', ko:'ko-KR', sv:'sv-SE', no:'nb-NO', da:'da-DK', ar:'ar-SA' };
+    const locale = localeMap[lang] || 'en-US';
     const hdr = document.createElement('div');
     hdr.className = 'day-hdr';
     hdr.style.marginTop = '16px';
     hdr.innerHTML = `
-      <div class="day-title">${dayData.name} (${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})})</div>
+      <div class="day-title">${getLocalizedDayName(dIdx)} (${d.getDate()} ${d.toLocaleDateString(locale, {month:'short'})})</div>
       <div class="workout-badge">${statusBadge}</div>
     `;
     container.appendChild(hdr);
@@ -2329,7 +2412,7 @@
     if (isFuture) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:24px;text-align:center;color:var(--text-sec);">
-          ${t('upcomingBadge')} - ${d.getDate()} ${d.toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-US', {month:'short'})}
+          ${t('upcomingBadge')} - ${d.getDate()} ${d.toLocaleDateString(locale, {month:'short'})}
         </div>
       `;
       return;
@@ -2351,7 +2434,7 @@
       grpEl.className = 'grp-section';
       grpEl.innerHTML = `
         <div class="grp-hdr">
-          <span class="grp-title">${grp.title}</span>
+          <span class="grp-title">${localizeCategory(grp.title)}</span>
           <div class="grp-line"></div>
         </div>
       `;
@@ -2362,6 +2445,7 @@
       container.appendChild(grpEl);
     });
   }
+
 
   // â”€â”€â”€ TRACKER & PROGRESSION VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function renderTrackerView() {
@@ -2519,9 +2603,10 @@
     const mContainer = document.getElementById('muscleFilterChips');
     mContainer.innerHTML = '';
     CATEGORY_LIST.forEach(cat => {
+      const localLabel = localizeCategory(cat);
       const chip = document.createElement('button');
       chip.className = `filter-chip${activeCategoryFilter === cat ? ' active' : ''}`;
-      chip.textContent = cat;
+      chip.textContent = localLabel;
       chip.onclick = () => {
         activeCategoryFilter = (activeCategoryFilter === cat ? '' : cat);
         initSearchLibrary();
@@ -2532,9 +2617,10 @@
     const eqContainer = document.getElementById('equipmentFilterChips');
     eqContainer.innerHTML = '';
     EQUIPMENT_LIST.forEach(eq => {
+      const localLabel = localizeEquipment(eq);
       const chip = document.createElement('button');
       chip.className = `filter-chip${activeEquipmentFilter === eq ? ' active' : ''}`;
-      chip.textContent = eq;
+      chip.textContent = localLabel;
       chip.onclick = () => {
         activeEquipmentFilter = (activeEquipmentFilter === eq ? '' : eq);
         initSearchLibrary();
