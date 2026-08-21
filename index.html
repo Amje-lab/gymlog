@@ -570,53 +570,67 @@
 <body>
 
   <!-- HEADER -->
+    <!-- HEADER -->
   <header>
-    <div class="header-inner">
-      <div class="brand-group">
-        <span class="welcome-title" id="txtWelcome">WELKOM TERUG</span>
-        <div class="brand-logo-text">
-          <span id="headerGreetingName">OVERLOAD</span>
-          <span class="brand-logo-sub" id="headerSubBrand">GYM</span>
+    <div class="header-inner" style="display:flex; align-items:center; justify-content:space-between; height:60px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-avatar-btn" onclick="switchTab('profile')" id="headerAvatarBtn" title="Profiel">
+          <span id="avatarLetter">A</span>
+        </button>
+        <div class="brand-group">
+          <div class="brand-logo-text" style="font-size:18px; font-weight:900; letter-spacing:0.04em;">
+            <span style="color:#ffffff;">OVERLOAD</span> <span style="color:#38bdf8;">GYM</span>
+          </div>
+          <span class="brand-logo-sub" style="font-size:10px; font-weight:800; letter-spacing:0.08em; color:var(--text-sec);">PROGRESSIVE TRACKER</span>
         </div>
       </div>
       <div class="header-right">
-        <span class="header-date" id="headerDateDisplay"></span>
-        <button class="header-avatar-btn" onclick="switchTab('profile')" id="headerAvatarBtn" title="Profiel">
-          <span id="avatarLetter">O</span>
-        </button>
+        <span class="header-date" id="headerDateDisplay" style="font-size:12px; font-weight:700; color:var(--text-sec);"></span>
       </div>
     </div>
   </header>
 
   <!-- MAIN APP VIEWS -->
   <main>
-    <!-- VIEW 1: HOME (WORKOUT TODAY) -->
+        <!-- VIEW 1: HOME (WORKOUT TODAY) -->
     <div id="viewHome">
-      <!-- WORKOUT SESSION TIMER BANNER -->
-      <div class="session-banner">
-        <div class="session-state">
-          <span class="session-label" id="sessionStateLabel">Sessie Status</span>
-          <span class="session-timer-display" id="sessionTimerText">00:00</span>
+      <!-- STREAK BANNER BOVENAAN HOME -->
+      <div class="home-streak-card" style="background: linear-gradient(135deg, rgba(255, 149, 0, 0.12) 0%, rgba(20, 22, 28, 0.95) 100%); border: 1.5px solid rgba(255, 149, 0, 0.35); border-radius: 16px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        <div style="font-size: 32px; line-height: 1; filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));">&#128293;</div>
+        <div>
+          <div style="font-size: 17px; font-weight: 900; line-height: 1.2;">
+            <span id="homeStreakCount" style="color: #ffffff; font-size: 19px;">0</span>
+            <span style="color: #ff9500; letter-spacing: 0.04em;"> DAGEN STREAK</span>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-sec); font-weight: 600; margin-top: 2px;" id="homeStreakSub">Train vandaag om je streak te starten!</div>
         </div>
-        <button class="session-btn start" id="sessionToggleBtn" onclick="toggleWorkoutSession()">
+      </div>
+
+      <!-- WORKOUT SESSION TIMER BANNER -->
+      <div class="session-banner" style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 14px 16px; margin-bottom: 14px;">
+        <div class="session-state" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+          <span class="session-label" id="sessionStateLabel" style="font-size: 11px; font-weight: 800; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.08em;">Sessie Status</span>
+          <span class="session-timer-display" id="sessionTimerText" style="font-size: 20px; font-weight: 900; font-variant-numeric: tabular-nums; color: #ffffff;">00:00:00</span>
+        </div>
+        <button class="session-btn start" id="sessionToggleBtn" onclick="toggleWorkoutSession()" style="width: 100%; padding: 12px; border-radius: var(--btn-radius); border: none; font-size: 13px; font-weight: 900; letter-spacing: 0.04em; cursor: pointer; transition: all 0.2s; background: #ffffff; color: #000000; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);">
           Start Sessie
         </button>
       </div>
 
-      <!-- STATS BAR -->
-      <div class="stats-grid" id="homeStatsGrid">
-        <div class="stat-card">
-          <div class="stat-val" id="valTotalSets">0</div>
-          <div class="stat-lbl" id="lblSets">Sets</div>
+      <!-- STATS BAR (LABEL ON TOP, VALUE ON BOTTOM) -->
+      <div class="stats-grid" id="homeStatsGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px;">
+        <div class="stat-card" style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--btn-radius); padding: 12px 10px; text-align: center;">
+          <div class="stat-lbl" id="lblSets" style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mut); margin-bottom: 4px;">SETS</div>
+          <div class="stat-val" id="valTotalSets" style="font-size: 17px; font-weight: 900; color: var(--text); line-height: 1.1;">0 / 6</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-val" id="valDoneEx">0/0</div>
-          <div class="stat-lbl" id="lblExercises">Oefeningen</div>
+        <div class="stat-card" style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--btn-radius); padding: 12px 10px; text-align: center;">
+          <div class="stat-lbl" id="lblExercises" style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mut); margin-bottom: 4px;">OEFENINGEN</div>
+          <div class="stat-val" id="valDoneEx" style="font-size: 17px; font-weight: 900; color: var(--text); line-height: 1.1;">0 / 6</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-val" id="valVolume">0</div>
-          <div class="stat-lbl" id="lblVolume">Volume (kg)</div>
-          <div class="stat-sub" id="valVolumeAnimal">Geen lift</div>
+        <div class="stat-card" style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--btn-radius); padding: 12px 10px; text-align: center;">
+          <div class="stat-lbl" id="lblVolume" style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-mut); margin-bottom: 4px;">VOLUME</div>
+          <div class="stat-val" id="valVolume" style="font-size: 17px; font-weight: 900; color: var(--text); line-height: 1.1;">0 kg</div>
+          <div class="stat-sub" id="valVolumeAnimal" style="display:none;"></div>
         </div>
       </div>
 
@@ -1258,33 +1272,29 @@
   }
 
   // â”€â”€â”€ DEFAULT ROUTINE SCHEMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const DEFAULT_ROUTINE_SCHEMA = {
+      const DEFAULT_ROUTINE_SCHEMA = {
     0: { name: 'Maandag', label: 'PUSH WORKOUT', groups: [
-      { title: 'Borst', exercises: [] },
-      { title: 'Schouders', exercises: [] },
-      { title: 'Triceps', exercises: [] }
+      { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
+      { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+      { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Dips'] }
     ]},
     1: { name: 'Dinsdag', label: 'PULL WORKOUT', groups: [
-      { title: 'Rug', exercises: [] },
-      { title: 'Biceps', exercises: [] },
-      { title: 'Voorarmen', exercises: [] }
+      { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Seated Cable Row'] },
+      { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+      { title: 'Voorarmen', exercises: ['Wrist Curl'] }
     ]},
     2: { name: 'Woensdag', label: 'BENEN WORKOUT', groups: [
-      { title: 'Benen', exercises: [] },
-      { title: 'Buik', exercises: [] }
+      { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Romanian Deadlift', 'Standing Calf Raise'] },
+      { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
     ]},
     3: { name: 'Donderdag', label: 'RUSTDAG', groups: [] },
     4: { name: 'Vrijdag', label: 'UPPER BODY OVERLOAD', groups: [
-      { title: 'Borst', exercises: [] },
-      { title: 'Rug', exercises: [] },
-      { title: 'Schouders', exercises: [] },
-      { title: 'Triceps', exercises: [] },
-      { title: 'Biceps', exercises: [] }
+      { title: 'Borst & Rug', exercises: ['Incline Barbell Bench Press', 'Pull up', 'Dumbbell Row'] },
+      { title: 'Schouders & Armen', exercises: ['Dumbbell Lateral Raise', 'Barbell Bicep Curl', 'Tricep Rope Pushdown'] }
     ]},
     5: { name: 'Zaterdag', label: 'LOWER BODY & ARMEN', groups: [
-      { title: 'Benen', exercises: [] },
-      { title: 'Buik', exercises: [] },
-      { title: 'Voorarmen', exercises: [] }
+      { title: 'Benen', exercises: ['Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl'] },
+      { title: 'Armen Super-Set', exercises: ['Preacher Curl', 'Skull Crusher'] }
     ]},
     6: { name: 'Zondag', label: 'RUSTDAG', groups: [] }
   };
@@ -1501,81 +1511,141 @@
   
 
   // â”€â”€â”€ EXERCISE CARD COMPONENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
+      function updateHomeStats(dateStr, dayIdx, allExercises) {
+    let totalSetsDone = 0;
+    let totalSetsPlanned = 0;
+    let doneExCount = 0;
+    let dayVolume = 0;
+
+    allExercises.forEach(exName => {
+      const sets = loadExerciseSets(dateStr, dayIdx, exName);
+      const isExDone = loadExerciseDoneState(dateStr, dayIdx, exName);
+      if (isExDone) doneExCount++;
+
+      const exPlanned = sets.length > 0 ? sets.length : 3;
+      totalSetsPlanned += exPlanned;
+
+      sets.forEach(s => {
+        if (s.done) {
+          totalSetsDone++;
+          const w = parseFloat(s.weight) || 0;
+          const r = parseFloat(s.reps) || 0;
+          dayVolume += (w * r);
+        }
+      });
+    });
+
+    const setsEl = document.getElementById('valTotalSets');
+    if (setsEl) setsEl.textContent = totalSetsPlanned > 0 ? `${totalSetsDone} / ${totalSetsPlanned}` : '0';
+
+    const exEl = document.getElementById('valDoneEx');
+    if (exEl) exEl.textContent = `${doneExCount} / ${allExercises.length}`;
+
+    const volEl = document.getElementById('valVolume');
+    if (volEl) volEl.textContent = dayVolume > 0 ? `${Math.round(dayVolume).toLocaleString('nl-NL')} kg` : '0 kg';
+
+    // Update streak card on Home
+    const streak = calculateCurrentStreak();
+    const streakCountEl = document.getElementById('homeStreakCount');
+    const streakSubEl = document.getElementById('homeStreakSub');
+    if (streakCountEl) streakCountEl.textContent = streak;
+    if (streakSubEl) {
+      if (streak === 0) streakSubEl.textContent = 'Train vandaag om je streak te starten!';
+      else if (streak === 1) streakSubEl.textContent = 'Geweldig begin! Blijf consistent!';
+      else streakSubEl.textContent = `${streak} dagen op rij getraind! Blijf doorpakken!`;
+    }
+  }
+function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
     let sets = loadExerciseSets(dateStr, dayIdx, exName);
     let isCompleted = loadExerciseDoneState(dateStr, dayIdx, exName);
 
     if (sets.length === 0) {
       sets = [
-        { weight: '', reps: '', done: false },
-        { weight: '', reps: '', done: false },
         { weight: '', reps: '', done: false }
       ];
       saveExerciseSets(dateStr, dayIdx, exName, sets);
     }
 
     const exData = ALL_EXERCISES_DATABASE[exName] || {
-      category: 'Gym', equipment: 'Apparaat', gif: getExerciseGif(exName), tier: 'B'
+      category: 'Gym', equipment: 'Barbell', gif: getExerciseGif(exName), tier: 'B'
     };
     const gifUrl = getExerciseGif(exName);
 
     const card = document.createElement('div');
     card.className = `ex-card${isCompleted ? ' completed' : ''}`;
+    card.style.cssText = 'background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 14px; margin-bottom: 14px; transition: all 0.2s;';
 
     const top = document.createElement('div');
     top.className = 'ex-top';
+    top.style.cssText = 'display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;';
+
+    const leftPart = document.createElement('div');
+    leftPart.style.cssText = 'display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; cursor: pointer;';
+    leftPart.onclick = () => openDetailModal(exName);
 
     const thumb = document.createElement('div');
     thumb.className = 'ex-thumb';
+    thumb.style.cssText = 'width: 52px; height: 52px; border-radius: 12px; background: #ffffff; border: 1px solid var(--border); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center;';
     const fallbackSrc = CATEGORY_FALLBACK_GIFS[exData.category] || CATEGORY_FALLBACK_GIFS['Overig'];
-    thumb.innerHTML = `<img src="${gifUrl}" alt="${exName}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackSrc}';" />`;
-    thumb.onclick = () => openDetailModal(exName);
+    thumb.innerHTML = `<img src="${gifUrl}" alt="${exName}" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy" onerror="this.onerror=null;this.src='${fallbackSrc}';" />`;
 
     const meta = document.createElement('div');
     meta.className = 'ex-meta';
-    meta.onclick = () => openDetailModal(exName);
+    meta.style.cssText = 'min-width: 0;';
     meta.innerHTML = `
-      <div class="ex-title-text">${exName}</div>
-      <div class="ex-sub-tags">
-        <span class="tag-pill tag-tier-${exData.tier.toLowerCase()}">${exData.tier}-Tier</span>
-        <span class="tag-pill">${exData.equipment}</span>
+      <div class="ex-title-text" style="font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 4px;">${exName}</div>
+      <div class="ex-sub-tags" style="display: flex; gap: 4px; flex-wrap: wrap;">
+        <span class="tag-pill tag-tier-${exData.tier.toLowerCase()}" style="padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 800; background: var(--surface-3); border: 1px solid var(--border); color: var(--cyan);">${exData.tier}-Tier</span>
+        <span class="tag-pill" style="padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 800; background: var(--surface-3); border: 1px solid var(--border); color: var(--text-sec);">${exData.category}</span>
+        <span class="tag-pill" style="padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 800; background: var(--surface-3); border: 1px solid var(--border); color: var(--text-sec);">${exData.equipment}</span>
       </div>
     `;
 
+    leftPart.appendChild(thumb);
+    leftPart.appendChild(meta);
+
+    const rightPart = document.createElement('div');
+    rightPart.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+
+    const finishBtn = document.createElement('button');
+    finishBtn.className = `finish-ex-btn${isCompleted ? ' done' : ''}`;
+    finishBtn.style.cssText = `width: 36px; height: 36px; border-radius: 10px; border: 1px solid ${isCompleted ? 'var(--green)' : 'var(--border)'}; background: ${isCompleted ? 'rgba(48, 209, 88, 0.2)' : 'var(--surface-2)'}; color: ${isCompleted ? 'var(--green)' : 'var(--text-sec)'}; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;`;
+    finishBtn.innerHTML = `<svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>`;
+    finishBtn.onclick = () => {
+      isCompleted = !isCompleted;
+      saveExerciseDoneState(dateStr, dayIdx, exName, isCompleted);
+      triggerToast(isCompleted ? `${exName} voltooid!` : `${exName}`);
+      card.classList.toggle('completed', isCompleted);
+      finishBtn.style.borderColor = isCompleted ? 'var(--green)' : 'var(--border)';
+      finishBtn.style.background = isCompleted ? 'rgba(48, 209, 88, 0.2)' : 'var(--surface-2)';
+      finishBtn.style.color = isCompleted ? 'var(--green)' : 'var(--text-sec)';
+      updateHomeStats(dateStr, dayIdx, allExercises);
+    };
+
     const delBtn = document.createElement('button');
     delBtn.className = 'action-icon-btn delete-btn';
-    delBtn.title = 'Verwijderen';
+    delBtn.style.cssText = 'width: 28px; height: 28px; border-radius: 8px; background: transparent; border: none; color: var(--text-mut); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px;';
+    delBtn.title = 'Verwijderen van deze dag';
     delBtn.innerHTML = `<svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
     delBtn.onclick = () => {
-      if (confirm(`"${exName}" verwijderen?`)) {
+      if (confirm(`"${exName}" verwijderen van ${DAY_NAMES_SHORT[dayIdx]}?`)) {
         removeExerciseFromDay(dayIdx, groupIdx, exName);
       }
     };
 
-    const finishBtn = document.createElement('button');
-    finishBtn.className = `finish-ex-btn${isCompleted ? ' done' : ''}`;
-    finishBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>`;
-    finishBtn.onclick = () => {
-      isCompleted = !isCompleted;
-      saveExerciseDoneState(dateStr, dayIdx, exName, isCompleted);
-      triggerToast(isCompleted ? `${exName} âœ“` : `${exName}`);
-      card.classList.toggle('completed', isCompleted);
-      finishBtn.classList.toggle('done', isCompleted);
-      updateHomeStats(dateStr, dayIdx, allExercises);
-    };
+    rightPart.appendChild(finishBtn);
+    rightPart.appendChild(delBtn);
 
-    top.appendChild(thumb);
-    top.appendChild(meta);
-    top.appendChild(delBtn);
-    top.appendChild(finishBtn);
+    top.appendChild(leftPart);
+    top.appendChild(rightPart);
     card.appendChild(top);
 
-    // SETS TABLE
+    // SETS TABLE WITH HEADER: SET | KG | REPS | 1RM | KLAAR
     const setsBox = document.createElement('div');
     setsBox.className = 'sets-box';
     setsBox.innerHTML = `
-      <div class="sets-head">
-        <span>SET</span><span>KG</span><span>REPS</span><span>1RM</span><span></span><span></span>
+      <div class="sets-head" style="display: grid; grid-template-columns: 28px 1fr 1fr 40px 36px 28px; gap: 8px; font-size: 10px; font-weight: 800; color: var(--text-mut); text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 6px; text-align: center;">
+        <span>SET</span><span>KG</span><span>REPS</span><span>1RM</span><span>KLAAR</span><span></span>
       </div>
     `;
 
@@ -1587,32 +1657,33 @@
       sets.forEach((setObj, sIdx) => {
         const row = document.createElement('div');
         row.className = `set-row${setObj.done ? ' is-done' : ''}`;
+        row.style.cssText = 'display: grid; grid-template-columns: 28px 1fr 1fr 40px 36px 28px; gap: 8px; align-items: center; padding: 4px 0; margin-bottom: 6px;';
 
         const pWeight = (prevSetsData && prevSetsData[sIdx]) ? prevSetsData[sIdx].weight : '';
         const pReps = (prevSetsData && prevSetsData[sIdx]) ? prevSetsData[sIdx].reps : '';
 
         const indexEl = document.createElement('div');
-        indexEl.className = 'set-index';
+        indexEl.style.cssText = 'font-size: 13px; font-weight: 800; color: var(--text-sec); text-align: center;';
         indexEl.textContent = sIdx + 1;
 
         const weightInp = document.createElement('input');
-        weightInp.className = 'set-input';
         weightInp.type = 'number'; weightInp.step = '0.5';
-        weightInp.placeholder = pWeight ? `V: ${pWeight}` : 'kg';
+        weightInp.style.cssText = 'width: 100%; padding: 8px 6px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); font-size: 13px; font-weight: 700; text-align: center; outline: none;';
+        weightInp.placeholder = pWeight ? `${pWeight}` : 'kg';
         weightInp.value = setObj.weight || '';
 
         const repsInp = document.createElement('input');
-        repsInp.className = 'set-input';
         repsInp.type = 'number';
-        repsInp.placeholder = pReps ? `V: ${pReps}` : 'reps';
+        repsInp.style.cssText = 'width: 100%; padding: 8px 6px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); font-size: 13px; font-weight: 700; text-align: center; outline: none;';
+        repsInp.placeholder = pReps ? `${pReps}` : 'reps';
         repsInp.value = setObj.reps || '';
 
         const oneRmEl = document.createElement('div');
-        oneRmEl.className = 'one-rm-val';
+        oneRmEl.style.cssText = 'font-size: 12px; font-weight: 800; color: var(--text-sec); text-align: center;';
         const calc1RM = () => {
           const w = parseFloat(weightInp.value) || 0;
           const r = parseFloat(repsInp.value) || 0;
-          return (w > 0 && r > 0) ? (r === 1 ? w : Math.round(w * (1 + r / 30))) + 'kg' : '-';
+          return (w > 0 && r > 0) ? (r === 1 ? w : Math.round(w * (1 + r / 30))) : '-';
         };
         oneRmEl.textContent = calc1RM();
 
@@ -1629,7 +1700,9 @@
             isCompleted = true;
             saveExerciseDoneState(dateStr, dayIdx, exName, true);
             card.classList.add('completed');
-            finishBtn.classList.add('done');
+            finishBtn.style.borderColor = 'var(--green)';
+            finishBtn.style.background = 'rgba(48, 209, 88, 0.2)';
+            finishBtn.style.color = 'var(--green)';
           }
 
           renderSetRows();
@@ -1657,22 +1730,23 @@
         };
 
         const checkBtn = document.createElement('button');
-        checkBtn.className = 'set-check-btn';
+        checkBtn.style.cssText = `width: 32px; height: 32px; border-radius: 8px; border: 1px solid ${setObj.done ? 'var(--green)' : 'var(--border)'}; background: ${setObj.done ? 'rgba(48, 209, 88, 0.2)' : 'var(--surface-2)'}; color: ${setObj.done ? 'var(--green)' : 'var(--text-sec)'}; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px;`;
         checkBtn.innerHTML = setObj.done 
-          ? `<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>`
-          : `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/></svg>`;
+          ? `<svg style="width:14px;height:14px;fill:currentColor;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>`
+          : `&#9675;`;
         checkBtn.onclick = () => {
           sets[sIdx].done = !sets[sIdx].done;
           saveExerciseSets(dateStr, dayIdx, exName, sets);
           renderSetRows();
           updateHomeStats(dateStr, dayIdx, allExercises);
+          if (sets[sIdx].done) triggerToast(`Set ${sIdx + 1} afgevinkt!`);
         };
 
-        const delSetBtn = document.createElement('button');
-        delSetBtn.className = 'set-delete-btn';
-        delSetBtn.title = 'Set verwijderen';
-        delSetBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
-        delSetBtn.onclick = () => {
+        const removeSetBtn = document.createElement('button');
+        removeSetBtn.style.cssText = 'width: 24px; height: 24px; border-radius: 6px; background: transparent; border: none; color: var(--text-mut); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px;';
+        removeSetBtn.title = 'Set verwijderen';
+        removeSetBtn.innerHTML = '&#10005;';
+        removeSetBtn.onclick = () => {
           if (sets.length <= 1) { triggerToast('Minimaal 1 set'); return; }
           sets.splice(sIdx, 1);
           saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -1685,7 +1759,7 @@
         row.appendChild(repsInp);
         row.appendChild(oneRmEl);
         row.appendChild(checkBtn);
-        row.appendChild(delSetBtn);
+        row.appendChild(removeSetBtn);
         rowsBox.appendChild(row);
       });
     }
@@ -1694,17 +1768,18 @@
     setsBox.appendChild(rowsBox);
 
     const addSetBtn = document.createElement('button');
-    addSetBtn.className = 'add-set-link';
-    addSetBtn.textContent = t('addSet') || '+ Set toevoegen';
+    addSetBtn.style.cssText = 'width: 100%; padding: 9px; margin-top: 8px; border-radius: 10px; border: 1px dashed var(--border-light); background: var(--surface-2); color: var(--text-sec); font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s;';
+    addSetBtn.textContent = '+ Set toevoegen';
     addSetBtn.onclick = () => {
-      sets.push({ weight: '', reps: '', done: false });
+      const lastSet = sets[sets.length - 1] || { weight: '', reps: '' };
+      sets.push({ weight: lastSet.weight || '', reps: lastSet.reps || '', done: false });
       saveExerciseSets(dateStr, dayIdx, exName, sets);
       renderSetRows();
+      updateHomeStats(dateStr, dayIdx, allExercises);
     };
 
     setsBox.appendChild(addSetBtn);
     card.appendChild(setsBox);
-
     return card;
   }
 
@@ -2278,13 +2353,14 @@
     }
   }
 
-  function updateSessionTimerDisplay() {
+    function updateSessionTimerDisplay() {
     if (!sessionStartTime) return;
     const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
     const hrs = String(Math.floor(elapsed / 3600)).padStart(2, '0');
     const mins = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
     const secs = String(elapsed % 60).padStart(2, '0');
-    document.getElementById('sessionTimerText').textContent = (hrs > 0 ? `${hrs}:${mins}:${secs}` : `${mins}:${secs}`);
+    const el = document.getElementById('sessionTimerText');
+    if (el) el.textContent = `${hrs}:${mins}:${secs}`;
   }
 
   function showAnimalCelebration(elapsedSeconds) {
