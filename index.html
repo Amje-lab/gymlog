@@ -596,7 +596,7 @@
     <div id="viewHome">
       <!-- STREAK BANNER BOVENAAN HOME -->
       <div class="home-streak-card" style="background: linear-gradient(135deg, rgba(255, 149, 0, 0.12) 0%, rgba(20, 22, 28, 0.95) 100%); border: 1.5px solid rgba(255, 149, 0, 0.35); border-radius: 16px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
-        <div style="font-size: 32px; line-height: 1; filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));">&#128293;</div>
+        <div id="homeStreakFlame" style="font-size: 32px; line-height: 1; transition: all 0.3s; color: #888; filter: grayscale(1); opacity: 0.4;">&#128293;</div>
         <div>
           <div style="font-size: 17px; font-weight: 900; line-height: 1.2;">
             <span id="homeStreakCount" style="color: #ffffff; font-size: 19px;">0</span>
@@ -1433,7 +1433,77 @@
   }
 
   // â”€â”€â”€ HOME VIEW RENDERING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    function renderHomeView() {
+      function getLocalizedDayName(dayIdx) {
+    const lang = getLang();
+    if (TRANSLATIONS[lang] && TRANSLATIONS[lang].dayNames) {
+      return TRANSLATIONS[lang].dayNames[dayIdx] || ['Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag'][dayIdx];
+    }
+    return ['Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag'][dayIdx];
+  }
+
+  function localizeCategory(cat) {
+    const lang = getLang();
+    const map = { Borst:'Borst', Rug:'Rug', Schouders:'Schouders', Biceps:'Biceps', Triceps:'Triceps', Benen:'Benen', Buik:'Buik', Voorarmen:'Voorarmen', Overig:'Overig' };
+    return map[cat] || cat;
+  }
+
+  function hasTodayTraining() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const dateStr = formatDateKey(today);
+    const dayOfWeek = today.getDay();
+    const dayIdx = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+    const schema = getActiveRoutineSchema();
+    const dayData = schema[dayIdx] || { groups: [] };
+    const allEx = dayData.groups.flatMap(g => g.exercises);
+    if (allEx.length === 0) return false;
+    return allEx.some(ex => {
+      const sets = loadExerciseSets(dateStr, dayIdx, ex);
+      return sets.some(s => s.done || (s.weight && s.reps));
+    });
+  }
+
+  function updateHomeStreakFlame() {
+    const streak = calculateCurrentStreak();
+    const trainedToday = hasTodayTraining();
+
+    // Home streak card
+    const homeCount = document.getElementById('homeStreakCount');
+    const homeSub = document.getElementById('homeStreakSub');
+    if (homeCount) homeCount.textContent = streak;
+    if (homeSub) {
+      if (streak === 0) homeSub.textContent = 'Train vandaag om je streak te starten!';
+      else if (streak === 1) homeSub.textContent = 'Geweldig begin! Blijf consistent!';
+      else homeSub.textContent = `${streak} dagen op rij! Blijf zo doorgaan!`;
+    }
+
+    // Home flame icon color: grey unless trained today
+    const homeFlame = document.getElementById('homeStreakFlame');
+    if (homeFlame) {
+      if (trainedToday || streak > 0) {
+        homeFlame.style.filter = 'none';
+        homeFlame.style.opacity = '1';
+        homeFlame.style.color = '#ff9500';
+      } else {
+        homeFlame.style.filter = 'grayscale(1)';
+        homeFlame.style.opacity = '0.4';
+        homeFlame.style.color = '#888';
+      }
+    }
+
+    // Agenda flame
+    const agendaFlame = document.getElementById('streakFlameIcon');
+    const agendaNum = document.getElementById('streakNumberDisplay');
+    if (agendaNum) agendaNum.textContent = streak;
+    if (agendaFlame) {
+      agendaFlame.className = 'streak-flame-icon';
+      if (streak === 0 && !trainedToday) agendaFlame.classList.add('streak-flame-gray');
+      else if (streak < 10) agendaFlame.classList.add('streak-flame-1');
+      else if (streak < 30) agendaFlame.classList.add('streak-flame-10');
+      else if (streak < 50) agendaFlame.classList.add('streak-flame-30');
+      else agendaFlame.classList.add('streak-flame-50');
+    }
+  }
+function renderHomeView() {
     const today = new Date();
     today.setHours(0,0,0,0);
     const dateStr = formatDateKey(today);
@@ -1472,11 +1542,13 @@
         </div>
       `;
       updateHomeStats(dateStr, dayIdx, []);
+      updateHomeStreakFlame();
       return;
     }
 
     const allExercises = dayData.groups.flatMap(g => g.exercises);
     updateHomeStats(dateStr, dayIdx, allExercises);
+    updateHomeStreakFlame();
 
     dayData.groups.forEach((grp, gIdx) => {
       const grpEl = document.createElement('div');
@@ -1820,23 +1892,18 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
   }
 
   function renderAgendaView() {
+    updateHomeStreakFlame();
     const streak = calculateCurrentStreak();
     const flameEl = document.getElementById('streakFlameIcon');
     const numEl = document.getElementById('streakNumberDisplay');
-
-    numEl.textContent = streak;
-    flameEl.className = 'streak-flame-icon';
-
-    if (streak === 0) {
-      flameEl.classList.add('streak-flame-gray');
-    } else if (streak < 10) {
-      flameEl.classList.add('streak-flame-1');
-    } else if (streak < 30) {
-      flameEl.classList.add('streak-flame-10');
-    } else if (streak < 50) {
-      flameEl.classList.add('streak-flame-30');
-    } else {
-      flameEl.classList.add('streak-flame-50');
+    if (numEl) numEl.textContent = streak;
+    if (flameEl) {
+      flameEl.className = 'streak-flame-icon';
+      if (streak === 0) flameEl.classList.add('streak-flame-gray');
+      else if (streak < 10) flameEl.classList.add('streak-flame-1');
+      else if (streak < 30) flameEl.classList.add('streak-flame-10');
+      else if (streak < 50) flameEl.classList.add('streak-flame-30');
+      else flameEl.classList.add('streak-flame-50');
     }
 
     const today = new Date();
@@ -2331,6 +2398,7 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
       isSessionActive = true;
       sessionStartTime = Date.now();
       sessionTimerInterval = setInterval(updateSessionTimerDisplay, 1000);
+      setTimeout(updateHomeStreakFlame, 500);
       btn.textContent = t('stopSession') || 'Sessie Afronden';
       btn.className = 'session-btn stop';
       label.textContent = t('activeWorkout') || 'WORKOUT ACTIEF';
@@ -2680,6 +2748,7 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
   applyBgTheme(savedBgTheme);
   loadProfileSettings();
   renderHomeView();
+  setTimeout(updateHomeStreakFlame, 100);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
