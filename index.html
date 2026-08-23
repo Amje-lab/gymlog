@@ -2628,18 +2628,21 @@
     const parsedDate = new Date(dateStr);
     const dateTitle = parsedDate.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-    container.innerHTML = `
+    container.innerHTML = 
       <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div>
-            <div style="font-size:16px; font-weight:800; color:#fff; text-transform:capitalize;">${dateTitle}</div>
-            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${dayData.name} Schema</div>
+            <div style="font-size:16px; font-weight:800; color:#fff; text-transform:capitalize;">\</div>
+            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">\ Schema</div>
           </div>
-          <div class="workout-badge">${dayData.label}</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="workout-badge">\</div>
+            <button onclick="openDayEditor(${dayIdx})" style="padding:6px 12px; border-radius:8px; border:none; background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">&#9998; Bewerk dag</button>
+          </div>
         </div>
         <div id="agendaGroupList"></div>
       </div>
-    `;
+    \;
 
     const gList = document.getElementById('agendaGroupList');
     if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
@@ -3302,7 +3305,200 @@
       
       modal.classList.add('show');
   }
-</script>
+
+  // ==== DAG SCHEMA EDITOR ====
+  let dayEditorDayIdx = 0;
+  let dayEditorGroupIdx = null; // which group we're adding exercises to
+
+  const ALL_MUSCLE_GROUPS = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen'];
+
+  function openDayEditor(dayIdx) {
+    dayEditorDayIdx = dayIdx;
+    dayEditorGroupIdx = null;
+
+    const modal = document.getElementById('dayEditorModal');
+    const dayNames = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
+    document.getElementById('dayEditorTitle').textContent = dayNames[dayIdx];
+    document.getElementById('dayEditorExPanel').style.display = 'none';
+
+    renderDayEditorGroups();
+    renderMuscleGroupChips();
+    modal.classList.add('show');
+  }
+
+  function closeDayEditor() {
+    document.getElementById('dayEditorModal').classList.remove('show');
+    renderAgendaView();
+    renderHomeView();
+  }
+
+  function toggleDayRest() {
+    const schema = getActiveRoutineSchema();
+    const day = schema[dayEditorDayIdx];
+    if (day.label.includes('RUST')) {
+      day.label = 'WORKOUT';
+    } else {
+      day.label = 'RUSTDAG';
+      day.groups = [];
+    }
+    saveActiveRoutineSchema(schema);
+    renderDayEditorGroups();
+    renderMuscleGroupChips();
+  }
+
+  function renderDayEditorGroups() {
+    const schema = getActiveRoutineSchema();
+    const day = schema[dayEditorDayIdx];
+    const container = document.getElementById('dayEditorGroups');
+    const restBtn = document.getElementById('dayEditorRestBtn');
+    const isRest = day.label.includes('RUST');
+
+    if (restBtn) {
+      restBtn.textContent = isRest ? '✓ Rustdag (tik om te wijzigen)' : 'Rustdag maken';
+      restBtn.style.background = isRest ? 'rgba(255,59,48,0.2)' : 'var(--surface-2)';
+      restBtn.style.color = isRest ? '#ff3b30' : 'var(--text-sec)';
+    }
+
+    if (isRest) {
+      container.innerHTML = '<div style="text-align:center; padding:30px 0; color:var(--text-sec); font-size:14px;">Rustdag — tik op de knop hierboven om een workout in te stellen.</div>';
+      return;
+    }
+
+    if (day.groups.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:20px 0; color:var(--text-sec); font-size:13px;">Nog geen spiergroepen. Voeg hieronder een spiergroep toe!</div>';
+      return;
+    }
+
+    container.innerHTML = '';
+    day.groups.forEach((group, gIdx) => {
+      const groupCard = document.createElement('div');
+      groupCard.style.cssText = 'margin-bottom: 14px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;';
+
+      let exHtml = group.exercises.map((ex, eIdx) => `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:9px 12px; border-top: 1px solid var(--border);">
+          <div style="font-size:13px; font-weight:700; color:var(--text); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${ex}</div>
+          <button onclick="removeExFromDayEditor(${gIdx}, ${eIdx})" style="background:none; border:none; color:var(--text-mut); cursor:pointer; font-size:18px; padding:0 4px; line-height:1; flex-shrink:0;">&times;</button>
+        </div>
+      `).join('');
+
+      groupCard.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 14px;">
+          <div style="font-size:13px; font-weight:900; color:var(--text); text-transform:uppercase; letter-spacing:0.04em;">${group.title}</div>
+          <div style="display:flex; gap:6px;">
+            <button onclick="openAddExercisePanel(${gIdx})" style="padding:5px 11px; border-radius:7px; border:none; background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">+ Oefening</button>
+            <button onclick="removeMuscleGroupFromDay(${gIdx})" style="padding:5px 8px; border-radius:7px; border:none; background:rgba(255,59,48,0.15); color:#ff3b30; font-size:11px; font-weight:700; cursor:pointer;">Verwijder</button>
+          </div>
+        </div>
+        ${exHtml}
+      `;
+      container.appendChild(groupCard);
+    });
+  }
+
+  function renderMuscleGroupChips() {
+    const schema = getActiveRoutineSchema();
+    const day = schema[dayEditorDayIdx];
+    const isRest = day.label.includes('RUST');
+    const chipsEl = document.getElementById('dayEditorMuscleChips');
+    if (!chipsEl) return;
+
+    if (isRest) {
+      chipsEl.innerHTML = '';
+      return;
+    }
+
+    const existingGroups = day.groups.map(g => g.title);
+    const remaining = ALL_MUSCLE_GROUPS.filter(m => !existingGroups.includes(m));
+
+    if (remaining.length === 0) {
+      chipsEl.innerHTML = '<div style="font-size:12px; color:var(--text-sec);">Alle spiergroepen toegevoegd</div>';
+      return;
+    }
+
+    chipsEl.innerHTML = '<div style="font-size:11px; font-weight:700; color:var(--text-sec); width:100%; margin-bottom:4px;">+ Voeg spiergroep toe:</div>';
+    remaining.forEach(muscle => {
+      const chip = document.createElement('button');
+      chip.style.cssText = 'padding:6px 13px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:12px; font-weight:700; cursor:pointer;';
+      chip.textContent = muscle;
+      chip.onclick = () => addMuscleGroupToDay(muscle);
+      chipsEl.appendChild(chip);
+    });
+  }
+
+  function addMuscleGroupToDay(muscle) {
+    const schema = getActiveRoutineSchema();
+    schema[dayEditorDayIdx].groups.push({ title: muscle, exercises: [] });
+    saveActiveRoutineSchema(schema);
+    renderDayEditorGroups();
+    renderMuscleGroupChips();
+  }
+
+  function removeMuscleGroupFromDay(gIdx) {
+    const schema = getActiveRoutineSchema();
+    schema[dayEditorDayIdx].groups.splice(gIdx, 1);
+    saveActiveRoutineSchema(schema);
+    renderDayEditorGroups();
+    renderMuscleGroupChips();
+    document.getElementById('dayEditorExPanel').style.display = 'none';
+  }
+
+  function removeExFromDayEditor(gIdx, eIdx) {
+    const schema = getActiveRoutineSchema();
+    schema[dayEditorDayIdx].groups[gIdx].exercises.splice(eIdx, 1);
+    saveActiveRoutineSchema(schema);
+    renderDayEditorGroups();
+  }
+
+  function openAddExercisePanel(gIdx) {
+    dayEditorGroupIdx = gIdx;
+    const schema = getActiveRoutineSchema();
+    const group = schema[dayEditorDayIdx].groups[gIdx];
+    const panel = document.getElementById('dayEditorExPanel');
+    document.getElementById('dayEditorExPanelTitle').textContent = `Oefening toevoegen aan ${group.title}`;
+    document.getElementById('dayEditorExSearch').value = '';
+    panel.style.display = 'block';
+    filterDayEditorExercises();
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function filterDayEditorExercises() {
+    if (dayEditorGroupIdx === null) return;
+    const schema = getActiveRoutineSchema();
+    const group = schema[dayEditorDayIdx].groups[dayEditorGroupIdx];
+    const query = (document.getElementById('dayEditorExSearch').value || '').toLowerCase();
+    const existingEx = group.exercises.map(e => e.toLowerCase());
+
+    const results = document.getElementById('dayEditorExResults');
+    results.innerHTML = '';
+
+    const matches = Object.entries(ALL_EXERCISES_DATABASE)
+      .filter(([name, data]) => {
+        const inCategory = data.category === group.title;
+        const notAdded = !existingEx.includes(name.toLowerCase());
+        const matchesQuery = !query || name.toLowerCase().includes(query);
+        return inCategory && notAdded && matchesQuery;
+      })
+      .slice(0, 30);
+
+    if (matches.length === 0) {
+      results.innerHTML = '<div style="font-size:12px; color:var(--text-sec); padding:8px;">Geen oefeningen gevonden</div>';
+      return;
+    }
+
+    matches.forEach(([name]) => {
+      const btn = document.createElement('button');
+      btn.style.cssText = 'padding:9px 12px; border-radius:9px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:13px; font-weight:700; cursor:pointer; text-align:left; width:100%;';
+      btn.textContent = name;
+      btn.onclick = () => {
+        const s = getActiveRoutineSchema();
+        s[dayEditorDayIdx].groups[dayEditorGroupIdx].exercises.push(name);
+        saveActiveRoutineSchema(s);
+        renderDayEditorGroups();
+        filterDayEditorExercises();
+      };
+      results.appendChild(btn);
+    });
+  }</script>
   <!-- REALISTIC RANK MODAL -->
   <div id="rankModal" class="modal-overlay">
     <div class="modal-content" style="max-height: 85vh; display:flex; flex-direction:column; padding: 20px 16px;">
@@ -3314,6 +3510,39 @@
       <div style="margin-top: 16px; text-align: center;">
         <button class="action-btn" style="width: 100%; padding: 12px;" onclick="document.getElementById('rankModal').classList.remove('show')">Sluiten</button>
       </div>
+    </div>
+  </div>
+  <!-- DAG SCHEMA EDITOR MODAL -->
+  <div id="dayEditorModal" class="modal-overlay">
+    <div class="modal-content" style="max-height: 90vh; display:flex; flex-direction:column; padding:0; overflow: hidden; border-radius: 20px;">
+      
+      <!-- Header -->
+      <div style="padding: 18px 18px 12px; border-bottom: 1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <h3 style="margin:0; font-size:18px; font-weight:900;" id="dayEditorTitle">Maandag</h3>
+          <button onclick="closeDayEditor()" style="background:var(--surface-2); border:none; color:var(--text-sec); width:30px; height:30px; border-radius:8px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;">&times;</button>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button onclick="toggleDayRest()" id="dayEditorRestBtn" style="padding:6px 12px; border-radius:8px; border:none; background:var(--surface-2); color:var(--text-sec); font-size:11px; font-weight:700; cursor:pointer;">Rustdag</button>
+        </div>
+      </div>
+
+      <!-- Spiergroepen content -->
+      <div style="flex:1; overflow-y:auto; padding:14px 16px;" id="dayEditorGroups"></div>
+
+      <!-- Spiergroep toevoegen -->
+      <div style="padding: 12px 16px; border-top: 1px solid var(--border);">
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; gap: 6px;" id="dayEditorMuscleChips"></div>
+      </div>
+
+      <!-- Oefening toevoegen panel -->
+      <div id="dayEditorExPanel" style="display:none; padding: 12px 16px; border-top: 1px solid var(--border); background: var(--surface-1);">
+        <div style="font-size:12px; font-weight:800; color:var(--text-sec); margin-bottom:8px;" id="dayEditorExPanelTitle">Kies oefening voor Borst</div>
+        <input type="text" id="dayEditorExSearch" placeholder="Zoek oefening..." oninput="filterDayEditorExercises()"
+          style="width:100%; padding:9px 12px; border-radius:10px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:13px; box-sizing:border-box; margin-bottom:8px;" />
+        <div id="dayEditorExResults" style="max-height:160px; overflow-y:auto; display:flex; flex-direction:column; gap:5px;"></div>
+      </div>
+
     </div>
   </div>
 </body>
