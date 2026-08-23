@@ -657,25 +657,6 @@
           <div id="profilePhotoDisplay" onclick="document.getElementById('profilePhotoInput').click()" style="width:92px; height:92px; border-radius:50%; background:var(--surface-3); border:2px solid #64748b; display:flex; align-items:center; justify-content:center; overflow:hidden; font-size:32px; font-weight:900; color:#fff; box-shadow:0 0 16px rgba(255,255,255,0.1); cursor:pointer;">
             <span id="profilePhotoInitial">U</span>
           </div>
-      <!-- RANKING SYSTEEM -->
-      <div class="profile-card" style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top: 16px; margin-bottom: 24px; cursor: pointer; position: relative; overflow: hidden; border: 1px solid var(--border);" onclick="openRankModal()">
-        <div style="position: absolute; right: -20px; top: -20px; font-size: 100px; opacity: 0.05; pointer-events: none;" id="rankBgIcon">&#127793;</div>
-        <div style="display:flex; align-items:center; gap:16px; z-index: 1;">
-          <div id="rankIconDisplay" style="font-size:40px; line-height:1; filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));">&#127793;</div>
-          <div>
-            <div style="font-size:11px; color:var(--text-sec); font-weight:800; letter-spacing:0.05em; text-transform:uppercase;">Gym Rank</div>
-            <div id="rankTitleDisplay" style="font-size:17px; font-weight:900; color:var(--text); margin-top:2px;">Gym Newbie</div>
-            <div style="font-size:12px; color:var(--text-sec); margin-top:3px;" id="rankProgressText">0 / 5 workouts</div>
-            
-            <div style="width: 140px; height: 6px; background: var(--surface-2); border-radius: 10px; margin-top: 8px; overflow: hidden;">
-              <div id="rankProgressBar" style="height: 100%; width: 0%; background: var(--cyan); transition: width 0.3s;"></div>
-            </div>
-          </div>
-        </div>
-        <div style="color:var(--text-mut); z-index: 1; font-size: 12px; font-weight: 700; display:flex; align-items:center; gap:4px;">
-          Bekijk <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-        </div>
-      </div>
           <button type="button" onclick="document.getElementById('profilePhotoInput').click()" style="position:absolute; bottom:0; right:0; width:30px; height:30px; border-radius:50%; background:#ffffff; border:2px solid #121316; color:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.5);" title="Kies Foto">
             <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
           </button>
@@ -1184,12 +1165,10 @@
     });
 
     if (tabName === 'home') renderHomeView();
-    else if (tabName === 'profile' && typeof renderProfileRank === 'function') renderProfileRank();
     else if (tabName === 'agenda') renderAgendaView();
     else if (tabName === 'tracker') renderTrackerView();
     else if (tabName === 'search') initSearchLibrary();
     else if (tabName === 'profile') loadProfileSettings();
-  if (typeof renderProfileRank === 'function') renderProfileRank();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -2121,7 +2100,6 @@
         try {
           localStorage.setItem('gymlog_profile_photo', compressedB64);
           loadProfileSettings();
-  if (typeof renderProfileRank === 'function') renderProfileRank();
           triggerToast('Profielfoto opgeslagen!');
         } catch(err) {
           triggerToast('Foto te groot voor opslag');
@@ -2135,7 +2113,6 @@
   function removeProfilePhoto() {
     localStorage.removeItem('gymlog_profile_photo');
     loadProfileSettings();
-  if (typeof renderProfileRank === 'function') renderProfileRank();
     triggerToast('Profielfoto verwijderd');
   }
 
@@ -3160,161 +3137,11 @@
   // BOOTSTRAP APP
   initThemeSettings();
   loadProfileSettings();
-  if (typeof renderProfileRank === 'function') renderProfileRank();
   renderHomeView();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
-  
-    const GYM_RANKS = [
-    { min: 0, title: 'Gym Newbie', icon: '&#127793;', color: '#8e8e93', glow: 'none' },
-    { min: 1000, title: 'Iron Starter (1 Ton)', icon: '&#129353;', color: '#cd7f32', glow: 'none' },
-    { min: 5000, title: 'Bronze Lifter (5 Ton)', icon: '&#9881;&#65039;', color: '#a0a0a0', glow: 'none' },
-    { min: 25000, title: 'Silver Mover (25 Ton)', icon: '&#9889;', color: '#34c759', glow: '0 0 8px rgba(52,199,89,0.5)' },
-    { min: 50000, title: 'Steel Crusher (50 Ton)', icon: '&#128293;', color: '#ff9500', glow: '0 0 10px rgba(255,149,0,0.6)' },
-    { min: 100000, title: 'Gold Heavyweight (100 Ton)', icon: '&#127894;', color: '#007aff', glow: '0 0 12px rgba(0,122,255,0.7)' },
-    { min: 250000, title: 'Platinum Titan (250 Ton)', icon: '&#128737;&#65039;', color: '#af52de', glow: '0 0 14px rgba(175,82,222,0.7)' },
-    { min: 500000, title: 'Half-Million Beast (500 Ton)', icon: '&#127942;', color: '#ffd700', glow: '0 0 16px rgba(255,215,0,0.8)' },
-    { min: 1000000, title: 'Millionaire Lifter (1 Miljoen kg)', icon: '&#128142;', color: '#ff2d55', glow: '0 0 18px rgba(255,45,85,0.8)' },
-    { min: 2500000, title: 'Massive Destroyer (2.5 Miljoen kg)', icon: '&#9876;&#65039;', color: '#ff3b30', glow: '0 0 20px rgba(255,59,48,0.9)' },
-    { min: 5000000, title: 'Atlas Power (5 Miljoen kg)', icon: '&#128305;', color: '#00f0ff', glow: '0 0 25px rgba(0,240,255,1)' },
-    { min: 10000000, title: 'Mr. Olympia Legend (10 Miljoen kg)', icon: '&#128081;', color: '#ffd700', glow: '0 0 30px rgba(255,215,0,1), 0 0 10px white' }
-  ];
-
-  function getTotalLiftedVolume() {
-      let totalVolume = 0;
-      for (let i = 0; i < localStorage.length; i++) {
-          let key = localStorage.key(i);
-          if (key.startsWith('gymlog_sets:')) {
-              try {
-                  let sets = JSON.parse(localStorage.getItem(key) || '[]');
-                  sets.forEach(s => {
-                      if (s.done) {
-                          let w = parseFloat(s.weight) || 0;
-                          let r = parseFloat(s.reps) || 0;
-                          totalVolume += (w * r);
-                      }
-                  });
-              } catch(e) {}
-          }
-      }
-      return Math.round(totalVolume);
-  }
-
-  function formatVolumeDisplay(kg) {
-      if (kg >= 1000000) return (kg / 1000000).toFixed(1) + ' Miljoen kg';
-      if (kg >= 1000) return (kg / 1000).toFixed(1) + ' Ton (' + kg.toLocaleString('nl-NL') + ' kg)';
-      return kg + ' kg';
-  }
-
-  function renderProfileRank() {
-      const totalKg = getTotalLiftedVolume();
-      let currentRank = GYM_RANKS[0];
-      let nextRank = GYM_RANKS[1];
-      
-      for (let i = 0; i < GYM_RANKS.length; i++) {
-          if (totalKg >= GYM_RANKS[i].min) {
-              currentRank = GYM_RANKS[i];
-              nextRank = GYM_RANKS[i+1] || GYM_RANKS[i];
-          } else {
-              break;
-          }
-      }
-
-      const iconEl = document.getElementById('rankIconDisplay');
-      const bgIcon = document.getElementById('rankBgIcon');
-      const titleEl = document.getElementById('rankTitleDisplay');
-      const progText = document.getElementById('rankProgressText');
-      const progBar = document.getElementById('rankProgressBar');
-
-      if (!iconEl) return;
-
-      iconEl.innerHTML = currentRank.icon;
-      if (bgIcon) bgIcon.innerHTML = currentRank.icon;
-      iconEl.style.filter = `drop-shadow(${currentRank.glow})`;
-      
-      titleEl.innerHTML = currentRank.title;
-      titleEl.style.color = currentRank.color;
-      titleEl.style.textShadow = currentRank.glow !== 'none' ? currentRank.glow : 'none';
-
-      if (currentRank === nextRank) {
-          progText.textContent = `${formatVolumeDisplay(totalKg)} (Max Rank!)`;
-          progBar.style.width = '100%';
-          progBar.style.background = currentRank.color;
-      } else {
-          const needed = nextRank.min - currentRank.min;
-          const done = totalKg - currentRank.min;
-          const pct = Math.min(100, Math.max(0, (done / needed) * 100));
-          progText.textContent = `${formatVolumeDisplay(totalKg)} / ${formatVolumeDisplay(nextRank.min)}`;
-          progBar.style.width = `${pct}%`;
-          progBar.style.background = currentRank.color;
-      }
-  }
-
-  function openRankModal() {
-      const modal = document.getElementById('rankModal');
-      const container = document.getElementById('rankListContainer');
-      const totalKg = getTotalLiftedVolume();
-      
-      if (!modal || !container) return;
-      container.innerHTML = '';
-      
-      GYM_RANKS.forEach((rank) => {
-          const isUnlocked = totalKg >= rank.min;
-          const card = document.createElement('div');
-          
-          let cardStyle = `display:flex; align-items:center; gap:14px; padding:12px 14px; border-radius:12px; border: 1px solid var(--border); background: var(--surface-1); transition: transform 0.2s;`;
-          if (!isUnlocked) {
-              cardStyle += ` opacity: 0.45; filter: grayscale(0.8);`;
-          } else {
-              cardStyle += ` border-color: ${rank.color}; background: linear-gradient(135deg, var(--surface-1), rgba(255,255,255,0.02));`;
-          }
-          
-          card.style.cssText = cardStyle;
-          
-          card.innerHTML = `
-            <div style="font-size:28px; width:36px; text-align:center; filter: drop-shadow(${isUnlocked ? rank.glow : 'none'});">${rank.icon}</div>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:800; color: ${isUnlocked ? rank.color : 'var(--text-sec)'}; text-shadow: ${isUnlocked && rank.glow !== 'none' ? rank.glow : 'none'}">${rank.title}</div>
-              <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">Vereist: ${formatVolumeDisplay(rank.min)}</div>
-            </div>
-            ${isUnlocked ? '<span style="font-size:11px; font-weight:800; color:var(--green); background:rgba(48,209,88,0.15); padding:4px 8px; border-radius:6px;">BEHAALD</span>' : '<span style="font-size:11px; color:var(--text-mut);">VERGRENDELD</span>'}
-          `;
-          container.appendChild(card);
-      });
-      
-      modal.classList.add('show');
-  }
-          
-          card.style.cssText = cardStyle;
-          
-          card.innerHTML = `
-            <div style="font-size:28px; width:36px; text-align:center; filter: drop-shadow(${isUnlocked ? rank.glow : 'none'});">${rank.icon}</div>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:800; color: ${isUnlocked ? rank.color : 'var(--text-sec)'}; text-shadow: ${isUnlocked && rank.glow !== 'none' ? rank.glow : 'none'}">${rank.title}</div>
-              <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">${rank.min} workouts vereist</div>
-            </div>
-            ${isUnlocked ? '<span style="font-size:11px; font-weight:800; color:var(--green); background:rgba(48,209,88,0.15); padding:4px 8px; border-radius:6px;">BEHAALD</span>' : '<span style="font-size:11px; color:var(--text-mut);">VERGRENDELD</span>'}
-          `;
-          container.appendChild(card);
-      });
-      
-      modal.classList.add('show');
-  }
-</script>
-  <!-- REALISTIC RANK MODAL -->
-  <div id="rankModal" class="modal-overlay">
-    <div class="modal-content" style="max-height: 85vh; display:flex; flex-direction:column; padding: 20px 16px;">
-      <h3 style="margin-top: 0; font-size: 20px; font-weight: 900; margin-bottom: 4px; text-align:center;">🏆 Gym Ranks & Titels</h3>
-      <p style="font-size: 12px; color: var(--text-sec); text-align:center; margin-bottom: 16px;">Voltooi workouts om hoger in rank te klimmen</p>
-      
-      <div id="rankListContainer" style="flex: 1; overflow-y: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 10px;">
-      </div>
-      <div style="margin-top: 16px; text-align: center;">
-        <button class="action-btn" style="width: 100%; padding: 12px;" onclick="document.getElementById('rankModal').classList.remove('show')">Sluiten</button>
-      </div>
-    </div>
-  </div>
+  </script>
 </body>
 </html>
