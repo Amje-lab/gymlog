@@ -91,7 +91,7 @@
     .brand-logo-text {
       font-size: 20px; font-weight: 900; letter-spacing: 0.04em;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 60%, #9da3b4 100%);
+      background: linear-gradient(135deg, #4b5563 0%, #6b7280 60%, #9ca3af 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: flex; align-items: center; gap: 4px;
@@ -153,9 +153,9 @@
       letter-spacing: 0.04em; cursor: pointer; transition: all 0.2s;
     }
     .session-btn.start {
-      background: linear-gradient(135deg, #0a84ff 0%, #00d2ff 100%);
+      background: linear-gradient(135deg, #4b5563 0%, #9ca3af 100%);
       color: #000000; font-weight: 900;
-      box-shadow: 0 4px 16px rgba(0, 210, 255, 0.35);
+      box-shadow: 0 4px 16px rgba(156, 163, 175, 0.35);
     }
     .session-btn.stop {
       background: var(--red); color: #ffffff;
@@ -600,7 +600,7 @@
         <div>
           <div style="font-size: 17px; font-weight: 900; line-height: 1.2;">
             <span id="homeStreakCount" style="color: #ffffff; font-size: 19px;">0</span>
-            <span style="color: #ff9500; letter-spacing: 0.04em;"> DAGEN STREAK</span>
+            <span id="homeStreakLabel" style="color: #888; letter-spacing: 0.04em; transition: all 0.3s;"> DAGEN STREAK</span>
           </div>
           <div style="font-size: 11.5px; color: var(--text-sec); font-weight: 600; margin-top: 2px;" id="homeStreakSub">Train vandaag om je streak te starten!</div>
         </div>
@@ -648,17 +648,23 @@
         <div class="streak-count-number" id="streakNumberDisplay">0</div>
       </div>
 
-      <!-- CALENDAR 4-WEEKS GRID -->
+      <!-- CALENDAR MONTH -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 10px;">
+        <h3 class="section-title" id="agendaMonthTitle" style="margin: 0; font-size: 18px;">Augustus</h3>
+      </div>
       <div class="cal-grid-header" id="calGridHeaderDays">
         <span>Ma</span><span>Di</span><span>Wo</span><span>Do</span><span>Vr</span><span>Za</span><span>Zo</span>
       </div>
       <div class="cal-grid" id="agendaGridContainer"></div>
 
+      <!-- MIJN COMBO / SCHEMA -->
+      <h3 class="section-title" style="margin-top: 24px; font-size: 16px;">Mijn Week Schema</h3>
+      <div id="agendaWeekComboContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;"></div>
+
       <!-- SELECTED DAY DETAIL PREVIEW -->
       <div id="agendaDayDetailContainer"></div>
     </div>
-
-    <!-- VIEW 3: TRACKER & PROGRESSION -->
+<!-- VIEW 3: TRACKER & PROGRESSION -->
     <div id="viewTracker" style="display: none;">
       <h3 class="section-title" id="titleGeneralStats">Algemene Statistieken</h3>
       <div class="stats-grid">
@@ -720,6 +726,15 @@
       <h3 class="section-title" id="titleMyProfile">Mijn Profiel</h3>
       
       <!-- PERSOONLIJKE GEGEVENS -->
+      <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+        <label for="profileImageInput" style="cursor: pointer; position: relative; display: block;">
+          <div id="profileAvatarPreview" style="width: 100px; height: 100px; border-radius: 50%; background: var(--surface-2); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: var(--text-sec); overflow: hidden; background-size: cover; background-position: center;">A</div>
+          <div style="position: absolute; bottom: 0; right: 0; background: #4b5563; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg-top); box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+            <svg style="width:16px;height:16px;fill:#fff" viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+          </div>
+        </label>
+        <input type="file" id="profileImageInput" accept="image/*" style="display:none;" onchange="handleProfileImageUpload(event)" />
+      </div>
       <div class="profile-card">
         <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
         <input type="text" class="profile-input" id="profileNameInput" value="" placeholder="Jouw naam" onchange="saveProfileSettings()" />
@@ -759,7 +774,7 @@
       <h3 class="section-title" id="titleThemeSettings">Achtergrond Thema (16 Kleuren)</h3>
       <div class="profile-card">
         <div class="profile-field-label">Kies jouw favoriete app thema</div>
-        <div id="themeColorGrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px;"></div>
+        <div id="themeColorGrid" style="display:flex; overflow-x:auto; gap:16px; margin-top:10px; padding-bottom:12px; scroll-snap-type: x mandatory;"></div>
       </div>
 
       <!-- WORKOUT & TIMER INSTELLINGEN -->
@@ -1476,17 +1491,44 @@
       else homeSub.textContent = `${streak} dagen op rij! Blijf zo doorgaan!`;
     }
 
-    // Home flame icon color: grey unless trained today
+        function getFlameEmoji(s) {
+      const e = document.createElement('div');
+      if (s >= 5000) e.innerHTML = '&#9851;&#65039;';
+      else if (s >= 2000) e.innerHTML = '&#127756;';
+      else if (s >= 1000) e.innerHTML = '&#128142;';
+      else if (s >= 500) e.innerHTML = '&#128081;';
+      else if (s >= 300) e.innerHTML = '&#127775;';
+      else if (s >= 100) e.innerHTML = '&#9889;';
+      else if (s >= 30) e.innerHTML = '&#128165;';
+      else if (s >= 10) e.innerHTML = '&#9732;&#65039;';
+      else e.innerHTML = '&#128293;';
+      return e.textContent;
+    }
+
     const homeFlame = document.getElementById('homeStreakFlame');
+    const homeCard = document.getElementById('homeStreakCard');
+    const homeLabel = document.getElementById('homeStreakLabel');
+    
     if (homeFlame) {
+      homeFlame.textContent = getFlameEmoji(streak);
       if (trainedToday || streak > 0) {
         homeFlame.style.filter = 'none';
         homeFlame.style.opacity = '1';
         homeFlame.style.color = '#ff9500';
+        if (homeCard) {
+          homeCard.style.border = '1.5px solid rgba(255, 149, 0, 0.4)';
+          homeCard.style.background = 'linear-gradient(180deg, rgba(255, 149, 0, 0.15) 0%, rgba(20, 22, 28, 0.95) 100%)';
+        }
+        if (homeLabel) homeLabel.style.color = '#ff9500';
       } else {
         homeFlame.style.filter = 'grayscale(1)';
-        homeFlame.style.opacity = '0.4';
+        homeFlame.style.opacity = '0.6';
         homeFlame.style.color = '#888';
+        if (homeCard) {
+          homeCard.style.border = '1.5px solid rgba(136, 136, 136, 0.3)';
+          homeCard.style.background = 'linear-gradient(180deg, rgba(136, 136, 136, 0.1) 0%, rgba(20, 22, 28, 0.95) 100%)';
+        }
+        if (homeLabel) homeLabel.style.color = '#888';
       }
     }
 
@@ -1536,7 +1578,7 @@ function renderHomeView() {
           <div style="font-size:36px;margin-bottom:8px;">&#128715;&#65039;</div>
           <div style="font-size:18px;font-weight:900;color:var(--text);margin-bottom:6px;">${t('restDayToday') || 'Vandaag is een Rustdag'}</div>
           <div style="font-size:13px;color:var(--text-sec);margin-bottom:18px;">${t('restDaySub') || 'Tijd voor herstel en goede voeding! Toch trainen vandaag?'}</div>
-          <button onclick="switchTab('search')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 26px;border-radius:14px;border:none;background:linear-gradient(135deg, #0a84ff 0%, #00d2ff 100%);color:#000;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(0, 210, 255, 0.35);">
+          <button onclick="switchTab('search')" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 26px;border-radius:14px;border:none;background:linear-gradient(135deg, #4b5563 0%, #9ca3af 100%);color:#000;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(156, 163, 175, 0.35);">
             + Kies Oefening om te Trainen
           </button>
         </div>
@@ -1894,33 +1936,42 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
   function renderAgendaView() {
     updateHomeStreakFlame();
     const streak = calculateCurrentStreak();
-    const flameEl = document.getElementById('streakFlameIcon');
     const numEl = document.getElementById('streakNumberDisplay');
     if (numEl) numEl.textContent = streak;
-    if (flameEl) {
-      flameEl.className = 'streak-flame-icon';
-      if (streak === 0) flameEl.classList.add('streak-flame-gray');
-      else if (streak < 10) flameEl.classList.add('streak-flame-1');
-      else if (streak < 30) flameEl.classList.add('streak-flame-10');
-      else if (streak < 50) flameEl.classList.add('streak-flame-30');
-      else flameEl.classList.add('streak-flame-50');
-    }
 
     const today = new Date();
     today.setHours(0,0,0,0);
-    const monday = new Date(today);
-    const day = monday.getDay();
-    const diff = (day === 0 ? -6 : 1 - day);
-    monday.setDate(monday.getDate() + diff - 7);
+    
+    // Set Month Title
+    const monthNames = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+    const monthTitle = document.getElementById('agendaMonthTitle');
+    if (monthTitle) monthTitle.textContent = monthNames[today.getMonth()] + ' ' + today.getFullYear();
 
     const grid = document.getElementById('agendaGridContainer');
-    grid.innerHTML = '';
+    if (grid) grid.innerHTML = '';
     const schema = getActiveRoutineSchema();
 
-    for (let i = 0; i < 28; i++) {
-      const cellDate = new Date(monday);
-      cellDate.setDate(cellDate.getDate() + i);
-      cellDate.setHours(0,0,0,0);
+    // Generate current month calendar
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    
+    let startDayIdx = firstDay.getDay() - 1;
+    if (startDayIdx === -1) startDayIdx = 6; // Sunday is 6
+    
+    // Pad start
+    for (let i = 0; i < startDayIdx; i++) {
+      const emptyCell = document.createElement('div');
+      emptyCell.className = 'cal-cell locked';
+      emptyCell.style.background = 'transparent';
+      emptyCell.style.border = 'none';
+      if (grid) grid.appendChild(emptyCell);
+    }
+    
+    // Days in month
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+      const cellDate = new Date(year, month, i);
       const dateStr = formatDateKey(cellDate);
       const dOfWeek = cellDate.getDay();
       const dIdx = (dOfWeek === 0 ? 6 : dOfWeek - 1);
@@ -1934,29 +1985,54 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
       const isCompleted = (allEx.length > 0 && allEx.every(ex => loadExerciseDoneState(dateStr, dIdx, ex)));
 
       const cell = document.createElement('div');
-      cell.className = `cal-cell${isToday ? ' today' : ''}${isSelected ? ' active' : ''}${isCompleted ? ' completed' : ''}${isFuture ? ' locked' : ''}`;
+      cell.className = "cal-cell" + (isToday ? ' today' : '') + (isSelected ? ' active' : '') + (isCompleted ? ' completed' : '') + (isFuture ? ' locked' : '');
       
       let statusHtml = '';
       if (isCompleted) statusHtml = '<svg style="width:12px;height:12px;fill:var(--green);" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
       else if (isFuture) statusHtml = '';
       else if (allEx.length === 0) statusHtml = '-';
 
-      cell.innerHTML = `
-        <div class="cal-num">${cellDate.getDate()}</div>
-        <div class="cal-status-icon">${statusHtml}</div>
-      `;
+      cell.innerHTML = 
+        <div class="cal-num"> + i + </div>
+        <div class="cal-status-icon"> + statusHtml + </div>
+      ;
 
       cell.onclick = () => {
         selectedAgendaDate = cellDate;
         renderAgendaView();
       };
-      grid.appendChild(cell);
+      if (grid) grid.appendChild(cell);
+    }
+
+    // Render Week Combo
+    const comboContainer = document.getElementById('agendaWeekComboContainer');
+    if (comboContainer) {
+      comboContainer.innerHTML = '';
+      const dayNames = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
+      for (let i = 0; i < 7; i++) {
+        const dData = schema[i] || { groups: [] };
+        const groupsList = dData.groups.map(g => g.title).join(', ');
+        const isRest = dData.label.includes('RUST') || dData.label.includes('REST');
+        const desc = isRest ? 'Rustdag' : (groupsList || 'Vrije training');
+        
+        const row = document.createElement('div');
+        row.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px;';
+        row.innerHTML = 
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color:  + (isRest ? 'var(--text-mut)' : 'var(--text)') + ;"> + dayNames[i] + </div>
+            <div style="font-size: 11.5px; color: var(--text-sec); margin-top: 2px;"> + desc + </div>
+          </div>
+          <button onclick="switchTab('search')" style="padding: 6px 12px; border-radius: 8px; border: none; background: var(--surface-2); color: var(--text); font-size: 11px; font-weight: 700; cursor: pointer;">
+            Bewerk
+          </button>
+        ;
+        comboContainer.appendChild(row);
+      }
     }
 
     renderAgendaDayDetail(selectedAgendaDate);
   }
-
-    function renderAgendaDayDetail(d) {
+function renderAgendaDayDetail(d) {
     const container = document.getElementById('agendaDayDetailContainer');
     container.innerHTML = '';
 
@@ -2306,6 +2382,34 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
   }
 
   // â”€â”€â”€ PROFILE & SETTINGS VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function handleProfileImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const dataUrl = e.target.result;
+      localStorage.setItem('gymlog_avatar', dataUrl);
+      updateAvatarDisplays();
+      triggerToast('Profielfoto geupdatet!');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function updateAvatarDisplays() {
+    const saved = localStorage.getItem('gymlog_avatar');
+    const headerBtn = document.getElementById('headerAvatarBtn');
+    const profilePrev = document.getElementById('profileAvatarPreview');
+    const name = (document.getElementById('profileNameInput') || {}).value || 'A';
+    const initial = name.charAt(0).toUpperCase();
+
+    if (saved) {
+      if (headerBtn) { headerBtn.style.backgroundImage = url(\); headerBtn.style.backgroundSize = 'cover'; headerBtn.style.backgroundPosition = 'center'; headerBtn.textContent = ''; }
+      if (profilePrev) { profilePrev.style.backgroundImage = url(\); profilePrev.textContent = ''; }
+    } else {
+      if (headerBtn) { headerBtn.style.backgroundImage = 'none'; headerBtn.textContent = initial; }
+      if (profilePrev) { profilePrev.style.backgroundImage = 'none'; profilePrev.textContent = initial; }
+    }
+  }
   function loadProfileSettings() {
     const name = localStorage.getItem('gymlog_username') || '';
     document.getElementById('profileNameInput').value = name;
@@ -2747,6 +2851,7 @@ function createExerciseCard(exName, dateStr, dayIdx, groupIdx, allExercises) {
   const savedBgTheme = localStorage.getItem('gymlog_bg_theme') || 'black';
   applyBgTheme(savedBgTheme);
   loadProfileSettings();
+  updateAvatarDisplays();
   renderHomeView();
   setTimeout(updateHomeStreakFlame, 100);
 
