@@ -1683,54 +1683,54 @@
 
   // 42 RANKS HIERARCHY (EXACT KILOS & VECTOR BADGES)
   const RANK_TIERS = [
-    { id: 'wood_1', name: '🪵 Wood I', tier: 'Flinterdun Takje', minVol: 0, maxVol: 150 },
-    { id: 'wood_2', name: '🌿 Wood II', tier: 'Bezemsteel Fysiek', minVol: 150, maxVol: 350 },
-    { id: 'wood_3', name: '🌲 Wood III', tier: 'Houten Plank Lifter', minVol: 350, maxVol: 700 },
-    { id: 'iron_1', name: '🔩 Iron I', tier: 'Roestig IJzer', minVol: 700, maxVol: 1200 },
-    { id: 'iron_2', name: '⚙️ Iron II', tier: 'Gym Zoekende', minVol: 1200, maxVol: 2000 },
-    { id: 'iron_3', name: '🔧 Iron III', tier: 'Dumbbell Verkenner', minVol: 2000, maxVol: 3200 },
-    { id: 'bronze_1', name: '🥉 Bronze I', tier: 'Slapmans Starter', minVol: 3200, maxVol: 5000 },
-    { id: 'bronze_2', name: '🛡️ Bronze II', tier: 'Rookie Gymmer', minVol: 5000, maxVol: 7500 },
-    { id: 'bronze_3', name: '⚔️ Bronze III', tier: 'Basis Lifter', minVol: 7500, maxVol: 11000 },
-    { id: 'bronze_4', name: '🏹 Bronze IV', tier: 'Opwarm Krijger', minVol: 11000, maxVol: 15500 },
-    { id: 'bronze_5', name: '🐉 Bronze V', tier: 'Brons Afstudeerder', minVol: 15500, maxVol: 22000 },
-    { id: 'silver_1', name: '🥈 Silver I', tier: 'Actieve Pumper', minVol: 22000, maxVol: 30000 },
-    { id: 'silver_2', name: '💪 Silver II', tier: 'Discipline Starter', minVol: 30000, maxVol: 40000 },
-    { id: 'silver_3', name: '🌪️ Silver III', tier: 'Serieuze Lifter', minVol: 40000, maxVol: 55000 },
-    { id: 'silver_4', name: '⚡ Silver IV', tier: 'Vaste Gymrat', minVol: 55000, maxVol: 75000 },
-    { id: 'silver_5', name: '🌊 Silver V', tier: 'Zilveren Strijder', minVol: 75000, maxVol: 100000 },
-    { id: 'gold_1', name: '🥇 Gold I', tier: 'Gouden Pumper', minVol: 100000, maxVol: 135000 },
-    { id: 'gold_2', name: '🔥 Gold II', tier: 'Ijzervreter', minVol: 135000, maxVol: 180000 },
-    { id: 'gold_3', name: '👑 Gold III', tier: 'Spierbouwer', minVol: 180000, maxVol: 240000 },
-    { id: 'gold_4', name: '🏆 Gold IV', tier: 'Gym Dominator', minVol: 240000, maxVol: 320000 },
-    { id: 'gold_5', name: '✨ Gold V', tier: 'Gouden Kampioen', minVol: 320000, maxVol: 420000 },
-    { id: 'platinum_1', name: '💎 Platinum I', tier: 'Beast Mode Lifter', minVol: 420000, maxVol: 550000 },
-    { id: 'platinum_2', name: '🌀 Platinum II', tier: 'Gym Veteraan', minVol: 550000, maxVol: 720000 },
-    { id: 'platinum_3', name: '🦾 Platinum III', tier: 'Ijzeren Tank', minVol: 720000, maxVol: 950000 },
-    { id: 'platinum_4', name: '🛸 Platinum IV', tier: 'Overload Specialist', minVol: 950000, maxVol: 1250000 },
-    { id: 'platinum_5', name: '☄️ Platinum V', tier: 'Platina Warlord', minVol: 1250000, maxVol: 1650000 },
-    { id: 'emerald_1', name: '🐍 Emerald I', tier: 'Emerald Destroyer', minVol: 1650000, maxVol: 2150000 },
-    { id: 'emerald_2', name: '🦎 Emerald II', tier: 'Smaragd Monster', minVol: 2150000, maxVol: 2750000 },
-    { id: 'emerald_3', name: '🐊 Emerald III', tier: 'Smaragd Berserker', minVol: 2750000, maxVol: 3500000 },
-    { id: 'ruby_1', name: '🩸 Ruby I', tier: 'Ruby Behemoth', minVol: 3500000, maxVol: 4400000 },
-    { id: 'ruby_2', name: '🔴 Ruby II', tier: 'Bloedrode Titaan', minVol: 4400000, maxVol: 5500000 },
-    { id: 'ruby_3', name: '💢 Ruby III', tier: 'Ruby Overlord', minVol: 5500000, maxVol: 6800000 },
-    { id: 'diamond_1', name: '🔷 Diamond I', tier: 'Diamond Beast', minVol: 6800000, maxVol: 8500000 },
-    { id: 'diamond_2', name: '🌌 Diamond II', tier: 'Titan Lifter', minVol: 8500000, maxVol: 10500000 },
-    { id: 'diamond_3', name: '💠 Diamond III', tier: 'Diamond Overlord', minVol: 10500000, maxVol: 13000000 },
-    { id: 'diamond_4', name: '🌠 Diamond IV', tier: 'Diamond Slayer', minVol: 13000000, maxVol: 16000000 },
-    { id: 'diamond_5', name: '🌟 Diamond V', tier: 'Diamond Apex', minVol: 16000000, maxVol: 20000000 },
-    { id: 'master_1', name: '🧿 Master I', tier: 'Master of Iron', minVol: 20000000, maxVol: 25000000 },
-    { id: 'master_2', name: '🔮 Master II', tier: 'Grandmaster Lifter', minVol: 25000000, maxVol: 32000000 },
-    { id: 'master_3', name: '🧬 Master III', tier: 'Apex Master', minVol: 32000000, maxVol: 40000000 },
-    { id: 'challenger', name: '⚡👁️ Challenger', tier: 'Gym Legende', minVol: 40000000, maxVol: 52000000 },
-    { id: 'mythic_1', name: '🐲 Mythic I', tier: 'Mythische Draak', minVol: 52000000, maxVol: 66000000 },
-    { id: 'mythic_2', name: '🌋 Mythic II', tier: 'Onverslaanbare Mythe', minVol: 66000000, maxVol: 82000000 },
-    { id: 'mythic_3', name: '🌑 Mythic III', tier: 'Mythische Kolos', minVol: 82000000, maxVol: 100000000 },
-    { id: 'immortal_1', name: '☠️💀 Immortal I', tier: 'Onsterfelijke Krijger', minVol: 100000000, maxVol: 130000000 },
-    { id: 'immortal_2', name: '👁️‍🗨️🔱 Immortal II', tier: 'Onsterfelijke Titaan', minVol: 130000000, maxVol: 170000000 },
-    { id: 'titan_overload', name: '⚡🌪️🔥 Titan Overload', tier: 'Titanen Oerkracht', minVol: 170000000, maxVol: 230000000 },
-    { id: 'god_overload', name: '🌌👁️💥🔱✨ Apex God Overload', tier: 'Kosmische God van Overload', minVol: 230000000, maxVol: 999999999999 }
+    { id: 'wood_1', name: 'Wood I', tier: 'Flinterdun Takje', minVol: 0, maxVol: 150 },
+    { id: 'wood_2', name: 'Wood II', tier: 'Bezemsteel Fysiek', minVol: 150, maxVol: 350 },
+    { id: 'wood_3', name: 'Wood III', tier: 'Houten Plank Lifter', minVol: 350, maxVol: 700 },
+    { id: 'iron_1', name: 'Iron I', tier: 'Roestig IJzer', minVol: 700, maxVol: 1200 },
+    { id: 'iron_2', name: 'Iron II', tier: 'Gym Zoekende', minVol: 1200, maxVol: 2000 },
+    { id: 'iron_3', name: 'Iron III', tier: 'Dumbbell Verkenner', minVol: 2000, maxVol: 3200 },
+    { id: 'bronze_1', name: 'Bronze I', tier: 'Slapmans Starter', minVol: 3200, maxVol: 5000 },
+    { id: 'bronze_2', name: 'Bronze II', tier: 'Rookie Gymmer', minVol: 5000, maxVol: 7500 },
+    { id: 'bronze_3', name: 'Bronze III', tier: 'Basis Lifter', minVol: 7500, maxVol: 11000 },
+    { id: 'bronze_4', name: 'Bronze IV', tier: 'Opwarm Krijger', minVol: 11000, maxVol: 15500 },
+    { id: 'bronze_5', name: 'Bronze V', tier: 'Brons Afstudeerder', minVol: 15500, maxVol: 22000 },
+    { id: 'silver_1', name: 'Silver I', tier: 'Actieve Pumper', minVol: 22000, maxVol: 30000 },
+    { id: 'silver_2', name: 'Silver II', tier: 'Discipline Starter', minVol: 30000, maxVol: 40000 },
+    { id: 'silver_3', name: 'Silver III', tier: 'Serieuze Lifter', minVol: 40000, maxVol: 55000 },
+    { id: 'silver_4', name: 'Silver IV', tier: 'Vaste Gymrat', minVol: 55000, maxVol: 75000 },
+    { id: 'silver_5', name: 'Silver V', tier: 'Zilveren Strijder', minVol: 75000, maxVol: 100000 },
+    { id: 'gold_1', name: 'Gold I', tier: 'Gouden Pumper', minVol: 100000, maxVol: 135000 },
+    { id: 'gold_2', name: 'Gold II', tier: 'Ijzervreter', minVol: 135000, maxVol: 180000 },
+    { id: 'gold_3', name: 'Gold III', tier: 'Spierbouwer', minVol: 180000, maxVol: 240000 },
+    { id: 'gold_4', name: 'Gold IV', tier: 'Gym Dominator', minVol: 240000, maxVol: 320000 },
+    { id: 'gold_5', name: 'Gold V', tier: 'Gouden Kampioen', minVol: 320000, maxVol: 420000 },
+    { id: 'platinum_1', name: 'Platinum I', tier: 'Beast Mode Lifter', minVol: 420000, maxVol: 550000 },
+    { id: 'platinum_2', name: 'Platinum II', tier: 'Gym Veteraan', minVol: 550000, maxVol: 720000 },
+    { id: 'platinum_3', name: 'Platinum III', tier: 'Ijzeren Tank', minVol: 720000, maxVol: 950000 },
+    { id: 'platinum_4', name: 'Platinum IV', tier: 'Overload Specialist', minVol: 950000, maxVol: 1250000 },
+    { id: 'platinum_5', name: 'Platinum V', tier: 'Platina Warlord', minVol: 1250000, maxVol: 1650000 },
+    { id: 'emerald_1', name: 'Emerald I', tier: 'Emerald Destroyer', minVol: 1650000, maxVol: 2150000 },
+    { id: 'emerald_2', name: 'Emerald II', tier: 'Smaragd Monster', minVol: 2150000, maxVol: 2750000 },
+    { id: 'emerald_3', name: 'Emerald III', tier: 'Smaragd Berserker', minVol: 2750000, maxVol: 3500000 },
+    { id: 'ruby_1', name: 'Ruby I', tier: 'Ruby Behemoth', minVol: 3500000, maxVol: 4400000 },
+    { id: 'ruby_2', name: 'Ruby II', tier: 'Bloedrode Titaan', minVol: 4400000, maxVol: 5500000 },
+    { id: 'ruby_3', name: 'Ruby III', tier: 'Ruby Overlord', minVol: 5500000, maxVol: 6800000 },
+    { id: 'diamond_1', name: 'Diamond I', tier: 'Diamond Beast', minVol: 6800000, maxVol: 8500000 },
+    { id: 'diamond_2', name: 'Diamond II', tier: 'Titan Lifter', minVol: 8500000, maxVol: 10500000 },
+    { id: 'diamond_3', name: 'Diamond III', tier: 'Diamond Overlord', minVol: 10500000, maxVol: 13000000 },
+    { id: 'diamond_4', name: 'Diamond IV', tier: 'Diamond Slayer', minVol: 13000000, maxVol: 16000000 },
+    { id: 'diamond_5', name: 'Diamond V', tier: 'Diamond Apex', minVol: 16000000, maxVol: 20000000 },
+    { id: 'master_1', name: 'Master I', tier: 'Master of Iron', minVol: 20000000, maxVol: 25000000 },
+    { id: 'master_2', name: 'Master II', tier: 'Grandmaster Lifter', minVol: 25000000, maxVol: 32000000 },
+    { id: 'master_3', name: 'Master III', tier: 'Apex Master', minVol: 32000000, maxVol: 40000000 },
+    { id: 'challenger', name: 'Challenger', tier: 'Gym Legende', minVol: 40000000, maxVol: 52000000 },
+    { id: 'mythic_1', name: 'Mythic I', tier: 'Mythische Draak', minVol: 52000000, maxVol: 66000000 },
+    { id: 'mythic_2', name: 'Mythic II', tier: 'Onverslaanbare Mythe', minVol: 66000000, maxVol: 82000000 },
+    { id: 'mythic_3', name: 'Mythic III', tier: 'Mythische Kolos', minVol: 82000000, maxVol: 100000000 },
+    { id: 'immortal_1', name: 'Immortal I', tier: 'Onsterfelijke Krijger', minVol: 100000000, maxVol: 130000000 },
+    { id: 'immortal_2', name: 'Immortal II', tier: 'Onsterfelijke Titaan', minVol: 130000000, maxVol: 170000000 },
+    { id: 'titan_overload', name: 'Titan Overload', tier: 'Titanen Oerkracht', minVol: 170000000, maxVol: 230000000 },
+    { id: 'god_overload', name: 'Apex God Overload', tier: 'Kosmische God van Overload', minVol: 230000000, maxVol: 999999999999 }
   ];
 
   function getAllTimeTotalVolume() {
@@ -1780,98 +1780,212 @@
     let glowColor = 'rgba(148, 163, 184, 0.4)';
 
     if (id.startsWith('wood')) {
+      // Simpel houten logje
       bgGrad = 'linear-gradient(135deg, #78350f, #451a03)';
       borderColor = '#d97706';
       glowColor = 'rgba(217, 119, 6, 0.45)';
       iconSvg = `
-        <rect x="2" y="6" width="20" height="12" rx="3" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
-        <ellipse cx="6" cy="12" rx="2.8" ry="4.5" fill="#d97706" stroke="#92400e" stroke-width="1.2"/>
-        <ellipse cx="6" cy="12" rx="1.2" ry="2.2" fill="#78350f"/>
-        <line x1="6" y1="8" x2="20" y2="8" stroke="#78350f" stroke-width="1.2"/>
-        <line x1="6" y1="12" x2="20" y2="12" stroke="#78350f" stroke-width="1.2"/>
-        <line x1="6" y1="16" x2="20" y2="16" stroke="#78350f" stroke-width="1.2"/>
+        <ellipse cx="12" cy="14" rx="9" ry="5" fill="#92400e" stroke="#d97706" stroke-width="1.5"/>
+        <ellipse cx="12" cy="14" rx="5" ry="2.5" fill="#78350f" stroke="#b45309" stroke-width="1"/>
+        <rect x="6" y="6" width="12" height="8" rx="2" fill="#b45309" stroke="#d97706" stroke-width="1.5"/>
+        <line x1="9" y1="7" x2="9" y2="13" stroke="#78350f" stroke-width="1.2"/>
+        <line x1="12" y1="7" x2="12" y2="13" stroke="#78350f" stroke-width="1.2"/>
+        <line x1="15" y1="7" x2="15" y2="13" stroke="#78350f" stroke-width="1.2"/>
       `;
     } else if (id.startsWith('iron')) {
+      // Dumbbell
       bgGrad = 'linear-gradient(135deg, #475569, #1e293b)';
       borderColor = '#cbd5e1';
       glowColor = 'rgba(203, 213, 225, 0.45)';
       iconSvg = `
-        <circle cx="12" cy="12" r="9.5" fill="#334155" stroke="#cbd5e1" stroke-width="2"/>
-        <circle cx="12" cy="12" r="5" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
-        <circle cx="12" cy="12" r="2" fill="#cbd5e1"/>
-        <rect x="1" y="11" width="22" height="2" rx="1" fill="#cbd5e1" opacity="0.8"/>
+        <rect x="2" y="10" width="4" height="4" rx="1" fill="#94a3b8" stroke="#cbd5e1" stroke-width="1"/>
+        <rect x="1" y="9" width="3" height="6" rx="1" fill="#cbd5e1"/>
+        <rect x="18" y="10" width="4" height="4" rx="1" fill="#94a3b8" stroke="#cbd5e1" stroke-width="1"/>
+        <rect x="20" y="9" width="3" height="6" rx="1" fill="#cbd5e1"/>
+        <rect x="5" y="11" width="14" height="2" rx="1" fill="#94a3b8"/>
       `;
     } else if (id.startsWith('bronze')) {
+      // Schild met ster
       bgGrad = 'linear-gradient(135deg, #92400e, #78350f)';
       borderColor = '#f59e0b';
       glowColor = 'rgba(245, 158, 11, 0.45)';
       iconSvg = `
         <path d="M12 2L3 6v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V6l-9-4z" fill="#b45309" stroke="#f59e0b" stroke-width="1.5"/>
-        <polygon points="12,5 14,10 19,10 15,13 16,18 12,15 8,18 9,13 5,10 10,10" fill="#fde68a"/>
+        <polygon points="12,5 13.5,9.5 18,9.5 14.5,12 15.5,16.5 12,14 8.5,16.5 9.5,12 6,9.5 10.5,9.5" fill="#fde68a"/>
       `;
     } else if (id.startsWith('silver')) {
+      // Dubbele ster
       bgGrad = 'linear-gradient(135deg, #64748b, #334155)';
       borderColor = '#f8fafc';
       glowColor = 'rgba(248, 250, 252, 0.55)';
       iconSvg = `
-        <polygon points="12,1 15,8 23,9 17,14 19,22 12,18 5,22 7,14 1,9 9,8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
-        <circle cx="12" cy="12" r="3" fill="#cbd5e1"/>
+        <polygon points="12,1 14.5,8 22,8.5 16.5,13 18.5,21 12,17 5.5,21 7.5,13 2,8.5 9.5,8" fill="#f8fafc" stroke="#64748b" stroke-width="1"/>
+        <polygon points="12,5 13.5,9 17,9.5 14.5,11.5 15.5,15.5 12,13.5 8.5,15.5 9.5,11.5 7,9.5 10.5,9" fill="#cbd5e1"/>
       `;
     } else if (id.startsWith('gold')) {
+      // Kroon
       bgGrad = 'linear-gradient(135deg, #ca8a04, #854d0e)';
       borderColor = '#fef08a';
       glowColor = 'rgba(254, 240, 138, 0.7)';
       iconSvg = `
-        <path d="M5 16L3 5l5.5 5L12 3l3.5 7L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
-        <circle cx="12" cy="11" r="2" fill="#eab308"/>
+        <polygon points="2,18 5,8 9,14 12,4 15,14 19,8 22,18" fill="#fef08a" stroke="#ca8a04" stroke-width="1.2"/>
+        <rect x="2" y="18" width="20" height="3" rx="1.5" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+        <circle cx="5" cy="8" r="2" fill="#fef08a"/>
+        <circle cx="12" cy="4" r="2" fill="#fef08a"/>
+        <circle cx="19" cy="8" r="2" fill="#fef08a"/>
+        <circle cx="5" cy="8" r="1" fill="#ca8a04"/>
+        <circle cx="12" cy="4" r="1" fill="#ca8a04"/>
+        <circle cx="19" cy="8" r="1" fill="#ca8a04"/>
       `;
     } else if (id.startsWith('platinum')) {
-      bgGrad = 'linear-gradient(135deg, #0284c7, #0369a1)';
+      // Kristal met meerdere facetten
+      bgGrad = 'linear-gradient(135deg, #0369a1, #0c4a6e)';
       borderColor = '#7dd3fc';
       glowColor = 'rgba(125, 211, 252, 0.7)';
       iconSvg = `
-        <polygon points="12,2 22,8 18,21 6,21 2,8" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.5"/>
-        <polygon points="12,6 18,10 15,18 9,18 6,10" fill="#38bdf8" opacity="0.7"/>
+        <polygon points="12,1 20,7 20,17 12,23 4,17 4,7" fill="#bae6fd" stroke="#38bdf8" stroke-width="1.5"/>
+        <polygon points="12,5 17,9 17,15 12,19 7,15 7,9" fill="#38bdf8" opacity="0.8"/>
+        <polygon points="12,8 15,10 15,14 12,16 9,14 9,10" fill="#e0f2fe" opacity="0.9"/>
+        <line x1="12" y1="1" x2="12" y2="23" stroke="#7dd3fc" stroke-width="0.8" opacity="0.5"/>
+        <line x1="4" y1="7" x2="20" y2="17" stroke="#7dd3fc" stroke-width="0.8" opacity="0.5"/>
+        <line x1="20" y1="7" x2="4" y2="17" stroke="#7dd3fc" stroke-width="0.8" opacity="0.5"/>
       `;
     } else if (id.startsWith('emerald')) {
+      // Smaragd steen met glinstering
       bgGrad = 'linear-gradient(135deg, #059669, #064e3b)';
       borderColor = '#6ee7b7';
       glowColor = 'rgba(110, 231, 183, 0.7)';
       iconSvg = `
-        <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="#34d399" stroke="#059669" stroke-width="1.5"/>
-        <polygon points="12,5 18,9 18,15 12,19 6,15 6,9" fill="#10b981" opacity="0.7"/>
+        <polygon points="7,2 17,2 22,8 22,16 17,22 7,22 2,16 2,8" fill="#34d399" stroke="#059669" stroke-width="1.5"/>
+        <polygon points="9,5 15,5 19,9 19,15 15,19 9,19 5,15 5,9" fill="#10b981"/>
+        <polygon points="11,8 13,8 15,10 15,14 13,16 11,16 9,14 9,10" fill="#6ee7b7" opacity="0.9"/>
+        <line x1="7" y1="2" x2="12" y2="8" stroke="#a7f3d0" stroke-width="1" opacity="0.7"/>
+        <line x1="17" y1="2" x2="12" y2="8" stroke="#a7f3d0" stroke-width="1" opacity="0.7"/>
+        <circle cx="7" cy="5" r="1" fill="#a7f3d0" opacity="0.9"/>
       `;
     } else if (id.startsWith('ruby')) {
+      // Robijn met vlammen
       bgGrad = 'linear-gradient(135deg, #dc2626, #7f1d1d)';
       borderColor = '#fca5a5';
-      glowColor = 'rgba(252, 165, 165, 0.7)';
+      glowColor = 'rgba(252, 165, 165, 0.8)';
       iconSvg = `
         <polygon points="8,2 16,2 22,8 22,16 16,22 8,22 2,16 2,8" fill="#f87171" stroke="#dc2626" stroke-width="1.5"/>
-        <polygon points="9,5 15,5 19,9 19,15 15,19 9,19 5,15 5,9" fill="#ef4444" opacity="0.7"/>
+        <polygon points="10,5 14,5 18,9 18,15 14,19 10,19 6,15 6,9" fill="#ef4444"/>
+        <polygon points="11,8 13,8 15,11 15,15 11,15 9,11" fill="#fca5a5" opacity="0.9"/>
+        <path d="M12 3 Q14 6 12 9 Q10 6 12 3z" fill="#fde68a" opacity="0.8"/>
+        <path d="M17 6 Q19 8 17 11 Q15 8 17 6z" fill="#fde68a" opacity="0.6"/>
+        <path d="M7 6 Q9 8 7 11 Q5 8 7 6z" fill="#fde68a" opacity="0.6"/>
       `;
     } else if (id.startsWith('diamond')) {
-      bgGrad = 'linear-gradient(135deg, #0284c7, #1e3a8a)';
+      // Diamant met prisma-effect en glow-stralen
+      bgGrad = 'linear-gradient(135deg, #1e3a8a, #0c1445)';
       borderColor = '#38bdf8';
-      glowColor = 'rgba(56, 189, 248, 0.85)';
+      glowColor = 'rgba(56, 189, 248, 0.9)';
       iconSvg = `
-        <polygon points="6,3 18,3 23,9 12,22 1,9" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.5"/>
-        <polygon points="8,5 16,5 20,9 12,18 4,9" fill="#38bdf8" opacity="0.6"/>
+        <polygon points="5,4 19,4 23,10 12,23 1,10" fill="#bfdbfe" stroke="#38bdf8" stroke-width="1.5"/>
+        <polygon points="7,5 17,5 21,10 12,20 3,10" fill="#60a5fa" opacity="0.7"/>
+        <polygon points="9,6 15,6 18,10 12,17 6,10" fill="#dbeafe" opacity="0.85"/>
+        <line x1="5" y1="10" x2="23" y2="10" stroke="#93c5fd" stroke-width="0.8"/>
+        <line x1="12" y1="4" x2="3" y2="10" stroke="#93c5fd" stroke-width="0.6" opacity="0.6"/>
+        <line x1="12" y1="4" x2="21" y2="10" stroke="#93c5fd" stroke-width="0.6" opacity="0.6"/>
+        <circle cx="12" cy="8" r="1.5" fill="#fff" opacity="0.9"/>
+        <line x1="12" y1="1" x2="12" y2="4" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="6" x2="20" y2="8" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="6" x2="4" y2="8" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round"/>
       `;
     } else if (id.startsWith('master')) {
-      bgGrad = 'linear-gradient(135deg, #7c3aed, #4c1d95)';
+      // Magische 8-puntige ster met cirkel
+      bgGrad = 'linear-gradient(135deg, #7c3aed, #3b0764)';
       borderColor = '#d8b4fe';
-      glowColor = 'rgba(216, 180, 254, 0.85)';
+      glowColor = 'rgba(216, 180, 254, 0.9)';
       iconSvg = `
-        <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5"/>
-        <circle cx="12" cy="12" r="3" fill="#7c3aed"/>
+        <circle cx="12" cy="12" r="10" fill="#4c1d95" stroke="#a855f7" stroke-width="1.5"/>
+        <polygon points="12,2 13.5,9 20,8 15,13 18,20 12,16 6,20 9,13 4,8 10.5,9" fill="#f3e8ff" stroke="#a855f7" stroke-width="0.8"/>
+        <circle cx="12" cy="12" r="3.5" fill="#7c3aed" stroke="#d8b4fe" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="1.5" fill="#f3e8ff"/>
+        <circle cx="12" cy="3" r="1" fill="#e9d5ff"/>
+        <circle cx="21" cy="12" r="1" fill="#e9d5ff"/>
+        <circle cx="12" cy="21" r="1" fill="#e9d5ff"/>
+        <circle cx="3" cy="12" r="1" fill="#e9d5ff"/>
+      `;
+    } else if (id === 'challenger') {
+      // Bliksem kruis met oog
+      bgGrad = 'linear-gradient(135deg, #d97706, #7c2d12)';
+      borderColor = '#fbbf24';
+      glowColor = 'rgba(251, 191, 36, 0.95)';
+      iconSvg = `
+        <polygon points="12,1 22,8 18,22 6,22 2,8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="5" ry="3.5" fill="#fcd34d" stroke="#d97706" stroke-width="1"/>
+        <ellipse cx="12" cy="12" rx="2.5" ry="2.5" fill="#1c1917"/>
+        <circle cx="12" cy="12" r="1.2" fill="#fef3c7"/>
+        <path d="M14 6 L11 11 L13 11 L10 18 L13 13 L11 13 Z" fill="#f59e0b"/>
+      `;
+    } else if (id.startsWith('mythic')) {
+      // Draakschub patroon met vlamkroon
+      bgGrad = 'linear-gradient(135deg, #7f1d1d, #450a0a)';
+      borderColor = '#f97316';
+      glowColor = 'rgba(249, 115, 22, 0.95)';
+      iconSvg = `
+        <circle cx="12" cy="12" r="10" fill="#991b1b" stroke="#f97316" stroke-width="1.5"/>
+        <path d="M12 2 Q16 5 14 9 Q18 7 19 11 Q22 9 22 13 Q19 13 18 16 Q20 18 18 21 Q15 18 12 20 Q9 18 6 21 Q4 18 6 16 Q5 13 2 13 Q2 9 5 11 Q6 7 10 9 Q8 5 12 2z" fill="#ef4444" stroke="#f97316" stroke-width="1"/>
+        <circle cx="12" cy="12" r="3" fill="#fca5a5" stroke="#dc2626" stroke-width="1"/>
+        <path d="M10 5 Q12 3 14 5 Q13 7 12 6 Q11 7 10 5z" fill="#fde68a"/>
+        <path d="M7 6 Q9 4 10 6 Q9 8 8 7z" fill="#fde68a" opacity="0.8"/>
+        <path d="M14 6 Q15 4 17 6 Q16 8 15 7z" fill="#fde68a" opacity="0.8"/>
+      `;
+    } else if (id.startsWith('immortal')) {
+      // Schedel met stralenkrans
+      bgGrad = 'linear-gradient(135deg, #1e1b4b, #0f0a1e)';
+      borderColor = '#818cf8';
+      glowColor = 'rgba(129, 140, 248, 0.95)';
+      iconSvg = `
+        <circle cx="12" cy="12" r="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5"/>
+        <line x1="12" y1="2" x2="12" y2="5" stroke="#a5b4fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19.7" y1="4.3" x2="17.6" y2="6.4" stroke="#a5b4fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="22" y1="12" x2="19" y2="12" stroke="#a5b4fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="4.3" y1="4.3" x2="6.4" y2="6.4" stroke="#a5b4fc" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="12" x2="5" y2="12" stroke="#a5b4fc" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M8 15 Q8 9 12 9 Q16 9 16 15 L15 18 H9 Z" fill="#c7d2fe" stroke="#6366f1" stroke-width="1"/>
+        <rect x="9" y="17" width="2" height="3" rx="0.5" fill="#4338ca"/>
+        <rect x="13" y="17" width="2" height="3" rx="0.5" fill="#4338ca"/>
+        <ellipse cx="10" cy="13" rx="1.5" ry="2" fill="#1e1b4b"/>
+        <ellipse cx="14" cy="13" rx="1.5" ry="2" fill="#1e1b4b"/>
+      `;
+    } else if (id === 'titan_overload') {
+      // Explosieve kroon + bliksem + vlammen
+      bgGrad = 'linear-gradient(135deg, #0c0a09, #1c0a00)';
+      borderColor = '#f97316';
+      glowColor = 'rgba(249, 115, 22, 1)';
+      iconSvg = `
+        <circle cx="12" cy="12" r="10" fill="#0c0a09" stroke="#f97316" stroke-width="2"/>
+        <path d="M12 2 Q17 6 15 11 Q20 8 21 13 Q18 13 17 16 Q19 19 17 22 Q14 19 12 21 Q10 19 7 22 Q5 19 7 16 Q6 13 3 13 Q4 8 9 11 Q7 6 12 2z" fill="#ea580c" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/>
+        <path d="M14 5 L11 11 L13.5 11 L10 19 L13 14 L10.5 14 Z" fill="#fef08a" stroke="#fbbf24" stroke-width="0.5"/>
+        <circle cx="12" cy="12" r="2.5" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+        <line x1="12" y1="1" x2="12" y2="3.5" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+        <line x1="21.5" y1="5" x2="19.5" y2="7" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+        <line x1="2.5" y1="5" x2="4.5" y2="7" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
       `;
     } else {
-      bgGrad = 'linear-gradient(135deg, #ea580c, #431407)';
-      borderColor = '#fdba74';
-      glowColor = 'rgba(253, 186, 116, 0.95)';
+      // GOD OVERLOAD — kosmisch oog met stralen en ringnevel
+      bgGrad = 'linear-gradient(135deg, #020617, #0f0728)';
+      borderColor = '#e879f9';
+      glowColor = 'rgba(232, 121, 249, 1)';
       iconSvg = `
-        <polygon points="12,1 15,7 22,8 17,14 19,21 12,17 5,21 7,14 2,8 9,7" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
-        <circle cx="12" cy="12" r="3.5" fill="#facc15"/>
+        <circle cx="12" cy="12" r="10" fill="#0a0118" stroke="#d946ef" stroke-width="2"/>
+        <ellipse cx="12" cy="12" rx="9" ry="3.5" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
+        <ellipse cx="12" cy="12" rx="3.5" ry="9" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
+        <circle cx="12" cy="12" r="5" fill="#1e0a2e" stroke="#d946ef" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="3" ry="2" fill="#7c3aed"/>
+        <ellipse cx="12" cy="12" rx="1.8" ry="1.8" fill="#0a0118"/>
+        <circle cx="12" cy="12" r="0.8" fill="#e879f9"/>
+        <line x1="12" y1="2" x2="12" y2="5" stroke="#e879f9" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="#e879f9" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="12" x2="5" y2="12" stroke="#e879f9" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="12" x2="22" y2="12" stroke="#e879f9" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="4.9" y1="4.9" x2="7" y2="7" stroke="#c026d3" stroke-width="1" stroke-linecap="round"/>
+        <line x1="19.1" y1="4.9" x2="17" y2="7" stroke="#c026d3" stroke-width="1" stroke-linecap="round"/>
+        <line x1="4.9" y1="19.1" x2="7" y2="17" stroke="#c026d3" stroke-width="1" stroke-linecap="round"/>
+        <line x1="19.1" y1="19.1" x2="17" y2="17" stroke="#c026d3" stroke-width="1" stroke-linecap="round"/>
       `;
     }
 
