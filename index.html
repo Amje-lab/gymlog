@@ -143,13 +143,47 @@
       50% { filter: hue-rotate(180deg) drop-shadow(0 0 24px #ec4899); transform: scale(1.3); }
       100% { filter: hue-rotate(360deg) drop-shadow(0 0 10px #38bdf8); transform: scale(1); }
     }
+    @keyframes flameGodMode {
+      0% { filter: hue-rotate(0deg) drop-shadow(0 0 18px #fff) brightness(1.5); transform: scale(1) rotate(-6deg); }
+      25% { filter: hue-rotate(90deg) drop-shadow(0 0 32px #f0abfc) brightness(2); transform: scale(1.35) rotate(0deg); }
+      50% { filter: hue-rotate(180deg) drop-shadow(0 0 40px #fde68a) brightness(2.5); transform: scale(1.5) rotate(6deg); }
+      75% { filter: hue-rotate(270deg) drop-shadow(0 0 32px #6ee7b7) brightness(2); transform: scale(1.35) rotate(0deg); }
+      100% { filter: hue-rotate(360deg) drop-shadow(0 0 18px #fff) brightness(1.5); transform: scale(1) rotate(-6deg); }
+    }
+
+    /* streak = 0: alles grijs */
+    .streak-stage-0 .streak-svg-icon { filter: grayscale(1) opacity(0.4); }
+    .streak-stage-0 .streak-num { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-title { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-sub { color: var(--text-mut) !important; }
+    .streak-stage-0 { background: linear-gradient(135deg, rgba(100,100,100,0.08), rgba(80,80,80,0.04)) !important; border-color: rgba(100,100,100,0.2) !important; }
+
+    /* streak 1-9: klein vlammetje, geen animatie */
+    .streak-stage-1 .streak-svg-icon { filter: brightness(0.9); }
+
+    /* 10+ : begint te wiggelen */
     .streak-stage-10 .streak-svg-icon { animation: flameWiggle 1s ease-in-out infinite; }
+
+    /* 30+: wiggle + pulse */
     .streak-stage-30 .streak-svg-icon { animation: flameWiggle 0.6s ease-in-out infinite, flamePulse 1s ease-in-out infinite; }
-    .streak-stage-100 .streak-svg-icon { animation: flameWiggle 0.45s ease-in-out infinite, flamePulse 0.7s ease-in-out infinite; }
-    .streak-stage-200 .streak-svg-icon { animation: flameSupernova 0.7s ease-in-out infinite; }
-    .streak-stage-500 .streak-svg-icon { animation: flameSupernova 0.5s ease-in-out infinite; }
+
+    /* 100+: sneller */
+    .streak-stage-100 .streak-svg-icon { animation: flameWiggle 0.4s ease-in-out infinite, flamePulse 0.65s ease-in-out infinite; }
+
+    /* 300+: supernova */
+    .streak-stage-300 .streak-svg-icon { animation: flameSupernova 0.7s ease-in-out infinite; }
+
+    /* 500+: supernova snel */
+    .streak-stage-500 .streak-svg-icon { animation: flameSupernova 0.45s ease-in-out infinite; }
+
+    /* 1000+: cosmic */
     .streak-stage-1000 .streak-svg-icon { animation: flameCosmic 1.5s linear infinite; }
-    .streak-stage-2000 .streak-svg-icon { animation: flameCosmic 0.8s linear infinite; }
+
+    /* 2000+: cosmic snel */
+    .streak-stage-2000 .streak-svg-icon { animation: flameCosmic 0.7s linear infinite; }
+
+    /* 10000+: god mode */
+    .streak-stage-10000 .streak-svg-icon { animation: flameGodMode 0.5s linear infinite; }
 
     /* SWIPEABLE THEME COLOR CIRCLES */
     .theme-swatches-scroll {
@@ -1316,36 +1350,46 @@
     let stageClass = '';
     let subText = 'Train vandaag om je streak te starten!';
 
-    if (currentStreak >= 2000) {
+    if (currentStreak >= 10000) {
+      flameFill = '#ffffff';
+      stageClass = 'streak-stage-10000';
+      subText = '🔱 OVERLOAD GOD — 10.000+ DAGEN. ONAANRAAKBAAR.';
+    } else if (currentStreak >= 2000) {
       flameFill = '#38bdf8';
       stageClass = 'streak-stage-2000';
-      subText = 'IMMORTAL APEX GOD (2000+ DAGEN)!';
+      subText = 'IMMORTAL APEX — 2000+ DAGEN. NIETS KAN JOU STOPPEN.';
     } else if (currentStreak >= 1000) {
       flameFill = '#a855f7';
       stageClass = 'streak-stage-1000';
-      subText = 'KOSMISCHE TITAAN (1000+ DAGEN)!';
+      subText = 'KOSMISCHE TITAAN — 1000+ DAGEN!';
     } else if (currentStreak >= 500) {
       flameFill = '#ec4899';
       stageClass = 'streak-stage-500';
-      subText = 'HALFGOD DISCIPLINE (500+ DAGEN)!';
-    } else if (currentStreak >= 200) {
+      subText = 'HALFGOD DISCIPLINE — 500+ DAGEN!';
+    } else if (currentStreak >= 300) {
       flameFill = '#eab308';
-      stageClass = 'streak-stage-200';
-      subText = 'SUPERNOVA OVERLOAD (200+ DAGEN)!';
+      stageClass = 'streak-stage-300';
+      subText = 'SUPERNOVA OVERLOAD — 300+ DAGEN!';
     } else if (currentStreak >= 100) {
       flameFill = '#ff3b30';
       stageClass = 'streak-stage-100';
-      subText = 'LEGENDARISCHE FOCUS (100+ DAGEN)!';
+      subText = 'LEGENDARISCHE FOCUS — 100+ DAGEN!';
     } else if (currentStreak >= 30) {
       flameFill = '#ff453a';
       stageClass = 'streak-stage-30';
-      subText = 'BEAST MODE AAN (30+ DAGEN)!';
+      subText = 'BEAST MODE AAN — 30+ DAGEN!';
     } else if (currentStreak >= 10) {
       flameFill = '#ff9500';
       stageClass = 'streak-stage-10';
-      subText = 'DISCIPLINE IS AAN (10+ DAGEN)!';
+      subText = 'DISCIPLINE IS AAN — 10+ DAGEN!';
     } else if (currentStreak > 0) {
+      flameFill = '#ff9500';
+      stageClass = 'streak-stage-1';
       subText = 'Streak actief! Blijf consistent.';
+    } else {
+      flameFill = '#64748b';
+      stageClass = 'streak-stage-0';
+      subText = 'Train vandaag om je streak te starten!';
     }
 
     if (bannerEl) {
@@ -1433,9 +1477,27 @@
       renderHomeView();
     };
 
+    const deleteExBtn = document.createElement('button');
+    deleteExBtn.className = 'action-icon-btn';
+    deleteExBtn.style.cssText = 'width:30px;height:30px;flex-shrink:0;border-color:rgba(255,69,58,0.3);color:var(--red);';
+    deleteExBtn.title = 'Verwijder oefening van vandaag';
+    deleteExBtn.innerHTML = '<svg style="width:13px;height:13px;fill:currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
+    deleteExBtn.onclick = () => {
+      if (!confirm(`"${exName}" verwijderen uit het schema van vandaag?`)) return;
+      const schema = getActiveRoutineSchema();
+      const day = schema[dayIdx];
+      if (day && day.groups && day.groups[groupIdx]) {
+        day.groups[groupIdx].exercises = day.groups[groupIdx].exercises.filter(e => e !== exName);
+        saveActiveRoutineSchema(schema);
+        triggerToast(`${exName} verwijderd`);
+        renderHomeView();
+      }
+    };
+
     top.appendChild(thumb);
     top.appendChild(info);
     top.appendChild(finishBtn);
+    top.appendChild(deleteExBtn);
     card.appendChild(top);
 
     const setsContainer = document.createElement('div');
