@@ -947,23 +947,23 @@
       <div class="profile-card">
         <div class="profile-field-label" id="lblSelectLanguage">Taal Selecteren (Live Vertaling)</div>
         <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
-          <option value="nl">Nederlands (Dutch)</option>
-          <option value="en">English (US/UK)</option>
-          <option value="de">Deutsch (German)</option>
-          <option value="fr">Francais (French)</option>
-          <option value="es">Espanol (Spanish)</option>
-          <option value="it">Italiano (Italian)</option>
-          <option value="pt">Portugues (Portuguese)</option>
-          <option value="tr">Turkce (Turkish)</option>
-          <option value="ar">Arabic</option>
-          <option value="pl">Polski (Polish)</option>
-          <option value="ru">Russian</option>
-          <option value="ja">Japanese</option>
-          <option value="zh">Chinese</option>
-          <option value="ko">Korean</option>
-          <option value="sv">Svenska (Swedish)</option>
-          <option value="no">Norsk (Norwegian)</option>
-          <option value="da">Dansk (Danish)</option>
+          <option value="nl">🇳🇱 Nederlands</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="it">🇮🇹 Italiano</option>
+          <option value="pt">🇵🇹 Português</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="pl">🇵🇱 Polski</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="sv">🇸🇪 Svenska</option>
+          <option value="no">🇳🇴 Norsk</option>
+          <option value="da">🇩🇰 Dansk</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="ko">🇰🇷 한국어</option>
         </select>
       </div>
 
@@ -1111,8 +1111,36 @@
     'Benen': 'https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/main/quadriceps/barbell-squat.gif',
     'Buik': 'https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/main/abs/incline-crunch.gif',
     'Voorarmen': 'https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/main/forearms/dumbbell-wrist-curl.gif',
+    'Cardio': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop',
     'Overig': 'https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/main/pectorals/dumbbell-incline-bench-press.gif'
   };
+
+  // CARDIO OEFENINGEN DATABASE
+  const CARDIO_EXERCISES = {
+    'Loopband': { gif: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Stairmaster': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Crosstrainer': { gif: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Roeimachine': { gif: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Stationaire Fiets': { gif: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Assault Bike': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Springtouw': { gif: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Zwemmen': { gif: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Hardlopen (buiten)': { gif: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'HIIT Cardio': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Ski Erg': { gif: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Vertikal Climber': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Burpees': { gif: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'S', isCardio: true, unit: 'min' },
+    'Box Jumps': { gif: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'A', isCardio: true, unit: 'reps' },
+    'Battle Ropes': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Overig', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Sled Push': { gif: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=400&auto=format&fit=crop', equipment: 'Machine', category: 'Cardio', tier: 'S', isCardio: true, unit: 'meter' },
+    'Kettlebell Swing': { gif: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop', equipment: 'Overig', category: 'Cardio', tier: 'S', isCardio: true, unit: 'reps' },
+    'Mountain Climbers': { gif: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+    'Jumping Jacks': { gif: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'B', isCardio: true, unit: 'min' },
+    'Fietsen (buiten)': { gif: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&auto=format&fit=crop', equipment: 'Lichaamsgewicht', category: 'Cardio', tier: 'A', isCardio: true, unit: 'min' },
+  };
+
+  // Voeg cardio toe aan de hoofddatabase
+  Object.assign(ALL_EXERCISES_DATABASE, CARDIO_EXERCISES);
 
   function getExerciseGif(exName) {
     const exData = ALL_EXERCISES_DATABASE[exName];
@@ -1126,83 +1154,172 @@
     nl: {
       welcome: "WELKOM TERUG", startSession: "Start Sessie", stopSession: "Sessie Afronden",
       sessionStatus: "Sessie Status", activeWorkout: "WORKOUT ACTIEF", sets: "Sets", exercises: "Oefeningen",
-      volume: "Volume (kg)", restDayToday: "Rustdag Vandaag", restDaySub: "Tijd voor herstel en goede voeding!",
+      volume: "Volume", restDayToday: "Rustdag Vandaag", restDaySub: "Tijd voor herstel en goede voeding!",
       addSet: "+ Set toevoegen", generalStats: "Algemene Statistieken", allTimeVolume: "All-Time Volume",
-      selectLanguage: "Taal Selecteren (Live Vertaling)", resetAll: "Reset Routine",
+      selectLanguage: "Taal Selecteren", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "RUSTTIJD", searchPlaceholder: "Zoek elke oefening in de gym...",
       daysShort: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'],
       dayNames: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag']
     },
     en: {
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
       sessionStatus: "Session Status", activeWorkout: "WORKOUT ACTIVE", sets: "Sets", exercises: "Exercises",
-      volume: "Volume (kg)", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and good nutrition!",
+      volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and good nutrition!",
       addSet: "+ Add Set", generalStats: "Overall Statistics", allTimeVolume: "All-Time Volume",
-      selectLanguage: "Select Language (Live Translation)", resetAll: "Reset Routine",
+      selectLanguage: "Select Language", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "REST TIME", searchPlaceholder: "Search any gym exercise...",
       daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     },
     de: {
       welcome: "WILLKOMMEN", startSession: "Training Starten", stopSession: "Training Beenden",
       sessionStatus: "Sitzungsstatus", activeWorkout: "TRAINING AKTIV", sets: "Saetze", exercises: "Uebungen",
-      volume: "Volumen (kg)", restDayToday: "Heute Ruhetag", restDaySub: "Zeit fuer Erholung!",
+      volume: "Volumen", restDayToday: "Heute Ruhetag", restDaySub: "Zeit fuer Erholung!",
       addSet: "+ Satz hinzufuegen", generalStats: "Gesamtstatistik", allTimeVolume: "Gesamtvolumen",
-      selectLanguage: "Sprache waehlen", resetAll: "Routine zuruecksetzen",
+      selectLanguage: "Sprache waehlen", resetAll: "Routine zuruecksetzen", brandSub: "PROGRESSIVES TRAINING",
+      restTimer: "PAUSENZEIT", searchPlaceholder: "Uebung suchen...",
       daysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
       dayNames: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
     },
     fr: {
       welcome: "BIENVENUE", startSession: "Demarrer Seance", stopSession: "Terminer Seance",
       sessionStatus: "Statut Seance", activeWorkout: "ENTRAINEMENT ACTIF", sets: "Series", exercises: "Exercices",
-      volume: "Volume (kg)", restDayToday: "Jour de Repos", restDaySub: "Temps de recuperation!",
-      addSet: "+ Ajouter Serie", generalStats: "Statistiques Generales", allTimeVolume: "Volume Total",
-      selectLanguage: "Choisir la Langue", resetAll: "Reinitialiser",
+      volume: "Volume", restDayToday: "Jour de Repos", restDaySub: "Temps de recuperation!",
+      addSet: "+ Ajouter Serie", generalStats: "Statistiques", allTimeVolume: "Volume Total",
+      selectLanguage: "Choisir la Langue", resetAll: "Reinitialiser", brandSub: "SUIVI PROGRESSIF",
+      restTimer: "TEMPS DE REPOS", searchPlaceholder: "Rechercher un exercice...",
       daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
     },
     es: {
       welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
       sessionStatus: "Estado Sesion", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
-      volume: "Volumen (kg)", restDayToday: "Dia de Descanso", restDaySub: "Tiempo de recuperacion!",
+      volume: "Volumen", restDayToday: "Dia de Descanso", restDaySub: "Tiempo de recuperacion!",
       addSet: "+ Agregar Serie", generalStats: "Estadisticas", allTimeVolume: "Volumen Total",
-      selectLanguage: "Seleccionar Idioma", resetAll: "Reiniciar",
+      selectLanguage: "Seleccionar Idioma", resetAll: "Reiniciar", brandSub: "SEGUIMIENTO PROGRESIVO",
+      restTimer: "TIEMPO DE DESCANSO", searchPlaceholder: "Buscar ejercicio...",
       daysShort: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
       dayNames: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
     },
     tr: {
-      welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Bitir",
-      sessionStatus: "Durum", activeWorkout: "AKTIF", sets: "Setler", exercises: "Egzersizler",
-      volume: "Hacim (kg)", restDayToday: "Dinlenme Gunu", restDaySub: "Toparlanma zamani!",
+      welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
+      sessionStatus: "Durum", activeWorkout: "AKTIF ANTRENMAN", sets: "Setler", exercises: "Egzersizler",
+      volume: "Hacim", restDayToday: "Dinlenme Gunu", restDaySub: "Toparlanma zamani!",
       addSet: "+ Set Ekle", generalStats: "Istatistikler", allTimeVolume: "Toplam Hacim",
-      selectLanguage: "Dil Secimi", resetAll: "Sifirla",
+      selectLanguage: "Dil Secimi", resetAll: "Sifirla", brandSub: "ILERLEMELI TAKIP",
+      restTimer: "DINLENME SURESI", searchPlaceholder: "Egzersiz ara...",
       daysShort: ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt', 'Paz'],
       dayNames: ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar']
     },
     it: {
-      welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina",
-      sessionStatus: "Stato", activeWorkout: "ATTIVO", sets: "Serie", exercises: "Esercizi",
-      volume: "Volume (kg)", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero!",
+      welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
+      sessionStatus: "Stato", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
+      volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero!",
       addSet: "+ Aggiungi Serie", generalStats: "Statistiche", allTimeVolume: "Volume Totale",
-      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina",
+      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina", brandSub: "TRACKER PROGRESSIVO",
+      restTimer: "TEMPO DI RIPOSO", searchPlaceholder: "Cerca esercizio...",
       daysShort: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
       dayNames: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica']
     },
     pt: {
-      welcome: "BEM-VINDO", startSession: "Iniciar Treino", stopSession: "Finalizar",
+      welcome: "BEM-VINDO", startSession: "Iniciar Treino", stopSession: "Finalizar Treino",
       sessionStatus: "Status", activeWorkout: "TREINO ATIVO", sets: "Series", exercises: "Exercicios",
-      volume: "Volume (kg)", restDayToday: "Dia de Descanso", restDaySub: "Hora de recuperar!",
+      volume: "Volume", restDayToday: "Dia de Descanso", restDaySub: "Hora de recuperar!",
       addSet: "+ Adicionar Serie", generalStats: "Estatisticas", allTimeVolume: "Volume Total",
-      selectLanguage: "Selecionar Idioma", resetAll: "Reiniciar",
+      selectLanguage: "Selecionar Idioma", resetAll: "Reiniciar", brandSub: "RASTREADOR PROGRESSIVO",
+      restTimer: "TEMPO DE DESCANSO", searchPlaceholder: "Pesquisar exercicio...",
       daysShort: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
       dayNames: ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo']
     },
     ar: {
-      welcome: "AHLAN WA SAHLAN", startSession: "Bad' Al-Tamreen", stopSession: "Inha'",
-      sessionStatus: "Al-Hala", activeWorkout: "TAMREEN NASHIT", sets: "Majmu'at", exercises: "Tamareen",
-      volume: "Al-Wazn (kg)", restDayToday: "Yawm Raha", restDaySub: "Waqt Al-Istishfa'!",
-      addSet: "+ Idç­¤at Majmu'a", generalStats: "Ihsa'iyyat", allTimeVolume: "Al-Hajm Al-Kulli",
-      selectLanguage: "Ikhtiyar Al-Lugha", resetAll: "I'adat Ta'yeen",
+      welcome: "MARHABA", startSession: "Ibda Al-Tamreen", stopSession: "Inha Al-Tamreen",
+      sessionStatus: "Al-Hala", activeWorkout: "TAMREEN NASHIT", sets: "Majmuaat", exercises: "Tamareen",
+      volume: "Al-Wazn", restDayToday: "Yawm Raha", restDaySub: "Waqt Al-Raaha!",
+      addSet: "+ Idafa Majmua", generalStats: "Ihsaiyyat", allTimeVolume: "Al-Hajm Al-Kulli",
+      selectLanguage: "Ikhtiyar Al-Lugha", resetAll: "Iadat Tayin", brandSub: "MUTABIE TATAWWURI",
+      restTimer: "WAQT AL-RAHA", searchPlaceholder: "Ibhath an tamreen...",
       daysShort: ['Ith', 'Thul', 'Arb', 'Kham', 'Jum', 'Sab', 'Ahad'],
-      dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbi\'a', 'Al-Khamis', 'Al-Jumu\'a', 'Al-Sabt', 'Al-Ahad']
+      dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbia', 'Al-Khamis', 'Al-Jumua', 'Al-Sabt', 'Al-Ahad']
+    },
+    pl: {
+      welcome: "WITAJ", startSession: "Rozpocznij Trening", stopSession: "Zakoncz Trening",
+      sessionStatus: "Status Sesji", activeWorkout: "TRENING AKTYWNY", sets: "Serie", exercises: "Cwiczenia",
+      volume: "Objetosc", restDayToday: "Dzien Odpoczynku", restDaySub: "Czas na regeneracje!",
+      addSet: "+ Dodaj Serie", generalStats: "Statystyki", allTimeVolume: "Lacznie",
+      selectLanguage: "Wybierz Jezyk", resetAll: "Resetuj", brandSub: "PROGRESYWNY TRENING",
+      restTimer: "CZAS ODPOCZYNKU", searchPlaceholder: "Szukaj cwiczenia...",
+      daysShort: ['Pon', 'Wt', 'Sr', 'Czw', 'Pt', 'Sob', 'Nd'],
+      dayNames: ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela']
+    },
+    ru: {
+      welcome: "DOBRO POZHALOVAT", startSession: "Nachat Trenirovku", stopSession: "Zavershit",
+      sessionStatus: "Status", activeWorkout: "TRENIROVKA AKTIVNA", sets: "Podkhody", exercises: "Uprazhneniya",
+      volume: "Obem", restDayToday: "Den Otdykha", restDaySub: "Vremya dlya vosstanovleniya!",
+      addSet: "+ Dobavit Podkhod", generalStats: "Statistika", allTimeVolume: "Obshchy Obem",
+      selectLanguage: "Vybrat Yazyk", resetAll: "Sbrosit", brandSub: "PROGRESSIVNY TREKER",
+      restTimer: "VREMYA OTDYKHA", searchPlaceholder: "Poisk uprazhneniya...",
+      daysShort: ['Pn', 'Vt', 'Sr', 'Ch', 'Pt', 'Sb', 'Vs'],
+      dayNames: ['Ponedelnik', 'Vtornik', 'Sreda', 'Chetverg', 'Pyatnitsa', 'Subbota', 'Voskresenye']
+    },
+    sv: {
+      welcome: "VALKOMMEN", startSession: "Starta Traning", stopSession: "Avsluta Traning",
+      sessionStatus: "Status", activeWorkout: "TRANING AKTIV", sets: "Set", exercises: "Ovningar",
+      volume: "Volym", restDayToday: "Vilodagen", restDaySub: "Tid for aterhämtning!",
+      addSet: "+ Lagg till Set", generalStats: "Statistik", allTimeVolume: "Total Volym",
+      selectLanguage: "Valj Sprak", resetAll: "Aterstall", brandSub: "PROGRESSIV TRACKNING",
+      restTimer: "VILOTID", searchPlaceholder: "Sok ovning...",
+      daysShort: ['Man', 'Tis', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag']
+    },
+    ja: {
+      welcome: "YOKOSO", startSession: "Workout Kaishi", stopSession: "Owaru",
+      sessionStatus: "Status", activeWorkout: "WORKOUT CHUU", sets: "Setto", exercises: "Undou",
+      volume: "Volume", restDayToday: "Kyuujitsu", restDaySub: "Kaifuku no jikan!",
+      addSet: "+ Setto Tsuika", generalStats: "Toukeijouhou", allTimeVolume: "Soukei Volume",
+      selectLanguage: "Gengo Sentaku", resetAll: "Risetto", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "KYUUKEI", searchPlaceholder: "Undou wo sagasu...",
+      daysShort: ['Getz', 'Ka', 'Sui', 'Moku', 'Kin', 'Do', 'Nichi'],
+      dayNames: ['Getsu-yobi', 'Ka-yobi', 'Sui-yobi', 'Moku-yobi', 'Kin-yobi', 'Do-yobi', 'Nichi-yobi']
+    },
+    ko: {
+      welcome: "HWANGYEONGHABNIDA", startSession: "Undong Sijak", stopSession: "Undong Wanryo",
+      sessionStatus: "Sangtae", activeWorkout: "UNDONG JUNGIB", sets: "Setu", exercises: "Undo",
+      volume: "Boljyum", restDayToday: "Hyusigilb", restDaySub: "Hoebok sigan!",
+      addSet: "+ Setu Chuga", generalStats: "Tonggye", allTimeVolume: "Jeoche Boljyum",
+      selectLanguage: "Eon-eo Seontaeg", resetAll: "Chogidae", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "HYUSIG SIGAN", searchPlaceholder: "Undo geomseog...",
+      daysShort: ['Wol', 'Hwa', 'Su', 'Mok', 'Geum', 'To', 'Il'],
+      dayNames: ['Wol-yo-il', 'Hwa-yo-il', 'Su-yo-il', 'Mok-yo-il', 'Geum-yo-il', 'To-yo-il', 'Il-yo-il']
+    },
+    zh: {
+      welcome: "HUANYING", startSession: "Kaishi Xunlian", stopSession: "Jieshu Xunlian",
+      sessionStatus: "Zhuangtai", activeWorkout: "XUNLIAN ZHONG", sets: "Zu", exercises: "Dongzuo",
+      volume: "Liang", restDayToday: "Xiuxi Ri", restDaySub: "Huifu shijian!",
+      addSet: "+ Tianjia Zu", generalStats: "Tongji", allTimeVolume: "Zongliang",
+      selectLanguage: "Xuanze Yuyan", resetAll: "Chongzhi", brandSub: "JINBU ZHUIZONGI",
+      restTimer: "XIUXI SHIJIAN", searchPlaceholder: "Sousuo dongzuo...",
+      daysShort: ['Yi', 'Er', 'San', 'Si', 'Wu', 'Liu', 'Ri'],
+      dayNames: ['Xingqi Yi', 'Xingqi Er', 'Xingqi San', 'Xingqi Si', 'Xingqi Wu', 'Xingqi Liu', 'Xingqi Ri']
+    },
+    no: {
+      welcome: "VELKOMMEN", startSession: "Start Trening", stopSession: "Avslutt Trening",
+      sessionStatus: "Status", activeWorkout: "TRENING AKTIV", sets: "Sett", exercises: "Ovelser",
+      volume: "Volum", restDayToday: "Hviledag", restDaySub: "Tid for restitusjon!",
+      addSet: "+ Legg til Sett", generalStats: "Statistikk", allTimeVolume: "Totalt Volum",
+      selectLanguage: "Velg Sprak", resetAll: "Tilbakestill", brandSub: "PROGRESSIV TRENING",
+      restTimer: "HVILETID", searchPlaceholder: "Sok ovelse...",
+      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag']
+    },
+    da: {
+      welcome: "VELKOMMEN", startSession: "Start Traening", stopSession: "Afslut Traening",
+      sessionStatus: "Status", activeWorkout: "TRAENING AKTIV", sets: "Saet", exercises: "Ovelser",
+      volume: "Volumen", restDayToday: "Hviledag", restDaySub: "Tid til restitution!",
+      addSet: "+ Tilfoej Saet", generalStats: "Statistik", allTimeVolume: "Samlet Volumen",
+      selectLanguage: "Vaelg Sprog", resetAll: "Nulstil", brandSub: "PROGRESSIV TRAENING",
+      restTimer: "HVILETID", searchPlaceholder: "Sog ovelse...",
+      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag']
     }
   };
 
@@ -1223,9 +1340,52 @@
 
   function changeAppLanguage(lang) {
     localStorage.setItem('gymlog_lang', lang);
+    // Herrender alle actieve views
     renderHomeView();
-    if (activeTab === 'agenda') renderAgendaView();
-    triggerToast(`Taal gewijzigd naar: ${lang.toUpperCase()}`);
+    if (document.getElementById('viewAgenda').style.display !== 'none') renderAgendaView();
+    if (document.getElementById('viewTracker').style.display !== 'none') renderTrackerView();
+    if (document.getElementById('viewSearch').style.display !== 'none') initSearchLibrary();
+    // Update statische teksten in de HTML die niet via render worden bijgewerkt
+    applyLanguageToStaticElements();
+    triggerToast(`Taal: ${lang.toUpperCase()} ✓`);
+  }
+
+  function applyLanguageToStaticElements() {
+    const l = getLang();
+    const T = TRANSLATIONS[l] || TRANSLATIONS['nl'];
+
+    // Header & nav
+    const brandSub = document.querySelector('.brand-sub');
+    if (brandSub) brandSub.textContent = T.brandSub || 'PROGRESSIVE TRACKER';
+
+    // Stats balk labels
+    const lSets = document.getElementById('lblSetsDone');
+    const lEx = document.getElementById('lblExercisesDone');
+    const lVol = document.getElementById('lblVolumeKg');
+    if (lSets) lSets.textContent = T.sets || 'Sets';
+    if (lEx) lEx.textContent = T.exercises || 'Oefeningen';
+    if (lVol) lVol.textContent = T.volume || 'Volume';
+
+    // Session button
+    const sessionStatusLbl = document.getElementById('lblSessionStatus');
+    if (sessionStatusLbl) sessionStatusLbl.textContent = workoutActive ? (T.activeWorkout || 'WORKOUT ACTIEF') : (T.sessionStatus || 'Sessie Status');
+
+    const sessionBtn = document.getElementById('btnWorkoutSession');
+    if (sessionBtn && !workoutActive) sessionBtn.textContent = T.startSession || 'Start Sessie';
+    if (sessionBtn && workoutActive) sessionBtn.textContent = T.stopSession || 'Sessie Afronden';
+
+    // Tracker labels
+    const trackerVolEl = document.getElementById('trackerTotalVolume');
+    const allTimeLabel = document.querySelector('[data-i18n="allTimeVolume"]');
+    if (allTimeLabel) allTimeLabel.textContent = T.allTimeVolume || 'All-Time Volume';
+
+    // Search placeholder
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.placeholder = T.searchPlaceholder || 'Zoek elke oefening in de gym...';
+
+    // Rest timer label
+    const restLabel = document.querySelector('.rest-timer-label');
+    if (restLabel) restLabel.textContent = T.restTimer || 'RUSTTIJD';
   }
 
   // DEFAULT ROUTINE SCHEMA MET LEGE OEFENINGEN PER SPIERGROEP
@@ -1399,6 +1559,7 @@
     });
 
     updateStreakDisplay();
+    applyLanguageToStaticElements();
 
     const schema = getActiveRoutineSchema();
     const dayData = schema[dayIdx] || { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
@@ -1416,8 +1577,8 @@
     if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:36px 20px;text-align:center;">
-          <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">Rustdag Vandaag</div>
-          <div style="font-size:13px;color:var(--text-sec);">Tijd voor herstel, eiwitten en progressive overload morgen!</div>
+          <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">${t('restDayToday')}</div>
+          <div style="font-size:13px;color:var(--text-sec);">${t('restDaySub')}</div>
         </div>
       `;
       updateHomeStats(dateStr, dayIdx, []);
@@ -1821,7 +1982,7 @@
 
     const addSetBtn = document.createElement('button');
     addSetBtn.className = 'btn-add-set';
-    addSetBtn.textContent = '+ Set toevoegen';
+    addSetBtn.textContent = t('addSet') || '+ Set toevoegen';
     addSetBtn.onclick = () => {
       const last = sets[sets.length - 1] || { weight: '', reps: '' };
       const nextIdx = sets.length;
@@ -1890,46 +2051,195 @@
   }
 
   // === ACCURATE 18-TIER DIEREN DATABASE & ECHTE FOTO CELEBRATION ===
-  const ACCURATE_ANIMAL_DATABASE = [
-    { minKg: 0, maxKg: 20, name: "Huiskat", weightKg: 4, photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&auto=format&fit=crop", desc: "Snel en lenig. Een goede opstart!" },
-    { minKg: 20, maxKg: 60, name: "Europese Wolf", weightKg: 45, photo: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=800&auto=format&fit=crop", desc: "Jagersfocus en onvermoeibare energie." },
-    { minKg: 60, maxKg: 120, name: "Cheetah", weightKg: 60, photo: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&auto=format&fit=crop", desc: "Explosieve snelheid en spierkracht." },
-    { minKg: 120, maxKg: 250, name: "Afrikaanse Leeuw", weightKg: 190, photo: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&auto=format&fit=crop", desc: "Koning van de savanne!" },
-    { minKg: 250, maxKg: 500, name: "Zilverrug Gorilla", weightKg: 200, photo: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=800&auto=format&fit=crop", desc: "Puur spierweefsel en brute oerkracht." },
-    { minKg: 500, maxKg: 900, name: "Grizzly Beer", weightKg: 400, photo: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=800&auto=format&fit=crop", desc: "Massief, dominant en niet te stoppen." },
-    { minKg: 900, maxKg: 1500, name: "Amerikaanse Bizon", weightKg: 1000, photo: "https://images.unsplash.com/photo-1579613832125-5d34a13ffe2a?w=800&auto=format&fit=crop", desc: "Een ton aan pure spierkracht verplaatst!" },
-    { minKg: 1500, maxKg: 2500, name: "Witte Neushoorn", weightKg: 2300, photo: "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?w=800&auto=format&fit=crop", desc: "Een gepantserde zwaargewicht tank!" },
-    { minKg: 2500, maxKg: 4000, name: "Nijlpaard", weightKg: 3000, photo: "https://images.unsplash.com/photo-1568454537842-d933259bb258?w=800&auto=format&fit=crop", desc: "De gevaarlijkste gigant van het water." },
-    { minKg: 4000, maxKg: 6000, name: "Aziatische Olifant", weightKg: 4500, photo: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&auto=format&fit=crop", desc: "Enorme power en uithoudingsvermogen!" },
-    { minKg: 6000, maxKg: 8500, name: "Afrikaanse Savanne Olifant", weightKg: 6000, photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Het grootste landzoogdier ter wereld!" },
-    { minKg: 8500, maxKg: 12000, name: "Tyrannosaurus Rex", weightKg: 8000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Apex prehistorisch roofdier!" },
-    { minKg: 12000, maxKg: 20000, name: "Wolharige Mammoet", weightKg: 12000, photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Prehistorische ijskrijger!" },
-    { minKg: 20000, maxKg: 35000, name: "Megalodon", weightKg: 18000, photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Oergigant van de diepzee!" },
-    { minKg: 35000, maxKg: 60000, name: "Bultrug Walvis", weightKg: 30000, photo: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&auto=format&fit=crop", desc: "Oceaan-kolos! Ongelofelijk volume." },
-    { minKg: 60000, maxKg: 100000, name: "Brachiosaurus", weightKg: 50000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Torenhoge dinosaurus gigant!" },
-    { minKg: 100000, maxKg: 150000, name: "Argentinosaurus", weightKg: 80000, photo: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&auto=format&fit=crop", desc: "Het zwaarste landdier dat ooit leefde!" },
-    { minKg: 150000, maxKg: 999999999, name: "Blauwe Vinvis", weightKg: 150000, photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Het allergrootste dier ooit in het heelal!" }
+  // === SESSIE EINDE: GEWICHTS-VERGELIJKING DATABASE ===
+  const WEIGHT_COMPARISONS = [
+    { minKg: 0, maxKg: 20, options: [
+      { name: "een pasgeboren baby", weightKg: 3.5, emoji: "👶", photo: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&auto=format&fit=crop", desc: "Nog een beginneling - maar iedereen start ergens!" },
+      { name: "een huiskat", weightKg: 4, emoji: "🐱", photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&auto=format&fit=crop", desc: "Lekker op dreef. Je tilde een complete poes!" },
+      { name: "een bowlingbal", weightKg: 7, emoji: "🎳", photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop", desc: "Een perfecte strike aan volume vandaag!" },
+      { name: "een chihuahua", weightKg: 3, emoji: "🐕", photo: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&auto=format&fit=crop", desc: "Klein maar dapper - net als jouw eerste sessie!" },
+      { name: "een watermeloen", weightKg: 9, emoji: "🍉", photo: "https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=800&auto=format&fit=crop", desc: "Je tilde een flinke watermeloen aan volume!" },
+      { name: "een standaard dumbbell set", weightKg: 15, emoji: "🏋️", photo: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop", desc: "Een volledige beginner dumbbell set opgetild!" },
+      { name: "een konijn", weightKg: 2, emoji: "🐇", photo: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&auto=format&fit=crop", desc: "Zacht en pluizig - maar jij wordt harder!" },
+      { name: "een kist wijn", weightKg: 12, emoji: "🍷", photo: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop", desc: "Een complete wijnkist aan volume. Proost!" },
+    ]},
+    { minKg: 20, maxKg: 60, options: [
+      { name: "een Europese wolf", weightKg: 45, emoji: "🐺", photo: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=800&auto=format&fit=crop", desc: "Jagersfocus en onvermoeibare energie - goed werk!" },
+      { name: "een volledig uitgerust soldaat", weightKg: 45, emoji: "🪖", photo: "https://images.unsplash.com/photo-1562564055-71e051d33c19?w=800&auto=format&fit=crop", desc: "Volle uitrusting en gevechtsklaar gewicht getild!" },
+      { name: "een golden retriever", weightKg: 30, emoji: "🐶", photo: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&auto=format&fit=crop", desc: "Lieve trouwe hond opgetild - goed jongen (jij dan)!" },
+      { name: "een biggetje", weightKg: 50, emoji: "🐷", photo: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&auto=format&fit=crop", desc: "Oink oink - een heel varken aan volume getild!" },
+      { name: "een mountainbike", weightKg: 14, emoji: "🚵", photo: "https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800&auto=format&fit=crop", desc: "Bergafwaarts van hier - je zit in de flow!" },
+      { name: "vijf zakken aardappelen", weightKg: 25, emoji: "🥔", photo: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&auto=format&fit=crop", desc: "Vijf zakken aardappelen - frietjes voor iedereen!" },
+      { name: "een gemiddelde tiener", weightKg: 55, emoji: "🧑", photo: "https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?w=800&auto=format&fit=crop", desc: "Je tilde een complete persoon aan volume!" },
+      { name: "een vliegkoffer vol", weightKg: 23, emoji: "🧳", photo: "https://images.unsplash.com/photo-1553531889-56cc480ac5cb?w=800&auto=format&fit=crop", desc: "Reisvaardig gewicht - je gaat ver!" },
+    ]},
+    { minKg: 60, maxKg: 120, options: [
+      { name: "een cheetah", weightKg: 60, emoji: "🐆", photo: "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&auto=format&fit=crop", desc: "Explosieve snelheid en spierkracht gecombineerd!" },
+      { name: "een motorfiets", weightKg: 85, emoji: "🏍️", photo: "https://images.unsplash.com/photo-1558618047-f4e40d82f31b?w=800&auto=format&fit=crop", desc: "Je tilde vandaag een complete motorfiets aan volume!" },
+      { name: "een professioneel bokser", weightKg: 90, emoji: "🥊", photo: "https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=800&auto=format&fit=crop", desc: "Zwaargewicht klasse bereikt in volume!" },
+      { name: "een panda", weightKg: 100, emoji: "🐼", photo: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=800&auto=format&fit=crop", desc: "Bamboe-panda opgetild. Zeldzaam en sterk!" },
+      { name: "een gemiddelde man", weightKg: 80, emoji: "🧑", photo: "https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?w=800&auto=format&fit=crop", desc: "Een complete volwassen persoon opgetild. Legend!" },
+      { name: "een Sint-Bernard hond", weightKg: 80, emoji: "🐕", photo: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=800&auto=format&fit=crop", desc: "Reddingshond aan volume - jij redt de dag!" },
+      { name: "een drijfvat diesel", weightKg: 100, emoji: "🛢️", photo: "https://images.unsplash.com/photo-1611244419377-b0a760c19719?w=800&auto=format&fit=crop", desc: "Een vol olievat opgetild. Tanken maar!" },
+      { name: "tien zakken cement", weightKg: 100, emoji: "🧱", photo: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop", desc: "Bouwvakker-niveau. De fundering staat stevig!" },
+    ]},
+    { minKg: 120, maxKg: 250, options: [
+      { name: "een Afrikaanse leeuw", weightKg: 190, emoji: "🦁", photo: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&auto=format&fit=crop", desc: "Koning van de savanne aan gewicht getild!" },
+      { name: "een grand piano", weightKg: 220, emoji: "🎹", photo: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&auto=format&fit=crop", desc: "Je tilde een complete vleugelpiano - indrukwekkend!" },
+      { name: "een grote ijskast", weightKg: 130, emoji: "🧊", photo: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=800&auto=format&fit=crop", desc: "Je tilde letterlijk een koelkast aan volume!" },
+      { name: "een grote tijger", weightKg: 200, emoji: "🐯", photo: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=800&auto=format&fit=crop", desc: "Een Bengaalse tijger opgetild. Gevaarlijk goed bezig!" },
+      { name: "een oud telefooncel", weightKg: 200, emoji: "📞", photo: "https://images.unsplash.com/photo-1558595977-73fc1c62f4e9?w=800&auto=format&fit=crop", desc: "Klassieke telefooncel aan volume - ring ring!" },
+      { name: "een motorscooter plus bestuurder", weightKg: 150, emoji: "🛵", photo: "https://images.unsplash.com/photo-1558618047-f4e40d82f31b?w=800&auto=format&fit=crop", desc: "Scooter plus rijder compleet opgetild - vroom!" },
+      { name: "een grizzly beer cub", weightKg: 135, emoji: "🐻", photo: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=800&auto=format&fit=crop", desc: "Jonge grizzly opgetild. Mama beer is niet blij, maar jij wel!" },
+      { name: "een professionele pokertafel", weightKg: 160, emoji: "♠️", photo: "https://images.unsplash.com/photo-1601370552761-8a3b2ab81f56?w=800&auto=format&fit=crop", desc: "Chips op tafel - nice volume!" },
+    ]},
+    { minKg: 250, maxKg: 500, options: [
+      { name: "een zilverrug gorilla", weightKg: 200, emoji: "🦍", photo: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?w=800&auto=format&fit=crop", desc: "Puur spierweefsel. Jij bent vandaag de gorilla." },
+      { name: "een ijsbeer", weightKg: 450, emoji: "🐻‍❄️", photo: "https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=800&auto=format&fit=crop", desc: "Arctisch beest aan volume - respect!" },
+      { name: "een grote kluis", weightKg: 350, emoji: "🔐", photo: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&auto=format&fit=crop", desc: "Bankkluis aan volume - jij steelt de show!" },
+      { name: "een zeeleeuw", weightKg: 300, emoji: "🦭", photo: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=800&auto=format&fit=crop", desc: "Zeeleeuw gewicht aan volume getild. Geef maar een klap!" },
+      { name: "een motorboot propeller", weightKg: 300, emoji: "⚓", photo: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop", desc: "Scheepsgewicht getild - aanmeren en klaar!" },
+      { name: "een piano plus pianist", weightKg: 300, emoji: "🎹", photo: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&auto=format&fit=crop", desc: "Piano en speler samen opgetild. Bravo maestro!" },
+      { name: "een zebra", weightKg: 380, emoji: "🦓", photo: "https://images.unsplash.com/photo-1570456114025-5b498a1e2af5?w=800&auto=format&fit=crop", desc: "Gestreepte krachtpatser opgetild - uniek!" },
+      { name: "drie complete drumkits", weightKg: 300, emoji: "🥁", photo: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=800&auto=format&fit=crop", desc: "Drie complete drumkits opgetild - beat hard!" },
+      { name: "een elektrische step (x20)", weightKg: 260, emoji: "🛴", photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop", desc: "Twintig elektrische steps - stadsverkeer aan volume!" },
+    ]},
+    { minKg: 500, maxKg: 900, options: [
+      { name: "een grizzly beer", weightKg: 400, emoji: "🐻", photo: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?w=800&auto=format&fit=crop", desc: "Massief, dominant en niet te stoppen - net zoals jij!" },
+      { name: "een gemiddelde aanhanger", weightKg: 750, emoji: "🚛", photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&auto=format&fit=crop", desc: "Je trok een complete aanhanger aan volume!" },
+      { name: "een kameel", weightKg: 600, emoji: "🐪", photo: "https://images.unsplash.com/photo-1501706362039-c06b2d715385?w=800&auto=format&fit=crop", desc: "Woestijnkoning opgetild - geen bult nodig, jij hebt spieren!" },
+      { name: "een ATM-automaat", weightKg: 800, emoji: "🏧", photo: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=800&auto=format&fit=crop", desc: "Geldautomaat aan volume getild. Rijkdom in kilo's!" },
+      { name: "een strandkiosk", weightKg: 600, emoji: "🏖️", photo: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop", desc: "Complete strandkiosk opgetild - snacks voor iedereen!" },
+      { name: "een wijnvat vol", weightKg: 600, emoji: "🍷", photo: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop", desc: "Compleet eikenhouten wijnvat aan volume. Op jouw gezondheid!" },
+      { name: "een Fiat 500 leeg", weightKg: 850, emoji: "🚗", photo: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=800&auto=format&fit=crop", desc: "Bijna een Fiat 500 aan volume - Italiaans niveau!" },
+      { name: "een sportscooter plus lading", weightKg: 700, emoji: "🏍️", photo: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&auto=format&fit=crop", desc: "Sportmotor aan volume - vol gas!" },
+      { name: "een grote museumbeeldhouwwerk", weightKg: 600, emoji: "🗿", photo: "https://images.unsplash.com/photo-1565619624098-cf947f71ee8e?w=800&auto=format&fit=crop", desc: "Moai-stijl beeldhouwwerk opgetild. Paaseiland vibe!" },
+    ]},
+    { minKg: 900, maxKg: 1500, options: [
+      { name: "een Amerikaanse bizon", weightKg: 1000, emoji: "🦬", photo: "https://images.unsplash.com/photo-1579613832125-5d34a13ffe2a?w=800&auto=format&fit=crop", desc: "Een ton aan pure spierkracht verplaatst!" },
+      { name: "een Volkswagen Golf", weightKg: 1300, emoji: "🚗", photo: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop", desc: "Je tilde vandaag compleet een VW Golf aan volume!" },
+      { name: "een paard", weightKg: 500, emoji: "🐎", photo: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&auto=format&fit=crop", desc: "Paardenkrachten in je spieren. Letterlijk." },
+      { name: "een mini tractor", weightKg: 1200, emoji: "🚜", photo: "https://images.unsplash.com/photo-1500395235658-f87dff62cbf3?w=800&auto=format&fit=crop", desc: "Boerenwerk-niveau volume - de akker is van jou!" },
+      { name: "een saltwater krokodil", weightKg: 1000, emoji: "🐊", photo: "https://images.unsplash.com/photo-1580777361964-27e9cdd2f838?w=800&auto=format&fit=crop", desc: "Grootste reptielen roofdier opgetild - bek dicht, volume open!" },
+      { name: "een automatische kassa x10", weightKg: 1000, emoji: "🛒", photo: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=800&auto=format&fit=crop", desc: "Tien zelfscankassa's aan volume. Altijd een kassabon bij!" },
+      { name: "zes jet ski's", weightKg: 900, emoji: "🚤", photo: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&auto=format&fit=crop", desc: "Zes jetski's aan volume - full throttle!" },
+      { name: "een concert versterker setup", weightKg: 950, emoji: "🎸", photo: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&auto=format&fit=crop", desc: "Complete concert-PA aan volume - KABOEL!" },
+    ]},
+    { minKg: 1500, maxKg: 2500, options: [
+      { name: "een witte neushoorn", weightKg: 2300, emoji: "🦏", photo: "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?w=800&auto=format&fit=crop", desc: "Een gepantserde zwaargewicht tank aan volume!" },
+      { name: "een BMW X5", weightKg: 2000, emoji: "🚙", photo: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop", desc: "Compleet luxe SUV aan volume getild - stijlvol!" },
+      { name: "een giraffe", weightKg: 1200, emoji: "🦒", photo: "https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=800&auto=format&fit=crop", desc: "Langste nek in het dierenrijk - jij reikt ook tot de top!" },
+      { name: "een zeecontainer leeg", weightKg: 2200, emoji: "📦", photo: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&auto=format&fit=crop", desc: "Lege zeecontainer aan volume. Jij vult hem met kracht!" },
+      { name: "een kleine zeilboot", weightKg: 1500, emoji: "⛵", photo: "https://images.unsplash.com/photo-1500514966906-fe245eea9344?w=800&auto=format&fit=crop", desc: "Je zeilt op volle wind met dit volume!" },
+      { name: "een gepantserde geldwagen", weightKg: 2000, emoji: "🚐", photo: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop", desc: "Gepantserd geldtransport aan volume - onbreekbaar!" },
+      { name: "een tapijt voor Dubai Mall", weightKg: 1600, emoji: "🏛️", photo: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&auto=format&fit=crop", desc: "Luxe paleis-tapijt aan volume. Koninklijk!" },
+      { name: "drie paarden", weightKg: 1800, emoji: "🐎", photo: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&auto=format&fit=crop", desc: "Drie volledige paarden aan volume. Galoppeer naar de top!" },
+    ]},
+    { minKg: 2500, maxKg: 4000, options: [
+      { name: "een nijlpaard", weightKg: 3000, emoji: "🦛", photo: "https://images.unsplash.com/photo-1568454537842-d933259bb258?w=800&auto=format&fit=crop", desc: "De gevaarlijkste gigant van het water verslagen!" },
+      { name: "een Robinson R22 helikopter", weightKg: 1800, emoji: "🚁", photo: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&auto=format&fit=crop", desc: "Een complete helikopter van de grond getild!" },
+      { name: "een Land Rover Defender", weightKg: 2200, emoji: "🚙", photo: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=800&auto=format&fit=crop", desc: "Off-road beest van een volume sessie!" },
+      { name: "een walrus", weightKg: 1700, emoji: "🦭", photo: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=800&auto=format&fit=crop", desc: "Zware zee-goliath met slagtanden - jij wint!" },
+      { name: "een mini graafmachine", weightKg: 3000, emoji: "🏗️", photo: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop", desc: "Complete mini-graafmachine aan volume. Grond verzet!" },
+      { name: "een complete houten schuur", weightKg: 2800, emoji: "🏚️", photo: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&auto=format&fit=crop", desc: "Volledige houten schuur aan volume - doe maar af!" },
+      { name: "een gepantserde stalen kluis", weightKg: 2800, emoji: "🔐", photo: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&auto=format&fit=crop", desc: "Geen kluis is zwaar genoeg voor jouw kracht!" },
+      { name: "twintig straatlampen", weightKg: 3000, emoji: "🏙️", photo: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop", desc: "Twintig complete straatlampen aan volume - je verlicht de wereld!" },
+    ]},
+    { minKg: 4000, maxKg: 6000, options: [
+      { name: "een Aziatische olifant", weightKg: 4500, emoji: "🐘", photo: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&auto=format&fit=crop", desc: "Enorme power en uithoudingsvermogen - jij en de olifant zijn broers!" },
+      { name: "een Robinson R44 helikopter", weightKg: 4600, emoji: "🚁", photo: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&auto=format&fit=crop", desc: "Een volledige passagiers-helikopter opgetild. Letterlijk." },
+      { name: "een zeilboot 20 voet", weightKg: 5000, emoji: "⛵", photo: "https://images.unsplash.com/photo-1500514966906-fe245eea9344?w=800&auto=format&fit=crop", desc: "Je zeilt over de top van dit volume!" },
+      { name: "een complete caravan", weightKg: 4000, emoji: "🚐", photo: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop", desc: "Volledige caravan voor een vakantie aan volume!" },
+      { name: "een kleine brandweerauto", weightKg: 5500, emoji: "🚒", photo: "https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=800&auto=format&fit=crop", desc: "Brandweerauto aan volume - jij blust elke training!" },
+      { name: "twee gepantserde politiewagens", weightKg: 4000, emoji: "🚔", photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop", desc: "Twee gepantserde politievoertuigen aan volume - law and order!" },
+      { name: "een volledige studio-recording setup", weightKg: 4200, emoji: "🎛️", photo: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop", desc: "Complete opnamestudio aan volume. Je bent een hitmaker!" },
+      { name: "een zware betonnen fontein", weightKg: 4500, emoji: "⛲", photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop", desc: "Complete stadsfonteinen aan volume. Water en kracht!" },
+    ]},
+    { minKg: 6000, maxKg: 10000, options: [
+      { name: "een Afrikaanse savanne olifant", weightKg: 6000, emoji: "🐘", photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Het grootste landzoogdier ter wereld aan volume getild!" },
+      { name: "een gepantserde Humvee", weightKg: 5900, emoji: "🪖", photo: "https://images.unsplash.com/photo-1562564055-71e051d33c19?w=800&auto=format&fit=crop", desc: "Militair voertuig met volledig bepakking getild!" },
+      { name: "een speedboot 40 voet", weightKg: 7500, emoji: "🚤", photo: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&auto=format&fit=crop", desc: "Een professionele racespeedboot. Volle snelheid vooruit!" },
+      { name: "een Tyrannosaurus Rex", weightKg: 8000, emoji: "🦖", photo: "https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=800&auto=format&fit=crop", desc: "Apex-predator volume. T-Rex heeft respect voor jou." },
+      { name: "een vol zwembad", weightKg: 9000, emoji: "🏊", photo: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=800&auto=format&fit=crop", desc: "Een vol zwembad aan volume - duik erin!" },
+      { name: "drie SUV's", weightKg: 7500, emoji: "🚙", photo: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop", desc: "Drie complete SUV's aan volume getild. Parkeer maar!" },
+      { name: "een dubbeldekker bus half vol", weightKg: 9000, emoji: "🚌", photo: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&auto=format&fit=crop", desc: "Halve dubbeldekker aan volume - rijden maar!" },
+      { name: "een vliegtuig-straalturbine", weightKg: 7000, emoji: "✈️", photo: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&auto=format&fit=crop", desc: "Complete vliegtuigmotor aan volume. Je genereert stuwkracht!" },
+    ]},
+    { minKg: 10000, maxKg: 20000, options: [
+      { name: "een stadsbus vol passagiers", weightKg: 14000, emoji: "🚌", photo: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&auto=format&fit=crop", desc: "Volledige bus plus passagiers aan volume getild!" },
+      { name: "een locomotief-waggon", weightKg: 15000, emoji: "🚃", photo: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&auto=format&fit=crop", desc: "Treinwaggon niveau volume - op het spoor van grootheid!" },
+      { name: "een wolharige mammoet", weightKg: 12000, emoji: "🦣", photo: "https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=800&auto=format&fit=crop", desc: "Prehistorische ijskrijger aan volume getild!" },
+      { name: "een kleine vissersboot", weightKg: 12000, emoji: "⛵", photo: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop", desc: "Vissersboot aan volume - de vangst van de dag!" },
+      { name: "een stalen brugdeel", weightKg: 18000, emoji: "🌉", photo: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop", desc: "Bruggenieursgewicht aan volume - bouwen maar!" },
+      { name: "zes giraffen", weightKg: 12000, emoji: "🦒", photo: "https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=800&auto=format&fit=crop", desc: "Zes complete giraffen aan volume. Uitstekend!" },
+      { name: "een houten VOC-schip sectie", weightKg: 15000, emoji: "⚓", photo: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop", desc: "VOC-schip aan volume - piraten hebben respect voor jou!" },
+      { name: "een compleet rolcoaster-wagen", weightKg: 10000, emoji: "🎢", photo: "https://images.unsplash.com/photo-1531721891414-491fca51dfd0?w=800&auto=format&fit=crop", desc: "Achtbaan-wagen aan volume. Je gaat alle kanten op!" },
+    ]},
+    { minKg: 20000, maxKg: 40000, options: [
+      { name: "een Boeing 737 onderstel", weightKg: 28000, emoji: "✈️", photo: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&auto=format&fit=crop", desc: "Je tilde letterlijk een vliegtuig onderdeel!" },
+      { name: "een mammoet vrachtwagen", weightKg: 25000, emoji: "🚛", photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&auto=format&fit=crop", desc: "Enorme vrachtauto aan volume getild - de weg is van jou!" },
+      { name: "een zware kraanarm", weightKg: 35000, emoji: "🏗️", photo: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop", desc: "Je bent de kraan en het gewicht tegelijk!" },
+      { name: "een complete treinstel", weightKg: 30000, emoji: "🚄", photo: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&auto=format&fit=crop", desc: "Twee treinwaggons aan volume. Je rijdt door!" },
+      { name: "een megalodon", weightKg: 30000, emoji: "🦈", photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Uitgestorven zee-gigant aan volume. Niemand stopt jou!" },
+      { name: "twintig olifanten", weightKg: 40000, emoji: "🐘", photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Twintig complete olifanten aan volume. Savanne-god!" },
+      { name: "een complete brandweertruck", weightKg: 20000, emoji: "🚒", photo: "https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=800&auto=format&fit=crop", desc: "Volledige brandweerauto aan volume. Helden tillen zwaar!" },
+      { name: "een Seaking helikopter", weightKg: 9750, emoji: "🚁", photo: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&auto=format&fit=crop", desc: "Zware reddingshelikopter aan volume - levensreddend sterk!" },
+    ]},
+    { minKg: 40000, maxKg: 80000, options: [
+      { name: "een Boeing 737 leeg", weightKg: 44000, emoji: "✈️", photo: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&auto=format&fit=crop", desc: "Je tilde vandaag een compleet leeg vliegtuig. Opstijgen!" },
+      { name: "een bultrug walvis", weightKg: 36000, emoji: "🐋", photo: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&auto=format&fit=crop", desc: "Oceaan-kolos verslagen - ongelofelijk volume!" },
+      { name: "een Falcon 9 eerste trap", weightKg: 70000, emoji: "🚀", photo: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=800&auto=format&fit=crop", desc: "Raketwetenschap is niks vergeleken bij jouw volume!" },
+      { name: "vijf gevechtstanks", weightKg: 50000, emoji: "🪖", photo: "https://images.unsplash.com/photo-1576670159805-381a1e83e8e3?w=800&auto=format&fit=crop", desc: "Vijf complete gevechtstanks aan volume. Legercommandant!" },
+      { name: "een historische stoombrug sectie", weightKg: 60000, emoji: "🌉", photo: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop", desc: "Bruggen bouwen met spieren - letterlijk." },
+      { name: "een Brachiosaurus", weightKg: 58000, emoji: "🦕", photo: "https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=800&auto=format&fit=crop", desc: "Torenhoge dinosaurus gigant aan volume!" },
+      { name: "tien brandweerautos", weightKg: 60000, emoji: "🚒", photo: "https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=800&auto=format&fit=crop", desc: "Tien brandweerautos aan volume. Afdeling jou!" },
+      { name: "een luxe superjacht 40 meter", weightKg: 70000, emoji: "🛥️", photo: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&auto=format&fit=crop", desc: "Luxe superjacht aan volume. Welkom aan boord, kapitein!" },
+    ]},
+    { minKg: 80000, maxKg: 150000, options: [
+      { name: "een Airbus A380 leeg", weightKg: 127000, emoji: "✈️", photo: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800&auto=format&fit=crop", desc: "Het grootste passagiersvliegtuig ter wereld opgetild!" },
+      { name: "een Argentinosaurus", weightKg: 80000, emoji: "🦕", photo: "https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=800&auto=format&fit=crop", desc: "Het zwaarste landdier ooit. Jij bent groter qua volume!" },
+      { name: "drie bultrug walvissen", weightKg: 108000, emoji: "🐋", photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Drie oceaan-giganten aan volume. Je bent een tsunami!" },
+      { name: "vijftig olifanten", weightKg: 100000, emoji: "🐘", photo: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&auto=format&fit=crop", desc: "Vijftig olifanten aan volume. Je bent een kudde op zichzelf!" },
+      { name: "een compleet metrostation", weightKg: 100000, emoji: "🚇", photo: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&auto=format&fit=crop", desc: "Compleet metrostation aan volume. Volgende halte: Monster!" },
+      { name: "een oceaanstomer sectie", weightKg: 130000, emoji: "🚢", photo: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop", desc: "Groot oceaanschip-sectie aan volume - vol stoom vooruit!" },
+      { name: "een Apollo Saturn V top", weightKg: 28800, emoji: "🚀", photo: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=800&auto=format&fit=crop", desc: "Houston, we have a problem. Jij hebt geen volume-probleem." },
+      { name: "een complete spoorwegbrug", weightKg: 90000, emoji: "🌉", photo: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop", desc: "Volledige spoorwegbrug aan volume. Machinerie van kracht!" },
+    ]},
+    { minKg: 150000, maxKg: 999999999, options: [
+      { name: "de International Space Station", weightKg: 420000, emoji: "🛸", photo: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=800&auto=format&fit=crop", desc: "Je hebt een ruimtestation aan volume getild. Je bent een kosmische kracht." },
+      { name: "de Eiffeltoren", weightKg: 7300000, emoji: "🗼", photo: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=800&auto=format&fit=crop", desc: "Een volledig icoon van staal aan volume - Paris pour toi!" },
+      { name: "een vliegdekschip sectie", weightKg: 1000000, emoji: "⚓", photo: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=800&auto=format&fit=crop", desc: "Grootste oorlogsschip ter wereld aan volume - je bent een vloot!" },
+      { name: "blauwe vinvis x2", weightKg: 300000, emoji: "🐳", photo: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&auto=format&fit=crop", desc: "Voorbij alles - het grootste dier is niet meer genoeg!" },
+      { name: "een complete wolkenkrabber staalskelet", weightKg: 5000000, emoji: "🏙️", photo: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&auto=format&fit=crop", desc: "Wolkenkrabber-staal aan volume. Je raakt de wolken!" },
+      { name: "de Saturn V raket geladen", weightKg: 2950000, emoji: "🚀", photo: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=800&auto=format&fit=crop", desc: "De krachtigste raket ooit gebouwd aan volume. Je vliegt de ruimte in!" },
+      { name: "een complete dam sectie", weightKg: 10000000, emoji: "💧", photo: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop", desc: "Een complete dam-sectie aan volume. Jij stopt de oceaan!" },
+      { name: "de Great Wall of China sectie", weightKg: 50000000, emoji: "🏯", photo: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&auto=format&fit=crop", desc: "Chinese Muur sectie aan volume. Je bouwt legenden!" },
+    ]},
   ];
-
   function showAnimalCelebration(sessionVol) {
-    const animal = ACCURATE_ANIMAL_DATABASE.find(a => sessionVol >= a.minKg && sessionVol < a.maxKg) || ACCURATE_ANIMAL_DATABASE[ACCURATE_ANIMAL_DATABASE.length - 1];
+    // Zoek het juiste gewichtsbereik
+    const tier = WEIGHT_COMPARISONS.find(t => sessionVol >= t.minKg && sessionVol < t.maxKg)
+      || WEIGHT_COMPARISONS[WEIGHT_COMPARISONS.length - 1];
 
-    const title = `${animal.name.toUpperCase()}`;
-    const desc = `Je tilde vandaag ${Math.round(sessionVol).toLocaleString('nl-NL')} kg! Dat is exact evenveel gewicht als een ${animal.name} (${animal.weightKg >= 1000 ? (animal.weightKg/1000).toFixed(1) + ' ton' : animal.weightKg + ' kg'}). ${animal.desc}`;
+    // Pak een willekeurig object uit de opties van dat bereik
+    const comparison = tier.options[Math.floor(Math.random() * tier.options.length)];
+
+    const volFormatted = Math.round(sessionVol).toLocaleString('nl-NL');
+    const weightFormatted = comparison.weightKg >= 1000
+      ? (comparison.weightKg / 1000).toLocaleString('nl-NL', { maximumFractionDigits: 1 }) + ' ton'
+      : comparison.weightKg + ' kg';
+
+    const title = `${comparison.emoji} ${comparison.name.toUpperCase()}`;
+    const desc = `Je tilde vandaag ${volFormatted} kg aan volume! Dat is ongeveer evenveel als ${comparison.name} (${weightFormatted}). ${comparison.desc}`;
 
     const imgEl = document.getElementById('popupAnimalImg');
-    if (imgEl) {
-      imgEl.src = animal.photo;
-      imgEl.alt = animal.name;
-    }
+    if (imgEl) { imgEl.src = comparison.photo; imgEl.alt = comparison.name; }
 
     const badgeEl = document.getElementById('popupAnimalBadge');
-    if (badgeEl) {
-      badgeEl.textContent = `${animal.name} (${animal.weightKg >= 1000 ? (animal.weightKg/1000).toFixed(1) + 't' : animal.weightKg + 'kg'})`;
-    }
+    if (badgeEl) badgeEl.textContent = `${comparison.emoji} ${comparison.name} — ${weightFormatted}`;
 
     document.getElementById('popupAnimalTitle').textContent = title;
-    document.getElementById('popupAnimalVolume').textContent = `${Math.round(sessionVol).toLocaleString('nl-NL')} kg`;
+    document.getElementById('popupAnimalVolume').textContent = `${volFormatted} kg`;
     document.getElementById('popupAnimalDesc').textContent = desc;
 
     const modal = document.getElementById('animalCelebrationModal');
@@ -1941,56 +2251,67 @@
     if (modal) modal.classList.remove('open');
   }
 
-  // 42 RANKS HIERARCHY (EXACT KILOS & VECTOR BADGES)
+  // 47 RANKS HIERARCHY — gebalanceerde volumes & originele tier namen
   const RANK_TIERS = [
-    { id: 'wood_1', name: 'Wood I', tier: 'Flinterdun Takje', minVol: 0, maxVol: 150 },
-    { id: 'wood_2', name: 'Wood II', tier: 'Bezemsteel Fysiek', minVol: 150, maxVol: 350 },
-    { id: 'wood_3', name: 'Wood III', tier: 'Houten Plank Lifter', minVol: 350, maxVol: 700 },
-    { id: 'iron_1', name: 'Iron I', tier: 'Roestig IJzer', minVol: 700, maxVol: 1200 },
-    { id: 'iron_2', name: 'Iron II', tier: 'Gym Zoekende', minVol: 1200, maxVol: 2000 },
-    { id: 'iron_3', name: 'Iron III', tier: 'Dumbbell Verkenner', minVol: 2000, maxVol: 3200 },
-    { id: 'bronze_1', name: 'Bronze I', tier: 'Slapmans Starter', minVol: 3200, maxVol: 5000 },
-    { id: 'bronze_2', name: 'Bronze II', tier: 'Rookie Gymmer', minVol: 5000, maxVol: 7500 },
-    { id: 'bronze_3', name: 'Bronze III', tier: 'Basis Lifter', minVol: 7500, maxVol: 11000 },
-    { id: 'bronze_4', name: 'Bronze IV', tier: 'Opwarm Krijger', minVol: 11000, maxVol: 15500 },
-    { id: 'bronze_5', name: 'Bronze V', tier: 'Brons Afstudeerder', minVol: 15500, maxVol: 22000 },
-    { id: 'silver_1', name: 'Silver I', tier: 'Actieve Pumper', minVol: 22000, maxVol: 30000 },
-    { id: 'silver_2', name: 'Silver II', tier: 'Discipline Starter', minVol: 30000, maxVol: 40000 },
-    { id: 'silver_3', name: 'Silver III', tier: 'Serieuze Lifter', minVol: 40000, maxVol: 55000 },
-    { id: 'silver_4', name: 'Silver IV', tier: 'Vaste Gymrat', minVol: 55000, maxVol: 75000 },
-    { id: 'silver_5', name: 'Silver V', tier: 'Zilveren Strijder', minVol: 75000, maxVol: 100000 },
-    { id: 'gold_1', name: 'Gold I', tier: 'Gouden Pumper', minVol: 100000, maxVol: 135000 },
-    { id: 'gold_2', name: 'Gold II', tier: 'Ijzervreter', minVol: 135000, maxVol: 180000 },
-    { id: 'gold_3', name: 'Gold III', tier: 'Spierbouwer', minVol: 180000, maxVol: 240000 },
-    { id: 'gold_4', name: 'Gold IV', tier: 'Gym Dominator', minVol: 240000, maxVol: 320000 },
-    { id: 'gold_5', name: 'Gold V', tier: 'Gouden Kampioen', minVol: 320000, maxVol: 420000 },
-    { id: 'platinum_1', name: 'Platinum I', tier: 'Beast Mode Lifter', minVol: 420000, maxVol: 550000 },
-    { id: 'platinum_2', name: 'Platinum II', tier: 'Gym Veteraan', minVol: 550000, maxVol: 720000 },
-    { id: 'platinum_3', name: 'Platinum III', tier: 'Ijzeren Tank', minVol: 720000, maxVol: 950000 },
-    { id: 'platinum_4', name: 'Platinum IV', tier: 'Overload Specialist', minVol: 950000, maxVol: 1250000 },
-    { id: 'platinum_5', name: 'Platinum V', tier: 'Platina Warlord', minVol: 1250000, maxVol: 1650000 },
-    { id: 'emerald_1', name: 'Emerald I', tier: 'Emerald Destroyer', minVol: 1650000, maxVol: 2150000 },
-    { id: 'emerald_2', name: 'Emerald II', tier: 'Smaragd Monster', minVol: 2150000, maxVol: 2750000 },
-    { id: 'emerald_3', name: 'Emerald III', tier: 'Smaragd Berserker', minVol: 2750000, maxVol: 3500000 },
-    { id: 'ruby_1', name: 'Ruby I', tier: 'Ruby Behemoth', minVol: 3500000, maxVol: 4400000 },
-    { id: 'ruby_2', name: 'Ruby II', tier: 'Bloedrode Titaan', minVol: 4400000, maxVol: 5500000 },
-    { id: 'ruby_3', name: 'Ruby III', tier: 'Ruby Overlord', minVol: 5500000, maxVol: 6800000 },
-    { id: 'diamond_1', name: 'Diamond I', tier: 'Diamond Beast', minVol: 6800000, maxVol: 8500000 },
-    { id: 'diamond_2', name: 'Diamond II', tier: 'Titan Lifter', minVol: 8500000, maxVol: 10500000 },
-    { id: 'diamond_3', name: 'Diamond III', tier: 'Diamond Overlord', minVol: 10500000, maxVol: 13000000 },
-    { id: 'diamond_4', name: 'Diamond IV', tier: 'Diamond Slayer', minVol: 13000000, maxVol: 16000000 },
-    { id: 'diamond_5', name: 'Diamond V', tier: 'Diamond Apex', minVol: 16000000, maxVol: 20000000 },
-    { id: 'master_1', name: 'Master I', tier: 'Master of Iron', minVol: 20000000, maxVol: 25000000 },
-    { id: 'master_2', name: 'Master II', tier: 'Grandmaster Lifter', minVol: 25000000, maxVol: 32000000 },
-    { id: 'master_3', name: 'Master III', tier: 'Apex Master', minVol: 32000000, maxVol: 40000000 },
-    { id: 'challenger', name: 'Challenger', tier: 'Gym Legende', minVol: 40000000, maxVol: 52000000 },
-    { id: 'mythic_1', name: 'Mythic I', tier: 'Mythische Draak', minVol: 52000000, maxVol: 66000000 },
-    { id: 'mythic_2', name: 'Mythic II', tier: 'Onverslaanbare Mythe', minVol: 66000000, maxVol: 82000000 },
-    { id: 'mythic_3', name: 'Mythic III', tier: 'Mythische Kolos', minVol: 82000000, maxVol: 100000000 },
-    { id: 'immortal_1', name: 'Immortal I', tier: 'Onsterfelijke Krijger', minVol: 100000000, maxVol: 130000000 },
-    { id: 'immortal_2', name: 'Immortal II', tier: 'Onsterfelijke Titaan', minVol: 130000000, maxVol: 170000000 },
-    { id: 'titan_overload', name: 'Titan Overload', tier: 'Titanen Oerkracht', minVol: 170000000, maxVol: 230000000 },
-    { id: 'god_overload', name: 'Apex God Overload', tier: 'Kosmische God van Overload', minVol: 230000000, maxVol: 999999999999 }
+    // WOOD — eerste stappen, elke stap ~300-400kg
+    { id: 'wood_1', name: 'Wood I',   tier: 'Flinterdun Takje',      minVol: 0,       maxVol: 400 },
+    { id: 'wood_2', name: 'Wood II',  tier: 'Bezemsteel Fysiek',     minVol: 400,     maxVol: 900 },
+    { id: 'wood_3', name: 'Wood III', tier: 'Houten Plank Lifter',   minVol: 900,     maxVol: 1800 },
+    // IRON — beginner die routine vindt, ~1500-2000kg per stap
+    { id: 'iron_1', name: 'Iron I',   tier: 'Roestig IJzer',         minVol: 1800,    maxVol: 3500 },
+    { id: 'iron_2', name: 'Iron II',  tier: 'Dumbbell Verkenner',    minVol: 3500,    maxVol: 6000 },
+    { id: 'iron_3', name: 'Iron III', tier: 'IJzeren Rookie',        minVol: 6000,    maxVol: 10000 },
+    // BRONZE — regelmatig trainen, ~5000-8000kg per stap
+    { id: 'bronze_1', name: 'Bronze I',  tier: 'Opwarm Krijger',     minVol: 10000,   maxVol: 17000 },
+    { id: 'bronze_2', name: 'Bronze II', tier: 'Vaste Bezoeker',     minVol: 17000,   maxVol: 26000 },
+    { id: 'bronze_3', name: 'Bronze III',tier: 'Spiegelkijker',      minVol: 26000,   maxVol: 38000 },
+    { id: 'bronze_4', name: 'Bronze IV', tier: 'Brons Afgestudeerde',minVol: 38000,   maxVol: 54000 },
+    { id: 'bronze_5', name: 'Bronze V',  tier: 'Pre-Workout Priester',minVol: 54000,  maxVol: 75000 },
+    // SILVER — serieuze gymrat, ~15000-20000kg per stap
+    { id: 'silver_1', name: 'Silver I',  tier: 'Gymrat in Opleiding',minVol: 75000,   maxVol: 100000 },
+    { id: 'silver_2', name: 'Silver II', tier: 'Progressie Jager',   minVol: 100000,  maxVol: 130000 },
+    { id: 'silver_3', name: 'Silver III',tier: 'Serieuze Lifter',    minVol: 130000,  maxVol: 165000 },
+    { id: 'silver_4', name: 'Silver IV', tier: 'Overload Apostel',   minVol: 165000,  maxVol: 205000 },
+    { id: 'silver_5', name: 'Silver V',  tier: 'Zilveren Strijder',  minVol: 205000,  maxVol: 250000 },
+    // GOLD — echt gevorderd, ~30000-40000kg per stap
+    { id: 'gold_1', name: 'Gold I',   tier: 'Platenlapper',          minVol: 250000,  maxVol: 310000 },
+    { id: 'gold_2', name: 'Gold II',  tier: 'Ijzervreter',           minVol: 310000,  maxVol: 380000 },
+    { id: 'gold_3', name: 'Gold III', tier: 'Spierbouwer Deluxe',    minVol: 380000,  maxVol: 460000 },
+    { id: 'gold_4', name: 'Gold IV',  tier: 'Gouden Kerel',          minVol: 460000,  maxVol: 550000 },
+    { id: 'gold_5', name: 'Gold V',   tier: 'Gouden Kampioen',       minVol: 550000,  maxVol: 660000 },
+    // PLATINUM — elite niveau, ~80000-100000kg per stap
+    { id: 'platinum_1', name: 'Platinum I',  tier: 'Stalen Wil',     minVol: 660000,  maxVol: 800000 },
+    { id: 'platinum_2', name: 'Platinum II', tier: 'Gym Veteraan',   minVol: 800000,  maxVol: 960000 },
+    { id: 'platinum_3', name: 'Platinum III',tier: 'Ijzeren Tank',   minVol: 960000,  maxVol: 1150000 },
+    { id: 'platinum_4', name: 'Platinum IV', tier: 'Overload Specialist', minVol: 1150000, maxVol: 1380000 },
+    { id: 'platinum_5', name: 'Platinum V',  tier: 'Platina Ridder', minVol: 1380000, maxVol: 1650000 },
+    // EMERALD — ~200000kg per stap
+    { id: 'emerald_1', name: 'Emerald I',  tier: 'Smaragden Vuist',  minVol: 1650000, maxVol: 2000000 },
+    { id: 'emerald_2', name: 'Emerald II', tier: 'Groene Goliath',   minVol: 2000000, maxVol: 2400000 },
+    { id: 'emerald_3', name: 'Emerald III',tier: 'Smaragd Berserker',minVol: 2400000, maxVol: 2900000 },
+    // RUBY — ~600000kg per stap
+    { id: 'ruby_1', name: 'Ruby I',  tier: 'Rode Tiran',             minVol: 2900000, maxVol: 3600000 },
+    { id: 'ruby_2', name: 'Ruby II', tier: 'Bloedrode Titaan',       minVol: 3600000, maxVol: 4500000 },
+    { id: 'ruby_3', name: 'Ruby III',tier: 'Robijn Overlord',        minVol: 4500000, maxVol: 5600000 },
+    // DIAMOND — ~1000000kg per stap
+    { id: 'diamond_1', name: 'Diamond I',  tier: 'Kristallen Kanonbal',minVol: 5600000,  maxVol: 7000000 },
+    { id: 'diamond_2', name: 'Diamond II', tier: 'Prisma Krijger',   minVol: 7000000,  maxVol: 8700000 },
+    { id: 'diamond_3', name: 'Diamond III',tier: 'Diamanten Overlord',minVol: 8700000,  maxVol: 10800000 },
+    { id: 'diamond_4', name: 'Diamond IV', tier: 'Diamanten Sloopkogel', minVol: 10800000, maxVol: 13300000 },
+    { id: 'diamond_5', name: 'Diamond V',  tier: 'Diamanten Apex',   minVol: 13300000, maxVol: 16500000 },
+    // MASTER — ~2500000kg per stap
+    { id: 'master_1', name: 'Master I',  tier: 'Meester van het IJzer',minVol: 16500000, maxVol: 20000000 },
+    { id: 'master_2', name: 'Master II', tier: 'Grootmeester Lifter', minVol: 20000000, maxVol: 24000000 },
+    { id: 'master_3', name: 'Master III',tier: 'Apex Meester',        minVol: 24000000, maxVol: 28500000 },
+    // TOP RANKS
+    { id: 'challenger',     name: 'Challenger',      tier: 'Gym Legende',              minVol: 28500000,  maxVol: 35000000 },
+    { id: 'mythic_1',       name: 'Mythic I',        tier: 'Mythische Draak',           minVol: 35000000,  maxVol: 44000000 },
+    { id: 'mythic_2',       name: 'Mythic II',       tier: 'Onaantastbare Mythe',       minVol: 44000000,  maxVol: 56000000 },
+    { id: 'mythic_3',       name: 'Mythic III',      tier: 'Mythische Kolos',           minVol: 56000000,  maxVol: 72000000 },
+    { id: 'immortal_1',     name: 'Immortal I',      tier: 'Onsterfelijke Krijger',     minVol: 72000000,  maxVol: 95000000 },
+    { id: 'immortal_2',     name: 'Immortal II',     tier: 'Onsterfelijke Titaan',      minVol: 95000000,  maxVol: 130000000 },
+    { id: 'titan_overload', name: 'Titan Overload',  tier: 'Titanen Oerkracht',         minVol: 130000000, maxVol: 185000000 },
+    { id: 'god_overload',   name: 'Apex God Overload',tier: 'Kosmische God van Overload',minVol: 185000000, maxVol: 999999999999 }
   ];
 
   function getAllTimeTotalVolume() {
@@ -3491,7 +3812,7 @@
   }
 
   // SEARCH & LIBRARY VIEW
-  const CATEGORIES = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen'];
+  const CATEGORIES = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen', 'Cardio'];
   const EQUIPMENTS = ['Barbell', 'Dumbbells', 'Kabelstation', 'Machine', 'Lichaamsgewicht'];
 
   function initSearchLibrary() {
