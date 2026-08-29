@@ -91,9 +91,6 @@
     body.light-theme #lblDarkModeTitle { color: #0f172a; }
     body.light-theme #btnThemeToggle { color: #0f172a; }
     body.light-theme #popupAnimalBadge { color: #0f172a; }
-    body.light-theme .friend-name { color: #0f172a; }
-    body.light-theme .activity-user { color: #0f172a; }
-    body.light-theme .weeklyChallengeTitle { color: #0f172a; }
     /* Additional light theme fixes for inline styles */
     body.light-theme [style*="color:#fff"] { color: #0f172a !important; }
     body.light-theme [style*="color: #fff"] { color: #0f172a !important; }
@@ -624,23 +621,7 @@
       animation: rankUpParticle 1.2s ease-out forwards;
     }
 
-    /* SOCIAL FEATURES */
-    .friend-card {
-      display: flex; align-items: center; gap:10px; padding:10px; border-radius:10px;
-      background:var(--surface-2); border:1px solid var(--border); margin-bottom:8px;
-    }
-    .friend-avatar {
-      width:40px; height:40px; border-radius:50%; background:var(--surface-3);
-      display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:var(--text);
-    }
-    .friend-info { flex:1; min-width:0; }
-    .friend-name { font-size:13px; font-weight:800; color:var(--text); }
-    .friend-stats { font-size:10px; color:var(--text-sec); margin-top:2px; }
-    .friend-action-btn {
-      padding:4px 8px; border-radius:6px; background:var(--blue); color:#000;
-      border:none; font-size:10px; font-weight:800; cursor:pointer;
-    }
-
+    /* ACHIEVEMENT BADGES */
     .achievement-badge {
       aspect-ratio:1; border-radius:12px; background:var(--surface-2);
       border:1px solid var(--border); display:flex; align-items:center;
@@ -656,16 +637,6 @@
       opacity:0; pointer-events:none; transition:opacity 0.2s; margin-bottom:4px;
     }
     .achievement-badge:hover .badge-tooltip { opacity:1; }
-
-    .activity-item {
-      padding:10px; border-radius:10px; background:var(--surface-2);
-      border:1px solid var(--border); margin-bottom:8px;
-    }
-    .activity-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-    .activity-avatar { width:24px; height:24px; border-radius:50%; background:var(--surface-3); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; }
-    .activity-user { font-size:11px; font-weight:800; color:var(--text); }
-    .activity-text { font-size:11px; color:var(--text-sec); }
-    .activity-time { font-size:9px; color:var(--text-mut); margin-top:4px; }
 
     /* REKENMACHINE */
     .calc-card {
@@ -893,49 +864,7 @@
       <div class="lib-list" id="searchLibraryList"></div>
     </div>
 
-    <!-- VIEW 5: SOCIAL & MOTIVATIE -->
-    <div id="viewSocial" style="display: none;">
-      <!-- WEEKLY CHALLENGE CARD -->
-      <div class="profile-card" style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(48, 209, 88, 0.1)); border: 1.5px solid rgba(56, 189, 248, 0.3);">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-          <svg style="width:24px;height:24px;fill:#38bdf8;" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-          <div style="font-size:14px; font-weight:900; color:var(--blue); text-transform:uppercase; letter-spacing:0.06em;">Wekelijkse Challenge</div>
-        </div>
-        <div style="font-size:16px; font-weight:800; color:var(--text); margin-bottom:8px;" id="weeklyChallengeTitle">100k Bench Press Week</div>
-        <div style="font-size:12px; color:var(--text-sec); margin-bottom:12px;" id="weeklyChallengeDesc">Verplaats 100kg in bench press deze week!</div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <div style="font-size:11px; font-weight:700; color:var(--text-sec);">Voortgang</div>
-          <div style="font-size:11px; font-weight:800; color:var(--green);" id="weeklyChallengeProgress">0 / 100 kg</div>
-        </div>
-        <div style="width:100%; height:8px; background:var(--surface-3); border-radius:6px; overflow:hidden;">
-          <div id="weeklyChallengeBar" style="width:0%; height:100%; background:linear-gradient(90deg, #38bdf8, #30d158); border-radius:6px; transition:width 0.3s ease;"></div>
-        </div>
-        <div style="font-size:10px; color:var(--text-mut); margin-top:6px; text-align:right;" id="weeklyChallengeTime">Nog 5 dagen</div>
-      </div>
-
-      <!-- ACHIEVEMENT BADGES -->
-      <div class="profile-card">
-        <div style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--text-sec); letter-spacing:0.06em; margin-bottom:12px;">Achievement Badges</div>
-        <div id="achievementBadgesGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;"></div>
-      </div>
-
-      <!-- FRIENDS LIST -->
-      <div class="profile-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <div style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--text-sec); letter-spacing:0.06em;">Friends</div>
-          <button onclick="openAddFriendModal()" style="padding:4px 10px; border-radius:6px; background:var(--blue); color:#000; border:none; font-size:10px; font-weight:800; cursor:pointer;">+ Add</button>
-        </div>
-        <div id="friendsList" style="display:flex; flex-direction:column; gap:8px;"></div>
-      </div>
-
-      <!-- FRIEND ACTIVITY FEED -->
-      <div class="profile-card">
-        <div style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--text-sec); letter-spacing:0.06em; margin-bottom:12px;">Friend Activity</div>
-        <div id="friendActivityFeed" style="display:flex; flex-direction:column; gap:10px;"></div>
-      </div>
-    </div>
-
-    <!-- VIEW 6: PROFIEL & RANK OVERZICHT -->
+    <!-- VIEW 5: PROFIEL & RANK OVERZICHT -->
     <div id="viewProfile" style="display: none;">
       <!-- PROFIELFOTO & AVATAR -->
       <div class="profile-card" style="text-align:center; padding:22px 16px;">
@@ -1113,10 +1042,6 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       <span class="nav-label">Zoeken</span>
     </button>
-    <button class="nav-item" id="navBtnSocial" onclick="switchTab('social')">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-      <span class="nav-label">Social</span>
-    </button>
     <button class="nav-item" id="navBtnProfile" onclick="switchTab('profile')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
       <span class="nav-label">Profiel</span>
@@ -1216,21 +1141,6 @@
     <div class="rankup-close-btn" onclick="closeRankUpOverlay()">DOORGAAN</div>
   </div>
 
-  <!-- ADD FRIEND MODAL -->
-  <div class="modal-overlay" id="addFriendModal">
-    <div class="modal-dialog">
-      <div class="modal-hdr">
-        <span class="modal-title">Friend Toevoegen</span>
-        <button class="modal-close-btn" onclick="closeAddFriendModal()">&#10005;</button>
-      </div>
-      <div style="margin-bottom:16px;">
-        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Friend Username</div>
-        <input type="text" id="friendUsernameInput" class="profile-input" placeholder="@username" style="margin-bottom:0;" />
-      </div>
-      <button class="session-btn start" onclick="addFriend()">Friend Toevoegen</button>
-    </div>
-  </div>
-
   <!-- ACHIEVEMENT UNLOCKED MODAL -->
   <div class="modal-overlay" id="achievementModal">
     <div class="modal-dialog" style="text-align:center; max-width:380px;">
@@ -1239,21 +1149,6 @@
       <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:16px;" id="achievementName">Early Bird</div>
       <div style="font-size:12px; color:var(--text-sec); margin-bottom:16px;" id="achievementDesc">Complete 10 workouts before 8 AM</div>
       <button class="session-btn start" onclick="closeAchievementModal()">Awesome!</button>
-    </div>
-  </div>
-
-  <!-- WORKOUT SHARE MODAL -->
-  <div class="modal-overlay" id="workoutShareModal">
-    <div class="modal-dialog">
-      <div class="modal-hdr">
-        <span class="modal-title">Workout Delen</span>
-        <button class="modal-close-btn" onclick="closeWorkoutShareModal()">&#10005;</button>
-      </div>
-      <div id="workoutSharePreview" style="background:var(--surface-3); padding:12px; border-radius:12px; margin-bottom:16px;"></div>
-      <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <button class="session-btn start" style="flex:1;" onclick="shareWorkoutToSocials()">Social Media</button>
-        <button class="session-btn start" style="flex:1; background:var(--surface-2); color:var(--text); border:1px solid var(--border);" onclick="copyWorkoutLink()">Link Kopiëren</button>
-      </div>
     </div>
   </div>
 
@@ -1289,7 +1184,7 @@
     return CATEGORY_FALLBACK_GIFS[cat] || CATEGORY_FALLBACK_GIFS['Overig'];
   }
 
-  // SOCIAL & MOTIVATION FEATURES
+  // ACHIEVEMENT SYSTEM (LOCAL ONLY)
   const ACHIEVEMENTS = [
     { id: 'early_bird', name: 'Early Bird', desc: 'Complete 10 workouts before 8 AM', emoji: '🌅', condition: (stats) => stats.earlyMorningWorkouts >= 10 },
     { id: 'night_owl', name: 'Night Owl', desc: 'Complete 10 workouts after 8 PM', emoji: '🦉', condition: (stats) => stats.lateNightWorkouts >= 10 },
@@ -1298,26 +1193,14 @@
     { id: 'consistency_king', name: 'Consistency King', desc: 'Workout 7 days in a row', emoji: '👑', condition: (stats) => stats.maxConsecutiveDays >= 7 },
     { id: 'pr_hunter', name: 'PR Hunter', desc: 'Set 5 new personal records', emoji: '🎯', condition: (stats) => stats.totalPRs >= 5 },
     { id: 'gym_rat', name: 'Gym Rat', desc: 'Complete 100 total workouts', emoji: '🏋️', condition: (stats) => stats.totalWorkouts >= 100 },
-    { id: 'social_butterfly', name: 'Social Butterfly', desc: 'Add 10 friends', emoji: '🦋', condition: (stats) => stats.friendCount >= 10 },
-    { id: 'challenge_winner', name: 'Challenge Winner', desc: 'Complete 5 weekly challenges', emoji: '🏆', condition: (stats) => stats.completedChallenges >= 5 },
     { id: 'dedication', name: 'Dedication', desc: 'Workout 365 days in a year', emoji: '📅', condition: (stats) => stats.yearWorkouts >= 365 },
     { id: 'powerlifter', name: 'Powerlifter', desc: 'Bench 100kg, Squat 150kg, Deadlift 180kg', emoji: '🏋️‍♂️', condition: (stats) => stats.powerliftingTotal >= 430 },
-    { id: 'cardio_king', name: 'Cardio King', desc: 'Complete 1000 minutes of cardio', emoji: '🏃', condition: (stats) => stats.cardioMinutes >= 1000 }
+    { id: 'cardio_king', name: 'Cardio King', desc: 'Complete 1000 minutes of cardio', emoji: '🏃', condition: (stats) => stats.cardioMinutes >= 1000 },
+    { id: 'first_workout', name: 'First Steps', desc: 'Complete your first workout', emoji: '🎯', condition: (stats) => stats.totalWorkouts >= 1 },
+    { id: 'week_streak', name: 'Week Warrior', desc: 'Achieve a 7-day workout streak', emoji: '🔥', condition: (stats) => stats.maxStreak >= 7 }
   ];
 
-  const WEEKLY_CHALLENGES = [
-    { id: 'bench_100k', title: '100k Bench Press Week', desc: 'Verplaats 100kg in bench press deze week!', target: 100, unit: 'kg', exercise: 'Bench Press' },
-    { id: 'squat_150k', title: '150k Squat Week', desc: 'Verplaats 150kg in squats deze week!', target: 150, unit: 'kg', exercise: 'Squat' },
-    { id: 'deadlift_200k', title: '200k Deadlift Week', desc: 'Verplaats 200kg in deadlifts deze week!', target: 200, unit: 'kg', exercise: 'Deadlift' },
-    { id: 'cardio_300min', title: '300min Cardio Week', desc: 'Complete 300 minuten cardio deze week!', target: 300, unit: 'min', exercise: 'Cardio' },
-    { id: 'total_500k', title: '500k Total Volume Week', desc: 'Verplaats 500kg totaal deze week!', target: 500, unit: 'kg', exercise: 'Total' }
-  ];
-
-  // Friend system data
-  let friends = JSON.parse(localStorage.getItem('gymlog_friends')) || [];
-  let friendRequests = JSON.parse(localStorage.getItem('gymlog_friend_requests')) || [];
   let unlockedAchievements = JSON.parse(localStorage.getItem('gymlog_achievements')) || [];
-  let completedChallenges = JSON.parse(localStorage.getItem('gymlog_completed_challenges')) || [];
 
   // Get user stats for achievements
   function getUserStats() {
@@ -1329,8 +1212,6 @@
       maxConsecutiveDays: 0,
       totalPRs: 0,
       totalWorkouts: 0,
-      friendCount: friends.length,
-      completedChallenges: completedChallenges.length,
       yearWorkouts: 0,
       powerliftingTotal: 0,
       cardioMinutes: 0
@@ -1391,8 +1272,9 @@
       }
     }
 
-    // Calculate streak
+    // Calculate streak and consecutive days
     stats.maxStreak = currentStreak;
+    stats.maxConsecutiveDays = currentStreak; // Simplified - using current streak
 
     // Calculate powerlifting total (mock data for demo)
     stats.powerliftingTotal = Math.floor(stats.maxSingleWorkoutVolume * 0.43);
@@ -1432,9 +1314,27 @@
     document.getElementById('achievementModal').classList.remove('open');
   }
 
+  // Add achievement section to profile
+  function addAchievementSectionToProfile() {
+    const profileView = document.getElementById('viewProfile');
+    if (!document.getElementById('achievementSection')) {
+      const achievementSection = document.createElement('div');
+      achievementSection.id = 'achievementSection';
+      achievementSection.className = 'profile-card';
+      achievementSection.innerHTML = `
+        <div style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--text-sec); letter-spacing:0.06em; margin-bottom:12px;">Achievement Badges</div>
+        <div id="achievementBadgesGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;"></div>
+      `;
+      profileView.insertBefore(achievementSection, profileView.firstChild);
+      renderAchievementBadges();
+    }
+  }
+
   // Render achievement badges
   function renderAchievementBadges() {
     const grid = document.getElementById('achievementBadgesGrid');
+    if (!grid) return;
+
     grid.innerHTML = '';
 
     ACHIEVEMENTS.forEach(achievement => {
@@ -1452,228 +1352,6 @@
       };
       grid.appendChild(badge);
     });
-  }
-
-  // Friend system functions
-  function openAddFriendModal() {
-    document.getElementById('addFriendModal').classList.add('open');
-    document.getElementById('friendUsernameInput').value = '';
-  }
-
-  function closeAddFriendModal() {
-    document.getElementById('addFriendModal').classList.remove('open');
-  }
-
-  function addFriend() {
-    const username = document.getElementById('friendUsernameInput').value.trim();
-    if (!username) return;
-
-    // Simulate adding friend (in real app, this would be server-side)
-    const newFriend = {
-      id: Date.now(),
-      username: username,
-      name: username.replace('@', ''),
-      avatar: username[0].toUpperCase(),
-      stats: {
-        totalVolume: Math.floor(Math.random() * 50000),
-        workouts: Math.floor(Math.random() * 100),
-        streak: Math.floor(Math.random() * 30)
-      },
-      lastActive: new Date().toISOString()
-    };
-
-    friends.push(newFriend);
-    localStorage.setItem('gymlog_friends', JSON.stringify(friends));
-
-    closeAddFriendModal();
-    renderFriendsList();
-    renderFriendActivity();
-    triggerToast(`${username} toegevoegd als friend!`);
-
-    // Check for social butterfly achievement
-    checkAchievements();
-  }
-
-  function removeFriend(friendId) {
-    friends = friends.filter(f => f.id !== friendId);
-    localStorage.setItem('gymlog_friends', JSON.stringify(friends));
-    renderFriendsList();
-    renderFriendActivity();
-    triggerToast('Friend verwijderd');
-  }
-
-  function renderFriendsList() {
-    const list = document.getElementById('friendsList');
-    list.innerHTML = '';
-
-    if (friends.length === 0) {
-      list.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-mut); font-size:12px;">Nog geen friends. Voeg je eerste friend toe!</div>';
-      return;
-    }
-
-    friends.forEach(friend => {
-      const card = document.createElement('div');
-      card.className = 'friend-card';
-      card.innerHTML = `
-        <div class="friend-avatar">${friend.avatar}</div>
-        <div class="friend-info">
-          <div class="friend-name">${friend.name}</div>
-          <div class="friend-stats">${friend.stats.workouts} workouts • ${friend.stats.streak} day streak</div>
-        </div>
-        <button class="friend-action-btn" onclick="removeFriend(${friend.id})">Remove</button>
-      `;
-      list.appendChild(card);
-    });
-  }
-
-  function renderFriendActivity() {
-    const feed = document.getElementById('friendActivityFeed');
-    feed.innerHTML = '';
-
-    if (friends.length === 0) {
-      feed.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-mut); font-size:12px;">Voeg friends toe om hun activiteit te zien!</div>';
-      return;
-    }
-
-    // Generate mock activity
-    const activities = [
-      { type: 'workout', text: 'completed a workout', time: '2 hours ago' },
-      { type: 'pr', text: 'hit a new PR on Bench Press', time: '5 hours ago' },
-      { type: 'streak', text: 'reached a 10-day streak!', time: '1 day ago' },
-      { type: 'challenge', text: 'completed the weekly challenge', time: '2 days ago' }
-    ];
-
-    friends.forEach((friend, index) => {
-      const activity = activities[index % activities.length];
-      const item = document.createElement('div');
-      item.className = 'activity-item';
-      item.innerHTML = `
-        <div class="activity-header">
-          <div class="activity-avatar">${friend.avatar}</div>
-          <div class="activity-user">${friend.name}</div>
-        </div>
-        <div class="activity-text">${activity.text}</div>
-        <div class="activity-time">${activity.time}</div>
-      `;
-      feed.appendChild(item);
-    });
-  }
-
-  // Weekly challenge system
-  function getCurrentWeeklyChallenge() {
-    const weekNumber = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
-    return WEEKLY_CHALLENGES[weekNumber % WEEKLY_CHALLENGES.length];
-  }
-
-  function getWeeklyChallengeProgress() {
-    const challenge = getCurrentWeeklyChallenge();
-    let progress = 0;
-
-    // Calculate progress from current week's workouts
-    const weekStart = new Date();
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-    weekStart.setHours(0, 0, 0, 0);
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key && key.includes('gymlog_sets:')) {
-        const dateStr = key.split(':')[1];
-        const workoutDate = new Date(dateStr);
-
-        if (workoutDate >= weekStart) {
-          try {
-            const sets = JSON.parse(localStorage.getItem(key));
-            const exName = key.split(':')[3];
-
-            if (challenge.exercise === 'Total' || exName.toLowerCase().includes(challenge.exercise.toLowerCase())) {
-              sets.forEach(s => {
-                if (s.done) {
-                  const value = parseFloat(s.weight) || parseFloat(s.reps) || 0;
-                  const reps = parseFloat(s.reps) || 1;
-                  progress += value * reps;
-                }
-              });
-            }
-          } catch(e) {}
-        }
-      }
-    }
-
-    return { challenge, progress, percentage: Math.min((progress / challenge.target) * 100, 100) };
-  }
-
-  function renderWeeklyChallenge() {
-    const { challenge, progress, percentage } = getWeeklyChallengeProgress();
-
-    document.getElementById('weeklyChallengeTitle').textContent = challenge.title;
-    document.getElementById('weeklyChallengeDesc').textContent = challenge.desc;
-    document.getElementById('weeklyChallengeProgress').textContent = `${Math.floor(progress)} / ${challenge.target} ${challenge.unit}`;
-    document.getElementById('weeklyChallengeBar').style.width = `${percentage}%`;
-
-    // Calculate remaining time
-    const weekEnd = new Date();
-    weekEnd.setDate(weekEnd.getDate() + (7 - weekEnd.getDay()));
-    weekEnd.setHours(23, 59, 59, 999);
-    const daysRemaining = Math.ceil((weekEnd - new Date()) / (1000 * 60 * 60 * 24));
-    document.getElementById('weeklyChallengeTime').textContent = `Nog ${daysRemaining} dagen`;
-
-    // Check if challenge completed
-    if (percentage >= 100 && !completedChallenges.includes(challenge.id)) {
-      completedChallenges.push(challenge.id);
-      localStorage.setItem('gymlog_completed_challenges', JSON.stringify(completedChallenges));
-      triggerToast('🎉 Challenge voltooid!');
-      checkAchievements();
-    }
-  }
-
-  // Workout sharing
-  function openWorkoutShareModal(workoutData) {
-    const preview = document.getElementById('workoutSharePreview');
-    preview.innerHTML = `
-      <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:8px;">${workoutData.title}</div>
-      <div style="font-size:12px; color:var(--text-sec); margin-bottom:8px;">${workoutData.exercises} oefeningen • ${workoutData.volume}kg volume</div>
-      <div style="font-size:10px; color:var(--text-mut);">Workout with Overload Gym Tracker</div>
-    `;
-    document.getElementById('workoutShareModal').classList.add('open');
-  }
-
-  function closeWorkoutShareModal() {
-    document.getElementById('workoutShareModal').classList.remove('open');
-  }
-
-  function shareWorkoutToSocials() {
-    // Generate shareable content
-    const shareText = "Check out my workout! 💪 Powered by Overload Gym Tracker";
-    const shareUrl = window.location.href;
-
-    if (navigator.share) {
-      navigator.share({
-        title: 'My Workout',
-        text: shareText,
-        url: shareUrl
-      }).catch(console.error);
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-      triggerToast('Gekopieerd naar klembord!');
-    }
-
-    closeWorkoutShareModal();
-  }
-
-  function copyWorkoutLink() {
-    const shareUrl = window.location.href;
-    navigator.clipboard.writeText(shareUrl);
-    triggerToast('Link gekopieerd!');
-    closeWorkoutShareModal();
-  }
-
-  // Social view rendering
-  function renderSocialView() {
-    renderAchievementBadges();
-    renderFriendsList();
-    renderFriendActivity();
-    renderWeeklyChallenge();
   }
 
   // MULTI-LANGUAGE TRANSLATIONS (17 LANGUAGES)
@@ -2177,6 +1855,7 @@
   let workoutActive = false;
   let workoutSeconds = 0;
   let workoutInterval = null;
+  let workoutStartTime = null; // Store the actual start timestamp
   let currentStreak = 0;
   let activeCategoryFilter = '';
   let activeEquipmentFilter = '';
@@ -2262,7 +1941,7 @@
   // APP INITIALIZATION & ROUTING
   function switchTab(tabName) {
     activeTab = tabName;
-    ['home', 'agenda', 'tracker', 'search', 'social', 'profile'].forEach(t => {
+    ['home', 'agenda', 'tracker', 'search', 'profile'].forEach(t => {
       const v = document.getElementById(`view${t.charAt(0).toUpperCase() + t.slice(1)}`);
       const b = document.getElementById(`navBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
       if (v) v.style.display = (t === tabName) ? 'block' : 'none';
@@ -2273,8 +1952,10 @@
     else if (tabName === 'agenda') renderAgendaView();
     else if (tabName === 'tracker') renderTrackerView();
     else if (tabName === 'search') initSearchLibrary();
-    else if (tabName === 'social') renderSocialView();
-    else if (tabName === 'profile') renderProfileView();
+    else if (tabName === 'profile') {
+      renderProfileView();
+      addAchievementSectionToProfile();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -2392,6 +2073,9 @@
       const dayData = schema[dayIdx] || { groups: [] };
       const allEx = dayData.groups.flatMap(g => g.exercises);
 
+      // Check if this is a rest day
+      const isRestDay = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
+
       let hasDoneSet = false;
       for (const ex of allEx) {
         const sets = loadExerciseSets(dateStr, dayIdx, ex);
@@ -2403,7 +2087,11 @@
 
       if (hasDoneSet) {
         streak++;
+      } else if (isRestDay) {
+        // Rest days don't break the streak, just skip them
+        continue;
       } else if (i > 0) {
+        // Only break streak if it's not a rest day and no sets were done
         break;
       }
     }
@@ -2734,6 +2422,47 @@
     return card;
   }
 
+  // RESTORE WORKOUT SESSION ON PAGE LOAD
+  function restoreWorkoutSession() {
+    const wasActive = localStorage.getItem('gymlog_workout_active') === 'true';
+    const savedStartTime = localStorage.getItem('gymlog_workout_start_time');
+    
+    if (wasActive && savedStartTime) {
+      workoutActive = true;
+      workoutStartTime = parseInt(savedStartTime, 10);
+      workoutSeconds = Math.floor((Date.now() - workoutStartTime) / 1000);
+      
+      const btn = document.getElementById('btnWorkoutSession');
+      const display = document.getElementById('workoutSessionTimer');
+      
+      if (btn) {
+        btn.className = 'session-btn stop';
+        btn.textContent = 'Sessie Afronden';
+      }
+      
+      if (display) {
+        const h = String(Math.floor(workoutSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((workoutSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(workoutSeconds % 60).padStart(2, '0');
+        display.textContent = `${h}:${m}:${s}`;
+      }
+      
+      // Resume the timer
+      clearInterval(workoutInterval);
+      workoutInterval = setInterval(() => {
+        const elapsedSeconds = Math.floor((Date.now() - workoutStartTime) / 1000);
+        workoutSeconds = elapsedSeconds;
+        
+        const h = String(Math.floor(workoutSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((workoutSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(workoutSeconds % 60).padStart(2, '0');
+        if (display) display.textContent = `${h}:${m}:${s}`;
+      }, 1000);
+      
+      triggerToast('Sessie hervat! Telefoon was uit? Geen probleem!');
+    }
+  }
+
   // WORKOUT SESSION TIMER & CELEBRATION MODAL
   function toggleWorkoutSession() {
     workoutActive = !workoutActive;
@@ -2744,9 +2473,18 @@
       btn.className = 'session-btn stop';
       btn.textContent = 'Sessie Afronden';
       workoutSeconds = 0;
+      workoutStartTime = Date.now(); // Store the actual start time
       clearInterval(workoutInterval);
+      
+      // Save workout state to localStorage
+      localStorage.setItem('gymlog_workout_active', 'true');
+      localStorage.setItem('gymlog_workout_start_time', String(workoutStartTime));
+      
       workoutInterval = setInterval(() => {
-        workoutSeconds++;
+        // Calculate elapsed time based on actual start time
+        const elapsedSeconds = Math.floor((Date.now() - workoutStartTime) / 1000);
+        workoutSeconds = elapsedSeconds;
+        
         const h = String(Math.floor(workoutSeconds / 3600)).padStart(2, '0');
         const m = String(Math.floor((workoutSeconds % 3600) / 60)).padStart(2, '0');
         const s = String(workoutSeconds % 60).padStart(2, '0');
@@ -2757,6 +2495,10 @@
       btn.className = 'session-btn start';
       btn.textContent = 'Start Sessie';
       clearInterval(workoutInterval);
+      
+      // Clear workout state from localStorage
+      localStorage.removeItem('gymlog_workout_active');
+      localStorage.removeItem('gymlog_workout_start_time');
 
       const today = new Date();
       today.setHours(0,0,0,0);
@@ -2780,22 +2522,8 @@
       showAnimalCelebration(sessionVol);
       updateProfileRankDisplay();
 
-      // Check for achievements and show share option
+      // Check for achievements
       checkAchievements();
-
-      // Show workout share option
-      if (sessionVol > 0) {
-        const workoutData = {
-          title: 'Mijn Workout',
-          exercises: allEx.length,
-          volume: sessionVol
-        };
-        setTimeout(() => {
-          if (confirm('Wil je je workout delen?')) {
-            openWorkoutShareModal(workoutData);
-          }
-        }, 2000);
-      }
     }
   }
 
@@ -4767,8 +4495,14 @@
   // BOOTSTRAP APP
   initThemeSettings();
   loadProfileSettings();
+  
+  // Restore workout session if it was active
+  restoreWorkoutSession();
+  
   // Check achievements on load
   checkAchievements();
+  // Add achievement section to profile
+  addAchievementSectionToProfile();
   // Sla huidige rank op als startpunt voor rank-up detectie
   const _initRank = getUserRank();
   if (!localStorage.getItem('gymlog_last_rank_id')) {
