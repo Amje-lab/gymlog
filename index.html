@@ -738,6 +738,19 @@
       </div>
 
       <!-- 7 DAGEN WEEK TITELS -->
+            <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
+      <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">ðŸ“‹ Trainingsschema Kiezen</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
+          <button onclick="openCustomSchemaWizard()" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">+ Eigen</button>
+        </div>
+      </div>
+
+      <!-- 7 DAGEN WEEK TITELS -->
       <div class="calendar-weekdays-grid">
         <div>Ma</div><div>Di</div><div>Wo</div><div>Do</div><div>Vr</div><div>Za</div><div>Zo</div>
       </div>
@@ -4309,6 +4322,651 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
-  </script>
+  
+
+// ==========================================
+// 12 POPULAIRE TRAININGSCHEMA'S & CUSTOM BUILDER
+// ==========================================
+
+const POPULAR_WORKOUT_SCHEMAS = [
+  {
+    id: 'ppl_6',
+    name: '1. Push Pull Legs (PPL - 6 Dagen)',
+    daysCount: 6,
+    badge: 'PPL 6x',
+    desc: 'Maximale spiergroei en frequentie. Elke spiergroep wordt 2x per week getraind met 1 rustdag.',
+    schema: [
+      { name: 'Maandag', label: 'PUSH 1 (BORST FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Dips'] }
+      ]},
+      { name: 'Dinsdag', label: 'PULL 1 (BREEDTE FOCUS)', groups: [
+        { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Seated Cable Row'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Voorarmen', exercises: ['Dumbbell Wrist Curl'] }
+      ]},
+      { name: 'Woensdag', label: 'LEGS 1 (QUAD FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Leg Extension', 'Romanian Deadlift'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Donderdag', label: 'PUSH 2 (SCHOUDERS FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Dumbbell Fly', 'Push Up'] },
+        { title: 'Schouders', exercises: ['Barbell Overhead Press', 'Cable Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Skull Crusher', 'Cable Overhead Tricep Extension'] }
+      ]},
+      { name: 'Vrijdag', label: 'PULL 2 (DIKTE FOCUS)', groups: [
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'T-Bar Row', 'Face Pull'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Voorarmen', exercises: ['Reverse Barbell Curl'] }
+      ]},
+      { name: 'Zaterdag', label: 'LEGS 2 (HAMSTRING FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Romanian Deadlift', 'Lying Leg Curl', 'Bulgarian Split Squat', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Russian Twist'] }
+      ]},
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'ppl_5',
+    name: '1b. Push Pull Legs (PPL - 5 Dagen)',
+    daysCount: 5,
+    badge: 'PPL 5x',
+    desc: 'Push - Pull - Legs - Push - Pull met 2 rustdagen. Ideaal voor bovenlichaam-focus.',
+    schema: [
+      { name: 'Maandag', label: 'PUSH WORKOUT', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Dips'] }
+      ]},
+      { name: 'Dinsdag', label: 'PULL WORKOUT', groups: [
+        { title: 'Rug', exercises: ['Lat Pulldown', 'Seated Cable Row', 'Face Pull'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Voorarmen', exercises: ['Dumbbell Wrist Curl'] }
+      ]},
+      { name: 'Woensdag', label: 'LEGS & BUIK', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Donderdag', label: 'PUSH WORKOUT B', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Dips', 'Cable Fly'] },
+        { title: 'Schouders', exercises: ['Dumbbell Lateral Raise', 'Barbell Overhead Press'] },
+        { title: 'Triceps', exercises: ['Skull Crusher', 'Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Vrijdag', label: 'PULL WORKOUT B', groups: [
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown', 'T-Bar Row'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Voorarmen', exercises: ['Reverse Barbell Curl'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'ul_4',
+    name: '2. Upper / Lower (4 Dagen)',
+    daysCount: 4,
+    badge: 'Upper Lower 4x',
+    desc: 'Bewezen effectief: 2x per week je hele bovenlichaam en 2x onderlichaam met 3 rustdagen.',
+    schema: [
+      { name: 'Maandag', label: 'UPPER A (KRACHT FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl'] }
+      ]},
+      { name: 'Dinsdag', label: 'LOWER A (QUAD FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Cable Crunch'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'UPPER B (HYPERTROFIE FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Rug', exercises: ['Seated Cable Row', 'T-Bar Row'] },
+        { title: 'Schouders', exercises: ['Cable Lateral Raise', 'Face Pull'] },
+        { title: 'Triceps', exercises: ['Skull Crusher'] },
+        { title: 'Biceps', exercises: ['Hammer Curl'] }
+      ]},
+      { name: 'Vrijdag', label: 'LOWER B (HAMSTRING FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Romanian Deadlift', 'Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl'] },
+        { title: 'Buik', exercises: ['Plank', 'Russian Twist'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'ppl_ul_mix',
+    name: '3. PPL + Upper Lower Mix (5 Dagen)',
+    daysCount: 5,
+    badge: 'PPL + UL Mix',
+    desc: 'Push - Pull - Legs - Rust - Upper - Lower - Rust. Het ultieme 5-daagse schema!',
+    schema: [
+      { name: 'Maandag', label: 'PUSH WORKOUT', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Dips'] }
+      ]},
+      { name: 'Dinsdag', label: 'PULL WORKOUT', groups: [
+        { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Seated Cable Row'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Voorarmen', exercises: ['Dumbbell Wrist Curl'] }
+      ]},
+      { name: 'Woensdag', label: 'LEGS WORKOUT', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Donderdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Vrijdag', label: 'UPPER BODY OVERLOAD', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Dumbbell Fly'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Schouders', exercises: ['Cable Lateral Raise', 'Face Pull'] },
+        { title: 'Triceps', exercises: ['Skull Crusher'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl'] }
+      ]},
+      { name: 'Zaterdag', label: 'LOWER BODY OVERLOAD', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Bulgarian Split Squat', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Russian Twist'] }
+      ]},
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'full_body_3',
+    name: '4. Full Body (3 Dagen)',
+    daysCount: 3,
+    badge: 'Full Body 3x',
+    desc: '3 dagen per week het hele lichaam trainen met telkens een rustdag ertussen. Perfect voor beginners & drukke tijden.',
+    schema: [
+      { name: 'Maandag', label: 'FULL BODY A', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift'] },
+        { title: 'Borst', exercises: ['Barbell Bench Press'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press'] },
+        { title: 'Armen', exercises: ['Barbell Bicep Curl', 'Tricep Rope Pushdown'] },
+        { title: 'Buik', exercises: ['Plank'] }
+      ]},
+      { name: 'Dinsdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Woensdag', label: 'FULL BODY B', groups: [
+        { title: 'Benen', exercises: ['Leg Press', 'Bulgarian Split Squat'] },
+        { title: 'Borst', exercises: ['Incline Dumbbell Press', 'Dips'] },
+        { title: 'Rug', exercises: ['Lat Pulldown', 'Seated Cable Row'] },
+        { title: 'Schouders', exercises: ['Dumbbell Lateral Raise'] },
+        { title: 'Armen', exercises: ['Hammer Curl', 'Skull Crusher'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise'] }
+      ]},
+      { name: 'Donderdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Vrijdag', label: 'FULL BODY C', groups: [
+        { title: 'Benen', exercises: ['Barbell Deadlift', 'Leg Extension', 'Lying Leg Curl'] },
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Face Pull'] },
+        { title: 'Schouders', exercises: ['Barbell Overhead Press'] },
+        { title: 'Armen', exercises: ['Preacher Curl', 'Cable Overhead Tricep Extension'] },
+        { title: 'Buik', exercises: ['Cable Crunch'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'bro_split_5',
+    name: '5. Classic Bro Split (5 Dagen)',
+    daysCount: 5,
+    badge: 'Bro Split 5x',
+    desc: 'Elke dag 1 specifieke spiergroep helemaal leegtrainen. Borst - Rug - Schouders - Benen - Armen.',
+    schema: [
+      { name: 'Maandag', label: 'CHEST DAY', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Dips', 'Cable Fly', 'Push Up'] }
+      ]},
+      { name: 'Dinsdag', label: 'BACK DAY', groups: [
+        { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Barbell Bent Over Row', 'Seated Cable Row', 'Face Pull'] },
+        { title: 'Voorarmen', exercises: ['Dumbbell Wrist Curl'] }
+      ]},
+      { name: 'Woensdag', label: 'SHOULDER DAY', groups: [
+        { title: 'Schouders', exercises: ['Barbell Overhead Press', 'Dumbbell Lateral Raise', 'Cable Lateral Raise', 'Dumbbell Front Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Donderdag', label: 'LEG DAY', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Romanian Deadlift', 'Leg Extension', 'Lying Leg Curl', 'Standing Calf Raise'] }
+      ]},
+      { name: 'Vrijdag', label: 'ARM DAY (BICEPS & TRICEPS)', groups: [
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl', 'Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Triceps', exercises: ['Skull Crusher', 'Tricep Rope Pushdown', 'Dips', 'Cable Overhead Tricep Extension'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'push_pull_4',
+    name: '6. Push / Pull (4 Dagen)',
+    daysCount: 4,
+    badge: 'Push Pull 4x',
+    desc: 'Geen aparte leg-dag: Quads bij Push, Hamstrings bij Pull. 4 dagen pure efficiëntie.',
+    schema: [
+      { name: 'Maandag', label: 'PUSH A (INCL. QUADS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press'] },
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Dinsdag', label: 'PULL A (INCL. HAMS)', groups: [
+        { title: 'Benen', exercises: ['Romanian Deadlift', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'PUSH B (INCL. QUADS)', groups: [
+        { title: 'Benen', exercises: ['Leg Extension', 'Bulgarian Split Squat'] },
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Schouders', exercises: ['Cable Lateral Raise'] },
+        { title: 'Triceps', exercises: ['Skull Crusher', 'Dips'] }
+      ]},
+      { name: 'Vrijdag', label: 'PULL B (INCL. HAMS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Deadlift', 'Standing Calf Raise'] },
+        { title: 'Rug', exercises: ['Seated Cable Row', 'T-Bar Row', 'Face Pull'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Buik', exercises: ['Cable Crunch'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'arnold_split',
+    name: '7. Arnold Split (6 Dagen)',
+    daysCount: 6,
+    badge: 'Arnold Split',
+    desc: 'De favoriete split van Arnold Schwarzenegger: Borst+Rug, Schouders+Armen, Benen.',
+    schema: [
+      { name: 'Maandag', label: 'BORST & RUG 1', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] },
+        { title: 'Rug', exercises: ['Barbell Deadlift', 'Lat Pulldown', 'Barbell Bent Over Row'] }
+      ]},
+      { name: 'Dinsdag', label: 'SCHOUDERS & ARMEN 1', groups: [
+        { title: 'Schouders', exercises: ['Barbell Overhead Press', 'Dumbbell Lateral Raise', 'Face Pull'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Triceps', exercises: ['Skull Crusher', 'Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Woensdag', label: 'BENEN & BUIK 1', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Donderdag', label: 'BORST & RUG 2', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Dips', 'Dumbbell Fly'] },
+        { title: 'Rug', exercises: ['T-Bar Row', 'Seated Cable Row', 'Lat Pulldown'] }
+      ]},
+      { name: 'Vrijdag', label: 'SCHOUDERS & ARMEN 2', groups: [
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Cable Lateral Raise'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Triceps', exercises: ['Cable Overhead Tricep Extension', 'Dips'] }
+      ]},
+      { name: 'Zaterdag', label: 'BENEN & BUIK 2', groups: [
+        { title: 'Benen', exercises: ['Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Russian Twist'] }
+      ]},
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'phul_4',
+    name: '8. PHUL (Power & Hypertrofie - 4 Dagen)',
+    daysCount: 4,
+    badge: 'PHUL 4x',
+    desc: 'Power Hypertrophy Upper Lower: Combineert zware krachtopbouw (Power) met spiergroei (Hypertrofie).',
+    schema: [
+      { name: 'Maandag', label: 'UPPER POWER (3-5 REPS)', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Schouders', exercises: ['Barbell Overhead Press'] },
+        { title: 'Armen', exercises: ['Barbell Bicep Curl', 'Skull Crusher'] }
+      ]},
+      { name: 'Dinsdag', label: 'LOWER POWER (3-5 REPS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Barbell Deadlift', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'UPPER HYPERTROFIE (8-12 REPS)', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Rug', exercises: ['Seated Cable Row', 'T-Bar Row'] },
+        { title: 'Schouders', exercises: ['Dumbbell Lateral Raise', 'Face Pull'] },
+        { title: 'Armen', exercises: ['Incline Dumbbell Curl', 'Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Vrijdag', label: 'LOWER HYPERTROFIE (8-12 REPS)', groups: [
+        { title: 'Benen', exercises: ['Romanian Deadlift', 'Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Plank'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'phat_5',
+    name: '9. PHAT (Layne Norton - 5 Dagen)',
+    daysCount: 5,
+    badge: 'PHAT 5x',
+    desc: '2 dagen zware Power (Upper/Lower) + 3 dagen Hypertrofie (Chest/Arms, Back/Shoulders, Legs).',
+    schema: [
+      { name: 'Maandag', label: 'UPPER BODY POWER', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press'] },
+        { title: 'Armen', exercises: ['Barbell Bicep Curl', 'Skull Crusher'] }
+      ]},
+      { name: 'Dinsdag', label: 'LOWER BODY POWER', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Barbell Deadlift', 'Leg Press', 'Standing Calf Raise'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'BACK & SHOULDERS HYPERTROFIE', groups: [
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown', 'Seated Cable Row', 'Face Pull'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise', 'Cable Lateral Raise'] }
+      ]},
+      { name: 'Vrijdag', label: 'LOWER BODY HYPERTROFIE', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Romanian Deadlift', 'Bulgarian Split Squat', 'Leg Extension', 'Lying Leg Curl'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Zaterdag', label: 'CHEST & ARMS HYPERTROFIE', groups: [
+        { title: 'Borst', exercises: ['Incline Dumbbell Press', 'Cable Fly', 'Dips'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl', 'Hammer Curl'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Cable Overhead Tricep Extension'] }
+      ]},
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'torso_limb_4',
+    name: '10. Torso / Limb (4 Dagen)',
+    daysCount: 4,
+    badge: 'Torso Limb 4x',
+    desc: 'Dag 1: Romp (Borst, Rug, Schouders, Buik). Dag 2: Ledematen (Armen & Benen).',
+    schema: [
+      { name: 'Maandag', label: 'TORSO A (BORST & RUG FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Lat Pulldown'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Dinsdag', label: 'LIMB A (QUAD & ARM FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Standing Calf Raise'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown', 'Skull Crusher'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'TORSO B (SCHOUDER & DIKTE FOCUS)', groups: [
+        { title: 'Borst', exercises: ['Incline Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Rug', exercises: ['Seated Cable Row', 'T-Bar Row'] },
+        { title: 'Schouders', exercises: ['Cable Lateral Raise', 'Face Pull'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Russian Twist'] }
+      ]},
+      { name: 'Vrijdag', label: 'LIMB B (HAMSTRING & ARM FOCUS)', groups: [
+        { title: 'Benen', exercises: ['Romanian Deadlift', 'Bulgarian Split Squat', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Biceps', exercises: ['Incline Dumbbell Curl', 'Preacher Curl'] },
+        { title: 'Triceps', exercises: ['Dips', 'Cable Overhead Tricep Extension'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'wendler_531',
+    name: '11. 5/3/1 Kracht (Jim Wendler - 4 Dagen)',
+    daysCount: 4,
+    badge: '5/3/1 Power',
+    desc: 'Gebouwd rond de 4 grote lifts: Squat, Bench, Deadlift, Overhead Press + gerichte hulpoefeningen.',
+    schema: [
+      { name: 'Maandag', label: 'DAG 1: BENCH PRESS FOCUS', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Dips'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row', 'Face Pull'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Dinsdag', label: 'DAG 2: SQUAT FOCUS', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Leg Press', 'Romanian Deadlift', 'Standing Calf Raise'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise', 'Plank'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'DAG 3: OVERHEAD PRESS FOCUS', groups: [
+        { title: 'Schouders', exercises: ['Barbell Overhead Press', 'Dumbbell Lateral Raise', 'Face Pull'] },
+        { title: 'Rug', exercises: ['Lat Pulldown', 'Seated Cable Row'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl', 'Hammer Curl'] }
+      ]},
+      { name: 'Vrijdag', label: 'DAG 4: DEADLIFT FOCUS', groups: [
+        { title: 'Benen', exercises: ['Barbell Deadlift', 'Bulgarian Split Squat', 'Lying Leg Curl'] },
+        { title: 'Buik', exercises: ['Cable Crunch', 'Russian Twist'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  },
+  {
+    id: 'gzclp_linear',
+    name: '12. GZCLP Lineaire Progressie (4 Dagen)',
+    daysCount: 4,
+    badge: 'GZCLP Linear',
+    desc: 'Tier 1 (Heavy Compound), Tier 2 (Volume Compound), Tier 3 (Isolatie & Hypertrofie).',
+    schema: [
+      { name: 'Maandag', label: 'GZCLP A1: SQUAT T1', groups: [
+        { title: 'Benen', exercises: ['Barbell Squat', 'Lying Leg Curl', 'Standing Calf Raise'] },
+        { title: 'Borst', exercises: ['Incline Dumbbell Press'] },
+        { title: 'Rug', exercises: ['Lat Pulldown'] },
+        { title: 'Buik', exercises: ['Plank'] }
+      ]},
+      { name: 'Dinsdag', label: 'GZCLP B1: OVERHEAD PRESS T1', groups: [
+        { title: 'Schouders', exercises: ['Barbell Overhead Press', 'Dumbbell Lateral Raise'] },
+        { title: 'Benen', exercises: ['Romanian Deadlift'] },
+        { title: 'Rug', exercises: ['Barbell Bent Over Row'] },
+        { title: 'Triceps', exercises: ['Tricep Rope Pushdown'] }
+      ]},
+      { name: 'Woensdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Donderdag', label: 'GZCLP A2: BENCH PRESS T1', groups: [
+        { title: 'Borst', exercises: ['Barbell Bench Press', 'Cable Fly'] },
+        { title: 'Benen', exercises: ['Leg Press'] },
+        { title: 'Rug', exercises: ['Seated Cable Row'] },
+        { title: 'Biceps', exercises: ['Barbell Bicep Curl'] }
+      ]},
+      { name: 'Vrijdag', label: 'GZCLP B2: DEADLIFT T1', groups: [
+        { title: 'Benen', exercises: ['Barbell Deadlift', 'Leg Extension'] },
+        { title: 'Schouders', exercises: ['Dumbbell Overhead Press', 'Face Pull'] },
+        { title: 'Buik', exercises: ['Hanging Leg Raise'] }
+      ]},
+      { name: 'Zaterdag', label: 'RUSTDAG', groups: [] },
+      { name: 'Zondag', label: 'RUSTDAG', groups: [] }
+    ]
+  }
+];
+
+// Helper modal functions
+function openSchemaSelectorModal() {
+  const modal = document.getElementById('workoutSchemaSelectorModal');
+  if (!modal) return;
+  renderPopularSchemaList();
+  modal.classList.add('open');
+}
+
+function closeSchemaSelectorModal() {
+  const modal = document.getElementById('workoutSchemaSelectorModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function renderPopularSchemaList() {
+  const listEl = document.getElementById('popularSchemaCardsList');
+  if (!listEl) return;
+  listEl.innerHTML = '';
+
+  POPULAR_WORKOUT_SCHEMAS.forEach(item => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:10px; cursor:pointer; transition:all 0.2s;';
+    card.onmouseover = () => { card.style.borderColor = 'var(--accent)'; };
+    card.onmouseout = () => { card.style.borderColor = 'var(--border)'; };
+
+    let previewSummary = item.schema.filter(d => !d.label.includes('RUST')).map(d => d.name.slice(0,2) + ': ' + d.label).join(' • ');
+
+    card.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+        <div style="font-size:15px; font-weight:800; color:var(--text);">${item.name}</div>
+        <span style="font-size:10px; font-weight:800; background:rgba(0,210,255,0.12); color:var(--cyan); padding:3px 8px; border-radius:6px; white-space:nowrap;">${item.badge}</span>
+      </div>
+      <div style="font-size:12px; color:var(--text-sec); margin-bottom:8px; line-height:1.4;">${item.desc}</div>
+      <div style="font-size:11px; color:var(--text-mut); font-weight:600; margin-bottom:10px;">${previewSummary}</div>
+      <button class="action-btn" style="width:100%; padding:8px; font-size:12px; font-weight:800;" onclick="applyPopularSchema('${item.id}', event)">Kies dit Schema</button>
+    `;
+    listEl.appendChild(card);
+  });
+}
+
+function applyPopularSchema(schemaId, e) {
+  if (e) e.stopPropagation();
+  const found = POPULAR_WORKOUT_SCHEMAS.find(s => s.id === schemaId);
+  if (!found) return;
+
+  if (confirm(`Weet je zeker dat je het schema wilt instellen op "${found.name}"? Dit past je weekindeling aan.`)) {
+    saveActiveRoutineSchema(JSON.parse(JSON.stringify(found.schema)));
+    closeSchemaSelectorModal();
+    renderAgendaView();
+    renderHomeView();
+    triggerToast(`Schema ingesteld op: ${found.badge}! 🔥`);
+  }
+}
+
+// Custom Schema Wizard
+function openCustomSchemaWizard() {
+  closeSchemaSelectorModal();
+  const modal = document.getElementById('customSchemaWizardModal');
+  if (!modal) return;
+  renderCustomSchemaDaysEditor();
+  modal.classList.add('open');
+}
+
+function closeCustomSchemaWizard() {
+  const modal = document.getElementById('customSchemaWizardModal');
+  if (modal) modal.classList.remove('open');
+}
+
+let tempCustomSchema = null;
+
+function renderCustomSchemaDaysEditor() {
+  tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
+  const container = document.getElementById('customSchemaDaysContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const dayNames = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
+  const allMuscleCats = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen'];
+
+  dayNames.forEach((dName, dayIdx) => {
+    const dayData = tempCustomSchema[dayIdx] || { name: dName, label: 'RUSTDAG', groups: [] };
+    const isRest = dayData.label.includes('RUST');
+
+    const dayCard = document.createElement('div');
+    dayCard.style.cssText = 'background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:12px;';
+
+    let chipsHtml = allMuscleCats.map(cat => {
+      const active = dayData.groups.some(g => g.title === cat);
+      return `<button type="button" onclick="toggleCustomSchemaMuscle(${dayIdx}, '${cat}')" style="padding:5px 10px; border-radius:8px; border:1px solid ${active ? 'var(--accent)' : 'var(--border)'}; background:${active ? 'rgba(0,210,255,0.18)' : 'var(--surface-2)'}; color:${active ? 'var(--cyan)' : 'var(--text-sec)'}; font-size:11px; font-weight:700; cursor:pointer;">${cat}</button>`;
+    }).join(' ');
+
+    dayCard.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="font-size:15px; font-weight:900; color:var(--text);">${dName}</div>
+        <button type="button" onclick="toggleCustomSchemaDayRest(${dayIdx})" style="padding:4px 10px; border-radius:6px; font-size:11px; font-weight:800; border:none; cursor:pointer; background:${isRest ? 'rgba(255,59,48,0.15)' : 'rgba(48,209,88,0.15)'}; color:${isRest ? '#ff3b30' : '#30d158'};">
+          ${isRest ? '😴 Rustdag' : '🏋️ Training'}
+        </button>
+      </div>
+      <div style="margin-bottom:8px;">
+        <input type="text" value="${dayData.label}" placeholder="Label (bijv. PUSH, CHEST & BACK)" onchange="updateCustomSchemaLabel(${dayIdx}, this.value)" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:12px; font-weight:700; box-sizing:border-box;" />
+      </div>
+      ${isRest ? '<div style="font-size:11px; color:var(--text-mut);">Geen training ingesteld op deze dag.</div>' : `
+        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Kies Spiergroepen:</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">${chipsHtml}</div>
+      `}
+    `;
+    container.appendChild(dayCard);
+  });
+}
+
+function toggleCustomSchemaDayRest(dayIdx) {
+  const day = tempCustomSchema[dayIdx];
+  if (day.label.includes('RUST')) {
+    day.label = 'WORKOUT';
+    if (day.groups.length === 0) {
+      day.groups = [{ title: 'Borst', exercises: [] }];
+    }
+  } else {
+    day.label = 'RUSTDAG';
+    day.groups = [];
+  }
+  renderCustomSchemaDaysEditor();
+}
+
+function updateCustomSchemaLabel(dayIdx, newLabel) {
+  tempCustomSchema[dayIdx].label = newLabel || 'WORKOUT';
+}
+
+function toggleCustomSchemaMuscle(dayIdx, cat) {
+  const day = tempCustomSchema[dayIdx];
+  const gIdx = day.groups.findIndex(g => g.title === cat);
+  if (gIdx >= 0) {
+    day.groups.splice(gIdx, 1);
+  } else {
+    day.groups.push({ title: cat, exercises: [] });
+  }
+  renderCustomSchemaDaysEditor();
+}
+
+function saveCustomSchemaWizard() {
+  if (!tempCustomSchema) return;
+  saveActiveRoutineSchema(tempCustomSchema);
+  closeCustomSchemaWizard();
+  renderAgendaView();
+  renderHomeView();
+  triggerToast('Jouw eigen schema is succesvol opgeslagen! 📅💪');
+}
+
+</script>
+  <!-- MODAL: KIES UIT 12 POPULAIRE SCHEMA'S -->
+  <div class="modal-overlay" id="workoutSchemaSelectorModal">
+    <div class="modal-dialog" style="max-height:88vh; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+      <div style="padding:16px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;">SCHEMA KIEZER</div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">12 Populaire Trainingsschema's</div>
+        </div>
+        <button onclick="closeSchemaSelectorModal()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
+      </div>
+
+      <div style="padding:12px 18px; background:rgba(0,210,255,0.06); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:12px; color:var(--text-sec);">Of stel je eigen trainingsdagen & spieren samen:</div>
+        <button onclick="openCustomSchemaWizard()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">+ Zelf Maken</button>
+      </div>
+
+      <div id="popularSchemaCardsList" style="flex:1; overflow-y:auto; padding:16px 18px;"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: ZELF SCHEMA MAKEN WIZARD -->
+  <div class="modal-overlay" id="customSchemaWizardModal">
+    <div class="modal-dialog" style="max-height:88vh; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+      <div style="padding:16px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;">CUSTOM BUILDER</div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">Stel je Eigen Schema Samen</div>
+        </div>
+        <button onclick="closeCustomSchemaWizard()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
+      </div>
+
+      <div style="padding:10px 18px; background:var(--surface-1); border-bottom:1px solid var(--border); font-size:12px; color:var(--text-sec);">
+        Kies per dag of het een training of rustdag is, geef het een naam en selecteer de spiergroepen.
+      </div>
+
+      <div id="customSchemaDaysContainer" style="flex:1; overflow-y:auto; padding:16px 18px;"></div>
+
+      <div style="padding:14px 18px; border-top:1px solid var(--border); background:var(--surface-2); display:flex; gap:10px;">
+        <button onclick="closeCustomSchemaWizard()" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--surface-1); color:var(--text-sec); font-size:13px; font-weight:700; cursor:pointer;">Annuleren</button>
+        <button onclick="saveCustomSchemaWizard()" class="action-btn" style="flex:2; padding:10px; font-size:13px; font-weight:900;">Schema Opslaan ✓</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
