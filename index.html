@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -741,7 +741,7 @@
             <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);">ðŸ“‹ Trainingsschema Kiezen</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
           <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
         </div>
         <div style="display:flex; gap:6px;">
@@ -4848,17 +4848,6 @@ const DEFAULT_GROUP_EXERCISES = {
   'Voorarmen': ['Dumbbell Wrist Curl']
 };
 
-const DEFAULT_GROUP_EXERCISES = {
-  'Borst': ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'],
-  'Rug': ['Barbell Bent Over Row', 'Lat Pulldown', 'Seated Cable Row'],
-  'Schouders': ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise', 'Face Pull'],
-  'Biceps': ['Barbell Bicep Curl', 'Hammer Curl'],
-  'Triceps': ['Tricep Rope Pushdown', 'Skull Crusher'],
-  'Benen': ['Barbell Squat', 'Romanian Deadlift', 'Leg Press'],
-  'Buik': ['Hanging Leg Raise', 'Plank'],
-  'Voorarmen': ['Dumbbell Wrist Curl']
-};
-
 function renderCustomSchemaDaysEditor() {
   tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
   const container = document.getElementById('customSchemaDaysContainer');
@@ -4870,33 +4859,28 @@ function renderCustomSchemaDaysEditor() {
 
   dayNames.forEach((dName, dayIdx) => {
     const dayData = tempCustomSchema[dayIdx] || { name: dName, label: 'RUSTDAG', groups: [] };
-    const isRest = dayData.label.includes('RUST') || dayData.groups.length === 0;
+    const isRest = dayData.label.includes('RUST');
 
     const dayCard = document.createElement('div');
-    dayCard.style.cssText = 'background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:14px;';
+    dayCard.style.cssText = 'background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:12px;';
 
     let chipsHtml = allMuscleCats.map(cat => {
       const active = dayData.groups.some(g => g.title === cat);
-      return `<button type="button" onclick="toggleCustomSchemaMuscle(${dayIdx}, '${cat}')" style="padding:7px 12px; border-radius:8px; border:1px solid ${active ? 'var(--cyan)' : 'var(--border)'}; background:${active ? 'rgba(0,210,255,0.22)' : 'var(--surface-2)'}; color:${active ? 'var(--cyan)' : 'var(--text-sec)'}; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">${active ? '<span style="font-weight:900;">&#10003;</span>' : '<span style="color:var(--text-mut);">+</span>'} ${cat}</button>`;
+      return `<button type="button" onclick="toggleCustomSchemaMuscle(${dayIdx}, '${cat}')" style="padding:6px 12px; border-radius:8px; border:1px solid ${active ? 'var(--cyan)' : 'var(--border)'}; background:${active ? 'rgba(0,210,255,0.22)' : 'var(--surface-2)'}; color:${active ? 'var(--cyan)' : 'var(--text-sec)'}; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">${active ? '✓ ' : '+ '}${cat}</button>`;
     }).join(' ');
 
     dayCard.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <div style="font-size:16px; font-weight:900; color:var(--text);">${dName}</div>
-        <div style="display:flex; background:var(--surface-2); padding:3px; border-radius:10px; border:1px solid var(--border);">
-          <button type="button" onclick="setCustomSchemaDayType(${dayIdx}, false)" style="padding:5px 12px; border-radius:7px; font-size:11px; font-weight:800; border:none; cursor:pointer; background:${!isRest ? 'var(--accent)' : 'transparent'}; color:${!isRest ? '#fff' : 'var(--text-sec)'}; transition:all 0.2s;">
-            Training
-          </button>
-          <button type="button" onclick="setCustomSchemaDayType(${dayIdx}, true)" style="padding:5px 12px; border-radius:7px; font-size:11px; font-weight:800; border:none; cursor:pointer; background:${isRest ? 'rgba(255,59,48,0.25)' : 'transparent'}; color:${isRest ? '#ff3b30' : 'var(--text-sec)'}; transition:all 0.2s;">
-            Rustdag
-          </button>
-        </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="font-size:15px; font-weight:900; color:var(--text);">${dName}</div>
+        <button type="button" onclick="toggleCustomSchemaDayRest(${dayIdx})" style="padding:5px 12px; border-radius:8px; font-size:11px; font-weight:800; border:none; cursor:pointer; background:${isRest ? 'rgba(255,59,48,0.15)' : 'rgba(48,209,88,0.15)'}; color:${isRest ? '#ff3b30' : '#30d158'};">
+          ${isRest ? 'Rustdag' : 'Training'}
+        </button>
       </div>
       <div style="margin-bottom:10px;">
         <input type="text" value="${dayData.label}" placeholder="Label (bijv. PUSH, CHEST & BACK)" onchange="updateCustomSchemaLabel(${dayIdx}, this.value)" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:12px; font-weight:700; box-sizing:border-box;" />
       </div>
-      ${isRest ? '<div style="font-size:12px; color:var(--text-mut); padding:6px 0;">😴 Ingesteld als rustdag. Klik op "Training" om deze dag in te plannen.</div>' : `
-        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:8px;">Tik om spiergroepen toe te voegen of weg te halen:</div>
+      ${isRest ? '<div style="font-size:11px; color:var(--text-mut); padding:4px 0;">Geen training ingesteld op deze dag. Tik op Rustdag om te wisselen naar Training.</div>' : `
+        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Selecteer / verwijder spiergroepen:</div>
         <div style="display:flex; flex-wrap:wrap; gap:6px;">${chipsHtml}</div>
       `}
     `;
@@ -4904,22 +4888,18 @@ function renderCustomSchemaDaysEditor() {
   });
 }
 
-function setCustomSchemaDayType(dayIdx, isRest) {
-  const day = tempCustomSchema[dayIdx];
-  if (isRest) {
-    day.label = 'RUSTDAG';
-    day.groups = [];
-  } else {
-    day.label = 'BORST WORKOUT';
-    day.groups = [{ title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] }];
-  }
-  renderCustomSchemaDaysEditor();
-}
-
 function toggleCustomSchemaDayRest(dayIdx) {
   const day = tempCustomSchema[dayIdx];
-  const isRest = day.label.includes('RUST') || day.groups.length === 0;
-  setCustomSchemaDayType(dayIdx, !isRest);
+  if (day.label.includes('RUST')) {
+    day.label = 'WORKOUT';
+    if (day.groups.length === 0) {
+      day.groups = [{ title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] }];
+    }
+  } else {
+    day.label = 'RUSTDAG';
+    day.groups = [];
+  }
+  renderCustomSchemaDaysEditor();
 }
 
 function updateCustomSchemaLabel(dayIdx, newLabel) {
@@ -4939,9 +4919,9 @@ function toggleCustomSchemaMuscle(dayIdx, cat) {
   }
   
   // Update label
-  if (day.groups.length > 0) {
+  if (day.groups.length > 0 && (day.label === 'WORKOUT' || day.label === 'RUSTDAG' || day.label.includes('WORKOUT'))) {
     day.label = day.groups.map(g => g.title.toUpperCase()).join(' & ') + ' WORKOUT';
-  } else {
+  } else if (day.groups.length === 0) {
     day.label = 'RUSTDAG';
   }
   renderCustomSchemaDaysEditor();
@@ -4955,8 +4935,6 @@ function saveCustomSchemaWizard() {
   renderHomeView();
   triggerToast('Jouw eigen schema is succesvol opgeslagen!');
 }
-
-
 
 
 
