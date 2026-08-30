@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -741,12 +741,12 @@
             <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
-          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of stel je eigen split samen</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">ðŸ“‹ Trainingsschema Kiezen</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
         </div>
         <div style="display:flex; gap:6px;">
           <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
-          <button onclick="openCustomSchemaWizard()" style="padding:6px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:11px; font-weight:800; cursor:pointer;">Custom</button>
+          <button onclick="openCustomSchemaWizard()" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">+ Eigen</button>
         </div>
       </div>
 
@@ -2898,7 +2898,1433 @@
     }
   }
 
-  // ==========================================
+  // =============================================
+  // REST TIMER
+  // =============================================
+  function startRestTimer(exName) {
+    const secs = parseInt(localStorage.getItem('gymlog_rest') || '90', 10);
+    if (secs <= 0) return;
+    clearInterval(restInterval);
+    restTotalSeconds = secs;
+    restSecondsLeft = secs;
+
+    const overlay = document.getElementById('restTimerOverlay');
+    const numEl = document.getElementById('restTimerNum');
+    const exEl = document.getElementById('restTimerExName');
+    const ringFill = document.getElementById('restRingFill');
+    const circumference = 2 * Math.PI * 52; // r=52
+
+    if (exEl) exEl.textContent = exName;
+    if (ringFill) {
+      ringFill.style.strokeDasharray = circumference;
+      ringFill.style.strokeDashoffset = 0;
+    }
+    if (numEl) numEl.textContent = secs;
+    if (overlay) overlay.classList.add('show');
+
+    if (navigator.vibrate) navigator.vibrate(60);
+
+    restInterval = setInterval(() => {
+      restSecondsLeft--;
+      const progress = restSecondsLeft / restTotalSeconds;
+      if (numEl) numEl.textContent = restSecondsLeft;
+      if (ringFill) {
+        ringFill.style.strokeDashoffset = circumference * (1 - progress);
+        // kleur verandert van blauw → oranje → rood
+        if (progress > 0.5) ringFill.style.stroke = '#38bdf8';
+        else if (progress > 0.25) ringFill.style.stroke = '#ff9500';
+        else ringFill.style.stroke = '#ff453a';
+      }
+      if (restSecondsLeft <= 0) {
+        clearInterval(restInterval);
+        if (overlay) overlay.classList.remove('show');
+        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+        triggerToast('Rust voorbij — volgende set!');
+      }
+    }, 1000);
+  }
+
+  function skipRestTimer() {
+    clearInterval(restInterval);
+    const overlay = document.getElementById('restTimerOverlay');
+    if (overlay) overlay.classList.remove('show');
+  }
+
+  // =============================================
+  // RANK-UP DETECTIE & ANIMATIE
+  // =============================================
+  function checkAndShowRankUp() {
+    const rankInfo = getUserRank();
+    const newId = rankInfo.current.id;
+    if (newId !== lastKnownRankId) {
+      const oldIdx = RANK_TIERS.findIndex(r => r.id === lastKnownRankId);
+      const newIdx = RANK_TIERS.findIndex(r => r.id === newId);
+      if (newIdx > oldIdx) {
+        // Echt omhoog gegaan
+        showRankUpOverlay(rankInfo.current);
+      }
+      lastKnownRankId = newId;
+      localStorage.setItem('gymlog_last_rank_id', newId);
+    }
+  }
+
+  function showRankUpOverlay(rankData) {
+    const overlay = document.getElementById('rankUpOverlay');
+    const badgeEl = document.getElementById('rankUpBadge');
+    const nameEl = document.getElementById('rankUpName');
+    const tierEl = document.getElementById('rankUpTier');
+    const glowEl = document.getElementById('rankUpGlow');
+    const particlesEl = document.getElementById('rankUpParticles');
+
+    if (nameEl) nameEl.textContent = rankData.name;
+    if (tierEl) tierEl.textContent = rankData.tier;
+    if (badgeEl) badgeEl.innerHTML = getRankBadgeStickerHtml(rankData.id, 120);
+
+    // Glow kleur aanpassen per tier
+    const glowColors = {
+      wood: 'rgba(217,119,6,0.4)', iron: 'rgba(203,213,225,0.4)',
+      bronze: 'rgba(245,158,11,0.4)', silver: 'rgba(248,250,252,0.4)',
+      gold: 'rgba(254,240,138,0.5)', platinum: 'rgba(125,211,252,0.5)',
+      emerald: 'rgba(110,231,183,0.5)', ruby: 'rgba(252,165,165,0.5)',
+      diamond: 'rgba(56,189,248,0.6)', master: 'rgba(216,180,254,0.6)',
+      challenger: 'rgba(251,191,36,0.6)', mythic: 'rgba(249,115,22,0.6)',
+      immortal: 'rgba(129,140,248,0.6)', titan: 'rgba(249,115,22,0.7)',
+      god: 'rgba(232,121,249,0.7)'
+    };
+    const key = Object.keys(glowColors).find(k => rankData.id.startsWith(k)) || 'gold';
+    if (glowEl) glowEl.style.background = `radial-gradient(circle, ${glowColors[key]} 0%, transparent 70%)`;
+
+    // Confetti particles
+    if (particlesEl) {
+      particlesEl.innerHTML = '';
+      const colors = ['#38bdf8','#fef08a','#30d158','#ff9500','#d8b4fe','#fca5a5'];
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement('div');
+        p.className = 'rankup-particle';
+        p.style.cssText = `
+          left:${Math.random() * 100}%;
+          top:${60 + Math.random() * 40}%;
+          background:${colors[Math.floor(Math.random() * colors.length)]};
+          animation-delay:${Math.random() * 0.6}s;
+          animation-duration:${0.8 + Math.random() * 0.8}s;
+          width:${6 + Math.random() * 8}px;
+          height:${6 + Math.random() * 8}px;
+        `;
+        particlesEl.appendChild(p);
+      }
+    }
+
+    if (overlay) overlay.classList.add('show');
+    if (navigator.vibrate) navigator.vibrate([80, 40, 80, 40, 120]);
+  }
+
+  function closeRankUpOverlay() {
+    const overlay = document.getElementById('rankUpOverlay');
+    if (overlay) overlay.classList.remove('show');
+  }
+
+  // =============================================
+  // REKENMACHINE
+  // =============================================
+  function calcInput(btn) {
+    const display = document.getElementById('calcDisplay');
+    const expr = document.getElementById('calcExpr');
+    if (!display) return;
+
+    if (btn === 'C') {
+      calcCurrentVal = '0';
+      calcExpression = '';
+      calcOperator = '';
+      calcPrevVal = '';
+      calcJustEval = false;
+    } else if (btn === '±') {
+      calcCurrentVal = String(parseFloat(calcCurrentVal) * -1 || 0);
+    } else if (btn === '%') {
+      calcCurrentVal = String(parseFloat(calcCurrentVal) / 100 || 0);
+    } else if (['+', '-', '×', '÷'].includes(btn)) {
+      calcPrevVal = calcCurrentVal;
+      calcOperator = btn;
+      calcExpression = `${calcCurrentVal} ${btn}`;
+      calcCurrentVal = '0';
+      calcJustEval = false;
+    } else if (btn === '=') {
+      if (!calcOperator || !calcPrevVal) return;
+      const a = parseFloat(calcPrevVal);
+      const b = parseFloat(calcCurrentVal);
+      let result = 0;
+      if (calcOperator === '+') result = a + b;
+      else if (calcOperator === '-') result = a - b;
+      else if (calcOperator === '×') result = a * b;
+      else if (calcOperator === '÷') result = b !== 0 ? a / b : 0;
+      calcExpression = `${calcPrevVal} ${calcOperator} ${calcCurrentVal} =`;
+      calcCurrentVal = String(Math.round(result * 10000) / 10000);
+      calcOperator = '';
+      calcPrevVal = '';
+      calcJustEval = true;
+    } else if (btn === '.') {
+      if (calcJustEval) { calcCurrentVal = '0'; calcJustEval = false; }
+      if (!calcCurrentVal.includes('.')) calcCurrentVal += '.';
+    } else {
+      // cijfer
+      if (calcJustEval || calcCurrentVal === '0') {
+        calcCurrentVal = btn;
+        calcJustEval = false;
+      } else {
+        if (calcCurrentVal.length < 12) calcCurrentVal += btn;
+      }
+    }
+
+    if (display) display.textContent = calcCurrentVal;
+    if (expr) expr.textContent = calcExpression;
+  }
+
+  function formatRankKilos(min, max) {
+    const fmt = (n) => {
+      if (n >= 1000000) return (n / 1000000).toLocaleString('nl-NL', { maximumFractionDigits: 1 }) + ' Miljoen kg';
+      if (n >= 1000) return (n / 1000).toLocaleString('nl-NL', { maximumFractionDigits: 1 }) + 'k kg';
+      return n.toLocaleString('nl-NL') + ' kg';
+    };
+    if (max >= 900000000000) return `Vanaf ${fmt(min)}`;
+    return `${fmt(min)} tot ${fmt(max)}`;
+  }
+
+  function openRanksModal() {
+    const rankInfo = getUserRank();
+    const listEl = document.getElementById('ranksLadderList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+
+    RANK_TIERS.forEach(tier => {
+      const isCurrent = (tier.id === rankInfo.current.id);
+      const isPassed = (rankInfo.totalVol >= tier.maxVol);
+
+      const statusBadgeHtml = isPassed 
+        ? '<span style="color:var(--green);font-weight:800;display:inline-flex;align-items:center;gap:3px;"><svg style="width:11px;height:11px;fill:#30d158;" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Ontgrendeld</span>'
+        : (isCurrent 
+            ? '<span style="color:#38bdf8;font-weight:800;display:inline-flex;align-items:center;gap:3px;"><svg style="width:11px;height:11px;fill:#38bdf8;" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg> Huidig</span>' 
+            : '<span style="color:var(--text-mut);display:inline-flex;align-items:center;gap:3px;"><svg style="width:10px;height:10px;fill:#64748b;" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg> Vergrendeld</span>');
+
+      const row = document.createElement('div');
+      row.className = `rank-item-row${isCurrent ? ' active' : ''}`;
+      row.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+          ${getRankBadgeStickerHtml(tier.id, 36)}
+          <div style="min-width:0; margin-left:4px;">
+            <div style="font-size:14px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:6px;">
+              ${tier.name} ${isCurrent ? '<span style="font-size:9px; padding:2px 6px; border-radius:10px; background:#38bdf8; color:#000; font-weight:900;">JOUW RANK</span>' : ''}
+            </div>
+            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${tier.tier}</div>
+          </div>
+        </div>
+        <div style="text-align:right; flex-shrink:0; margin-left:8px;">
+          <div style="font-size:12px; font-weight:900; color:${isCurrent ? '#38bdf8' : (isPassed ? 'var(--green)' : '#cbd5e1')};">
+            ${formatRankKilos(tier.minVol, tier.maxVol)}
+          </div>
+          <div style="font-size:10px; font-weight:700; margin-top:2px;">
+            ${statusBadgeHtml}
+          </div>
+        </div>
+      `;
+      listEl.appendChild(row);
+    });
+
+    document.getElementById('ranksLadderModal').classList.add('open');
+  }
+
+  function closeRanksModal() {
+    document.getElementById('ranksLadderModal').classList.remove('open');
+  }
+
+  // PROFILE SETTINGS & 30-DAY HANDLE COOLDOWN
+  function handleUsernameChange(val) {
+    const cleaned = (val || '').trim().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
+    if (!cleaned) return;
+
+    const currentHandle = localStorage.getItem('gymlog_user_handle') || '';
+    if (cleaned === currentHandle) return;
+
+    const lastChanged = parseInt(localStorage.getItem('gymlog_handle_last_changed') || '0', 10);
+    const now = Date.now();
+    const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+
+    if (lastChanged && (now - lastChanged) < thirtyDaysMs) {
+      const remainingDays = Math.ceil((thirtyDaysMs - (now - lastChanged)) / (24 * 60 * 60 * 1000));
+      alert(`Je kunt je @gebruikersnaam maar 1x per 30 dagen wijzigen.\n\nJe moet nog ${remainingDays} dag(en) wachten.`);
+      document.getElementById('profileHandleInput').value = currentHandle;
+      return;
+    }
+
+    localStorage.setItem('gymlog_user_handle', cleaned);
+    localStorage.setItem('gymlog_handle_last_changed', String(now));
+    document.getElementById('profileDisplayHandle').textContent = `@${cleaned}`;
+    triggerToast(`@${cleaned} ingesteld! (30 dagen cooldown gestart)`);
+    updateCooldownDisplay();
+  }
+
+  function updateCooldownDisplay() {
+    const cooldownDisplay = document.getElementById('handleCooldownDisplay');
+    if (!cooldownDisplay) return;
+
+    const lastChanged = parseInt(localStorage.getItem('gymlog_handle_last_changed') || '0', 10);
+    const now = Date.now();
+    const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+
+    if (lastChanged && (now - lastChanged) < thirtyDaysMs) {
+      const remDays = Math.ceil((thirtyDaysMs - (now - lastChanged)) / (24 * 60 * 60 * 1000));
+      cooldownDisplay.innerHTML = `<span style="color:#ff9500;">Volgende wijziging mogelijk over ${remDays} dag(en)</span>`;
+    } else {
+      cooldownDisplay.innerHTML = `<span style="color:var(--green);">@handle kan nu gewijzigd worden (1x per 30 dagen)</span>`;
+    }
+  }
+
+  function renderProfileView() {
+    loadProfileSettings();
+  }
+
+  function loadProfileSettings() {
+    const name = localStorage.getItem('gymlog_username') || '';
+    const handle = localStorage.getItem('gymlog_user_handle') || '';
+    const weight = localStorage.getItem('gymlog_weight') || '';
+    const height = localStorage.getItem('gymlog_height') || '';
+    const goal = localStorage.getItem('gymlog_goal') || 'hypertrophy';
+    const rest = localStorage.getItem('gymlog_rest') || '90';
+    const lang = getLang();
+
+    if (document.getElementById('profileNameInput')) document.getElementById('profileNameInput').value = name;
+    if (document.getElementById('profileHandleInput')) document.getElementById('profileHandleInput').value = handle;
+    if (document.getElementById('profileWeightInput')) document.getElementById('profileWeightInput').value = weight;
+    if (document.getElementById('profileHeightInput')) document.getElementById('profileHeightInput').value = height;
+    if (document.getElementById('profileGoalSelect')) document.getElementById('profileGoalSelect').value = goal;
+    if (document.getElementById('profileRestSelect')) document.getElementById('profileRestSelect').value = rest;
+    if (document.getElementById('languageSelect')) document.getElementById('languageSelect').value = lang;
+
+    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name || 'Jouw Profiel';
+    if (document.getElementById('profileDisplayHandle')) document.getElementById('profileDisplayHandle').textContent = handle ? `@${handle}` : '@gebruiker';
+
+    const photo = localStorage.getItem('gymlog_profile_photo');
+    const photoDisp = document.getElementById('profilePhotoDisplay');
+    const initialEl = document.getElementById('profilePhotoInitial');
+    const hdrAvatar = document.getElementById('headerAvatarEl');
+    const btnRemove = document.getElementById('btnRemoveProfilePhoto');
+
+    const initChar = name ? name.charAt(0).toUpperCase() : 'U';
+    if (photo && photoDisp) {
+      photoDisp.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;" />`;
+      if (hdrAvatar) hdrAvatar.innerHTML = `<img src="${photo}" style="width:100%;height:100%;object-fit:cover;" />`;
+      if (btnRemove) btnRemove.style.display = 'inline-block';
+    } else {
+      if (photoDisp) photoDisp.innerHTML = `<span id="profilePhotoInitial">${initChar}</span>`;
+      if (hdrAvatar) hdrAvatar.textContent = initChar;
+      if (btnRemove) btnRemove.style.display = 'none';
+    }
+
+    updateCooldownDisplay();
+    updateProfileRankDisplay();
+  }
+
+  function saveProfileSettings() {
+    const name = (document.getElementById('profileNameInput').value || '').trim();
+    const weight = (document.getElementById('profileWeightInput').value || '').trim();
+    const height = (document.getElementById('profileHeightInput').value || '').trim();
+    const goal = document.getElementById('profileGoalSelect').value;
+    const rest = document.getElementById('profileRestSelect').value;
+
+    localStorage.setItem('gymlog_username', name);
+    localStorage.setItem('gymlog_weight', weight);
+    localStorage.setItem('gymlog_height', height);
+    localStorage.setItem('gymlog_goal', goal);
+    localStorage.setItem('gymlog_rest', rest);
+
+    if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name || 'Jouw Profiel';
+    const initChar = name ? name.charAt(0).toUpperCase() : 'U';
+    const hdrAvatar = document.getElementById('headerAvatarEl');
+    const photo = localStorage.getItem('gymlog_profile_photo');
+    if (!photo && hdrAvatar) hdrAvatar.textContent = initChar;
+    triggerToast('Profiel opgeslagen!');
+  }
+
+  function handleProfilePhotoUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxSize = 260;
+        let w = img.width, h = img.height;
+        if (w > h) {
+          if (w > maxSize) { h = Math.round((h * maxSize) / w); w = maxSize; }
+        } else {
+          if (h > maxSize) { w = Math.round((w * maxSize) / h); h = maxSize; }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const compressedB64 = canvas.toDataURL('image/jpeg', 0.85);
+
+        try {
+          localStorage.setItem('gymlog_profile_photo', compressedB64);
+          loadProfileSettings();
+          triggerToast('Profielfoto opgeslagen!');
+        } catch(err) {
+          triggerToast('Foto te groot voor opslag');
+        }
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeProfilePhoto() {
+    localStorage.removeItem('gymlog_profile_photo');
+    loadProfileSettings();
+    triggerToast('Profielfoto verwijderd');
+  }
+
+  // === WEERGAVE, FULL-APP ACHTERGROND THEMA'S (16 KLEUREN) ===
+  const THEME_PALETTES = [
+    {
+      id: 'black',
+      name: 'Onyx Black (OLED)',
+      swatch: '#000000',
+      vars: {
+        '--bg': '#07080a',
+        '--surface-1': '#111217',
+        '--surface-2': '#191a22',
+        '--surface-3': '#232530',
+        '--border': '#282a36',
+        '--border-light': '#3c3f52',
+        '--text': '#ffffff',
+        '--text-sec': '#94a3b8',
+        '--text-mut': '#64748b',
+        '--blue': '#38bdf8',
+        '--blue-glow': 'rgba(56, 189, 248, 0.45)'
+      }
+    },
+    {
+      id: 'grey',
+      name: 'Graphite Grey (Grijs)',
+      swatch: '#4b5563',
+      vars: {
+        '--bg': '#20242c',
+        '--surface-1': '#2b303b',
+        '--surface-2': '#373e4d',
+        '--surface-3': '#464f61',
+        '--border': '#525c70',
+        '--border-light': '#6b7891',
+        '--text': '#f3f4f6',
+        '--text-sec': '#d1d5db',
+        '--text-mut': '#9ca3af',
+        '--blue': '#60a5fa',
+        '--blue-glow': 'rgba(96, 165, 250, 0.45)'
+      }
+    },
+    {
+      id: 'titanium',
+      name: 'Titanium Steel (Zilver/Metaal)',
+      swatch: '#334155',
+      vars: {
+        '--bg': '#14181f',
+        '--surface-1': '#1e242e',
+        '--surface-2': '#29323f',
+        '--surface-3': '#384354',
+        '--border': '#475569',
+        '--border-light': '#64748b',
+        '--text': '#f8fafc',
+        '--text-sec': '#cbd5e1',
+        '--text-mut': '#94a3b8',
+        '--blue': '#94a3b8',
+        '--blue-glow': 'rgba(148, 163, 184, 0.45)'
+      }
+    },
+    {
+      id: 'cyan',
+      name: 'Electric Cyan (Blauw)',
+      swatch: '#0284c7',
+      vars: {
+        '--bg': '#06131c',
+        '--surface-1': '#0b202f',
+        '--surface-2': '#112f45',
+        '--surface-3': '#194261',
+        '--border': '#22557c',
+        '--border-light': '#3277ad',
+        '--text': '#ffffff',
+        '--text-sec': '#93c5fd',
+        '--text-mut': '#60a5fa',
+        '--blue': '#38bdf8',
+        '--blue-glow': 'rgba(56, 189, 248, 0.5)'
+      }
+    },
+    {
+      id: 'ocean',
+      name: 'Deep Ocean (Diepzee)',
+      swatch: '#0369a1',
+      vars: {
+        '--bg': '#041421',
+        '--surface-1': '#0a2235',
+        '--surface-2': '#0f334f',
+        '--surface-3': '#174a72',
+        '--border': '#1d5e91',
+        '--border-light': '#2b82c7',
+        '--text': '#ffffff',
+        '--text-sec': '#bae6fd',
+        '--text-mut': '#7dd3fc',
+        '--blue': '#0ea5e9',
+        '--blue-glow': 'rgba(14, 165, 233, 0.5)'
+      }
+    },
+    {
+      id: 'aquamarine',
+      name: 'Aquamarine (Turkoois)',
+      swatch: '#06b6d4',
+      vars: {
+        '--bg': '#04181a',
+        '--surface-1': '#0a282b',
+        '--surface-2': '#103c40',
+        '--surface-3': '#18555b',
+        '--border': '#226f77',
+        '--border-light': '#2f9aa5',
+        '--text': '#ffffff',
+        '--text-sec': '#a5f3fc',
+        '--text-mut': '#67e8f9',
+        '--blue': '#22d3ee',
+        '--blue-glow': 'rgba(34, 211, 238, 0.5)'
+      }
+    },
+    {
+      id: 'green',
+      name: 'Toxic Emerald (Groen)',
+      swatch: '#059669',
+      vars: {
+        '--bg': '#05160e',
+        '--surface-1': '#0a261a',
+        '--surface-2': '#103927',
+        '--surface-3': '#184f37',
+        '--border': '#216748',
+        '--border-light': '#2f8d63',
+        '--text': '#ffffff',
+        '--text-sec': '#a7f3d0',
+        '--text-mut': '#6ee7b7',
+        '--blue': '#30d158',
+        '--blue-glow': 'rgba(48, 209, 88, 0.5)'
+      }
+    },
+    {
+      id: 'matcha',
+      name: 'Matcha Olive (Saliagroen)',
+      swatch: '#65a30d',
+      vars: {
+        '--bg': '#0f170a',
+        '--surface-1': '#192612',
+        '--surface-2': '#25381b',
+        '--surface-3': '#344f26',
+        '--border': '#476935',
+        '--border-light': '#63914a',
+        '--text': '#ffffff',
+        '--text-sec': '#d9f99d',
+        '--text-mut': '#bef264',
+        '--blue': '#84cc16',
+        '--blue-glow': 'rgba(132, 204, 22, 0.5)'
+      }
+    },
+    {
+      id: 'purple',
+      name: 'Cyberpunk Violet (Neon Paars)',
+      swatch: '#7c3aed',
+      vars: {
+        '--bg': '#10061a',
+        '--surface-1': '#1c0c2d',
+        '--surface-2': '#2b1343',
+        '--surface-3': '#3d1c5e',
+        '--border': '#52277e',
+        '--border-light': '#7136ac',
+        '--text': '#ffffff',
+        '--text-sec': '#e9d5ff',
+        '--text-mut': '#c084fc',
+        '--blue': '#c084fc',
+        '--blue-glow': 'rgba(192, 132, 252, 0.5)'
+      }
+    },
+    {
+      id: 'cosmic',
+      name: 'Cosmic Midnight (Indigo)',
+      swatch: '#4f46e5',
+      vars: {
+        '--bg': '#08091a',
+        '--surface-1': '#10122e',
+        '--surface-2': '#191c44',
+        '--surface-3': '#24285f',
+        '--border': '#333882',
+        '--border-light': '#484eb3',
+        '--text': '#ffffff',
+        '--text-sec': '#c7d2fe',
+        '--text-mut': '#a5b4fc',
+        '--blue': '#818cf8',
+        '--blue-glow': 'rgba(129, 140, 248, 0.5)'
+      }
+    },
+    {
+      id: 'red',
+      name: 'Blood Crimson (Bloedrood)',
+      swatch: '#dc2626',
+      vars: {
+        '--bg': '#170607',
+        '--surface-1': '#260c0e',
+        '--surface-2': '#3a1316',
+        '--surface-3': '#501c20',
+        '--border': '#6c272d',
+        '--border-light': '#93363e',
+        '--text': '#ffffff',
+        '--text-sec': '#fecaca',
+        '--text-mut': '#f87171',
+        '--blue': '#ff453a',
+        '--blue-glow': 'rgba(255, 69, 58, 0.5)'
+      }
+    },
+    {
+      id: 'ruby',
+      name: 'Ruby Wine (Bordeaux)',
+      swatch: '#9f1239',
+      vars: {
+        '--bg': '#17050b',
+        '--surface-1': '#280a15',
+        '--surface-2': '#3d1021',
+        '--surface-3': '#55172f',
+        '--border': '#732140',
+        '--border-light': '#9d3058',
+        '--text': '#ffffff',
+        '--text-sec': '#fecdd3',
+        '--text-mut': '#fda4af',
+        '--blue': '#fb7185',
+        '--blue-glow': 'rgba(251, 113, 133, 0.5)'
+      }
+    },
+    {
+      id: 'orange',
+      name: 'Solar Amber (Oranje/Goud)',
+      swatch: '#d97706',
+      vars: {
+        '--bg': '#170c02',
+        '--surface-1': '#271605',
+        '--surface-2': '#3a2209',
+        '--surface-3': '#51300f',
+        '--border': '#6e4216',
+        '--border-light': '#965a1f',
+        '--text': '#ffffff',
+        '--text-sec': '#fed7aa',
+        '--text-mut': '#fb923c',
+        '--blue': '#ff9500',
+        '--blue-glow': 'rgba(255, 149, 0, 0.5)'
+      }
+    },
+    {
+      id: 'electricgold',
+      name: 'Electric Gold (Geel/Bumblebee)',
+      swatch: '#ca8a04',
+      vars: {
+        '--bg': '#161302',
+        '--surface-1': '#292305',
+        '--surface-2': '#3d3408',
+        '--surface-3': '#55490c',
+        '--border': '#736311',
+        '--border-light': '#9e8818',
+        '--text': '#ffffff',
+        '--text-sec': '#fef08a',
+        '--text-mut': '#fde047',
+        '--blue': '#facc15',
+        '--blue-glow': 'rgba(250, 204, 21, 0.5)'
+      }
+    },
+    {
+      id: 'pink',
+      name: 'Neon Pink (Cyber Roze)',
+      swatch: '#db2777',
+      vars: {
+        '--bg': '#180511',
+        '--surface-1': '#280b1e',
+        '--surface-2': '#3b122d',
+        '--surface-3': '#521a3f',
+        '--border': '#702456',
+        '--border-light': '#983375',
+        '--text': '#ffffff',
+        '--text-sec': '#fbcfe8',
+        '--text-mut': '#f472b6',
+        '--blue': '#ec4899',
+        '--blue-glow': 'rgba(236, 72, 153, 0.5)'
+      }
+    },
+    {
+      id: 'white',
+      name: 'Clean Light (Fris Wit)',
+      swatch: '#f8fafc',
+      vars: {
+        '--bg': '#f8fafc',
+        '--surface-1': '#ffffff',
+        '--surface-2': '#f1f5f9',
+        '--surface-3': '#e2e8f0',
+        '--border': '#cbd5e1',
+        '--border-light': '#94a3b8',
+        '--text': '#0f172a',
+        '--text-sec': '#475569',
+        '--text-mut': '#64748b',
+        '--blue': '#0284c7',
+        '--blue-glow': 'rgba(2, 132, 199, 0.3)'
+      }
+    }
+  ];
+
+  function initThemeSettings() {
+    const savedThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
+    applyFullAppTheme(savedThemeId, false);
+  }
+
+  function toggleDarkMode() {
+    const currentTheme = localStorage.getItem('gymlog_full_theme') || 'black';
+    if (currentTheme === 'white') {
+      applyFullAppTheme('black', true);
+    } else {
+      applyFullAppTheme('white', true);
+    }
+  }
+
+  function applyFullAppTheme(themeId, showToast = true) {
+    const theme = THEME_PALETTES.find(t => t.id === themeId) || THEME_PALETTES[0];
+    
+    Object.entries(theme.vars).forEach(([cssKey, cssVal]) => {
+      document.documentElement.style.setProperty(cssKey, cssVal);
+    });
+
+    if (themeId === 'white') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+
+    const title = document.getElementById('lblDarkModeTitle');
+    const text = document.getElementById('themeToggleText');
+    const icon = document.getElementById('themeToggleIcon');
+
+    if (themeId === 'white') {
+      if (title) title.textContent = 'Licht Thema';
+      if (text) text.textContent = 'Light Mode';
+      if (icon) icon.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
+    } else {
+      if (title) title.textContent = 'Donker Thema';
+      if (text) text.textContent = 'Dark Mode';
+      if (icon) icon.innerHTML = '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>';
+    }
+
+    localStorage.setItem('gymlog_full_theme', theme.id);
+    renderThemeColorSwatches();
+    if (showToast) triggerToast(`Thema gewijzigd: ${theme.name}`);
+  }
+
+  function renderThemeColorSwatches() {
+    const container = document.getElementById('themeColorSwatches');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const currentThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
+
+    THEME_PALETTES.forEach(theme => {
+      const circle = document.createElement('div');
+      const isActive = (theme.id === currentThemeId);
+      circle.className = `theme-color-circle${isActive ? ' active' : ''}`;
+      circle.style.backgroundColor = theme.swatch;
+      circle.title = theme.name;
+      circle.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+      circle.onclick = () => applyFullAppTheme(theme.id, true);
+      container.appendChild(circle);
+    });
+  }
+
+  // === AGENDA / MAAND KALENDER MET SLOTJES VOOR TOEKOMSTIGE DAGEN ===
+  let agendaViewDate = new Date();
+  let agendaSelectedDateStr = formatDateKey(new Date());
+
+  function navigateAgendaMonth(delta) {
+    if (delta === 0) {
+      agendaViewDate = new Date();
+    } else {
+      agendaViewDate.setMonth(agendaViewDate.getMonth() + delta);
+    }
+    renderAgendaView();
+  }
+
+  function renderAgendaView() {
+    const year = agendaViewDate.getFullYear();
+    const month = agendaViewDate.getMonth();
+    const monthNames = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+    
+    const titleEl = document.getElementById('agendaMonthYearTitle');
+    if (titleEl) titleEl.textContent = `${monthNames[month]} ${year}`;
+
+    const gridEl = document.getElementById('agendaMonthGrid');
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const firstDayDate = new Date(year, month, 1);
+    let startDayOfWeek = firstDayDate.getDay(); // 0=Sun, 1=Mon...
+    startDayOfWeek = (startDayOfWeek === 0 ? 6 : startDayOfWeek - 1); // 0=Mon, 6=Sun
+
+    const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const todayStr = formatDateKey(today);
+
+    const schema = getActiveRoutineSchema();
+
+    // Empty cells before start of month
+    for (let i = 0; i < startDayOfWeek; i++) {
+      const emptyBox = document.createElement('div');
+      emptyBox.className = 'cal-day-box empty';
+      gridEl.appendChild(emptyBox);
+    }
+
+    // Days of the month
+    for (let d = 1; d <= totalDaysInMonth; d++) {
+      const thisDate = new Date(year, month, d);
+      thisDate.setHours(0,0,0,0);
+      const dateStr = formatDateKey(thisDate);
+      const dayOfWeek = thisDate.getDay();
+      const dayIdx = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+      const dayData = schema[dayIdx] || { label: 'RUST' };
+
+      const isToday = (dateStr === todayStr);
+      const isFuture = (thisDate > today);
+      const isSelected = (dateStr === agendaSelectedDateStr);
+
+      // Check if any sets completed on this date
+      let dateVolume = 0;
+      let setsCompleted = 0;
+      for (let kIdx = 0; kIdx < localStorage.length; kIdx++) {
+        const key = localStorage.key(kIdx);
+        if (key && key.startsWith(`gymlog_sets:${dateStr}:`)) {
+          try {
+            const sets = JSON.parse(localStorage.getItem(key));
+            sets.forEach(s => {
+              if (s.done) {
+                setsCompleted++;
+                dateVolume += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+              }
+            });
+          } catch(e) {}
+        }
+      }
+
+      const hasWorkoutDone = setsCompleted > 0;
+      const isRest = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
+
+      const dayBox = document.createElement('div');
+      let classes = ['cal-day-box'];
+      if (isToday) classes.push('today');
+      if (isFuture) classes.push('locked');
+      else if (hasWorkoutDone) classes.push('done');
+      if (isSelected) classes.push('selected');
+      dayBox.className = classes.join(' ');
+
+      let statusIcon = '';
+      if (isFuture) {
+        // Lock Icon SVG
+        statusIcon = '<svg style="width:12px;height:12px;fill:#64748b" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>';
+      } else if (hasWorkoutDone) {
+        statusIcon = '<svg style="width:12px;height:12px;fill:#30d158" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+      } else if (isRest) {
+        statusIcon = '<div style="width:5px;height:5px;border-radius:50%;background:#475569;margin:3px auto 0;"></div>';
+      } else {
+        statusIcon = '<div style="width:5px;height:5px;border-radius:50%;background:#ef4444;margin:3px auto 0;"></div>';
+      }
+
+      let shortLabel = dayData.label.replace(' WORKOUT', '').replace(' OVERLOAD', '');
+      if (shortLabel.length > 7) shortLabel = shortLabel.slice(0, 6) + '.';
+
+      dayBox.innerHTML = `
+        <div class="cal-day-num">${d}</div>
+        <div class="cal-day-tag">${shortLabel}</div>
+        <div>${statusIcon}</div>
+      `;
+
+      dayBox.onclick = () => {
+        if (isFuture) {
+          triggerToast('Deze dag is vergrendeld totdat de datum aanbreekt!');
+          return;
+        }
+        agendaSelectedDateStr = dateStr;
+        renderAgendaView();
+        renderAgendaDayDetail(dateStr, dayIdx);
+      };
+
+      gridEl.appendChild(dayBox);
+    }
+
+    renderAgendaDayDetail(agendaSelectedDateStr, new Date(agendaSelectedDateStr).getDay() === 0 ? 6 : new Date(agendaSelectedDateStr).getDay() - 1);
+  }
+
+  function renderAgendaDayDetail(dateStr, dayIdx) {
+    const container = document.getElementById('agendaDayContent');
+    if (!container) return;
+
+    const schema = getActiveRoutineSchema();
+    const dayData = schema[dayIdx] || { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+
+    const parsedDate = new Date(dateStr);
+    const dateTitle = parsedDate.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    container.innerHTML = `
+      <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div>
+            <div style="font-size:16px; font-weight:800; color:var(--text); text-transform:capitalize;">${dateTitle}</div>
+            <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${dayData.name} Schema</div>
+          </div>
+          <div class="workout-badge">${dayData.label}</div>
+        </div>
+        <div id="agendaGroupList"></div>
+      </div>
+    `;
+
+    const gList = document.getElementById('agendaGroupList');
+    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
+      gList.innerHTML = '<div style="font-size:13px; color:var(--text-sec); text-align:center; padding:16px;">Rustdag - Geen oefeningen gepland</div>';
+      return;
+    }
+
+    dayData.groups.forEach(g => {
+      const box = document.createElement('div');
+      box.style.marginBottom = '12px';
+      box.innerHTML = `<div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--text-sec); margin-bottom:6px;">${g.title}</div>`;
+      
+      g.exercises.forEach(ex => {
+        const sets = loadExerciseSets(dateStr, dayIdx, ex);
+        let setSummary = '';
+        const doneSets = sets.filter(s => s.done);
+        if (doneSets.length > 0) {
+          const maxWeight = Math.max(...doneSets.map(s => parseFloat(s.weight) || 0));
+          setSummary = `<span style="color:var(--green); font-size:11px; font-weight:700;">${doneSets.length} sets (${maxWeight} kg max)</span>`;
+        } else {
+          setSummary = `<span style="color:var(--text-mut); font-size:11px;">Niet gelogd</span>`;
+        }
+
+        const item = document.createElement('div');
+        item.style.cssText = 'padding:10px 12px; background:var(--surface-2); border-radius:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;';
+        item.innerHTML = `
+          <div>
+            <div style="font-size:13px; font-weight:800; color:var(--text);">${ex}</div>
+            <div style="margin-top:2px;">${setSummary}</div>
+          </div>
+          <button onclick="openDetailModal('${ex}')" style="padding:4px 10px; border-radius:6px; background:var(--surface-3); border:1px solid var(--border); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">Bekijk</button>
+        `;
+        box.appendChild(item);
+      });
+      gList.appendChild(box);
+    });
+  }
+
+  // === TRACKER VIEW & INTERACTIEVE OEFENING GRAFIEK ===
+  function renderTrackerView() {
+    const totalVol = getAllTimeTotalVolume();
+    document.getElementById('trackerTotalVolume').textContent = `${Math.round(totalVol).toLocaleString('nl-NL')} kg`;
+
+    let setCnt = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:')) {
+        try {
+          const sets = JSON.parse(localStorage.getItem(k));
+          sets.forEach(s => { if (s.done) setCnt++; });
+        } catch(e) {}
+      }
+    }
+    document.getElementById('trackerTotalSets').textContent = setCnt;
+    
+    populateTrackerExerciseDropdown();
+    loadProgressPhotos();
+  }
+
+  function populateTrackerExerciseDropdown() {
+    const select = document.getElementById('trackerExerciseSelect');
+    if (!select) return;
+
+    const currentVal = select.value;
+    select.innerHTML = '<option value="">Kies een oefening om de grafiek te zien...</option>';
+
+    // Find all exercises with logs or from routine
+    const allExNames = new Set();
+    const schema = getActiveRoutineSchema();
+    schema.forEach(d => {
+      if (d.groups) d.groups.forEach(g => {
+        g.exercises.forEach(e => allExNames.add(e));
+      });
+    });
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:')) {
+        const parts = k.split(':');
+        if (parts.length >= 4) allExNames.add(parts[3]);
+      }
+    }
+
+    const sorted = Array.from(allExNames).sort();
+    sorted.forEach(ex => {
+      const opt = document.createElement('option');
+      opt.value = ex;
+      opt.textContent = ex;
+      select.appendChild(opt);
+    });
+
+    if (currentVal && sorted.includes(currentVal)) {
+      select.value = currentVal;
+      renderExerciseProgressionChart(currentVal);
+    } else if (sorted.length > 0) {
+      select.value = sorted[0];
+      renderExerciseProgressionChart(sorted[0]);
+    }
+  }
+
+  function renderExerciseProgressionChart(exName) {
+    const canvas = document.getElementById('exerciseProgressionCanvas');
+    const emptyState = document.getElementById('chartEmptyState');
+    const prEl = document.getElementById('chartStatPr');
+    const sessEl = document.getElementById('chartStatSessions');
+    const volEl = document.getElementById('chartStatVolume');
+
+    if (!exName || !canvas) {
+      if (emptyState) emptyState.style.display = 'flex';
+      return;
+    }
+
+    // Collect data points: date -> maxWeight & volume
+    const historyMap = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_sets:') && k.includes(`:${exName}`)) {
+        const parts = k.split(':');
+        const dateStr = parts[1];
+        try {
+          const sets = JSON.parse(localStorage.getItem(k));
+          sets.forEach(s => {
+            if (s.done) {
+              const w = parseFloat(s.weight) || 0;
+              const r = parseFloat(s.reps) || 0;
+              if (!historyMap[dateStr]) historyMap[dateStr] = { maxWeight: 0, volume: 0, reps: 0 };
+              if (w > historyMap[dateStr].maxWeight) {
+                historyMap[dateStr].maxWeight = w;
+                historyMap[dateStr].reps = r;
+              }
+              historyMap[dateStr].volume += (w * r);
+            }
+          });
+        } catch(e) {}
+      }
+    }
+
+    const sortedDates = Object.keys(historyMap).sort();
+    if (sortedDates.length === 0) {
+      if (emptyState) {
+        emptyState.textContent = `Nog geen sets gelogd voor "${exName}". Train vandaag om je grafiek te zien!`;
+        emptyState.style.display = 'flex';
+      }
+      if (prEl) prEl.textContent = '-';
+      if (sessEl) sessEl.textContent = '0';
+      if (volEl) volEl.textContent = '-';
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    let overallPr = 0;
+    let totalExVol = 0;
+    const points = sortedDates.map(dStr => {
+      const dObj = historyMap[dStr];
+      if (dObj.maxWeight > overallPr) overallPr = dObj.maxWeight;
+      totalExVol += dObj.volume;
+      return {
+        dateStr: dStr,
+        label: dStr.slice(5), // MM-DD
+        weight: dObj.maxWeight
+      };
+    });
+
+    if (prEl) prEl.textContent = `${overallPr} kg`;
+    if (sessEl) sessEl.textContent = sortedDates.length;
+    if (volEl) volEl.textContent = `${Math.round(totalExVol).toLocaleString('nl-NL')} kg`;
+
+    // Draw high-DPI Canvas Chart
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = (rect.width || 340) * dpr;
+    canvas.height = (rect.height || 210) * dpr;
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width || 340;
+    const h = rect.height || 210;
+    const padL = 36, padR = 20, padT = 20, padB = 28;
+    const plotW = w - padL - padR;
+    const plotH = h - padT - padB;
+
+    ctx.clearRect(0, 0, w, h);
+
+    const maxW = Math.max(...points.map(p => p.weight), 10);
+    const minW = Math.max(0, Math.min(...points.map(p => p.weight)) - 10);
+    const range = (maxW - minW) || 10;
+
+    const getX = (idx) => {
+      if (points.length === 1) return padL + plotW / 2;
+      return padL + (idx / (points.length - 1)) * plotW;
+    };
+    const getY = (val) => padT + plotH - ((val - minW) / range) * plotH;
+
+    // Grid lines
+    ctx.strokeStyle = '#262933';
+    ctx.lineWidth = 1;
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#656b7c';
+    ctx.textAlign = 'right';
+
+    for (let step = 0; step <= 3; step++) {
+      const val = Math.round(minW + (step / 3) * range);
+      const y = getY(val);
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(w - padR, y);
+      ctx.stroke();
+      ctx.fillText(`${val}k`, padL - 6, y + 3);
+    }
+
+    // Gradient fill under curve
+    const grad = ctx.createLinearGradient(0, padT, 0, padT + plotH);
+    grad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+    grad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(points[0].weight));
+    for (let i = 1; i < points.length; i++) {
+      const prevX = getX(i - 1), prevY = getY(points[i - 1].weight);
+      const curX = getX(i), curY = getY(points[i].weight);
+      const cpX = (prevX + curX) / 2;
+      ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+    }
+    ctx.lineTo(getX(points.length - 1), padT + plotH);
+    ctx.lineTo(getX(0), padT + plotH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line stroke
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(points[0].weight));
+    for (let i = 1; i < points.length; i++) {
+      const prevX = getX(i - 1), prevY = getY(points[i - 1].weight);
+      const curX = getX(i), curY = getY(points[i].weight);
+      const cpX = (prevX + curX) / 2;
+      ctx.bezierCurveTo(cpX, prevY, cpX, curY, curX, curY);
+    }
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Points & Value badges
+    ctx.textAlign = 'center';
+    points.forEach((p, idx) => {
+      const cx = getX(idx);
+      const cy = getY(p.weight);
+
+      // Outer glow circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+
+      // Inner white dot
+      ctx.beginPath();
+      ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+
+      // Value label on top
+      ctx.font = 'bold 10px Outfit, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(`${p.weight}kg`, cx, cy - 8);
+
+      // Date label on bottom
+      ctx.font = '9px JetBrains Mono, monospace';
+      ctx.fillStyle = '#9ba1b0';
+      ctx.fillText(p.label, cx, h - 8);
+    });
+  }
+
+  function handleProgressPhotoUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const b64 = ev.target.result;
+      const photos = JSON.parse(localStorage.getItem('gymlog_progress_photos') || '[]');
+      photos.unshift({ date: new Date().toLocaleDateString('nl-NL'), src: b64 });
+      try {
+        localStorage.setItem('gymlog_progress_photos', JSON.stringify(photos.slice(0, 10)));
+        loadProgressPhotos();
+        triggerToast('Progressiefoto toegevoegd!');
+      } catch(err) {
+        triggerToast('Foto opslaglimiet bereikt');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function loadProgressPhotos() {
+    const grid = document.getElementById('progressPhotosGrid');
+    if (!grid) return;
+    const photos = JSON.parse(localStorage.getItem('gymlog_progress_photos') || '[]');
+    grid.innerHTML = '';
+
+    if (photos.length === 0) {
+      grid.innerHTML = '<div style="grid-column:span 2; font-size:12px; color:var(--text-sec); text-align:center; padding:16px;">Nog geen progressiefoto\'s geÃ¼pload</div>';
+      return;
+    }
+
+    photos.forEach(p => {
+      const item = document.createElement('div');
+      item.style.cssText = 'background:var(--surface-2); border-radius:12px; overflow:hidden; border:1px solid var(--border);';
+      item.innerHTML = `
+        <img src="${p.src}" style="width:100%; height:140px; object-fit:cover; display:block;" />
+        <div style="font-size:10px; font-weight:800; color:var(--text-sec); text-align:center; padding:4px;">${p.date}</div>
+      `;
+      grid.appendChild(item);
+    });
+  }
+
+  // SEARCH & LIBRARY VIEW
+  const CATEGORIES = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen', 'Cardio'];
+  const EQUIPMENTS = ['Barbell', 'Dumbbells', 'Kabelstation', 'Machine', 'Lichaamsgewicht'];
+
+  function initSearchLibrary() {
+    const mChips = document.getElementById('muscleFilterChips');
+    const eChips = document.getElementById('equipmentFilterChips');
+    mChips.innerHTML = '';
+    eChips.innerHTML = '';
+
+    CATEGORIES.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = `chip-btn${activeCategoryFilter === cat ? ' active' : ''}`;
+      btn.textContent = getCategoryTranslation(cat);
+      btn.onclick = () => {
+        activeCategoryFilter = (activeCategoryFilter === cat) ? '' : cat;
+        initSearchLibrary();
+        filterSearchLibrary();
+      };
+      mChips.appendChild(btn);
+    });
+
+    EQUIPMENTS.forEach(eq => {
+      const btn = document.createElement('button');
+      btn.className = `chip-btn${activeEquipmentFilter === eq ? ' active' : ''}`;
+      btn.textContent = getEquipmentTranslation(eq);
+      btn.onclick = () => {
+        activeEquipmentFilter = (activeEquipmentFilter === eq) ? '' : eq;
+        initSearchLibrary();
+        filterSearchLibrary();
+      };
+      eChips.appendChild(btn);
+    });
+
+    filterSearchLibrary();
+  }
+
+  function filterSearchLibrary() {
+    const q = (document.getElementById('searchInput').value || '').toLowerCase();
+    const list = document.getElementById('searchLibraryList');
+    list.innerHTML = '';
+
+    const entries = Object.entries(ALL_EXERCISES_DATABASE).filter(([name, data]) => {
+      const translatedCat = getCategoryTranslation(data.category).toLowerCase();
+      const translatedEq = getEquipmentTranslation(data.equipment).toLowerCase();
+      const matchQ = !q || name.toLowerCase().includes(q) || translatedCat.includes(q) || translatedEq.includes(q);
+      const matchCat = !activeCategoryFilter || data.category === activeCategoryFilter;
+      const matchEq = !activeEquipmentFilter || data.equipment === activeEquipmentFilter;
+      return matchQ && matchCat && matchEq;
+    });
+
+    const TIER_SORT_WEIGHT = { 'S': 1, 'A': 2, 'B': 3, 'C': 4, 'D': 5 };
+    entries.sort((a, b) => {
+      const tierA = (a[1].tier || 'B').toUpperCase();
+      const tierB = (b[1].tier || 'B').toUpperCase();
+      const scoreA = TIER_SORT_WEIGHT[tierA] || 99;
+      const scoreB = TIER_SORT_WEIGHT[tierB] || 99;
+      if (scoreA !== scoreB) return scoreA - scoreB;
+      return a[0].localeCompare(b[0]);
+    });
+
+    if (entries.length === 0) {
+      list.innerHTML = '<div style="text-align:center; padding:24px; color:var(--text-sec); font-size:13px;">Geen oefeningen gevonden</div>';
+      return;
+    }
+
+    entries.slice(0, 50).forEach(([name, data]) => {
+      const item = document.createElement('div');
+      item.className = 'lib-item';
+      const gifUrl = getExerciseGif(name);
+      const fallbackSrc = CATEGORY_FALLBACK_GIFS[data.category] || CATEGORY_FALLBACK_GIFS['Overig'];
+
+      item.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+          <div class="lib-thumb" onclick="openDetailModal('${name}')" title="Bekijk HD Animatie">
+            <img src="${gifUrl}" alt="${name}" onerror="this.onerror=null;this.src='${fallbackSrc}';" />
+          </div>
+          <div style="flex:1; min-width:0;" onclick="openDetailModal('${name}')" style="cursor:pointer;">
+            <div style="font-weight:800; font-size:13px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${name}</div>
+            <div style="display:flex; gap:4px; margin-top:3px;">
+              <span class="tag-pill tag-tier-${data.tier.toLowerCase()}">${data.tier}</span>
+              <span class="tag-pill">${getCategoryTranslation(data.category)}</span>
+              <span class="tag-pill">${getEquipmentTranslation(data.equipment)}</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+          <select class="lib-add-select" onchange="addExerciseToRoutineDay('${name}', this)">
+            <option value="">+ Voeg toe aan...</option>
+            <option value="0">Maandag (Push)</option>
+            <option value="1">Dinsdag (Pull)</option>
+            <option value="2">Woensdag (Benen)</option>
+            <option value="4">Vrijdag (Upper)</option>
+            <option value="5">Zaterdag (Lower)</option>
+            <option value="3">Donderdag</option>
+            <option value="6">Zondag</option>
+          </select>
+        </div>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  function addExerciseToRoutineDay(exName, selectEl) {
+    const dayIdx = parseInt(selectEl.value, 10);
+    if (isNaN(dayIdx)) return;
+
+    const schema = getActiveRoutineSchema();
+    if (!schema[dayIdx]) {
+      schema[dayIdx] = { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+    }
+
+    const exData = ALL_EXERCISES_DATABASE[exName];
+    const catName = exData ? exData.category : 'Overig';
+
+    let group = schema[dayIdx].groups.find(g => g.title.toLowerCase() === catName.toLowerCase());
+    if (!group) {
+      group = { title: catName, exercises: [] };
+      schema[dayIdx].groups.push(group);
+      if (schema[dayIdx].label.includes('RUST')) {
+        schema[dayIdx].label = catName.toUpperCase() + ' WORKOUT';
+      }
+    }
+
+    if (!group.exercises.includes(exName)) {
+      group.exercises.push(exName);
+      saveActiveRoutineSchema(schema);
+      triggerToast(`+ ${exName} toegevoegd aan ${DAY_NAMES[dayIdx]} (${catName})!`);
+      renderHomeView();
+    } else {
+      triggerToast(`${exName} staat al in ${DAY_NAMES[dayIdx]}!`);
+    }
+
+    selectEl.value = '';
+  }
+
+  // EXPORT & RESET DATA
+  function exportDataBackup() {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('gymlog_')) data[k] = localStorage.getItem(k);
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `gymlog_backup_${formatDateKey(new Date())}.json`;
+    a.click();
+    triggerToast('Backup gedownload!');
+  }
+
+  function resetAllDataConfirmation() {
+    if (confirm('Weet je zeker dat je alle routines en sets wilt resetten? Dit kan niet ongedaan worden gemaakt.')) {
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('gymlog_sets:')) keysToRemove.push(k);
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+      localStorage.removeItem('gymlog_routine_schema');
+      location.reload();
+    }
+  }
+
+  // DETAIL MODAL
+  function openDetailModal(exName) {
+    const exData = ALL_EXERCISES_DATABASE[exName] || { category:'Gym', equipment:'Apparaat', gif:getExerciseGif(exName), tier:'B' };
+    const gifUrl = getExerciseGif(exName);
+    const fallbackSrc = CATEGORY_FALLBACK_GIFS[exData.category] || CATEGORY_FALLBACK_GIFS['Overig'];
+
+    document.getElementById('modalExTitle').textContent = exName;
+    const gifEl = document.getElementById('modalExGif');
+    gifEl.onerror = () => { gifEl.onerror = null; gifEl.src = fallbackSrc; };
+    gifEl.src = gifUrl;
+
+    document.getElementById('modalExTags').innerHTML = `
+      <span class="tag-pill tag-tier-${exData.tier.toLowerCase()}">${exData.tier}-Tier</span>
+      <span class="tag-pill">${getCategoryTranslation(exData.category)}</span>
+      <span class="tag-pill">${getEquipmentTranslation(exData.equipment)}</span>
+    `;
+    const pr = getExerciseMaxWeight(exName);
+    document.getElementById('modalExPr').textContent = pr > 0 ? `${pr} kg` : '-';
+    document.getElementById('exerciseDetailModal').classList.add('open');
+  }
+
+  function closeDetailModal() {
+    document.getElementById('exerciseDetailModal').classList.remove('open');
+  }
+
+  document.getElementById('exerciseDetailModal').onclick = (e) => {
+    if (e.target.id === 'exerciseDetailModal') closeDetailModal();
+  };
+  document.getElementById('animalCelebrationModal').onclick = (e) => {
+    if (e.target.id === 'animalCelebrationModal') closeAnimalModal();
+  };
+  document.getElementById('ranksLadderModal').onclick = (e) => {
+    if (e.target.id === 'ranksLadderModal') closeRanksModal();
+  };
+
+  // BOOTSTRAP APP
+  initThemeSettings();
+  loadProfileSettings();
+  
+  // Restore workout session if it was active
+  restoreWorkoutSession();
+  
+  // Sla huidige rank op als startpunt voor rank-up detectie
+  const _initRank = getUserRank();
+  if (!localStorage.getItem('gymlog_last_rank_id')) {
+    localStorage.setItem('gymlog_last_rank_id', _initRank.current.id);
+  }
+  lastKnownRankId = localStorage.getItem('gymlog_last_rank_id') || _initRank.current.id;
+  renderHomeView();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+  
+
+// ==========================================
 // 12 POPULAIRE TRAININGSCHEMA'S & CUSTOM BUILDER
 // ==========================================
 
@@ -3350,18 +4776,6 @@ const POPULAR_WORKOUT_SCHEMAS = [
   }
 ];
 
-// Default exercise templates per muscle group when added
-const DEFAULT_GROUP_EXERCISES = {
-  'Borst': ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'],
-  'Rug': ['Barbell Bent Over Row', 'Lat Pulldown', 'Seated Cable Row'],
-  'Schouders': ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise', 'Face Pull'],
-  'Biceps': ['Barbell Bicep Curl', 'Hammer Curl'],
-  'Triceps': ['Tricep Rope Pushdown', 'Skull Crusher'],
-  'Benen': ['Barbell Squat', 'Romanian Deadlift', 'Leg Press'],
-  'Buik': ['Hanging Leg Raise', 'Plank'],
-  'Voorarmen': ['Dumbbell Wrist Curl']
-};
-
 // Helper modal functions
 function openSchemaSelectorModal() {
   const modal = document.getElementById('workoutSchemaSelectorModal');
@@ -3411,7 +4825,7 @@ function applyPopularSchema(schemaId, e) {
     closeSchemaSelectorModal();
     renderAgendaView();
     renderHomeView();
-    triggerToast(`Schema ingesteld op: ${found.badge}!`);
+    triggerToast(`Schema ingesteld op: ${found.badge}! 🔥`);
   }
 }
 
@@ -3430,6 +4844,17 @@ function closeCustomSchemaWizard() {
 }
 
 let tempCustomSchema = null;
+
+const DEFAULT_GROUP_EXERCISES = {
+  'Borst': ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'],
+  'Rug': ['Barbell Bent Over Row', 'Lat Pulldown', 'Seated Cable Row'],
+  'Schouders': ['Dumbbell Overhead Press', 'Dumbbell Lateral Raise', 'Face Pull'],
+  'Biceps': ['Barbell Bicep Curl', 'Hammer Curl'],
+  'Triceps': ['Tricep Rope Pushdown', 'Skull Crusher'],
+  'Benen': ['Barbell Squat', 'Romanian Deadlift', 'Leg Press'],
+  'Buik': ['Hanging Leg Raise', 'Plank'],
+  'Voorarmen': ['Dumbbell Wrist Curl']
+};
 
 function renderCustomSchemaDaysEditor() {
   tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
@@ -3463,7 +4888,7 @@ function renderCustomSchemaDaysEditor() {
         <input type="text" value="${dayData.label}" placeholder="Label (bijv. PUSH, CHEST & BACK)" onchange="updateCustomSchemaLabel(${dayIdx}, this.value)" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:12px; font-weight:700; box-sizing:border-box;" />
       </div>
       ${isRest ? '<div style="font-size:11px; color:var(--text-mut); padding:4px 0;">Geen training ingesteld op deze dag. Tik op Rustdag om te wisselen naar Training.</div>' : `
-        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Tik op een spiergroep om toe te voegen of weg te halen:</div>
+        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Selecteer / verwijder spiergroepen:</div>
         <div style="display:flex; flex-wrap:wrap; gap:6px;">${chipsHtml}</div>
       `}
     `;
@@ -3493,7 +4918,7 @@ function toggleCustomSchemaMuscle(dayIdx, cat) {
   const day = tempCustomSchema[dayIdx];
   const gIdx = day.groups.findIndex(g => g.title === cat);
   if (gIdx >= 0) {
-    // Weg halen
+    // Weghalen
     day.groups.splice(gIdx, 1);
   } else {
     // Bijvoegen
@@ -3501,7 +4926,7 @@ function toggleCustomSchemaMuscle(dayIdx, cat) {
     day.groups.push({ title: cat, exercises: [...defaultEx] });
   }
   
-  // Auto update label if it's generic WORKOUT or matches previous groups
+  // Update label
   if (day.groups.length > 0 && (day.label === 'WORKOUT' || day.label === 'RUSTDAG' || day.label.includes('WORKOUT'))) {
     day.label = day.groups.map(g => g.title.toUpperCase()).join(' & ') + ' WORKOUT';
   } else if (day.groups.length === 0) {
@@ -3519,6 +4944,8 @@ function saveCustomSchemaWizard() {
   triggerToast('Jouw eigen schema is succesvol opgeslagen!');
 }
 
+
+
 </script>
   <!-- MODAL: KIES UIT 12 POPULAIRE SCHEMA'S -->
   <div class="modal-overlay" id="workoutSchemaSelectorModal">
@@ -3533,7 +4960,7 @@ function saveCustomSchemaWizard() {
 
       <div style="padding:12px 18px; background:rgba(0,210,255,0.06); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
         <div style="font-size:12px; color:var(--text-sec);">Of stel je eigen trainingsdagen & spieren samen:</div>
-        <button onclick="openCustomSchemaWizard()" style="padding:6px 14px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Custom</button>
+        <button onclick="openCustomSchemaWizard()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">+ Zelf Maken</button>
       </div>
 
       <div id="popularSchemaCardsList" style="flex:1; overflow-y:auto; padding:16px 18px;"></div>
@@ -3548,21 +4975,6 @@ function saveCustomSchemaWizard() {
           <div style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;">CUSTOM BUILDER</div>
           <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">Stel je Eigen Schema Samen</div>
         </div>
-        <button onclick="closeCustomSchemaWizard()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
-      </div>
-
-      <div style="padding:10px 18px; background:var(--surface-1); border-bottom:1px solid var(--border); font-size:12px; color:var(--text-sec);">
-        Kies per dag of het een training of rustdag is, en tik op de spiergroepen om ze toe te voegen of weg te halen.
-      </div>
-
-      <div id="customSchemaDaysContainer" style="flex:1; overflow-y:auto; padding:16px 18px;"></div>
-
-      <div style="padding:14px 18px; border-top:1px solid var(--border); background:var(--surface-2); display:flex; gap:10px;">
-        <button onclick="closeCustomSchemaWizard()" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--surface-1); color:var(--text-sec); font-size:13px; font-weight:700; cursor:pointer;">Annuleren</button>
-        <button onclick="saveCustomSchemaWizard()" class="action-btn" style="flex:2; padding:10px; font-size:13px; font-weight:900;">Schema Opslaan ✓</button>
-      </div>
-    </div>
-  </div>
         <button onclick="closeCustomSchemaWizard()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
       </div>
 
