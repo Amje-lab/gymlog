@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -741,7 +741,7 @@
             <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);" id="schemaBannerTitle">Trainingsschema Kiezen</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
           <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
         </div>
         <div style="display:flex; gap:6px;">
@@ -987,9 +987,21 @@
         <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
-          <option value="es">Espanol</option>
-          <option value="tr">Turkce</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
           <option value="it">Italiano</option>
+          <option value="pt">Português</option>
+          <option value="tr">Türkçe</option>
+          <option value="ar">العربية</option>
+          <option value="pl">Polski</option>
+          <option value="ru">Русский</option>
+          <option value="sv">Svenska</option>
+          <option value="no">Norsk</option>
+          <option value="da">Dansk</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="ko">한국어</option>
         </select>
       </div>
 
@@ -1012,23 +1024,23 @@
   <nav class="bottom-nav">
     <button class="nav-item active" id="navBtnHome" onclick="switchTab('home')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span class="nav-label" id="navLblHome">Home</span>
+      <span class="nav-label">Home</span>
     </button>
     <button class="nav-item" id="navBtnAgenda" onclick="switchTab('agenda')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
-      <span class="nav-label" id="navLblAgenda">Agenda</span>
+      <span class="nav-label">Agenda</span>
     </button>
     <button class="nav-item" id="navBtnTracker" onclick="switchTab('tracker')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-      <span class="nav-label" id="navLblTracker">Tracker</span>
+      <span class="nav-label">Tracker</span>
     </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchTab('search')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <span class="nav-label" id="navLblSearch">Zoeken</span>
+      <span class="nav-label">Zoeken</span>
     </button>
     <button class="nav-item" id="navBtnProfile" onclick="switchTab('profile')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span class="nav-label" id="navLblProfile">Profiel</span>
+      <span class="nav-label">Profiel</span>
     </button>
   </nav>
 
@@ -1152,8 +1164,6 @@
   // MULTI-LANGUAGE TRANSLATIONS (17 LANGUAGES)
   const TRANSLATIONS = {
     nl: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Zoeken', navProfile: 'Profiel',
-      schemaTitle: 'Trainingsschema Kiezen', schemaSubtitle: 'Kies uit 12 populaire trainingsschema''s', saveBtn: 'Opslaan',
       welcome: "WELKOM TERUG", startSession: "Start Sessie", stopSession: "Sessie Afronden",
       sessionStatus: "Sessie Status", activeWorkout: "WORKOUT ACTIEF", sets: "Sets", exercises: "Oefeningen",
       volume: "Volume", restDayToday: "Rustdag Vandaag", restDaySub: "Tijd voor herstel en goede voeding!",
@@ -1175,8 +1185,6 @@
       }
     },
     en: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Search', navProfile: 'Profile',
-      schemaTitle: 'Training Schema', schemaSubtitle: 'Choose from 12 popular training schemas', saveBtn: 'Save',
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
       sessionStatus: "Session Status", activeWorkout: "WORKOUT ACTIVE", sets: "Sets", exercises: "Exercises",
       volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and good nutrition!",
@@ -1240,8 +1248,6 @@
       }
     },
     es: {
-      navHome: 'Inicio', navAgenda: 'Agenda', navTracker: 'Progreso', navSearch: 'Buscar', navProfile: 'Perfil',
-      schemaTitle: 'Elegir Esquema', schemaSubtitle: 'Elige entre 12 esquemas populares', saveBtn: 'Guardar',
       welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
       sessionStatus: "Estado Sesion", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
       volume: "Volumen", restDayToday: "Dia de Descanso", restDaySub: "Tiempo de recuperacion!",
@@ -1263,8 +1269,6 @@
       }
     },
     tr: {
-      navHome: 'Ana Sayfa', navAgenda: 'Ajanda', navTracker: 'Takip', navSearch: 'Ara', navProfile: 'Profil',
-      schemaTitle: 'Antrenman Secimi', schemaSubtitle: '12 populer programdan birini sec', saveBtn: 'Kaydet',
       welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
       sessionStatus: "Durum", activeWorkout: "AKTIF ANTRENMAN", sets: "Setler", exercises: "Egzersizler",
       volume: "Hacim", restDayToday: "Dinlenme Gunu", restDaySub: "Toparlanma zamani!",
@@ -1286,8 +1290,6 @@
       }
     },
     it: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Cerca', navProfile: 'Profilo',
-      schemaTitle: 'Scegli Schema', schemaSubtitle: 'Scegli tra 12 schemi popolari', saveBtn: 'Salva',
       welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
       sessionStatus: "Stato", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
       volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero!",
@@ -1568,27 +1570,9 @@
     const l = getLang();
     const T = TRANSLATIONS[l] || TRANSLATIONS['nl'];
 
-    // Nav labels
-    const nHome = document.getElementById('navLblHome');
-    const nAgenda = document.getElementById('navLblAgenda');
-    const nTracker = document.getElementById('navLblTracker');
-    const nSearch = document.getElementById('navLblSearch');
-    const nProfile = document.getElementById('navLblProfile');
-    if (nHome) nHome.textContent = T.navHome || 'Home';
-    if (nAgenda) nAgenda.textContent = T.navAgenda || 'Agenda';
-    if (nTracker) nTracker.textContent = T.navTracker || 'Tracker';
-    if (nSearch) nSearch.textContent = T.navSearch || 'Zoeken';
-    if (nProfile) nProfile.textContent = T.navProfile || 'Profiel';
-
     // Header & nav
     const brandSub = document.querySelector('.brand-sub');
     if (brandSub) brandSub.textContent = T.brandSub || 'PROGRESSIVE TRACKER';
-
-    // Schema banner
-    const schemaTitle = document.querySelector('[id="schemaBannerTitle"]');
-    const schemaSubtitle = document.querySelector('[id="schemaBannerSubtitle"]');
-    if (schemaTitle) schemaTitle.textContent = T.schemaTitle || 'Trainingsschema Kiezen';
-    if (schemaSubtitle) schemaSubtitle.textContent = T.schemaSubtitle || 'Kies uit 12 populaire trainingsschema''s';
 
     // Stats balk labels
     const lSets = document.getElementById('lblSetsDone');
@@ -1607,6 +1591,7 @@
     if (sessionBtn && workoutActive) sessionBtn.textContent = T.stopSession || 'Sessie Afronden';
 
     // Tracker labels
+    const trackerVolEl = document.getElementById('trackerTotalVolume');
     const allTimeLabel = document.querySelector('[data-i18n="allTimeVolume"]');
     if (allTimeLabel) allTimeLabel.textContent = T.allTimeVolume || 'All-Time Volume';
 
@@ -1617,21 +1602,6 @@
     // Rest timer label
     const restLabel = document.querySelector('.rest-timer-label');
     if (restLabel) restLabel.textContent = T.restTimer || 'RUSTTIJD';
-
-    // Language label
-    const langLabel = document.getElementById('lblSelectLanguage');
-    if (langLabel) langLabel.textContent = T.selectLanguage || 'Taal Selecteren';
-
-    // Reset label
-    const resetLabel = document.getElementById('lblResetRoutine');
-    if (resetLabel) resetLabel.textContent = T.resetAll || 'Reset Routine';
-
-    // Agenda calendar title
-    const agendaTitle = document.getElementById('agendaMonthYearTitle');
-    // (keep actual month/year, only update static texts)
-
-    // Update document language attribute
-    document.documentElement.lang = l;
   }
 
   // DEFAULT ROUTINE SCHEMA MET LEGE OEFENINGEN PER SPIERGROEP
@@ -4340,7 +4310,6 @@
   }
   lastKnownRankId = localStorage.getItem('gymlog_last_rank_id') || _initRank.current.id;
   renderHomeView();
-  applyLanguageToStaticElements();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
