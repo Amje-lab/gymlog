@@ -682,6 +682,7 @@
             <div class="streak-sub" id="homeStreakSub">Train vandaag om je streak vast te houden!</div>
           </div>
         </div>
+        <button onclick="openStreakLadderModal()" style="background:transparent; border:none; color:var(--text-sec); font-size:18px; cursor:pointer; padding:4px; opacity:0.6; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">•••</button>
       </div>
 
       <!-- WORKOUT TIMER & SESSIE CONTROLS -->
@@ -1044,6 +1045,23 @@
         Verhoog je all-time verplaatste volume om hogere ranks en divisies te ontgrendelen!
       </div>
       <div id="ranksLadderList" style="max-height:420px; overflow-y:auto; padding-right:4px;"></div>
+    </div>
+  </div>
+
+  <!-- STREAK LADDER MODAL -->
+  <div class="modal-overlay" id="streakLadderModal">
+    <div class="modal-dialog" style="max-width:460px;">
+      <div class="modal-hdr">
+        <span class="modal-title" style="display:inline-flex; align-items:center; gap:8px;">
+          <svg style="width:18px;height:18px;fill:#ff9500;" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+          Streak Ladder
+        </span>
+        <button class="modal-close-btn" onclick="closeStreakLadderModal()">&#10005;</button>
+      </div>
+      <div style="font-size:12px; color:var(--text-sec); margin-bottom:14px;">
+        Train elke dag om je streak te verhogen en nieuwe vlam animaties te ontgrendelen!
+      </div>
+      <div id="streakLadderList" style="max-height:420px; overflow-y:auto; padding-right:4px;"></div>
     </div>
   </div>
 
@@ -3002,6 +3020,73 @@
     document.getElementById('ranksLadderModal').classList.remove('open');
   }
 
+  // STREAK LADDER SYSTEM
+  const STREAK_LEVELS = [
+    { id: 'streak_0', name: 'Beginner', minDays: 0, color: '#64748b', description: 'Start je streak vandaag!', animation: 'none' },
+    { id: 'streak_1', name: 'Starter', minDays: 1, color: '#ff9500', description: 'Je streak is begonnen!', animation: 'static' },
+    { id: 'streak_10', name: 'Disciplined', minDays: 10, color: '#ff9500', description: 'Discipline is aan!', animation: 'wiggle' },
+    { id: 'streak_30', name: 'Beast Mode', minDays: 30, color: '#ff453a', description: 'Beast mode aan!', animation: 'wiggle_pulse' },
+    { id: 'streak_100', name: 'Legendary', minDays: 100, color: '#ff3b30', description: 'Legendarische focus!', animation: 'wiggle_pulse' },
+    { id: 'streak_300', name: 'Supernova', minDays: 300, color: '#eab308', description: 'Supernova overload!', animation: 'supernova' },
+    { id: 'streak_500', name: 'Demigod', minDays: 500, color: '#ec4899', description: 'Halfgod discipline!', animation: 'supernova' },
+    { id: 'streak_1000', name: 'Cosmic Titan', minDays: 1000, color: '#a855f7', description: 'Kosmische titaan!', animation: 'cosmic' },
+    { id: 'streak_2000', name: 'Immortal Apex', minDays: 2000, color: '#38bdf8', description: 'Onaantastbaar!', animation: 'cosmic_fast' },
+    { id: 'streak_10000', name: 'Overload God', minDays: 10000, color: '#ffffff', description: 'God mode!', animation: 'god_mode' }
+  ];
+
+  function openStreakLadderModal() {
+    const listEl = document.getElementById('streakLadderList');
+    listEl.innerHTML = '';
+
+    STREAK_LEVELS.forEach((level, idx) => {
+      const isCurrent = currentStreak >= level.minDays && (idx === STREAK_LEVELS.length - 1 || currentStreak < STREAK_LEVELS[idx + 1].minDays);
+      const isUnlocked = currentStreak >= level.minDays;
+      const isNext = !isUnlocked && (idx === 0 || currentStreak >= STREAK_LEVELS[idx - 1].minDays);
+
+      let statusBadge = '';
+      if (isCurrent) {
+        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--green); color:#000; font-size:9px; font-weight:900;">HUIDIG</span>`;
+      } else if (isUnlocked) {
+        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--blue); color:#000; font-size:9px; font-weight:900;">BEHAALD</span>`;
+      } else if (isNext) {
+        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:rgba(255,149,0,0.2); color:var(--orange); font-size:9px; font-weight:900;">VOLGENDE</span>`;
+      } else {
+        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--surface-2); color:var(--text-mut); font-size:9px; font-weight:700;">VERGRENDELD</span>`;
+      }
+
+      const flameSvg = `
+        <svg style="width:32px;height:32px;fill:${level.color}; opacity:${isUnlocked ? 1 : 0.3};" viewBox="0 0 24 24">
+          <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+        </svg>
+      `;
+
+      const row = document.createElement('div');
+      row.className = 'lib-item';
+      row.style.background = isCurrent ? 'linear-gradient(135deg, rgba(48, 209, 88, 0.1), rgba(48, 209, 88, 0.05))' : 'var(--surface-1)';
+      row.style.border = isCurrent ? '1px solid rgba(48, 209, 88, 0.3)' : '1px solid var(--border)';
+      row.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px;">
+          ${flameSvg}
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="font-size:14px; font-weight:800; color:${isUnlocked ? level.color : 'var(--text-mut)'};">${level.name}</div>
+              ${statusBadge}
+            </div>
+            <div style="font-size:11px; color:${isUnlocked ? 'var(--text-sec)' : 'var(--text-mut)'}; margin-top:4px;">${level.description}</div>
+            <div style="font-size:10px; color:var(--text-mut); margin-top:2px;">${level.minDays}+ dagen</div>
+          </div>
+        </div>
+      `;
+      listEl.appendChild(row);
+    });
+
+    document.getElementById('streakLadderModal').classList.add('open');
+  }
+
+  function closeStreakLadderModal() {
+    document.getElementById('streakLadderModal').classList.remove('open');
+  }
+
   // PROFILE SETTINGS & 30-DAY HANDLE COOLDOWN
   function handleUsernameChange(val) {
     const cleaned = (val || '').trim().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
@@ -4169,6 +4254,9 @@
   };
   document.getElementById('ranksLadderModal').onclick = (e) => {
     if (e.target.id === 'ranksLadderModal') closeRanksModal();
+  };
+  document.getElementById('streakLadderModal').onclick = (e) => {
+    if (e.target.id === 'streakLadderModal') closeStreakLadderModal();
   };
 
   // BOOTSTRAP APP
