@@ -738,16 +738,13 @@
       </div>
 
       <!-- 7 DAGEN WEEK TITELS -->
-            <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
+            <!-- SCHEMA KIEZER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
-          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);" id="schemaBannerTitle">Trainingsschema Kiezen</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;" id="schemaBannerSubtitle">Kies uit 12 populaire trainingsschema's</div>
         </div>
-        <div style="display:flex; gap:6px;">
-          <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
-          <button onclick="openCustomSchemaWizard()" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">+ Eigen</button>
-        </div>
+        <button id="schemaBannerBtn" onclick="openSchemaSelectorModal()" style="padding:7px 14px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:12px; font-weight:800; cursor:pointer;">Schema's</button>
       </div>
 
       <!-- 7 DAGEN WEEK TITELS -->
@@ -987,21 +984,10 @@
         <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="es">Español</option>
+          <option value="fr">FranÃ§ais</option>
+          <option value="es">EspaÃ±ol</option>
+          <option value="tr">TÃ¼rkÃ§e</option>
           <option value="it">Italiano</option>
-          <option value="pt">Português</option>
-          <option value="tr">Türkçe</option>
-          <option value="ar">العربية</option>
-          <option value="pl">Polski</option>
-          <option value="ru">Русский</option>
-          <option value="sv">Svenska</option>
-          <option value="no">Norsk</option>
-          <option value="da">Dansk</option>
-          <option value="ja">日本語</option>
-          <option value="zh">中文</option>
-          <option value="ko">한국어</option>
         </select>
       </div>
 
@@ -1024,23 +1010,23 @@
   <nav class="bottom-nav">
     <button class="nav-item active" id="navBtnHome" onclick="switchTab('home')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span class="nav-label">Home</span>
+      <span class="nav-label" id="navLblHome">Home</span>
     </button>
     <button class="nav-item" id="navBtnAgenda" onclick="switchTab('agenda')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
-      <span class="nav-label">Agenda</span>
+      <span class="nav-label" id="navLblAgenda">Agenda</span>
     </button>
     <button class="nav-item" id="navBtnTracker" onclick="switchTab('tracker')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-      <span class="nav-label">Tracker</span>
+      <span class="nav-label" id="navLblTracker">Tracker</span>
     </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchTab('search')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <span class="nav-label">Zoeken</span>
+      <span class="nav-label" id="navLblSearch">Zoeken</span>
     </button>
     <button class="nav-item" id="navBtnProfile" onclick="switchTab('profile')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span class="nav-label">Profiel</span>
+      <span class="nav-label" id="navLblProfile">Profiel</span>
     </button>
   </nav>
 
@@ -1161,416 +1147,209 @@
     return CATEGORY_FALLBACK_GIFS[cat] || CATEGORY_FALLBACK_GIFS['Overig'];
   }
 
-  // MULTI-LANGUAGE TRANSLATIONS (17 LANGUAGES)
+    // ==========================================
+  // MULTI-LANGUAGE TRANSLATIONS (6 TALEN: NL, EN, FR, ES, TR, IT)
+  // ==========================================
   const TRANSLATIONS = {
     nl: {
+      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Zoeken', navProfile: 'Profiel',
       welcome: "WELKOM TERUG", startSession: "Start Sessie", stopSession: "Sessie Afronden",
       sessionStatus: "Sessie Status", activeWorkout: "WORKOUT ACTIEF", sets: "Sets", exercises: "Oefeningen",
       volume: "Volume", restDayToday: "Rustdag Vandaag", restDaySub: "Tijd voor herstel en goede voeding!",
       addSet: "+ Set toevoegen", generalStats: "Algemene Statistieken", allTimeVolume: "All-Time Volume",
       selectLanguage: "Taal Selecteren", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
       restTimer: "RUSTTIJD", searchPlaceholder: "Zoek elke oefening in de gym...",
+      schemaTitle: "Trainingsschema Kiezen", schemaSubtitle: "Kies uit 12 populaire trainingsschema's",
+      schemaBtn: "Schema's",
       daysShort: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'],
       dayNames: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
-      // Categorie vertalingen
       categories: {
         'Borst': 'Borst', 'Rug': 'Rug', 'Schouders': 'Schouders', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Benen', 'Buik': 'Buik', 'Voorarmen': 'Voorarmen',
         'Overig': 'Overig'
       },
-      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Lichaamsgewicht', 'Machine': 'Machine', 'Overig': 'Overig'
       }
     },
     en: {
+      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Search', navProfile: 'Profile',
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
       sessionStatus: "Session Status", activeWorkout: "WORKOUT ACTIVE", sets: "Sets", exercises: "Exercises",
-      volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and good nutrition!",
-      addSet: "+ Add Set", generalStats: "Overall Statistics", allTimeVolume: "All-Time Volume",
+      volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and nutrition!",
+      addSet: "+ Add Set", generalStats: "General Statistics", allTimeVolume: "All-Time Volume",
       selectLanguage: "Select Language", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
-      restTimer: "REST TIME", searchPlaceholder: "Search any gym exercise...",
+      restTimer: "REST TIME", searchPlaceholder: "Search any exercise in the gym...",
+      schemaTitle: "Choose Workout Routine", schemaSubtitle: "Choose from 12 popular workout routines",
+      schemaBtn: "Routines",
       daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      // Categorie vertalingen
       categories: {
         'Borst': 'Chest', 'Rug': 'Back', 'Schouders': 'Shoulders', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Legs', 'Buik': 'Abs', 'Voorarmen': 'Forearms',
         'Overig': 'Other'
       },
-      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Cable Station',
         'Lichaamsgewicht': 'Bodyweight', 'Machine': 'Machine', 'Overig': 'Other'
       }
     },
-    de: {
-      welcome: "WILLKOMMEN", startSession: "Training Starten", stopSession: "Training Beenden",
-      sessionStatus: "Sitzungsstatus", activeWorkout: "TRAINING AKTIV", sets: "Saetze", exercises: "Uebungen",
-      volume: "Volumen", restDayToday: "Heute Ruhetag", restDaySub: "Zeit fuer Erholung!",
-      addSet: "+ Satz hinzufuegen", generalStats: "Gesamtstatistik", allTimeVolume: "Gesamtvolumen",
-      selectLanguage: "Sprache waehlen", resetAll: "Routine zuruecksetzen", brandSub: "PROGRESSIVES TRAINING",
-      restTimer: "PAUSENZEIT", searchPlaceholder: "Uebung suchen...",
-      daysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-      dayNames: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Brust', 'Rug': 'Ruecken', 'Schouders': 'Schultern', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Beine', 'Buik': 'Bauch', 'Voorarmen': 'Unterarme',
-        'Overig': 'Sonstiges'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Hanteln', 'Barbell': 'Langhantel', 'Kabelstation': 'Kabelstation',
-        'Lichaamsgewicht': 'Koerpergewicht', 'Machine': 'Maschine', 'Overig': 'Sonstiges'
-      }
-    },
     fr: {
-      welcome: "BIENVENUE", startSession: "Demarrer Seance", stopSession: "Terminer Seance",
-      sessionStatus: "Statut Seance", activeWorkout: "ENTRAINEMENT ACTIF", sets: "Series", exercises: "Exercices",
-      volume: "Volume", restDayToday: "Jour de Repos", restDaySub: "Temps de recuperation!",
-      addSet: "+ Ajouter Serie", generalStats: "Statistiques", allTimeVolume: "Volume Total",
-      selectLanguage: "Choisir la Langue", resetAll: "Reinitialiser", brandSub: "SUIVI PROGRESSIF",
+      navHome: 'Accueil', navAgenda: 'Agenda', navTracker: 'Progression', navSearch: 'Recherche', navProfile: 'Profil',
+      welcome: "BIENVENUE", startSession: "Commencer Séance", stopSession: "Terminer Séance",
+      sessionStatus: "Statut Séance", activeWorkout: "SÉANCE ACTIVE", sets: "Séries", exercises: "Exercices",
+      volume: "Volume", restDayToday: "Jour de Repos", restDaySub: "Temps pour la récupération et la nutrition !",
+      addSet: "+ Ajouter Série", generalStats: "Statistiques Générales", allTimeVolume: "Volume Total",
+      selectLanguage: "Choisir la Langue", resetAll: "Réinitialiser", brandSub: "SUIVI PROGRESSIF",
       restTimer: "TEMPS DE REPOS", searchPlaceholder: "Rechercher un exercice...",
+      schemaTitle: "Choisir un Programme", schemaSubtitle: "Choisissez parmi 12 programmes populaires",
+      schemaBtn: "Programmes",
       daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-      // Categorie vertalingen
       categories: {
-        'Borst': 'Pectoraux', 'Rug': 'Dos', 'Schouders': 'Epaules', 'Biceps': 'Biceps',
+        'Borst': 'Poitrine', 'Rug': 'Dos', 'Schouders': 'Épaules', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Jambes', 'Buik': 'Abdos', 'Voorarmen': 'Avant-bras',
         'Overig': 'Autre'
       },
-      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Halteres', 'Barbell': 'Barre', 'Kabelstation': 'Station de cable',
-        'Lichaamsgewicht': 'Poids corporel', 'Machine': 'Machine', 'Overig': 'Autre'
+        'Dumbbells': 'Haltères', 'Barbell': 'Barre', 'Kabelstation': 'Station à Câble',
+        'Lichaamsgewicht': 'Poids du Corps', 'Machine': 'Machine', 'Overig': 'Autre'
       }
     },
     es: {
-      welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
-      sessionStatus: "Estado Sesion", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
-      volume: "Volumen", restDayToday: "Dia de Descanso", restDaySub: "Tiempo de recuperacion!",
-      addSet: "+ Agregar Serie", generalStats: "Estadisticas", allTimeVolume: "Volumen Total",
-      selectLanguage: "Seleccionar Idioma", resetAll: "Reiniciar", brandSub: "SEGUIMIENTO PROGRESIVO",
-      restTimer: "TIEMPO DE DESCANSO", searchPlaceholder: "Buscar ejercicio...",
-      daysShort: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
-      dayNames: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-      // Categorie vertalingen
+      navHome: 'Inicio', navAgenda: 'Agenda', navTracker: 'Progreso', navSearch: 'Buscar', navProfile: 'Perfil',
+      welcome: "BIENVENIDO", startSession: "Iniciar Sesión", stopSession: "Finalizar Sesión",
+      sessionStatus: "Estado Sesión", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
+      volume: "Volumen", restDayToday: "Día de Descanso", restDaySub: "¡Tiempo de recuperación y nutrición!",
+      addSet: "+ Añadir Serie", generalStats: "Estadísticas Generales", allTimeVolume: "Volumen Total",
+      selectLanguage: "Seleccionar Idioma", resetAll: "Restablecer Rutina", brandSub: "SEGUIMIENTO PROGRESIVO",
+      restTimer: "TIEMPO DE DESCANSO", searchPlaceholder: "Buscar cualquier ejercicio...",
+      schemaTitle: "Elegir Rutina", schemaSubtitle: "Elige entre 12 rutinas populares",
+      schemaBtn: "Rutinas",
+      daysShort: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+      dayNames: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
       categories: {
-        'Borst': 'Pecho', 'Rug': 'Espalda', 'Schouders': 'Hombros', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Piernas', 'Buik': 'Abdominales', 'Voorarmen': 'Antebrazos',
+        'Borst': 'Pecho', 'Rug': 'Espalda', 'Schouders': 'Hombros', 'Biceps': 'Bíceps',
+        'Triceps': 'Tríceps', 'Benen': 'Piernas', 'Buik': 'Abdomen', 'Voorarmen': 'Antebrazos',
         'Overig': 'Otro'
       },
-      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estacion de cable',
-        'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Otro'
+        'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estación de Poleas',
+        'Lichaamsgewicht': 'Peso Corporal', 'Machine': 'Máquina', 'Overig': 'Otro'
       }
     },
     tr: {
-      welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
-      sessionStatus: "Durum", activeWorkout: "AKTIF ANTRENMAN", sets: "Setler", exercises: "Egzersizler",
-      volume: "Hacim", restDayToday: "Dinlenme Gunu", restDaySub: "Toparlanma zamani!",
-      addSet: "+ Set Ekle", generalStats: "Istatistikler", allTimeVolume: "Toplam Hacim",
-      selectLanguage: "Dil Secimi", resetAll: "Sifirla", brandSub: "ILERLEMELI TAKIP",
-      restTimer: "DINLENME SURESI", searchPlaceholder: "Egzersiz ara...",
-      daysShort: ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt', 'Paz'],
-      dayNames: ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'],
-      // Categorie vertalingen
+      navHome: 'Ana Sayfa', navAgenda: 'Ajanda', navTracker: 'Takip', navSearch: 'Arama', navProfile: 'Profil',
+      welcome: "HOŞ GELDİNİZ", startSession: "Antrenmanı Başlat", stopSession: "Antrenmanı Bitir",
+      sessionStatus: "Seans Durumu", activeWorkout: "ANTRENMAN AKTİF", sets: "Setler", exercises: "Egzersizler",
+      volume: "Hacim", restDayToday: "Bugün Dinlenme Günü", restDaySub: "Toparlanma ve iyi beslenme zamanı!",
+      addSet: "+ Set Ekle", generalStats: "Genel İstatistikler", allTimeVolume: "Toplam Hacim",
+      selectLanguage: "Dil Seçimi", resetAll: "Programı Sıfırla", brandSub: "GELİŞİM TAKİBİ",
+      restTimer: "DİNLENME SÜRESİ", searchPlaceholder: "Salondaki tüm egzersizleri ara...",
+      schemaTitle: "Antrenman Programı Seç", schemaSubtitle: "12 popüler programdan birini seçin",
+      schemaBtn: "Programlar",
+      daysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+      dayNames: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],
       categories: {
-        'Borst': 'Gogus', 'Rug': 'Sirt', 'Schouders': 'Omuzlar', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Bacaklar', 'Buik': 'Karın', 'Voorarmen': 'On kol',
-        'Overig': 'Diger'
+        'Borst': 'Göğüs', 'Rug': 'Sırt', 'Schouders': 'Omuz', 'Biceps': 'Pazı (Biceps)',
+        'Triceps': 'Arka Kol (Triceps)', 'Benen': 'Bacak', 'Buik': 'Karın', 'Voorarmen': 'Ön Kol',
+        'Overig': 'Diğer'
       },
-      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Dumbbell', 'Barbell': 'Barbell', 'Kabelstation': 'Kablo istasyonu',
-        'Lichaamsgewicht': 'Vucut agirligi', 'Machine': 'Makine', 'Overig': 'Diger'
+        'Dumbbells': 'Dambıl', 'Barbell': 'Halter', 'Kabelstation': 'Kablo İstasyonu',
+        'Lichaamsgewicht': 'Vücut Ağırlığı', 'Machine': 'Makine', 'Overig': 'Diğer'
       }
     },
     it: {
-      welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
-      sessionStatus: "Stato", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
-      volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero!",
-      addSet: "+ Aggiungi Serie", generalStats: "Statistiche", allTimeVolume: "Volume Totale",
-      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina", brandSub: "TRACKER PROGRESSIVO",
-      restTimer: "TEMPO DI RIPOSO", searchPlaceholder: "Cerca esercizio...",
+      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Cerca', navProfile: 'Profilo',
+      welcome: "BENTORNATO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
+      sessionStatus: "Stato Sessione", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
+      volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero e buona alimentazione!",
+      addSet: "+ Aggiungi Serie", generalStats: "Statistiche Generali", allTimeVolume: "Volume Totale",
+      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina Routine", brandSub: "TRACKER PROGRESSIVO",
+      restTimer: "TEMPO DI RIPOSO", searchPlaceholder: "Cerca qualsiasi esercizio...",
+      schemaTitle: "Scegli Scheda di Allenamento", schemaSubtitle: "Scegli tra 12 schede popolari",
+      schemaBtn: "Schede",
       daysShort: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-      dayNames: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
-      // Categorie vertalingen
+      dayNames: ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
       categories: {
         'Borst': 'Petto', 'Rug': 'Schiena', 'Schouders': 'Spalle', 'Biceps': 'Bicipiti',
         'Triceps': 'Tricipiti', 'Benen': 'Gambe', 'Buik': 'Addominali', 'Voorarmen': 'Avambracci',
         'Overig': 'Altro'
       },
-      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Manubri', 'Barbell': 'Bilanciere', 'Kabelstation': 'Stazione a cavi',
-        'Lichaamsgewicht': 'Peso corporeo', 'Machine': 'Macchina', 'Overig': 'Altro'
-      }
-    },
-    pt: {
-      welcome: "BEM-VINDO", startSession: "Iniciar Treino", stopSession: "Finalizar Treino",
-      sessionStatus: "Status", activeWorkout: "TREINO ATIVO", sets: "Series", exercises: "Exercicios",
-      volume: "Volume", restDayToday: "Dia de Descanso", restDaySub: "Hora de recuperar!",
-      addSet: "+ Adicionar Serie", generalStats: "Estatisticas", allTimeVolume: "Volume Total",
-      selectLanguage: "Selecionar Idioma", resetAll: "Reiniciar", brandSub: "RASTREADOR PROGRESSIVO",
-      restTimer: "TEMPO DE DESCANSO", searchPlaceholder: "Pesquisar exercicio...",
-      daysShort: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-      dayNames: ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Peito', 'Rug': 'Costas', 'Schouders': 'Ombros', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Pernas', 'Buik': 'Abdominais', 'Voorarmen': 'Antebracos',
-        'Overig': 'Outro'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Halteres', 'Barbell': 'Barra', 'Kabelstation': 'Estacao de cabos',
-        'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Outro'
-      }
-    },
-    ar: {
-      welcome: "MARHABA", startSession: "Ibda Al-Tamreen", stopSession: "Inha Al-Tamreen",
-      sessionStatus: "Al-Hala", activeWorkout: "TAMREEN NASHIT", sets: "Majmuaat", exercises: "Tamareen",
-      volume: "Al-Wazn", restDayToday: "Yawm Raha", restDaySub: "Waqt Al-Raaha!",
-      addSet: "+ Idafa Majmua", generalStats: "Ihsaiyyat", allTimeVolume: "Al-Hajm Al-Kulli",
-      selectLanguage: "Ikhtiyar Al-Lugha", resetAll: "Iadat Tayin", brandSub: "MUTABIE TATAWWURI",
-      restTimer: "WAQT AL-RAHA", searchPlaceholder: "Ibhath an tamreen...",
-      daysShort: ['Ith', 'Thul', 'Arb', 'Kham', 'Jum', 'Sab', 'Ahad'],
-      dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbia', 'Al-Khamis', 'Al-Jumua', 'Al-Sabt', 'Al-Ahad'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Sadri', 'Rug': 'Zahr', 'Schouders': 'Kataf', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Aqdam', 'Buik': 'Batn', 'Voorarmen': 'Dhira',
-        'Overig': 'Akhar'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Mahattat as-hab',
-        'Lichaamsgewicht': 'Wazn al-jasad', 'Machine': 'Ala', 'Overig': 'Akhar'
-      }
-    },
-    pl: {
-      welcome: "WITAJ", startSession: "Rozpocznij Trening", stopSession: "Zakoncz Trening",
-      sessionStatus: "Status Sesji", activeWorkout: "TRENING AKTYWNY", sets: "Serie", exercises: "Cwiczenia",
-      volume: "Objetosc", restDayToday: "Dzien Odpoczynku", restDaySub: "Czas na regeneracje!",
-      addSet: "+ Dodaj Serie", generalStats: "Statystyki", allTimeVolume: "Lacznie",
-      selectLanguage: "Wybierz Jezyk", resetAll: "Resetuj", brandSub: "PROGRESYWNY TRENING",
-      restTimer: "CZAS ODPOCZYNKU", searchPlaceholder: "Szukaj cwiczenia...",
-      daysShort: ['Pon', 'Wt', 'Sr', 'Czw', 'Pt', 'Sob', 'Nd'],
-      dayNames: ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Klatka piersiowa', 'Rug': 'Plecy', 'Schouders': 'Barki', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Nogi', 'Buik': 'Brzuch', 'Voorarmen': 'Przedramiona',
-        'Overig': 'Inne'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Hantle', 'Barbell': 'Sztaba', 'Kabelstation': 'Stacja kablowa',
-        'Lichaamsgewicht': 'Ciezar wlasny', 'Machine': 'Maszyna', 'Overig': 'Inne'
-      }
-    },
-    ru: {
-      welcome: "DOBRO POZHALOVAT", startSession: "Nachat Trenirovku", stopSession: "Zavershit",
-      sessionStatus: "Status", activeWorkout: "TRENIROVKA AKTIVNA", sets: "Podkhody", exercises: "Uprazhneniya",
-      volume: "Obem", restDayToday: "Den Otdykha", restDaySub: "Vremya dlya vosstanovleniya!",
-      addSet: "+ Dobavit Podkhod", generalStats: "Statistika", allTimeVolume: "Obshchy Obem",
-      selectLanguage: "Vybrat Yazyk", resetAll: "Sbrosit", brandSub: "PROGRESSIVNY TREKER",
-      restTimer: "VREMYA OTDYKHA", searchPlaceholder: "Poisk uprazhneniya...",
-      daysShort: ['Pn', 'Vt', 'Sr', 'Ch', 'Pt', 'Sb', 'Vs'],
-      dayNames: ['Ponedelnik', 'Vtornik', 'Sreda', 'Chetverg', 'Pyatnitsa', 'Subbota', 'Voskresenye'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Grud', 'Rug': 'Spinа', 'Schouders': 'Plechi', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Nogi', 'Buik': 'Press', 'Voorarmen': 'Predplechya',
-        'Overig': 'Drugoe'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Ganteli', 'Barbell': 'Shtanga', 'Kabelstation': 'Kabelnyy trenazher',
-        'Lichaamsgewicht': 'Sobstvennyy ves', 'Machine': 'Trenazher', 'Overig': 'Drugoe'
-      }
-    },
-    sv: {
-      welcome: "VALKOMMEN", startSession: "Starta Traning", stopSession: "Avsluta Traning",
-      sessionStatus: "Status", activeWorkout: "TRANING AKTIV", sets: "Set", exercises: "Ovningar",
-      volume: "Volym", restDayToday: "Vilodagen", restDaySub: "Tid for aterhämtning!",
-      addSet: "+ Lagg till Set", generalStats: "Statistik", allTimeVolume: "Total Volym",
-      selectLanguage: "Valj Sprak", resetAll: "Aterstall", brandSub: "PROGRESSIV TRACKNING",
-      restTimer: "VILOTID", searchPlaceholder: "Sok ovning...",
-      daysShort: ['Man', 'Tis', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
-      dayNames: ['Mandag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Bröst', 'Rug': 'Rygg', 'Schouders': 'Axlar', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mage', 'Voorarmen': 'Underarmar',
-        'Overig': 'Annat'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Hantlar', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstation',
-        'Lichaamsgewicht': 'Kroppsvikt', 'Machine': 'Maskin', 'Overig': 'Annat'
-      }
-    },
-    ja: {
-      welcome: "YOKOSO", startSession: "Workout Kaishi", stopSession: "Owaru",
-      sessionStatus: "Status", activeWorkout: "WORKOUT CHUU", sets: "Setto", exercises: "Undou",
-      volume: "Volume", restDayToday: "Kyuujitsu", restDaySub: "Kaifuku no jikan!",
-      addSet: "+ Setto Tsuika", generalStats: "Toukeijouhou", allTimeVolume: "Soukei Volume",
-      selectLanguage: "Gengo Sentaku", resetAll: "Risetto", brandSub: "PROGRESSIVE TRACKER",
-      restTimer: "KYUUKEI", searchPlaceholder: "Undou wo sagasu...",
-      daysShort: ['Getz', 'Ka', 'Sui', 'Moku', 'Kin', 'Do', 'Nichi'],
-      dayNames: ['Getsu-yobi', 'Ka-yobi', 'Sui-yobi', 'Moku-yobi', 'Kin-yobi', 'Do-yobi', 'Nichi-yobi'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': '胸', 'Rug': '背中', 'Schouders': '肩', 'Biceps': '上腕二頭筋',
-        'Triceps': '上腕三頭筋', 'Benen': '脚', 'Buik': '腹筋', 'Voorarmen': '前腕',
-        'Overig': 'その他'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'ダンベル', 'Barbell': 'バーベル', 'Kabelstation': 'ケーブルマシン',
-        'Lichaamsgewicht': '自重', 'Machine': 'マシン', 'Overig': 'その他'
-      }
-    },
-    ko: {
-      welcome: "HWANGYEONGHABNIDA", startSession: "Undong Sijak", stopSession: "Undong Wanryo",
-      sessionStatus: "Sangtae", activeWorkout: "UNDONG JUNGIB", sets: "Setu", exercises: "Undo",
-      volume: "Boljyum", restDayToday: "Hyusigilb", restDaySub: "Hoebok sigan!",
-      addSet: "+ Setu Chuga", generalStats: "Tonggye", allTimeVolume: "Jeoche Boljyum",
-      selectLanguage: "Eon-eo Seontaeg", resetAll: "Chogidae", brandSub: "PROGRESSIVE TRACKER",
-      restTimer: "HYUSIG SIGAN", searchPlaceholder: "Undo geomseog...",
-      daysShort: ['Wol', 'Hwa', 'Su', 'Mok', 'Geum', 'To', 'Il'],
-      dayNames: ['Wol-yo-il', 'Hwa-yo-il', 'Su-yo-il', 'Mok-yo-il', 'Geum-yo-il', 'To-yo-il', 'Il-yo-il'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': '가슴', 'Rug': '등', 'Schouders': '어깨', 'Biceps': '이두',
-        'Triceps': '삼두', 'Benen': '다리', 'Buik': '복근', 'Voorarmen': '전완',
-        'Overig': '기타'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': '덤벨', 'Barbell': '바벨', 'Kabelstation': '케이블 머신',
-        'Lichaamsgewicht': '자신 체중', 'Machine': '머신', 'Overig': '기타'
-      }
-    },
-    zh: {
-      welcome: "HUANYING", startSession: "Kaishi Xunlian", stopSession: "Jieshu Xunlian",
-      sessionStatus: "Zhuangtai", activeWorkout: "XUNLIAN ZHONG", sets: "Zu", exercises: "Dongzuo",
-      volume: "Liang", restDayToday: "Xiuxi Ri", restDaySub: "Huifu shijian!",
-      addSet: "+ Tianjia Zu", generalStats: "Tongji", allTimeVolume: "Zongliang",
-      selectLanguage: "Xuanze Yuyan", resetAll: "Chongzhi", brandSub: "JINBU ZHUIZONGI",
-      restTimer: "XIUXI SHIJIAN", searchPlaceholder: "Sousuo dongzuo...",
-      daysShort: ['Yi', 'Er', 'San', 'Si', 'Wu', 'Liu', 'Ri'],
-      dayNames: ['Xingqi Yi', 'Xingqi Er', 'Xingqi San', 'Xingqi Si', 'Xingqi Wu', 'Xingqi Liu', 'Xingqi Ri'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': '胸部', 'Rug': '背部', 'Schouders': '肩部', 'Biceps': '二头肌',
-        'Triceps': '三头肌', 'Benen': '腿部', 'Buik': '腹部', 'Voorarmen': '前臂',
-        'Overig': '其他'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': '哑铃', 'Barbell': '杠铃', 'Kabelstation': '缆绳机',
-        'Lichaamsgewicht': '自重', 'Machine': '器械', 'Overig': '其他'
-      }
-    },
-    no: {
-      welcome: "VELKOMMEN", startSession: "Start Trening", stopSession: "Avslutt Trening",
-      sessionStatus: "Status", activeWorkout: "TRENING AKTIV", sets: "Sett", exercises: "Ovelser",
-      volume: "Volum", restDayToday: "Hviledag", restDaySub: "Tid for restitusjon!",
-      addSet: "+ Legg til Sett", generalStats: "Statistikk", allTimeVolume: "Totalt Volum",
-      selectLanguage: "Velg Sprak", resetAll: "Tilbakestill", brandSub: "PROGRESSIV TRENING",
-      restTimer: "HVILETID", searchPlaceholder: "Sok ovelse...",
-      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
-      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Bryst', 'Rug': 'Rygg', 'Schouders': 'Skuldre', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mage', 'Voorarmen': 'Underarmer',
-        'Overig': 'Annet'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Hantler', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstasjon',
-        'Lichaamsgewicht': 'Kroppsvekt', 'Machine': 'Maskin', 'Overig': 'Annet'
-      }
-    },
-    da: {
-      welcome: "VELKOMMEN", startSession: "Start Traening", stopSession: "Afslut Traening",
-      sessionStatus: "Status", activeWorkout: "TRAENING AKTIV", sets: "Saet", exercises: "Ovelser",
-      volume: "Volumen", restDayToday: "Hviledag", restDaySub: "Tid til restitution!",
-      addSet: "+ Tilfoej Saet", generalStats: "Statistik", allTimeVolume: "Samlet Volumen",
-      selectLanguage: "Vaelg Sprog", resetAll: "Nulstil", brandSub: "PROGRESSIV TRAENING",
-      restTimer: "HVILETID", searchPlaceholder: "Sog ovelse...",
-      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
-      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
-      // Categorie vertalingen
-      categories: {
-        'Borst': 'Bryst', 'Rug': 'Ryg', 'Schouders': 'Skuldre', 'Biceps': 'Biceps',
-        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mave', 'Voorarmen': 'Underarme',
-        'Overig': 'Andet'
-      },
-      // Equipment vertalingen
-      equipment: {
-        'Dumbbells': 'Hantler', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstation',
-        'Lichaamsgewicht': 'Kropsvægt', 'Machine': 'Maskine', 'Overig': 'Andet'
+        'Dumbbells': 'Manubri', 'Barbell': 'Bilanciere', 'Kabelstation': 'Cavi',
+        'Lichaamsgewicht': 'Corpo Libero', 'Machine': 'Macchinario', 'Overig': 'Altro'
       }
     }
   };
 
   function getLang() {
-    return localStorage.getItem('gymlog_lang') || 'nl';
+    const l = localStorage.getItem('gymlog_lang');
+    return (l && TRANSLATIONS[l]) ? l : 'nl';
   }
 
-  function t(key) {
+  function getI18n(key) {
     const lang = getLang();
     return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) || (TRANSLATIONS['nl'] && TRANSLATIONS['nl'][key]) || key;
   }
 
-  // Functie om vertaalde categorie naam te krijgen
-  function getCategoryTranslation(category) {
+  function getCategoryTranslation(catName) {
     const lang = getLang();
-    const translations = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
-    return (translations.categories && translations.categories[category]) || category;
+    const t = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
+    return (t.categories && t.categories[catName]) || catName;
   }
 
-  // Functie om vertaalde equipment naam te krijgen
-  function getEquipmentTranslation(equipment) {
+  function getEquipmentTranslation(eqName) {
     const lang = getLang();
-    const translations = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
-    return (translations.equipment && translations.equipment[equipment]) || equipment;
+    const t = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
+    return (t.equipment && t.equipment[eqName]) || eqName;
   }
 
-  function getLocalizedDayName(dayIdx) {
+  function getTranslatedDayNamesShort() {
     const lang = getLang();
-    const list = (TRANSLATIONS[lang] && TRANSLATIONS[lang].dayNames) || TRANSLATIONS['nl'].dayNames;
-    return list[dayIdx] || DAY_NAMES[dayIdx];
+    return (TRANSLATIONS[lang] && TRANSLATIONS[lang].daysShort) || TRANSLATIONS['nl'].daysShort;
+  }
+
+  function getTranslatedDayNames() {
+    const lang = getLang();
+    return (TRANSLATIONS[lang] && TRANSLATIONS[lang].dayNames) || TRANSLATIONS['nl'].dayNames;
   }
 
   function changeAppLanguage(lang) {
     localStorage.setItem('gymlog_lang', lang);
-    // Herrender alle actieve views
-    renderHomeView();
-    if (document.getElementById('viewAgenda').style.display !== 'none') renderAgendaView();
-    if (document.getElementById('viewTracker').style.display !== 'none') renderTrackerView();
-    if (document.getElementById('viewSearch').style.display !== 'none') {
-      initSearchLibrary();
-      filterSearchLibrary();
-    }
-    // Update statische teksten in de HTML die niet via render worden bijgewerkt
     applyLanguageToStaticElements();
-    triggerToast(`Taal: ${lang.toUpperCase()} ✓`);
+    renderHomeView();
+    if (typeof renderAgendaView === 'function' && document.getElementById('viewAgenda').style.display !== 'none') {
+      renderAgendaView();
+    }
+    if (typeof renderTrackerView === 'function' && document.getElementById('viewTracker').style.display !== 'none') {
+      renderTrackerView();
+    }
+    if (typeof initSearchLibrary === 'function') {
+      initSearchLibrary();
+    }
+    triggerToast(`Taal gewijzigd: ${lang.toUpperCase()}`);
   }
 
   function applyLanguageToStaticElements() {
     const l = getLang();
     const T = TRANSLATIONS[l] || TRANSLATIONS['nl'];
 
-    // Header & nav
+    // Nav bar labels
+    const nHome = document.getElementById('navLblHome');
+    const nAgenda = document.getElementById('navLblAgenda');
+    const nTracker = document.getElementById('navLblTracker');
+    const nSearch = document.getElementById('navLblSearch');
+    const nProfile = document.getElementById('navLblProfile');
+    if (nHome) nHome.textContent = T.navHome || 'Home';
+    if (nAgenda) nAgenda.textContent = T.navAgenda || 'Agenda';
+    if (nTracker) nTracker.textContent = T.navTracker || 'Tracker';
+    if (nSearch) nSearch.textContent = T.navSearch || 'Zoeken';
+    if (nProfile) nProfile.textContent = T.navProfile || 'Profiel';
+
+    // Header sub
     const brandSub = document.querySelector('.brand-sub');
     if (brandSub) brandSub.textContent = T.brandSub || 'PROGRESSIVE TRACKER';
 
@@ -1582,7 +1361,7 @@
     if (lEx) lEx.textContent = T.exercises || 'Oefeningen';
     if (lVol) lVol.textContent = T.volume || 'Volume';
 
-    // Session button
+    // Session status and button
     const sessionStatusLbl = document.getElementById('lblSessionStatus');
     if (sessionStatusLbl) sessionStatusLbl.textContent = workoutActive ? (T.activeWorkout || 'WORKOUT ACTIEF') : (T.sessionStatus || 'Sessie Status');
 
@@ -1590,8 +1369,15 @@
     if (sessionBtn && !workoutActive) sessionBtn.textContent = T.startSession || 'Start Sessie';
     if (sessionBtn && workoutActive) sessionBtn.textContent = T.stopSession || 'Sessie Afronden';
 
-    // Tracker labels
-    const trackerVolEl = document.getElementById('trackerTotalVolume');
+    // Schema banner
+    const schemaTitle = document.getElementById('schemaBannerTitle');
+    const schemaSubtitle = document.getElementById('schemaBannerSubtitle');
+    const schemaBtn = document.getElementById('schemaBannerBtn');
+    if (schemaTitle) schemaTitle.textContent = T.schemaTitle || 'Trainingsschema Kiezen';
+    if (schemaSubtitle) schemaSubtitle.textContent = T.schemaSubtitle || "Kies uit 12 populaire trainingsschema's";
+    if (schemaBtn) schemaBtn.textContent = T.schemaBtn || "Schema's";
+
+    // All-time volume label in tracker
     const allTimeLabel = document.querySelector('[data-i18n="allTimeVolume"]');
     if (allTimeLabel) allTimeLabel.textContent = T.allTimeVolume || 'All-Time Volume';
 
@@ -1602,7 +1388,18 @@
     // Rest timer label
     const restLabel = document.querySelector('.rest-timer-label');
     if (restLabel) restLabel.textContent = T.restTimer || 'RUSTTIJD';
+
+    // Profile language label
+    const langLabel = document.getElementById('lblSelectLanguage');
+    if (langLabel) langLabel.textContent = T.selectLanguage || 'Taal Selecteren';
+
+    // Sync select dropdown value
+    const langSelect = document.getElementById('languageSelect');
+    if (langSelect && langSelect.value !== l) langSelect.value = l;
+
+    document.documentElement.lang = l;
   }
+
 
   // DEFAULT ROUTINE SCHEMA MET LEGE OEFENINGEN PER SPIERGROEP
   const DEFAULT_ROUTINE_SCHEMA = [
@@ -4310,6 +4107,7 @@
   }
   lastKnownRankId = localStorage.getItem('gymlog_last_rank_id') || _initRank.current.id;
   renderHomeView();
+  applyLanguageToStaticElements();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
