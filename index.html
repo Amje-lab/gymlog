@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -146,70 +146,69 @@
       display: flex; align-items: center; justify-content: space-between;
     }
     .streak-flame-box { display: flex; align-items: center; gap: 12px; }
-    .streak-svg-icon { width: 42px; height: 42px; flex-shrink: 0; transition: transform 0.3s; transform-origin: center bottom; }
+    .streak-svg-icon { width: 36px; height: 36px; flex-shrink: 0; transition: transform 0.3s; }
     .streak-num { font-size: 24px; font-weight: 900; color: #ffffff; line-height: 1; }
     .streak-title { font-size: 12px; font-weight: 800; color: #ff9500; text-transform: uppercase; letter-spacing: 0.04em; }
     .streak-sub { font-size: 11px; color: var(--text-sec); font-weight: 600; }
 
     @keyframes flameWiggle {
-      0%, 100% { transform: translateY(0) scaleY(1); }
-      50% { transform: translateY(-8px) scaleY(1.05); }
+      0%, 100% { transform: rotate(-5deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.1); }
     }
     @keyframes flamePulse {
-      0%, 100% { filter: brightness(1) drop-shadow(0 0 8px rgba(255,149,0,0.4)); }
-      50% { filter: brightness(1.2) drop-shadow(0 0 16px rgba(255,149,0,0.6)); }
+      0%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 0 4px #ff9500); }
+      50% { transform: scale(1.18); filter: brightness(1.4) drop-shadow(0 0 14px #ff453a); }
     }
     @keyframes flameSupernova {
-      0%, 100% { transform: translateY(0) scaleY(1); filter: brightness(1.1) drop-shadow(0 0 12px rgba(255,149,0,0.5)); }
-      50% { transform: translateY(-12px) scaleY(1.08); filter: brightness(1.3) drop-shadow(0 0 20px rgba(255,149,0,0.7)); }
+      0%, 100% { transform: scale(1) rotate(-4deg); filter: brightness(1.2) drop-shadow(0 0 8px #eab308); }
+      50% { transform: scale(1.25) rotate(4deg); filter: brightness(1.6) drop-shadow(0 0 20px #a855f7); }
     }
     @keyframes flameCosmic {
-      0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); filter: brightness(1.15) drop-shadow(0 0 15px rgba(255,149,0,0.6)); }
-      25% { transform: translateY(-10px) scaleY(1.05) scaleX(1.02); }
-      50% { transform: translateY(-15px) scaleY(1.08) scaleX(1); filter: brightness(1.25) drop-shadow(0 0 22px rgba(255,149,0,0.7)); }
-      75% { transform: translateY(-10px) scaleY(1.05) scaleX(0.98); }
+      0% { filter: hue-rotate(0deg) drop-shadow(0 0 10px #38bdf8); transform: scale(1); }
+      50% { filter: hue-rotate(180deg) drop-shadow(0 0 24px #ec4899); transform: scale(1.3); }
+      100% { filter: hue-rotate(360deg) drop-shadow(0 0 10px #38bdf8); transform: scale(1); }
     }
     @keyframes flameGodMode {
-      0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); filter: brightness(1.2) drop-shadow(0 0 18px rgba(255,149,0,0.7)); }
-      20% { transform: translateY(-8px) scaleY(1.03) scaleX(1.01); }
-      40% { transform: translateY(-18px) scaleY(1.06) scaleX(1); filter: brightness(1.35) drop-shadow(0 0 28px rgba(255,149,0,0.8)); }
-      60% { transform: translateY(-12px) scaleY(1.04) scaleX(0.99); }
-      80% { transform: translateY(-6px) scaleY(1.02) scaleX(1.01); }
+      0% { filter: hue-rotate(0deg) drop-shadow(0 0 18px #fff) brightness(1.5); transform: scale(1) rotate(-6deg); }
+      25% { filter: hue-rotate(90deg) drop-shadow(0 0 32px #f0abfc) brightness(2); transform: scale(1.35) rotate(0deg); }
+      50% { filter: hue-rotate(180deg) drop-shadow(0 0 40px #fde68a) brightness(2.5); transform: scale(1.5) rotate(6deg); }
+      75% { filter: hue-rotate(270deg) drop-shadow(0 0 32px #6ee7b7) brightness(2); transform: scale(1.35) rotate(0deg); }
+      100% { filter: hue-rotate(360deg) drop-shadow(0 0 18px #fff) brightness(1.5); transform: scale(1) rotate(-6deg); }
     }
 
     /* streak = 0: alles grijs */
-    .streak_0 .streak-svg-icon { filter: grayscale(1) opacity(0.4); }
-    .streak_0 .streak-num { color: var(--text-mut) !important; }
-    .streak_0 .streak-title { color: var(--text-mut) !important; }
-    .streak_0 .streak-sub { color: var(--text-mut) !important; }
-    .streak_0 { background: linear-gradient(135deg, rgba(100,100,100,0.08), rgba(80,80,80,0.04)) !important; border-color: rgba(100,100,100,0.2) !important; }
+    .streak-stage-0 .streak-svg-icon { filter: grayscale(1) opacity(0.4); }
+    .streak-stage-0 .streak-num { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-title { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-sub { color: var(--text-mut) !important; }
+    .streak-stage-0 { background: linear-gradient(135deg, rgba(100,100,100,0.08), rgba(80,80,80,0.04)) !important; border-color: rgba(100,100,100,0.2) !important; }
 
-    /* streak 1-9: zeer subtiele animatie */
-    .streak_1 .streak-svg-icon { animation: flameWiggle 3s ease-in-out infinite; filter: brightness(1.05); }
+    /* streak 1-9: klein vlammetje, geen animatie */
+    .streak-stage-1 .streak-svg-icon { filter: brightness(0.9); }
 
-    /* 10+ : rustige op/neer beweging */
-    .streak_10 .streak-svg-icon { animation: flameWiggle 2.5s ease-in-out infinite, flamePulse 3s ease-in-out infinite; }
+    /* 10+ : begint te wiggelen */
+    .streak-stage-10 .streak-svg-icon { animation: flameWiggle 1s ease-in-out infinite; }
 
-    /* 30+: iets sneller op/neer */
-    .streak_30 .streak-svg-icon { animation: flameWiggle 2s ease-in-out infinite, flamePulse 2.5s ease-in-out infinite; }
+    /* 30+: wiggle + pulse */
+    .streak-stage-30 .streak-svg-icon { animation: flameWiggle 0.6s ease-in-out infinite, flamePulse 1s ease-in-out infinite; }
 
-    /* 100+: meer dynamisch */
-    .streak_100 .streak-svg-icon { animation: flameWiggle 1.5s ease-in-out infinite, flamePulse 2s ease-in-out infinite; }
+    /* 100+: sneller */
+    .streak-stage-100 .streak-svg-icon { animation: flameWiggle 0.4s ease-in-out infinite, flamePulse 0.65s ease-in-out infinite; }
 
-    /* 300+: supernova animatie */
-    .streak_300 .streak-svg-icon { animation: flameSupernova 2s ease-in-out infinite; }
+    /* 300+: supernova */
+    .streak-stage-300 .streak-svg-icon { animation: flameSupernova 0.7s ease-in-out infinite; }
 
-    /* 500+: supernova sneller */
-    .streak_500 .streak-svg-icon { animation: flameSupernova 1.5s ease-in-out infinite; }
+    /* 500+: supernova snel */
+    .streak-stage-500 .streak-svg-icon { animation: flameSupernova 0.45s ease-in-out infinite; }
 
-    /* 1000+: cosmic animatie */
-    .streak_1000 .streak-svg-icon { animation: flameCosmic 2.5s linear infinite; }
+    /* 1000+: cosmic */
+    .streak-stage-1000 .streak-svg-icon { animation: flameCosmic 1.5s linear infinite; }
 
-    /* 2000+: cosmic sneller */
-    .streak_2000 .streak-svg-icon { animation: flameCosmic 1.8s linear infinite; }
+    /* 2000+: cosmic snel */
+    .streak-stage-2000 .streak-svg-icon { animation: flameCosmic 0.7s linear infinite; }
 
     /* 10000+: god mode */
-    .streak_10000 .streak-svg-icon { animation: flameGodMode 1.5s linear infinite; }
+    .streak-stage-10000 .streak-svg-icon { animation: flameGodMode 0.5s linear infinite; }
 
     /* SWIPEABLE THEME COLOR CIRCLES */
     .theme-swatches-scroll {
@@ -678,12 +677,11 @@
           <div>
             <div style="display:flex; align-items:baseline; gap:6px;">
               <span class="streak-num" id="homeStreakCount">0</span>
-              <span class="streak-title" id="homeStreakTitle">Dagen Streak</span>
+              <span class="streak-title">Dagen Streak</span>
             </div>
             <div class="streak-sub" id="homeStreakSub">Train vandaag om je streak vast te houden!</div>
           </div>
         </div>
-        <button onclick="openStreakLadderModal()" style="background:transparent; border:none; color:var(--text-sec); font-size:18px; cursor:pointer; padding:4px; opacity:0.6; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">•••</button>
       </div>
 
       <!-- WORKOUT TIMER & SESSIE CONTROLS -->
@@ -740,13 +738,16 @@
       </div>
 
       <!-- 7 DAGEN WEEK TITELS -->
-            <!-- SCHEMA KIEZER BANNER -->
+            <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);" id="schemaBannerTitle">Trainingsschema Kiezen</div>
-          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;" id="schemaBannerSubtitle">Kies uit 12 populaire trainingsschema's</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
         </div>
-        <button id="schemaBannerBtn" onclick="openSchemaSelectorModal()" style="padding:7px 14px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:12px; font-weight:800; cursor:pointer;">Schema's</button>
+        <div style="display:flex; gap:6px;">
+          <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
+          <button onclick="openCustomSchemaWizard()" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:11px; font-weight:700; cursor:pointer;">+ Eigen</button>
+        </div>
       </div>
 
       <!-- 7 DAGEN WEEK TITELS -->
@@ -986,10 +987,21 @@
         <select class="profile-input" id="languageSelect" onchange="changeAppLanguage(this.value)">
           <option value="nl">Nederlands</option>
           <option value="en">English</option>
-          <option value="fr">FranÃ§ais</option>
-          <option value="es">EspaÃ±ol</option>
-          <option value="tr">TÃ¼rkÃ§e</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
           <option value="it">Italiano</option>
+          <option value="pt">Português</option>
+          <option value="tr">Türkçe</option>
+          <option value="ar">العربية</option>
+          <option value="pl">Polski</option>
+          <option value="ru">Русский</option>
+          <option value="sv">Svenska</option>
+          <option value="no">Norsk</option>
+          <option value="da">Dansk</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="ko">한국어</option>
         </select>
       </div>
 
@@ -1012,23 +1024,23 @@
   <nav class="bottom-nav">
     <button class="nav-item active" id="navBtnHome" onclick="switchTab('home')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span class="nav-label" id="navLblHome">Home</span>
+      <span class="nav-label">Home</span>
     </button>
     <button class="nav-item" id="navBtnAgenda" onclick="switchTab('agenda')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
-      <span class="nav-label" id="navLblAgenda">Agenda</span>
+      <span class="nav-label">Agenda</span>
     </button>
     <button class="nav-item" id="navBtnTracker" onclick="switchTab('tracker')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-      <span class="nav-label" id="navLblTracker">Tracker</span>
+      <span class="nav-label">Tracker</span>
     </button>
     <button class="nav-item" id="navBtnSearch" onclick="switchTab('search')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <span class="nav-label" id="navLblSearch">Zoeken</span>
+      <span class="nav-label">Zoeken</span>
     </button>
     <button class="nav-item" id="navBtnProfile" onclick="switchTab('profile')">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span class="nav-label" id="navLblProfile">Profiel</span>
+      <span class="nav-label">Profiel</span>
     </button>
   </nav>
 
@@ -1046,23 +1058,6 @@
         Verhoog je all-time verplaatste volume om hogere ranks en divisies te ontgrendelen!
       </div>
       <div id="ranksLadderList" style="max-height:420px; overflow-y:auto; padding-right:4px;"></div>
-    </div>
-  </div>
-
-  <!-- STREAK LADDER MODAL -->
-  <div class="modal-overlay" id="streakLadderModal">
-    <div class="modal-dialog" style="max-width:460px;">
-      <div class="modal-hdr">
-        <span class="modal-title" style="display:inline-flex; align-items:center; gap:8px;">
-          <svg style="width:18px;height:18px;fill:#ff9500;" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-          Streak Ladder
-        </span>
-        <button class="modal-close-btn" onclick="closeStreakLadderModal()">&#10005;</button>
-      </div>
-      <div style="font-size:12px; color:var(--text-sec); margin-bottom:14px;">
-        Train elke dag om je streak te verhogen en nieuwe vlam animaties te ontgrendelen!
-      </div>
-      <div id="streakLadderList" style="max-height:420px; overflow-y:auto; padding-right:4px;"></div>
     </div>
   </div>
 
@@ -1166,283 +1161,416 @@
     return CATEGORY_FALLBACK_GIFS[cat] || CATEGORY_FALLBACK_GIFS['Overig'];
   }
 
-    // ==========================================
-  // MULTI-LANGUAGE TRANSLATIONS (6 TALEN: NL, EN, FR, ES, TR, IT)
-  // ==========================================
+  // MULTI-LANGUAGE TRANSLATIONS (17 LANGUAGES)
   const TRANSLATIONS = {
     nl: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Zoeken', navProfile: 'Profiel',
       welcome: "WELKOM TERUG", startSession: "Start Sessie", stopSession: "Sessie Afronden",
       sessionStatus: "Sessie Status", activeWorkout: "WORKOUT ACTIEF", sets: "Sets", exercises: "Oefeningen",
       volume: "Volume", restDayToday: "Rustdag Vandaag", restDaySub: "Tijd voor herstel en goede voeding!",
       addSet: "+ Set toevoegen", generalStats: "Algemene Statistieken", allTimeVolume: "All-Time Volume",
       selectLanguage: "Taal Selecteren", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
       restTimer: "RUSTTIJD", searchPlaceholder: "Zoek elke oefening in de gym...",
-      schemaTitle: "Trainingsschema Kiezen", schemaSubtitle: "Kies uit 12 populaire trainingsschema's",
-      schemaBtn: "Schema's",
       daysShort: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'],
       dayNames: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
-      // Streak vertalingen
-      streakTitle: "Dagen Streak",
-      streakStart: "Train vandaag om je streak te starten!",
-      streakActive: "Streak actief! Blijf consistent.",
-      streak10: "CONSISTENTIE — 10+ DAGEN!",
-      streak30: "TOGEWIJD — 30+ DAGEN!",
-      streak100: "ELITE NIVEAU — 100+ DAGEN!",
-      streak300: "MEESTERSCHAP — 300+ DAGEN!",
-      streak500: "KAMPIOEN — 500+ DAGEN!",
-      streak1000: "LEGENDARISCH — 1000+ DAGEN!",
-      streak2000: "IICOON — 2000+ DAGEN. ONSTOPBAAR.",
-      streak10000: "TITAAN — 10.000+ DAGEN. ULTIEM.",
+      // Categorie vertalingen
       categories: {
         'Borst': 'Borst', 'Rug': 'Rug', 'Schouders': 'Schouders', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Benen', 'Buik': 'Buik', 'Voorarmen': 'Voorarmen',
         'Overig': 'Overig'
       },
+      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Lichaamsgewicht', 'Machine': 'Machine', 'Overig': 'Overig'
       }
     },
     en: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Search', navProfile: 'Profile',
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
       sessionStatus: "Session Status", activeWorkout: "WORKOUT ACTIVE", sets: "Sets", exercises: "Exercises",
-      volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and nutrition!",
-      addSet: "+ Add Set", generalStats: "General Statistics", allTimeVolume: "All-Time Volume",
+      volume: "Volume", restDayToday: "Rest Day Today", restDaySub: "Time for recovery and good nutrition!",
+      addSet: "+ Add Set", generalStats: "Overall Statistics", allTimeVolume: "All-Time Volume",
       selectLanguage: "Select Language", resetAll: "Reset Routine", brandSub: "PROGRESSIVE TRACKER",
-      restTimer: "REST TIME", searchPlaceholder: "Search any exercise in the gym...",
-      schemaTitle: "Choose Workout Routine", schemaSubtitle: "Choose from 12 popular workout routines",
-      schemaBtn: "Routines",
+      restTimer: "REST TIME", searchPlaceholder: "Search any gym exercise...",
       daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       dayNames: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      // Streak translations
-      streakTitle: "Day Streak",
-      streakStart: "Train today to start your streak!",
-      streakActive: "Streak active! Stay consistent.",
-      streak10: "CONSISTENCY — 10+ DAYS!",
-      streak30: "COMMITTED — 30+ DAYS!",
-      streak100: "ELITE LEVEL — 100+ DAYS!",
-      streak300: "MASTERY — 300+ DAYS!",
-      streak500: "CHAMPION — 500+ DAYS!",
-      streak1000: "LEGENDARY — 1000+ DAYS!",
-      streak2000: "ICON — 2000+ DAYS. UNSTOPPABLE.",
-      streak10000: "TITAN — 10,000+ DAYS. ULTIMATE.",
+      // Categorie vertalingen
       categories: {
         'Borst': 'Chest', 'Rug': 'Back', 'Schouders': 'Shoulders', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Legs', 'Buik': 'Abs', 'Voorarmen': 'Forearms',
         'Overig': 'Other'
       },
+      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Cable Station',
         'Lichaamsgewicht': 'Bodyweight', 'Machine': 'Machine', 'Overig': 'Other'
       }
     },
+    de: {
+      welcome: "WILLKOMMEN", startSession: "Training Starten", stopSession: "Training Beenden",
+      sessionStatus: "Sitzungsstatus", activeWorkout: "TRAINING AKTIV", sets: "Saetze", exercises: "Uebungen",
+      volume: "Volumen", restDayToday: "Heute Ruhetag", restDaySub: "Zeit fuer Erholung!",
+      addSet: "+ Satz hinzufuegen", generalStats: "Gesamtstatistik", allTimeVolume: "Gesamtvolumen",
+      selectLanguage: "Sprache waehlen", resetAll: "Routine zuruecksetzen", brandSub: "PROGRESSIVES TRAINING",
+      restTimer: "PAUSENZEIT", searchPlaceholder: "Uebung suchen...",
+      daysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+      dayNames: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Brust', 'Rug': 'Ruecken', 'Schouders': 'Schultern', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Beine', 'Buik': 'Bauch', 'Voorarmen': 'Unterarme',
+        'Overig': 'Sonstiges'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Hanteln', 'Barbell': 'Langhantel', 'Kabelstation': 'Kabelstation',
+        'Lichaamsgewicht': 'Koerpergewicht', 'Machine': 'Maschine', 'Overig': 'Sonstiges'
+      }
+    },
     fr: {
-      navHome: 'Accueil', navAgenda: 'Agenda', navTracker: 'Progression', navSearch: 'Recherche', navProfile: 'Profil',
-      welcome: "BIENVENUE", startSession: "Commencer Séance", stopSession: "Terminer Séance",
-      sessionStatus: "Statut Séance", activeWorkout: "SÉANCE ACTIVE", sets: "Séries", exercises: "Exercices",
-      volume: "Volume", restDayToday: "Jour de Repos", restDaySub: "Temps pour la récupération et la nutrition !",
-      addSet: "+ Ajouter Série", generalStats: "Statistiques Générales", allTimeVolume: "Volume Total",
-      selectLanguage: "Choisir la Langue", resetAll: "Réinitialiser", brandSub: "SUIVI PROGRESSIF",
+      welcome: "BIENVENUE", startSession: "Demarrer Seance", stopSession: "Terminer Seance",
+      sessionStatus: "Statut Seance", activeWorkout: "ENTRAINEMENT ACTIF", sets: "Series", exercises: "Exercices",
+      volume: "Volume", restDayToday: "Jour de Repos", restDaySub: "Temps de recuperation!",
+      addSet: "+ Ajouter Serie", generalStats: "Statistiques", allTimeVolume: "Volume Total",
+      selectLanguage: "Choisir la Langue", resetAll: "Reinitialiser", brandSub: "SUIVI PROGRESSIF",
       restTimer: "TEMPS DE REPOS", searchPlaceholder: "Rechercher un exercice...",
-      schemaTitle: "Choisir un Programme", schemaSubtitle: "Choisissez parmi 12 programmes populaires",
-      schemaBtn: "Programmes",
       daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-      // Streak translations
-      streakTitle: "Jours de Suite",
-      streakStart: "Entraînez-vous aujourd'hui pour commencer votre série!",
-      streakActive: "Série active! Restez constant.",
-      streak10: "CONSISTANCE — 10+ JOURS!",
-      streak30: "ENGAGÉ — 30+ JOURS!",
-      streak100: "NIVEAU ÉLITE — 100+ JOURS!",
-      streak300: "MAÎTRISE — 300+ JOURS!",
-      streak500: "CHAMPION — 500+ JOURS!",
-      streak1000: "LÉGENDAIRE — 1000+ JOURS!",
-      streak2000: "ICÔNE — 2000+ JOURS. INARRÊTABLE.",
-      streak10000: "TITAN — 10,000+ JOURS. ULTIME.",
+      // Categorie vertalingen
       categories: {
-        'Borst': 'Poitrine', 'Rug': 'Dos', 'Schouders': 'Épaules', 'Biceps': 'Biceps',
+        'Borst': 'Pectoraux', 'Rug': 'Dos', 'Schouders': 'Epaules', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Jambes', 'Buik': 'Abdos', 'Voorarmen': 'Avant-bras',
         'Overig': 'Autre'
       },
+      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Haltères', 'Barbell': 'Barre', 'Kabelstation': 'Station à Câble',
-        'Lichaamsgewicht': 'Poids du Corps', 'Machine': 'Machine', 'Overig': 'Autre'
+        'Dumbbells': 'Halteres', 'Barbell': 'Barre', 'Kabelstation': 'Station de cable',
+        'Lichaamsgewicht': 'Poids corporel', 'Machine': 'Machine', 'Overig': 'Autre'
       }
     },
     es: {
-      navHome: 'Inicio', navAgenda: 'Agenda', navTracker: 'Progreso', navSearch: 'Buscar', navProfile: 'Perfil',
-      welcome: "BIENVENIDO", startSession: "Iniciar Sesión", stopSession: "Finalizar Sesión",
-      sessionStatus: "Estado Sesión", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
-      volume: "Volumen", restDayToday: "Día de Descanso", restDaySub: "¡Tiempo de recuperación y nutrición!",
-      addSet: "+ Añadir Serie", generalStats: "Estadísticas Generales", allTimeVolume: "Volumen Total",
-      selectLanguage: "Seleccionar Idioma", resetAll: "Restablecer Rutina", brandSub: "SEGUIMIENTO PROGRESIVO",
-      restTimer: "TIEMPO DE DESCANSO", searchPlaceholder: "Buscar cualquier ejercicio...",
-      schemaTitle: "Elegir Rutina", schemaSubtitle: "Elige entre 12 rutinas populares",
-      schemaBtn: "Rutinas",
-      daysShort: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-      dayNames: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-      // Streak translations
-      streakTitle: "Días de Racha",
-      streakStart: "¡Entrena hoy para comenzar tu racha!",
-      streakActive: "¡Racha activa! Mantente constante.",
-      streak10: "CONSTANCIA — ¡10+ DÍAS!",
-      streak30: "COMPROMISO — ¡30+ DÍAS!",
-      streak100: "NIVEL ÉLITE — ¡100+ DÍAS!",
-      streak300: "MAESTRÍA — ¡300+ DÍAS!",
-      streak500: "CAMPEÓN — ¡500+ DÍAS!",
-      streak1000: "LEGENDARIO — ¡1000+ DÍAS!",
-      streak2000: "ICONO — 2000+ DÍAS. INPARABLE.",
-      streak10000: "TITÁN — 10,000+ DÍAS. FINAL.",
+      welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
+      sessionStatus: "Estado Sesion", activeWorkout: "ENTRENAMIENTO ACTIVO", sets: "Series", exercises: "Ejercicios",
+      volume: "Volumen", restDayToday: "Dia de Descanso", restDaySub: "Tiempo de recuperacion!",
+      addSet: "+ Agregar Serie", generalStats: "Estadisticas", allTimeVolume: "Volumen Total",
+      selectLanguage: "Seleccionar Idioma", resetAll: "Reiniciar", brandSub: "SEGUIMIENTO PROGRESIVO",
+      restTimer: "TIEMPO DE DESCANSO", searchPlaceholder: "Buscar ejercicio...",
+      daysShort: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+      dayNames: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+      // Categorie vertalingen
       categories: {
-        'Borst': 'Pecho', 'Rug': 'Espalda', 'Schouders': 'Hombros', 'Biceps': 'Bíceps',
-        'Triceps': 'Tríceps', 'Benen': 'Piernas', 'Buik': 'Abdomen', 'Voorarmen': 'Antebrazos',
+        'Borst': 'Pecho', 'Rug': 'Espalda', 'Schouders': 'Hombros', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Piernas', 'Buik': 'Abdominales', 'Voorarmen': 'Antebrazos',
         'Overig': 'Otro'
       },
+      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estación de Poleas',
-        'Lichaamsgewicht': 'Peso Corporal', 'Machine': 'Máquina', 'Overig': 'Otro'
+        'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estacion de cable',
+        'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Otro'
       }
     },
     tr: {
-      navHome: 'Ana Sayfa', navAgenda: 'Ajanda', navTracker: 'Takip', navSearch: 'Arama', navProfile: 'Profil',
-      welcome: "HOŞ GELDİNİZ", startSession: "Antrenmanı Başlat", stopSession: "Antrenmanı Bitir",
-      sessionStatus: "Seans Durumu", activeWorkout: "ANTRENMAN AKTİF", sets: "Setler", exercises: "Egzersizler",
-      volume: "Hacim", restDayToday: "Bugün Dinlenme Günü", restDaySub: "Toparlanma ve iyi beslenme zamanı!",
-      addSet: "+ Set Ekle", generalStats: "Genel İstatistikler", allTimeVolume: "Toplam Hacim",
-      selectLanguage: "Dil Seçimi", resetAll: "Programı Sıfırla", brandSub: "GELİŞİM TAKİBİ",
-      restTimer: "DİNLENME SÜRESİ", searchPlaceholder: "Salondaki tüm egzersizleri ara...",
-      schemaTitle: "Antrenman Programı Seç", schemaSubtitle: "12 popüler programdan birini seçin",
-      schemaBtn: "Programlar",
-      daysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-      dayNames: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],
-      // Streak translations
-      streakTitle: "Gün Serisi",
-      streakStart: "Serini başlatmak için bugün antrenman yap!",
-      streakActive: "Seri aktif! Tutarlı kal.",
-      streak10: "SABIR — 10+ GÜN!",
-      streak30: "ADANMIŞ — 30+ GÜN!",
-      streak100: "ELİT SEVİYE — 100+ GÜN!",
-      streak300: "USTALIK — 300+ GÜN!",
-      streak500: "ŞAMPİYON — 500+ GÜN!",
-      streak1000: "EFSANE — 1000+ GÜN!",
-      streak2000: "İKON — 2000+ GÜN. DURDURULMAZ.",
-      streak10000: "TİTAN — 10,000+ GÜN. NİHAİ.",
+      welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
+      sessionStatus: "Durum", activeWorkout: "AKTIF ANTRENMAN", sets: "Setler", exercises: "Egzersizler",
+      volume: "Hacim", restDayToday: "Dinlenme Gunu", restDaySub: "Toparlanma zamani!",
+      addSet: "+ Set Ekle", generalStats: "Istatistikler", allTimeVolume: "Toplam Hacim",
+      selectLanguage: "Dil Secimi", resetAll: "Sifirla", brandSub: "ILERLEMELI TAKIP",
+      restTimer: "DINLENME SURESI", searchPlaceholder: "Egzersiz ara...",
+      daysShort: ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt', 'Paz'],
+      dayNames: ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'],
+      // Categorie vertalingen
       categories: {
-        'Borst': 'Göğüs', 'Rug': 'Sırt', 'Schouders': 'Omuz', 'Biceps': 'Pazı (Biceps)',
-        'Triceps': 'Arka Kol (Triceps)', 'Benen': 'Bacak', 'Buik': 'Karın', 'Voorarmen': 'Ön Kol',
-        'Overig': 'Diğer'
+        'Borst': 'Gogus', 'Rug': 'Sirt', 'Schouders': 'Omuzlar', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Bacaklar', 'Buik': 'Karın', 'Voorarmen': 'On kol',
+        'Overig': 'Diger'
       },
+      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Dambıl', 'Barbell': 'Halter', 'Kabelstation': 'Kablo İstasyonu',
-        'Lichaamsgewicht': 'Vücut Ağırlığı', 'Machine': 'Makine', 'Overig': 'Diğer'
+        'Dumbbells': 'Dumbbell', 'Barbell': 'Barbell', 'Kabelstation': 'Kablo istasyonu',
+        'Lichaamsgewicht': 'Vucut agirligi', 'Machine': 'Makine', 'Overig': 'Diger'
       }
     },
     it: {
-      navHome: 'Home', navAgenda: 'Agenda', navTracker: 'Tracker', navSearch: 'Cerca', navProfile: 'Profilo',
-      welcome: "BENTORNATO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
-      sessionStatus: "Stato Sessione", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
-      volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero e buona alimentazione!",
-      addSet: "+ Aggiungi Serie", generalStats: "Statistiche Generali", allTimeVolume: "Volume Totale",
-      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina Routine", brandSub: "TRACKER PROGRESSIVO",
-      restTimer: "TEMPO DI RIPOSO", searchPlaceholder: "Cerca qualsiasi esercizio...",
-      schemaTitle: "Scegli Scheda di Allenamento", schemaSubtitle: "Scegli tra 12 schede popolari",
-      schemaBtn: "Schede",
+      welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
+      sessionStatus: "Stato", activeWorkout: "ALLENAMENTO ATTIVO", sets: "Serie", exercises: "Esercizi",
+      volume: "Volume", restDayToday: "Giorno di Riposo", restDaySub: "Tempo di recupero!",
+      addSet: "+ Aggiungi Serie", generalStats: "Statistiche", allTimeVolume: "Volume Totale",
+      selectLanguage: "Seleziona Lingua", resetAll: "Ripristina", brandSub: "TRACKER PROGRESSIVO",
+      restTimer: "TEMPO DI RIPOSO", searchPlaceholder: "Cerca esercizio...",
       daysShort: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-      dayNames: ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
-      // Streak translations
-      streakTitle: "Giorni di Serie",
-      streakStart: "Allenati oggi per iniziare la tua serie!",
-      streakActive: "Serie attiva! Rimani costante.",
-      streak10: "COSTANZA — 10+ GIORNI!",
-      streak30: "IMPEGNATO — 30+ GIORNI!",
-      streak100: "LIVELLO ELITE — 100+ GIORNI!",
-      streak300: "MAESTRIA — 300+ GIORNI!",
-      streak500: "CAMPIONE — 500+ GIORNI!",
-      streak1000: "LEGENDARIO — 1000+ GIORNI!",
-      streak2000: "ICONA — 2000+ GIORNI. INARRESTABILE.",
-      streak10000: "TITANO — 10,000+ GIORNI. FINALE.",
+      dayNames: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
+      // Categorie vertalingen
       categories: {
         'Borst': 'Petto', 'Rug': 'Schiena', 'Schouders': 'Spalle', 'Biceps': 'Bicipiti',
         'Triceps': 'Tricipiti', 'Benen': 'Gambe', 'Buik': 'Addominali', 'Voorarmen': 'Avambracci',
         'Overig': 'Altro'
       },
+      // Equipment vertalingen
       equipment: {
-        'Dumbbells': 'Manubri', 'Barbell': 'Bilanciere', 'Kabelstation': 'Cavi',
-        'Lichaamsgewicht': 'Corpo Libero', 'Machine': 'Macchinario', 'Overig': 'Altro'
+        'Dumbbells': 'Manubri', 'Barbell': 'Bilanciere', 'Kabelstation': 'Stazione a cavi',
+        'Lichaamsgewicht': 'Peso corporeo', 'Machine': 'Macchina', 'Overig': 'Altro'
+      }
+    },
+    pt: {
+      welcome: "BEM-VINDO", startSession: "Iniciar Treino", stopSession: "Finalizar Treino",
+      sessionStatus: "Status", activeWorkout: "TREINO ATIVO", sets: "Series", exercises: "Exercicios",
+      volume: "Volume", restDayToday: "Dia de Descanso", restDaySub: "Hora de recuperar!",
+      addSet: "+ Adicionar Serie", generalStats: "Estatisticas", allTimeVolume: "Volume Total",
+      selectLanguage: "Selecionar Idioma", resetAll: "Reiniciar", brandSub: "RASTREADOR PROGRESSIVO",
+      restTimer: "TEMPO DE DESCANSO", searchPlaceholder: "Pesquisar exercicio...",
+      daysShort: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+      dayNames: ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Peito', 'Rug': 'Costas', 'Schouders': 'Ombros', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Pernas', 'Buik': 'Abdominais', 'Voorarmen': 'Antebracos',
+        'Overig': 'Outro'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Halteres', 'Barbell': 'Barra', 'Kabelstation': 'Estacao de cabos',
+        'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Outro'
+      }
+    },
+    ar: {
+      welcome: "MARHABA", startSession: "Ibda Al-Tamreen", stopSession: "Inha Al-Tamreen",
+      sessionStatus: "Al-Hala", activeWorkout: "TAMREEN NASHIT", sets: "Majmuaat", exercises: "Tamareen",
+      volume: "Al-Wazn", restDayToday: "Yawm Raha", restDaySub: "Waqt Al-Raaha!",
+      addSet: "+ Idafa Majmua", generalStats: "Ihsaiyyat", allTimeVolume: "Al-Hajm Al-Kulli",
+      selectLanguage: "Ikhtiyar Al-Lugha", resetAll: "Iadat Tayin", brandSub: "MUTABIE TATAWWURI",
+      restTimer: "WAQT AL-RAHA", searchPlaceholder: "Ibhath an tamreen...",
+      daysShort: ['Ith', 'Thul', 'Arb', 'Kham', 'Jum', 'Sab', 'Ahad'],
+      dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbia', 'Al-Khamis', 'Al-Jumua', 'Al-Sabt', 'Al-Ahad'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Sadri', 'Rug': 'Zahr', 'Schouders': 'Kataf', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Aqdam', 'Buik': 'Batn', 'Voorarmen': 'Dhira',
+        'Overig': 'Akhar'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Mahattat as-hab',
+        'Lichaamsgewicht': 'Wazn al-jasad', 'Machine': 'Ala', 'Overig': 'Akhar'
+      }
+    },
+    pl: {
+      welcome: "WITAJ", startSession: "Rozpocznij Trening", stopSession: "Zakoncz Trening",
+      sessionStatus: "Status Sesji", activeWorkout: "TRENING AKTYWNY", sets: "Serie", exercises: "Cwiczenia",
+      volume: "Objetosc", restDayToday: "Dzien Odpoczynku", restDaySub: "Czas na regeneracje!",
+      addSet: "+ Dodaj Serie", generalStats: "Statystyki", allTimeVolume: "Lacznie",
+      selectLanguage: "Wybierz Jezyk", resetAll: "Resetuj", brandSub: "PROGRESYWNY TRENING",
+      restTimer: "CZAS ODPOCZYNKU", searchPlaceholder: "Szukaj cwiczenia...",
+      daysShort: ['Pon', 'Wt', 'Sr', 'Czw', 'Pt', 'Sob', 'Nd'],
+      dayNames: ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Klatka piersiowa', 'Rug': 'Plecy', 'Schouders': 'Barki', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Nogi', 'Buik': 'Brzuch', 'Voorarmen': 'Przedramiona',
+        'Overig': 'Inne'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Hantle', 'Barbell': 'Sztaba', 'Kabelstation': 'Stacja kablowa',
+        'Lichaamsgewicht': 'Ciezar wlasny', 'Machine': 'Maszyna', 'Overig': 'Inne'
+      }
+    },
+    ru: {
+      welcome: "DOBRO POZHALOVAT", startSession: "Nachat Trenirovku", stopSession: "Zavershit",
+      sessionStatus: "Status", activeWorkout: "TRENIROVKA AKTIVNA", sets: "Podkhody", exercises: "Uprazhneniya",
+      volume: "Obem", restDayToday: "Den Otdykha", restDaySub: "Vremya dlya vosstanovleniya!",
+      addSet: "+ Dobavit Podkhod", generalStats: "Statistika", allTimeVolume: "Obshchy Obem",
+      selectLanguage: "Vybrat Yazyk", resetAll: "Sbrosit", brandSub: "PROGRESSIVNY TREKER",
+      restTimer: "VREMYA OTDYKHA", searchPlaceholder: "Poisk uprazhneniya...",
+      daysShort: ['Pn', 'Vt', 'Sr', 'Ch', 'Pt', 'Sb', 'Vs'],
+      dayNames: ['Ponedelnik', 'Vtornik', 'Sreda', 'Chetverg', 'Pyatnitsa', 'Subbota', 'Voskresenye'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Grud', 'Rug': 'Spinа', 'Schouders': 'Plechi', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Nogi', 'Buik': 'Press', 'Voorarmen': 'Predplechya',
+        'Overig': 'Drugoe'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Ganteli', 'Barbell': 'Shtanga', 'Kabelstation': 'Kabelnyy trenazher',
+        'Lichaamsgewicht': 'Sobstvennyy ves', 'Machine': 'Trenazher', 'Overig': 'Drugoe'
+      }
+    },
+    sv: {
+      welcome: "VALKOMMEN", startSession: "Starta Traning", stopSession: "Avsluta Traning",
+      sessionStatus: "Status", activeWorkout: "TRANING AKTIV", sets: "Set", exercises: "Ovningar",
+      volume: "Volym", restDayToday: "Vilodagen", restDaySub: "Tid for aterhämtning!",
+      addSet: "+ Lagg till Set", generalStats: "Statistik", allTimeVolume: "Total Volym",
+      selectLanguage: "Valj Sprak", resetAll: "Aterstall", brandSub: "PROGRESSIV TRACKNING",
+      restTimer: "VILOTID", searchPlaceholder: "Sok ovning...",
+      daysShort: ['Man', 'Tis', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Bröst', 'Rug': 'Rygg', 'Schouders': 'Axlar', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mage', 'Voorarmen': 'Underarmar',
+        'Overig': 'Annat'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Hantlar', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstation',
+        'Lichaamsgewicht': 'Kroppsvikt', 'Machine': 'Maskin', 'Overig': 'Annat'
+      }
+    },
+    ja: {
+      welcome: "YOKOSO", startSession: "Workout Kaishi", stopSession: "Owaru",
+      sessionStatus: "Status", activeWorkout: "WORKOUT CHUU", sets: "Setto", exercises: "Undou",
+      volume: "Volume", restDayToday: "Kyuujitsu", restDaySub: "Kaifuku no jikan!",
+      addSet: "+ Setto Tsuika", generalStats: "Toukeijouhou", allTimeVolume: "Soukei Volume",
+      selectLanguage: "Gengo Sentaku", resetAll: "Risetto", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "KYUUKEI", searchPlaceholder: "Undou wo sagasu...",
+      daysShort: ['Getz', 'Ka', 'Sui', 'Moku', 'Kin', 'Do', 'Nichi'],
+      dayNames: ['Getsu-yobi', 'Ka-yobi', 'Sui-yobi', 'Moku-yobi', 'Kin-yobi', 'Do-yobi', 'Nichi-yobi'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': '胸', 'Rug': '背中', 'Schouders': '肩', 'Biceps': '上腕二頭筋',
+        'Triceps': '上腕三頭筋', 'Benen': '脚', 'Buik': '腹筋', 'Voorarmen': '前腕',
+        'Overig': 'その他'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'ダンベル', 'Barbell': 'バーベル', 'Kabelstation': 'ケーブルマシン',
+        'Lichaamsgewicht': '自重', 'Machine': 'マシン', 'Overig': 'その他'
+      }
+    },
+    ko: {
+      welcome: "HWANGYEONGHABNIDA", startSession: "Undong Sijak", stopSession: "Undong Wanryo",
+      sessionStatus: "Sangtae", activeWorkout: "UNDONG JUNGIB", sets: "Setu", exercises: "Undo",
+      volume: "Boljyum", restDayToday: "Hyusigilb", restDaySub: "Hoebok sigan!",
+      addSet: "+ Setu Chuga", generalStats: "Tonggye", allTimeVolume: "Jeoche Boljyum",
+      selectLanguage: "Eon-eo Seontaeg", resetAll: "Chogidae", brandSub: "PROGRESSIVE TRACKER",
+      restTimer: "HYUSIG SIGAN", searchPlaceholder: "Undo geomseog...",
+      daysShort: ['Wol', 'Hwa', 'Su', 'Mok', 'Geum', 'To', 'Il'],
+      dayNames: ['Wol-yo-il', 'Hwa-yo-il', 'Su-yo-il', 'Mok-yo-il', 'Geum-yo-il', 'To-yo-il', 'Il-yo-il'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': '가슴', 'Rug': '등', 'Schouders': '어깨', 'Biceps': '이두',
+        'Triceps': '삼두', 'Benen': '다리', 'Buik': '복근', 'Voorarmen': '전완',
+        'Overig': '기타'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': '덤벨', 'Barbell': '바벨', 'Kabelstation': '케이블 머신',
+        'Lichaamsgewicht': '자신 체중', 'Machine': '머신', 'Overig': '기타'
+      }
+    },
+    zh: {
+      welcome: "HUANYING", startSession: "Kaishi Xunlian", stopSession: "Jieshu Xunlian",
+      sessionStatus: "Zhuangtai", activeWorkout: "XUNLIAN ZHONG", sets: "Zu", exercises: "Dongzuo",
+      volume: "Liang", restDayToday: "Xiuxi Ri", restDaySub: "Huifu shijian!",
+      addSet: "+ Tianjia Zu", generalStats: "Tongji", allTimeVolume: "Zongliang",
+      selectLanguage: "Xuanze Yuyan", resetAll: "Chongzhi", brandSub: "JINBU ZHUIZONGI",
+      restTimer: "XIUXI SHIJIAN", searchPlaceholder: "Sousuo dongzuo...",
+      daysShort: ['Yi', 'Er', 'San', 'Si', 'Wu', 'Liu', 'Ri'],
+      dayNames: ['Xingqi Yi', 'Xingqi Er', 'Xingqi San', 'Xingqi Si', 'Xingqi Wu', 'Xingqi Liu', 'Xingqi Ri'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': '胸部', 'Rug': '背部', 'Schouders': '肩部', 'Biceps': '二头肌',
+        'Triceps': '三头肌', 'Benen': '腿部', 'Buik': '腹部', 'Voorarmen': '前臂',
+        'Overig': '其他'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': '哑铃', 'Barbell': '杠铃', 'Kabelstation': '缆绳机',
+        'Lichaamsgewicht': '自重', 'Machine': '器械', 'Overig': '其他'
+      }
+    },
+    no: {
+      welcome: "VELKOMMEN", startSession: "Start Trening", stopSession: "Avslutt Trening",
+      sessionStatus: "Status", activeWorkout: "TRENING AKTIV", sets: "Sett", exercises: "Ovelser",
+      volume: "Volum", restDayToday: "Hviledag", restDaySub: "Tid for restitusjon!",
+      addSet: "+ Legg til Sett", generalStats: "Statistikk", allTimeVolume: "Totalt Volum",
+      selectLanguage: "Velg Sprak", resetAll: "Tilbakestill", brandSub: "PROGRESSIV TRENING",
+      restTimer: "HVILETID", searchPlaceholder: "Sok ovelse...",
+      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Bryst', 'Rug': 'Rygg', 'Schouders': 'Skuldre', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mage', 'Voorarmen': 'Underarmer',
+        'Overig': 'Annet'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Hantler', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstasjon',
+        'Lichaamsgewicht': 'Kroppsvekt', 'Machine': 'Maskin', 'Overig': 'Annet'
+      }
+    },
+    da: {
+      welcome: "VELKOMMEN", startSession: "Start Traening", stopSession: "Afslut Traening",
+      sessionStatus: "Status", activeWorkout: "TRAENING AKTIV", sets: "Saet", exercises: "Ovelser",
+      volume: "Volumen", restDayToday: "Hviledag", restDaySub: "Tid til restitution!",
+      addSet: "+ Tilfoej Saet", generalStats: "Statistik", allTimeVolume: "Samlet Volumen",
+      selectLanguage: "Vaelg Sprog", resetAll: "Nulstil", brandSub: "PROGRESSIV TRAENING",
+      restTimer: "HVILETID", searchPlaceholder: "Sog ovelse...",
+      daysShort: ['Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lor', 'Son'],
+      dayNames: ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lordag', 'Sondag'],
+      // Categorie vertalingen
+      categories: {
+        'Borst': 'Bryst', 'Rug': 'Ryg', 'Schouders': 'Skuldre', 'Biceps': 'Biceps',
+        'Triceps': 'Triceps', 'Benen': 'Ben', 'Buik': 'Mave', 'Voorarmen': 'Underarme',
+        'Overig': 'Andet'
+      },
+      // Equipment vertalingen
+      equipment: {
+        'Dumbbells': 'Hantler', 'Barbell': 'Stang', 'Kabelstation': 'Kabelstation',
+        'Lichaamsgewicht': 'Kropsvægt', 'Machine': 'Maskine', 'Overig': 'Andet'
       }
     }
   };
 
   function getLang() {
-    const l = localStorage.getItem('gymlog_lang');
-    return (l && TRANSLATIONS[l]) ? l : 'nl';
+    return localStorage.getItem('gymlog_lang') || 'nl';
   }
 
-  function getI18n(key) {
+  function t(key) {
     const lang = getLang();
     return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) || (TRANSLATIONS['nl'] && TRANSLATIONS['nl'][key]) || key;
   }
 
-  function getCategoryTranslation(catName) {
+  // Functie om vertaalde categorie naam te krijgen
+  function getCategoryTranslation(category) {
     const lang = getLang();
-    const t = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
-    return (t.categories && t.categories[catName]) || catName;
+    const translations = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
+    return (translations.categories && translations.categories[category]) || category;
   }
 
-  function getEquipmentTranslation(eqName) {
+  // Functie om vertaalde equipment naam te krijgen
+  function getEquipmentTranslation(equipment) {
     const lang = getLang();
-    const t = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
-    return (t.equipment && t.equipment[eqName]) || eqName;
+    const translations = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
+    return (translations.equipment && translations.equipment[equipment]) || equipment;
   }
 
-  function getTranslatedDayNamesShort() {
+  function getLocalizedDayName(dayIdx) {
     const lang = getLang();
-    return (TRANSLATIONS[lang] && TRANSLATIONS[lang].daysShort) || TRANSLATIONS['nl'].daysShort;
-  }
-
-  function getTranslatedDayNames() {
-    const lang = getLang();
-    return (TRANSLATIONS[lang] && TRANSLATIONS[lang].dayNames) || TRANSLATIONS['nl'].dayNames;
+    const list = (TRANSLATIONS[lang] && TRANSLATIONS[lang].dayNames) || TRANSLATIONS['nl'].dayNames;
+    return list[dayIdx] || DAY_NAMES[dayIdx];
   }
 
   function changeAppLanguage(lang) {
     localStorage.setItem('gymlog_lang', lang);
-    applyLanguageToStaticElements();
-    updateStreakDisplay();
+    // Herrender alle actieve views
     renderHomeView();
-    if (typeof renderAgendaView === 'function' && document.getElementById('viewAgenda').style.display !== 'none') {
-      renderAgendaView();
-    }
-    if (typeof renderTrackerView === 'function' && document.getElementById('viewTracker').style.display !== 'none') {
-      renderTrackerView();
-    }
-    if (typeof initSearchLibrary === 'function') {
+    if (document.getElementById('viewAgenda').style.display !== 'none') renderAgendaView();
+    if (document.getElementById('viewTracker').style.display !== 'none') renderTrackerView();
+    if (document.getElementById('viewSearch').style.display !== 'none') {
       initSearchLibrary();
+      filterSearchLibrary();
     }
-    const T = TRANSLATIONS[lang] || TRANSLATIONS['nl'];
-    triggerToast(`${T.selectLanguage || 'Taal'}: ${lang.toUpperCase()}`);
+    // Update statische teksten in de HTML die niet via render worden bijgewerkt
+    applyLanguageToStaticElements();
+    triggerToast(`Taal: ${lang.toUpperCase()} ✓`);
   }
 
   function applyLanguageToStaticElements() {
     const l = getLang();
     const T = TRANSLATIONS[l] || TRANSLATIONS['nl'];
 
-    // Nav bar labels
-    const nHome = document.getElementById('navLblHome');
-    const nAgenda = document.getElementById('navLblAgenda');
-    const nTracker = document.getElementById('navLblTracker');
-    const nSearch = document.getElementById('navLblSearch');
-    const nProfile = document.getElementById('navLblProfile');
-    if (nHome) nHome.textContent = T.navHome || 'Home';
-    if (nAgenda) nAgenda.textContent = T.navAgenda || 'Agenda';
-    if (nTracker) nTracker.textContent = T.navTracker || 'Tracker';
-    if (nSearch) nSearch.textContent = T.navSearch || 'Zoeken';
-    if (nProfile) nProfile.textContent = T.navProfile || 'Profiel';
-
-    // Header sub
+    // Header & nav
     const brandSub = document.querySelector('.brand-sub');
     if (brandSub) brandSub.textContent = T.brandSub || 'PROGRESSIVE TRACKER';
 
@@ -1454,7 +1582,7 @@
     if (lEx) lEx.textContent = T.exercises || 'Oefeningen';
     if (lVol) lVol.textContent = T.volume || 'Volume';
 
-    // Session status and button
+    // Session button
     const sessionStatusLbl = document.getElementById('lblSessionStatus');
     if (sessionStatusLbl) sessionStatusLbl.textContent = workoutActive ? (T.activeWorkout || 'WORKOUT ACTIEF') : (T.sessionStatus || 'Sessie Status');
 
@@ -1462,19 +1590,8 @@
     if (sessionBtn && !workoutActive) sessionBtn.textContent = T.startSession || 'Start Sessie';
     if (sessionBtn && workoutActive) sessionBtn.textContent = T.stopSession || 'Sessie Afronden';
 
-    // Schema banner
-    const schemaTitle = document.getElementById('schemaBannerTitle');
-    const schemaSubtitle = document.getElementById('schemaBannerSubtitle');
-    const schemaBtn = document.getElementById('schemaBannerBtn');
-    if (schemaTitle) schemaTitle.textContent = T.schemaTitle || 'Trainingsschema Kiezen';
-    if (schemaSubtitle) schemaSubtitle.textContent = T.schemaSubtitle || "Kies uit 12 populaire trainingsschema's";
-    if (schemaBtn) schemaBtn.textContent = T.schemaBtn || "Schema's";
-
-    // Streak title
-    const streakTitle = document.getElementById('homeStreakTitle');
-    if (streakTitle) streakTitle.textContent = T.streakTitle || 'Dagen Streak';
-
-    // All-time volume label in tracker
+    // Tracker labels
+    const trackerVolEl = document.getElementById('trackerTotalVolume');
     const allTimeLabel = document.querySelector('[data-i18n="allTimeVolume"]');
     if (allTimeLabel) allTimeLabel.textContent = T.allTimeVolume || 'All-Time Volume';
 
@@ -1485,18 +1602,7 @@
     // Rest timer label
     const restLabel = document.querySelector('.rest-timer-label');
     if (restLabel) restLabel.textContent = T.restTimer || 'RUSTTIJD';
-
-    // Profile language label
-    const langLabel = document.getElementById('lblSelectLanguage');
-    if (langLabel) langLabel.textContent = T.selectLanguage || 'Taal Selecteren';
-
-    // Sync select dropdown value
-    const langSelect = document.getElementById('languageSelect');
-    if (langSelect && langSelect.value !== l) langSelect.value = l;
-
-    document.documentElement.lang = l;
   }
-
 
   // DEFAULT ROUTINE SCHEMA MET LEGE OEFENINGEN PER SPIERGROEP
   const DEFAULT_ROUTINE_SCHEMA = [
@@ -1810,36 +1916,49 @@
 
     let flameFill = '#ff9500';
     let stageClass = '';
-    let subText = getI18n('streakStart');
-    let currentLevel = STREAK_LEVELS[0];
+    let subText = 'Train vandaag om je streak te starten!';
 
-    // Find current level
-    for (let i = STREAK_LEVELS.length - 1; i >= 0; i--) {
-      if (currentStreak >= STREAK_LEVELS[i].minDays) {
-        currentLevel = STREAK_LEVELS[i];
-        break;
-      }
+    if (currentStreak >= 10000) {
+      flameFill = '#ffffff';
+      stageClass = 'streak-stage-10000';
+      subText = '🔱 OVERLOAD GOD — 10.000+ DAGEN. ONAANRAAKBAAR.';
+    } else if (currentStreak >= 2000) {
+      flameFill = '#38bdf8';
+      stageClass = 'streak-stage-2000';
+      subText = 'IMMORTAL APEX — 2000+ DAGEN. NIETS KAN JOU STOPPEN.';
+    } else if (currentStreak >= 1000) {
+      flameFill = '#a855f7';
+      stageClass = 'streak-stage-1000';
+      subText = 'KOSMISCHE TITAAN — 1000+ DAGEN!';
+    } else if (currentStreak >= 500) {
+      flameFill = '#ec4899';
+      stageClass = 'streak-stage-500';
+      subText = 'HALFGOD DISCIPLINE — 500+ DAGEN!';
+    } else if (currentStreak >= 300) {
+      flameFill = '#eab308';
+      stageClass = 'streak-stage-300';
+      subText = 'SUPERNOVA OVERLOAD — 300+ DAGEN!';
+    } else if (currentStreak >= 100) {
+      flameFill = '#ff3b30';
+      stageClass = 'streak-stage-100';
+      subText = 'LEGENDARISCHE FOCUS — 100+ DAGEN!';
+    } else if (currentStreak >= 30) {
+      flameFill = '#ff453a';
+      stageClass = 'streak-stage-30';
+      subText = 'BEAST MODE AAN — 30+ DAGEN!';
+    } else if (currentStreak >= 10) {
+      flameFill = '#ff9500';
+      stageClass = 'streak-stage-10';
+      subText = 'DISCIPLINE IS AAN — 10+ DAGEN!';
+    } else if (currentStreak > 0) {
+      flameFill = '#ff9500';
+      stageClass = 'streak-stage-1';
+      subText = 'Streak actief! Blijf consistent.';
+    } else {
+      flameFill = '#64748b';
+      stageClass = 'streak-stage-0';
+      subText = 'Train vandaag om je streak te starten!';
     }
-
-    flameFill = currentLevel.color;
-    // Map level IDs to translation keys
-    const translationMap = {
-      'streak_0': 'streakStart',
-      'streak_1': 'streakActive',
-      'streak_10': 'streak10',
-      'streak_30': 'streak30',
-      'streak_100': 'streak100',
-      'streak_300': 'streak300',
-      'streak_500': 'streak500',
-      'streak_1000': 'streak1000',
-      'streak_2000': 'streak2000',
-      'streak_10000': 'streak10000'
-    };
-    const translationKey = translationMap[currentLevel.id] || 'streakStart';
-    subText = getI18n(translationKey);
-
-    // Use the level ID as the stage class
-    stageClass = currentLevel.id;
 
     if (bannerEl) {
       bannerEl.className = `streak-banner ${stageClass}`;
@@ -1848,16 +1967,9 @@
     if (flameEl) {
       flameEl.innerHTML = `
         <svg class="streak-svg-icon" viewBox="0 0 24 24">
-          <path d="${currentLevel.svgPath}" fill="${flameFill}"/>
+          <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z" fill="${flameFill}"/>
         </svg>
       `;
-      // Force animation reflow on SVG
-      const svgIcon = flameEl.querySelector('.streak-svg-icon');
-      if (svgIcon) {
-        svgIcon.style.animation = 'none';
-        svgIcon.offsetHeight; // Trigger reflow
-        svgIcon.style.animation = '';
-      }
     }
 
     if (subEl) subEl.textContent = subText;
@@ -3013,73 +3125,6 @@
 
   function closeRanksModal() {
     document.getElementById('ranksLadderModal').classList.remove('open');
-  }
-
-  // STREAK LADDER SYSTEM
-  const STREAK_LEVELS = [
-    { id: 'streak_0', name: 'Starter', minDays: 0, color: '#64748b', description: 'Start je streak vandaag!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z' },
-    { id: 'streak_1', name: 'Dedicated', minDays: 1, color: '#ff9500', description: 'Je streak is begonnen!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z' },
-    { id: 'streak_10', name: 'Consistent', minDays: 10, color: '#ff9500', description: 'Consistentie is sleutel!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM8 13c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8 0c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' },
-    { id: 'streak_30', name: 'Committed', minDays: 30, color: '#ff453a', description: 'Volledig toegewijd!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM6 13c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM12 8c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 4c-1.1 0-2-.9-2-2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' },
-    { id: 'streak_100', name: 'Elite', minDays: 100, color: '#ff3b30', description: 'Elite niveau bereikt!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM4 11c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm16 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' },
-    { id: 'streak_300', name: 'Master', minDays: 300, color: '#eab308', description: 'Meesterschap!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM2 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm20 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-6 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 15c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-4-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 11c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-3-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' },
-    { id: 'streak_500', name: 'Champion', minDays: 500, color: '#ec4899', description: 'Kampioen niveau!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM2 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm20 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-7 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm14 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 16c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 11c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-3-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' },
-    { id: 'streak_1000', name: 'Legend', minDays: 1000, color: '#a855f7', description: 'Legendarische status!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM2 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm20 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-7 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm14 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 15c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 11c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-3-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' },
-    { id: 'streak_2000', name: 'Icon', minDays: 2000, color: '#38bdf8', description: 'Icoon van discipline!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM2 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm20 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-7 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm14 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-3-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' },
-    { id: 'streak_10000', name: 'Titan', minDays: 10000, color: '#ffffff', description: 'Ultieme discipline!', svgPath: 'M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8zM2 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm20 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 -1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-7 4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm14 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-5-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-3-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM12 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z' }
-  ];
-
-  function openStreakLadderModal() {
-    const listEl = document.getElementById('streakLadderList');
-    listEl.innerHTML = '';
-
-    STREAK_LEVELS.forEach((level, idx) => {
-      const isCurrent = currentStreak >= level.minDays && (idx === STREAK_LEVELS.length - 1 || currentStreak < STREAK_LEVELS[idx + 1].minDays);
-      const isUnlocked = currentStreak >= level.minDays;
-      const isNext = !isUnlocked && (idx === 0 || currentStreak >= STREAK_LEVELS[idx - 1].minDays);
-
-      let statusBadge = '';
-      if (isCurrent) {
-        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--green); color:#000; font-size:9px; font-weight:900;">HUIDIG</span>`;
-      } else if (isUnlocked) {
-        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--blue); color:#000; font-size:9px; font-weight:900;">BEHAALD</span>`;
-      } else if (isNext) {
-        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:rgba(255,149,0,0.2); color:var(--orange); font-size:9px; font-weight:900;">VOLGENDE</span>`;
-      } else {
-        statusBadge = `<span style="padding:2px 8px; border-radius:10px; background:var(--surface-2); color:var(--text-mut); font-size:9px; font-weight:700;">VERGRENDELD</span>`;
-      }
-
-      const flameSvg = `
-        <svg style="width:36px;height:36px;fill:${level.color}; opacity:${isUnlocked ? 1 : 0.3};" viewBox="0 0 24 24">
-          <path d="${level.svgPath}"/>
-        </svg>
-      `;
-
-      const row = document.createElement('div');
-      row.className = 'lib-item';
-      row.style.background = isCurrent ? 'linear-gradient(135deg, rgba(48, 209, 88, 0.1), rgba(48, 209, 88, 0.05))' : 'var(--surface-1)';
-      row.style.border = isCurrent ? '1px solid rgba(48, 209, 88, 0.3)' : '1px solid var(--border)';
-      row.innerHTML = `
-        <div style="display:flex; align-items:center; gap:12px;">
-          ${flameSvg}
-          <div style="flex:1; min-width:0;">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <div style="font-size:14px; font-weight:800; color:${isUnlocked ? level.color : 'var(--text-mut)'};">${level.name}</div>
-              ${statusBadge}
-            </div>
-            <div style="font-size:11px; color:${isUnlocked ? 'var(--text-sec)' : 'var(--text-mut)'}; margin-top:4px;">${level.description}</div>
-            <div style="font-size:10px; color:var(--text-mut); margin-top:2px;">${level.minDays}+ dagen</div>
-          </div>
-        </div>
-      `;
-      listEl.appendChild(row);
-    });
-
-    document.getElementById('streakLadderModal').classList.add('open');
-  }
-
-  function closeStreakLadderModal() {
-    document.getElementById('streakLadderModal').classList.remove('open');
   }
 
   // PROFILE SETTINGS & 30-DAY HANDLE COOLDOWN
@@ -4250,9 +4295,6 @@
   document.getElementById('ranksLadderModal').onclick = (e) => {
     if (e.target.id === 'ranksLadderModal') closeRanksModal();
   };
-  document.getElementById('streakLadderModal').onclick = (e) => {
-    if (e.target.id === 'streakLadderModal') closeStreakLadderModal();
-  };
 
   // BOOTSTRAP APP
   initThemeSettings();
@@ -4268,7 +4310,6 @@
   }
   lastKnownRankId = localStorage.getItem('gymlog_last_rank_id') || _initRank.current.id;
   renderHomeView();
-  applyLanguageToStaticElements();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
