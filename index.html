@@ -848,6 +848,103 @@
       background: rgba(0,0,0,0.5) !important;
     }
 
+    /* ONBOARDING OVERLAY */
+    @keyframes obFadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes obOrb {
+      0%,100% { transform: scale(1) translate(0,0); }
+      33%      { transform: scale(1.15) translate(20px,-30px); }
+      66%      { transform: scale(0.9) translate(-15px,20px); }
+    }
+    .ob-bg { position:fixed; inset:0; overflow:hidden; pointer-events:none; }
+    .ob-orb {
+      position:absolute; border-radius:50%; filter:blur(80px); opacity:0.25;
+      animation: obOrb 12s ease-in-out infinite;
+    }
+    .ob-orb-1 { width:360px;height:360px; background:#38bdf8; top:-80px; left:-80px; animation-delay:0s; }
+    .ob-orb-2 { width:300px;height:300px; background:#a855f7; bottom:-60px; right:-60px; animation-delay:-4s; }
+    .ob-orb-3 { width:250px;height:250px; background:#30d158; top:40%; left:50%; animation-delay:-8s; opacity:0.15; }
+
+    .ob-step-card {
+      background: rgba(18,19,22,0.85);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 28px 24px;
+      backdrop-filter: blur(20px);
+    }
+    .ob-step-tag {
+      font-size:10px; font-weight:800; color:var(--blue);
+      text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px;
+    }
+    .ob-step-title {
+      font-size:22px; font-weight:900; color:#fff; margin-bottom:6px; line-height:1.2;
+    }
+    .ob-step-sub {
+      font-size:13px; color:var(--text-sec); margin-bottom:20px;
+    }
+    .ob-input {
+      width:100%; padding:14px 16px; border-radius:12px;
+      background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12);
+      color:#fff; font-size:16px; font-family:var(--font-main); font-weight:700;
+      box-sizing:border-box; outline:none; margin-bottom:16px;
+      transition:border-color 0.2s;
+    }
+    .ob-input:focus { border-color:var(--blue); }
+    .ob-input::placeholder { color:rgba(255,255,255,0.25); }
+    .ob-btn {
+      width:100%; padding:15px; border-radius:12px;
+      background:var(--blue); color:#000; font-size:15px; font-weight:900;
+      border:none; cursor:pointer; transition:opacity 0.2s, transform 0.15s;
+    }
+    .ob-btn:hover:not(:disabled) { opacity:0.9; transform:translateY(-1px); }
+    .ob-btn:active { transform:scale(0.98); }
+    .ob-btn:disabled { opacity:0.35; cursor:not-allowed; }
+    .ob-goal-btn {
+      display:flex; align-items:center; gap:14px; padding:14px 16px;
+      border-radius:12px; border:1.5px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.04); color:#fff; cursor:pointer;
+      text-align:left; font-family:var(--font-main); font-size:13px;
+      transition:all 0.2s; width:100%;
+    }
+    .ob-goal-btn.active { border-color:var(--blue); background:rgba(56,189,248,0.12); }
+    .ob-goal-btn:hover { border-color:rgba(255,255,255,0.25); }
+    .ob-goal-icon { font-size:22px; flex-shrink:0; }
+
+    /* PROGRESS PHOTO SLOTS */
+    .progress-photo-slot {
+      border: 2px dashed var(--border-light); border-radius: 14px;
+      overflow: hidden; cursor: pointer; position: relative;
+      aspect-ratio: 3 / 5; background: var(--surface-2);
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .progress-photo-slot:active { transform: scale(0.97); }
+    .progress-photo-slot.has-photo { border-style: solid; border-color: var(--blue); }
+    .progress-photo-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px; padding: 12px;
+      box-sizing: border-box;
+    }
+    .body-silhouet { width: 52px; height: 104px; color: var(--text-mut); opacity: 0.4; }
+    .photo-slot-label { font-size: 10px; font-weight: 800; color: var(--text-sec); letter-spacing: 0.06em; }
+    .photo-slot-hint { font-size: 9px; color: var(--text-mut); }
+    .progress-photo-slot.has-photo .body-silhouet,
+    .progress-photo-slot.has-photo .photo-slot-label,
+    .progress-photo-slot.has-photo .photo-slot-hint { display: none; }
+    .photo-delete-btn {
+      position: absolute; top: 6px; right: 6px; width: 26px; height: 26px;
+      border-radius: 50%; background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.15);
+      color: #ff453a; font-size: 14px; font-weight: 900; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; z-index: 3;
+    }
+    @keyframes photoSlotIn {
+      0%   { opacity:0; transform:scale(0.88); }
+      70%  { transform:scale(1.03); }
+      100% { opacity:1; transform:scale(1); }
+    }
+    .progress-photo-slot.animate-in { animation: photoSlotIn 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
     /* REKENMACHINE */
     .calc-card {
       background: var(--surface-1); border: 1px solid var(--border);
@@ -1073,11 +1170,53 @@
       <!-- VOORTGANGSFOTO'S -->
       <div class="profile-card">
         <div class="profile-field-label">Voortgangsfoto's</div>
-        <input type="file" id="trackerPhotoInput" accept="image/*" style="display:none;" onchange="handleProgressPhotoUpload(event)" />
-        <button class="session-btn start" style="margin-top:8px;" onclick="document.getElementById('trackerPhotoInput').click()">
-          + Voeg Foto Toe
-        </button>
-        <div id="progressPhotosGrid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-top:12px;"></div>
+        <div style="font-size:11px; color:var(--text-sec); margin-bottom:12px; margin-top:2px;">Max 2 foto's — voorkant en achterkant</div>
+        <input type="file" id="frontPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleProgressPhotoUpload(event,'front')" />
+        <input type="file" id="backPhotoInput"  accept="image/*" capture="environment" style="display:none;" onchange="handleProgressPhotoUpload(event,'back')" />
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <!-- VOORKANT SLOT -->
+          <div id="frontPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('frontPhotoInput').click()">
+            <div id="frontPhotoContent" class="progress-photo-inner">
+              <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
+                <ellipse cx="30" cy="10" rx="9" ry="10"/>
+                <rect x="26" y="19" width="8" height="6"/>
+                <path d="M14 25 Q16 23 30 23 Q44 23 46 25 L48 60 Q38 64 30 64 Q22 64 12 60 Z"/>
+                <path d="M14 25 L6 52 Q5 56 8 57 L10 52 L18 30 Z"/>
+                <path d="M46 25 L54 52 Q55 56 52 57 L50 52 L42 30 Z"/>
+                <ellipse cx="7" cy="58" rx="4" ry="5"/>
+                <ellipse cx="53" cy="58" rx="4" ry="5"/>
+                <path d="M22 64 L18 100 Q17 104 21 105 L24 100 L28 64 Z"/>
+                <path d="M38 64 L42 100 Q43 104 39 105 L36 100 L32 64 Z"/>
+                <ellipse cx="20" cy="107" rx="6" ry="4"/>
+                <ellipse cx="40" cy="107" rx="6" ry="4"/>
+              </svg>
+              <div class="photo-slot-label">VOORKANT</div>
+              <div class="photo-slot-hint">Tik om te uploaden</div>
+            </div>
+          </div>
+          <!-- ACHTERKANT SLOT -->
+          <div id="backPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('backPhotoInput').click()">
+            <div id="backPhotoContent" class="progress-photo-inner">
+              <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
+                <ellipse cx="30" cy="10" rx="9" ry="10"/>
+                <rect x="26" y="19" width="8" height="6"/>
+                <path d="M12 25 Q14 22 30 21 Q46 22 48 25 L50 60 Q38 65 30 65 Q22 65 10 60 Z"/>
+                <path d="M22 35 Q30 32 38 35 L38 55 Q30 57 22 55 Z" opacity="0.4"/>
+                <path d="M12 25 L4 52 Q3 56 6 57 L9 52 L16 30 Z"/>
+                <path d="M48 25 L56 52 Q57 56 54 57 L51 52 L44 30 Z"/>
+                <ellipse cx="5" cy="58" rx="4" ry="5"/>
+                <ellipse cx="55" cy="58" rx="4" ry="5"/>
+                <path d="M22 65 L18 100 Q17 104 21 105 L24 100 L28 65 Z"/>
+                <path d="M38 65 L42 100 Q43 104 39 105 L36 100 L32 65 Z"/>
+                <ellipse cx="19" cy="107" rx="6" ry="4"/>
+                <ellipse cx="41" cy="107" rx="6" ry="4"/>
+              </svg>
+              <div class="photo-slot-label">ACHTERKANT</div>
+              <div class="photo-slot-hint">Tik om te uploaden</div>
+            </div>
+          </div>
+        </div>
+        <div id="progressPhotoDate" style="font-size:10px; color:var(--text-mut); text-align:center; margin-top:8px;"></div>
       </div>
     </div>
 
@@ -4308,6 +4447,8 @@
 
     const parsedDate = new Date(dateStr);
     const dateTitle = parsedDate.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    const isRest = dayData.groups.length === 0 || dayData.label.includes('RUST');
+    const isFuture = parsedDate > new Date(new Date().setHours(23,59,59,999));
 
     container.innerHTML = `
       <div style="background:var(--surface-1); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:14px;">
@@ -4316,15 +4457,23 @@
             <div style="font-size:16px; font-weight:800; color:var(--text); text-transform:capitalize;">${dateTitle}</div>
             <div style="font-size:11px; color:var(--text-sec); font-weight:600;">${dayData.name} Schema</div>
           </div>
-          <div class="workout-badge">${dayData.label}</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="workout-badge">${dayData.label}</div>
+            <button onclick="toggleAgendaDayType(${dayIdx})"
+              style="padding:5px 12px; border-radius:8px; border:none; cursor:pointer; font-size:11px; font-weight:800;
+              background:${isRest ? 'rgba(48,209,88,0.15)' : 'rgba(255,69,58,0.15)'};
+              color:${isRest ? '#30d158' : '#ff453a'};">
+              ${isRest ? '🏋️ Workout' : '💤 Rustdag'}
+            </button>
+          </div>
         </div>
         <div id="agendaGroupList"></div>
       </div>
     `;
 
     const gList = document.getElementById('agendaGroupList');
-    if (dayData.groups.length === 0 || dayData.label.includes('RUST')) {
-      gList.innerHTML = '<div style="font-size:13px; color:var(--text-sec); text-align:center; padding:16px;">Rustdag - Geen oefeningen gepland</div>';
+    if (isRest) {
+      gList.innerHTML = '<div style="font-size:13px; color:var(--text-sec); text-align:center; padding:16px;">Rustdag — Geen oefeningen gepland</div>';
       return;
     }
 
@@ -4357,6 +4506,35 @@
       });
       gList.appendChild(box);
     });
+  }
+
+  function toggleAgendaDayType(dayIdx) {
+    const schema = getActiveRoutineSchema();
+    const day = schema[dayIdx];
+    if (!day) return;
+
+    const isRest = day.groups.length === 0 || day.label.includes('RUST');
+
+    if (isRest) {
+      // Zet om naar workout — gebruik spiergroepen uit vorige schema of standaard
+      const defaultGroups = [
+        { title: 'Borst', exercises: [] },
+        { title: 'Schouders', exercises: [] },
+        { title: 'Triceps', exercises: [] }
+      ];
+      day.groups = defaultGroups;
+      day.label = 'WORKOUT';
+      triggerToast(`${day.name} omgezet naar workout`);
+    } else {
+      // Zet om naar rustdag
+      day.groups = [];
+      day.label = 'RUSTDAG';
+      triggerToast(`${day.name} omgezet naar rustdag`);
+    }
+
+    saveActiveRoutineSchema(schema);
+    renderAgendaView();
+    renderHomeView();
   }
 
   // === TRACKER VIEW & INTERACTIEVE OEFENING GRAFIEK ===
@@ -4598,46 +4776,91 @@
     });
   }
 
-  function handleProgressPhotoUpload(e) {
+  function handleProgressPhotoUpload(e, side) {
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (ev) => {
-      const b64 = ev.target.result;
-      const photos = JSON.parse(localStorage.getItem('gymlog_progress_photos') || '[]');
-      photos.unshift({ date: new Date().toLocaleDateString('nl-NL'), src: b64 });
-      try {
-        localStorage.setItem('gymlog_progress_photos', JSON.stringify(photos.slice(0, 10)));
-        loadProgressPhotos();
-        triggerToast('Progressiefoto toegevoegd!');
-      } catch(err) {
-        triggerToast('Foto opslaglimiet bereikt');
-      }
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxSize = 800;
+        let w = img.width, h = img.height;
+        if (w > h) { if (w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; } }
+        else        { if (h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; } }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const b64 = canvas.toDataURL('image/jpeg', 0.82);
+        try {
+          localStorage.setItem(`gymlog_prog_photo_${side}`, b64);
+          localStorage.setItem(`gymlog_prog_photo_${side}_date`, new Date().toISOString());
+          renderPhotoSlot(side, b64);
+          updateProgressPhotoDate();
+          triggerToast(side === 'front' ? 'Voorkant opgeslagen!' : 'Achterkant opgeslagen!');
+        } catch(err) { triggerToast('Foto te groot voor opslag'); }
+      };
+      img.src = ev.target.result;
     };
     reader.readAsDataURL(file);
+    e.target.value = '';
+  }
+
+  function renderPhotoSlot(side, b64) {
+    const slot    = document.getElementById(`${side}PhotoSlot`);
+    const content = document.getElementById(`${side}PhotoContent`);
+    if (!slot || !content) return;
+
+    if (b64) {
+      slot.classList.add('has-photo');
+      content.innerHTML = `
+        <img src="${b64}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;" />
+        <button class="photo-delete-btn" onclick="deleteProgressPhoto('${side}',event)" title="Verwijderen">✕</button>
+      `;
+      slot.classList.remove('animate-in');
+      void slot.offsetWidth;
+      slot.classList.add('animate-in');
+    } else {
+      slot.classList.remove('has-photo','animate-in');
+      const labels = { front: 'VOORKANT', back: 'ACHTERKANT' };
+      const paths = {
+        front: `<ellipse cx="30" cy="10" rx="9" ry="10"/><rect x="26" y="19" width="8" height="6"/><path d="M14 25 Q16 23 30 23 Q44 23 46 25 L48 60 Q38 64 30 64 Q22 64 12 60 Z"/><path d="M14 25 L6 52 Q5 56 8 57 L10 52 L18 30 Z"/><path d="M46 25 L54 52 Q55 56 52 57 L50 52 L42 30 Z"/><ellipse cx="7" cy="58" rx="4" ry="5"/><ellipse cx="53" cy="58" rx="4" ry="5"/><path d="M22 64 L18 100 Q17 104 21 105 L24 100 L28 64 Z"/><path d="M38 64 L42 100 Q43 104 39 105 L36 100 L32 64 Z"/><ellipse cx="20" cy="107" rx="6" ry="4"/><ellipse cx="40" cy="107" rx="6" ry="4"/>`,
+        back:  `<ellipse cx="30" cy="10" rx="9" ry="10"/><rect x="26" y="19" width="8" height="6"/><path d="M12 25 Q14 22 30 21 Q46 22 48 25 L50 60 Q38 65 30 65 Q22 65 10 60 Z"/><path d="M22 35 Q30 32 38 35 L38 55 Q30 57 22 55 Z" opacity="0.4"/><path d="M12 25 L4 52 Q3 56 6 57 L9 52 L16 30 Z"/><path d="M48 25 L56 52 Q57 56 54 57 L51 52 L44 30 Z"/><ellipse cx="5" cy="58" rx="4" ry="5"/><ellipse cx="55" cy="58" rx="4" ry="5"/><path d="M22 65 L18 100 Q17 104 21 105 L24 100 L28 65 Z"/><path d="M38 65 L42 100 Q43 104 39 105 L36 100 L32 65 Z"/><ellipse cx="19" cy="107" rx="6" ry="4"/><ellipse cx="41" cy="107" rx="6" ry="4"/>`
+      };
+      content.innerHTML = `
+        <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">${paths[side]}</svg>
+        <div class="photo-slot-label">${labels[side]}</div>
+        <div class="photo-slot-hint">Tik om te uploaden</div>
+      `;
+    }
+  }
+
+  function deleteProgressPhoto(side, e) {
+    if (e) e.stopPropagation();
+    if (!confirm(`Weet je het zeker? De ${side === 'front' ? 'voorkant' : 'achterkant'} foto wordt verwijderd.`)) return;
+    localStorage.removeItem(`gymlog_prog_photo_${side}`);
+    localStorage.removeItem(`gymlog_prog_photo_${side}_date`);
+    renderPhotoSlot(side, null);
+    updateProgressPhotoDate();
+    triggerToast('Foto verwijderd');
+  }
+
+  function updateProgressPhotoDate() {
+    const el = document.getElementById('progressPhotoDate');
+    if (!el) return;
+    const fd = localStorage.getItem('gymlog_prog_photo_front_date');
+    const bd = localStorage.getItem('gymlog_prog_photo_back_date');
+    const d  = fd || bd;
+    if (d) {
+      const dt = new Date(d);
+      el.textContent = `Opgeslagen op ${dt.toLocaleDateString('nl-NL', { day:'numeric', month:'long', year:'numeric' })}`;
+    } else { el.textContent = ''; }
   }
 
   function loadProgressPhotos() {
-    const grid = document.getElementById('progressPhotosGrid');
-    if (!grid) return;
-    const photos = JSON.parse(localStorage.getItem('gymlog_progress_photos') || '[]');
-    grid.innerHTML = '';
-
-    if (photos.length === 0) {
-      grid.innerHTML = '<div style="grid-column:span 2; font-size:12px; color:var(--text-sec); text-align:center; padding:16px;">Nog geen progressiefoto\'s geÃ¼pload</div>';
-      return;
-    }
-
-    photos.forEach(p => {
-      const item = document.createElement('div');
-      item.style.cssText = 'background:var(--surface-2); border-radius:12px; overflow:hidden; border:1px solid var(--border);';
-      item.innerHTML = `
-        <img src="${p.src}" style="width:100%; height:140px; object-fit:cover; display:block;" />
-        <div style="font-size:10px; font-weight:800; color:var(--text-sec); text-align:center; padding:4px;">${p.date}</div>
-      `;
-      grid.appendChild(item);
-    });
+    renderPhotoSlot('front', localStorage.getItem('gymlog_prog_photo_front'));
+    renderPhotoSlot('back',  localStorage.getItem('gymlog_prog_photo_back'));
+    updateProgressPhotoDate();
   }
 
   // SEARCH & LIBRARY VIEW
@@ -4840,9 +5063,75 @@
     if (e.target.id === 'ranksLadderModal') closeRanksModal();
   };
 
+  // =============================================
+  // ONBOARDING
+  // =============================================
+  let _obSelectedGoal = 'hypertrophy';
+
+  function showOnboarding() {
+    const overlay = document.getElementById('onboardingOverlay');
+    if (overlay) {
+      overlay.style.display = 'block';
+      // Prefill als naam al bestaat
+      const existing = localStorage.getItem('gymlog_username') || '';
+      const inp = document.getElementById('obNameInput');
+      if (inp && existing) {
+        inp.value = existing;
+        document.getElementById('obNextBtn').disabled = false;
+      }
+    }
+  }
+
+  function obGoStep2() {
+    const name = (document.getElementById('obNameInput').value || '').trim();
+    if (name.length < 2) return;
+    localStorage.setItem('gymlog_username', name);
+    document.getElementById('obStep1').style.display = 'none';
+    const s2 = document.getElementById('obStep2');
+    s2.style.display = 'block';
+    s2.style.animation = 'obFadeUp 0.5s ease forwards';
+  }
+
+  function obSelectGoal(btn, goal) {
+    _obSelectedGoal = goal;
+    document.querySelectorAll('.ob-goal-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function obFinish() {
+    const name = (localStorage.getItem('gymlog_username') || '').trim();
+    localStorage.setItem('gymlog_goal', _obSelectedGoal);
+    localStorage.setItem('gymlog_onboarding_done', '1');
+
+    // Sluit onboarding
+    const overlay = document.getElementById('onboardingOverlay');
+    if (overlay) {
+      overlay.style.transition = 'opacity 0.5s';
+      overlay.style.opacity = '0';
+      setTimeout(() => { overlay.style.display = 'none'; overlay.style.opacity = '1'; }, 500);
+    }
+
+    // Profiel bijwerken
+    loadProfileSettings();
+    const nameEl = document.getElementById('profileDisplayName');
+    if (nameEl) nameEl.textContent = name || 'Jouw Profiel';
+    const initEl = document.getElementById('profilePhotoInitial');
+    if (initEl) initEl.textContent = name ? name.charAt(0).toUpperCase() : 'U';
+    const hdrEl = document.getElementById('headerAvatarEl');
+    if (hdrEl && !localStorage.getItem('gymlog_profile_photo')) hdrEl.textContent = name ? name.charAt(0).toUpperCase() : 'U';
+
+    renderHomeView();
+    triggerToast(`Welkom bij OVERLOAD, ${name}! 💪`);
+  }
+
   // BOOTSTRAP APP
   initThemeSettings();
   loadProfileSettings();
+
+  // Onboarding check — toon welkomstscherm als naam nog niet ingesteld
+  if (!localStorage.getItem('gymlog_username') || !localStorage.getItem('gymlog_onboarding_done')) {
+    showOnboarding();
+  }
   
   // Restore workout session if it was active
   restoreWorkoutSession();
@@ -5357,11 +5646,16 @@ function applyPopularSchema(schemaId, e) {
   if (!found) return;
 
   if (confirm(`Weet je zeker dat je het schema wilt instellen op "${found.name}"? Dit past je weekindeling aan.`)) {
-    saveActiveRoutineSchema(JSON.parse(JSON.stringify(found.schema)));
+    // Kopieer schema maar leeg alle exercises — alleen spiergroepen behouden
+    const cleanSchema = JSON.parse(JSON.stringify(found.schema)).map(day => ({
+      ...day,
+      groups: day.groups.map(g => ({ title: g.title, exercises: [] }))
+    }));
+    saveActiveRoutineSchema(cleanSchema);
     closeSchemaSelectorModal();
     renderAgendaView();
     renderHomeView();
-    triggerToast(`Schema ingesteld op: ${found.badge}! 🔥`);
+    triggerToast(`Schema ingesteld: ${found.badge}! Voeg nu je oefeningen toe 💪`);
   }
 }
 
@@ -5527,5 +5821,79 @@ function saveCustomSchemaWizard() {
     </div>
   </div>
 
-</body>
+  <!-- ONBOARDING OVERLAY -->
+  <div id="onboardingOverlay" style="display:none; position:fixed; inset:0; z-index:9999; overflow-y:auto; background:#07080a;">
+    <!-- Animated background particles -->
+    <div class="ob-bg" aria-hidden="true">
+      <div class="ob-orb ob-orb-1"></div>
+      <div class="ob-orb ob-orb-2"></div>
+      <div class="ob-orb ob-orb-3"></div>
+    </div>
+
+    <div style="position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px;">
+
+      <!-- Logo + titel -->
+      <div style="text-align:center; margin-bottom:36px; animation:obFadeUp 0.7s ease forwards;">
+        <div style="font-size:48px; font-weight:900; letter-spacing:-0.02em; line-height:1; color:#fff; text-transform:uppercase;">
+          OVER<span style="color:var(--blue);">LOAD</span>
+        </div>
+        <div style="font-size:13px; font-weight:700; color:var(--text-sec); letter-spacing:0.18em; text-transform:uppercase; margin-top:6px;">PROGRESSIVE GYM TRACKER</div>
+
+        <!-- Animated dumbbell icon -->
+        <div style="margin:24px auto 0; width:72px; height:72px; border-radius:50%; background:rgba(56,189,248,0.1); border:1.5px solid rgba(56,189,248,0.3); display:flex; align-items:center; justify-content:center;">
+          <svg style="width:36px;height:36px;fill:var(--blue)" viewBox="0 0 24 24">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Stap kaart -->
+      <div id="obCard" style="width:100%; max-width:400px; animation:obFadeUp 0.9s ease forwards;">
+
+        <!-- STAP 1: naam -->
+        <div id="obStep1" class="ob-step-card">
+          <div class="ob-step-tag">STAP 1 VAN 2</div>
+          <div class="ob-step-title">Hoe mag ik je noemen?</div>
+          <div class="ob-step-sub">Jouw naam verschijnt bovenaan je profiel.</div>
+          <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Amier, Thomas, Saar..."
+            maxlength="30" autocomplete="off"
+            oninput="document.getElementById('obNextBtn').disabled = this.value.trim().length < 2"
+          />
+          <button id="obNextBtn" class="ob-btn" disabled onclick="obGoStep2()">Verder →</button>
+        </div>
+
+        <!-- STAP 2: doel -->
+        <div id="obStep2" class="ob-step-card" style="display:none;">
+          <div class="ob-step-tag">STAP 2 VAN 2</div>
+          <div class="ob-step-title">Wat is jouw doel?</div>
+          <div class="ob-step-sub">We personaliseren je ervaring hierop.</div>
+          <div id="obGoalPicker" style="display:flex; flex-direction:column; gap:10px; margin:18px 0;">
+            <button class="ob-goal-btn active" onclick="obSelectGoal(this,'hypertrophy')">
+              <span class="ob-goal-icon">💪</span>
+              <div><div style="font-weight:800">Spieropbouw</div><div style="font-size:11px;opacity:0.7">Hypertrofie & volume</div></div>
+            </button>
+            <button class="ob-goal-btn" onclick="obSelectGoal(this,'strength')">
+              <span class="ob-goal-icon">🏋️</span>
+              <div><div style="font-weight:800">Maximale Kracht</div><div style="font-size:11px;opacity:0.7">Powerlifting focus</div></div>
+            </button>
+            <button class="ob-goal-btn" onclick="obSelectGoal(this,'cut')">
+              <span class="ob-goal-icon">🔥</span>
+              <div><div style="font-weight:800">Droogtrainen</div><div style="font-size:11px;opacity:0.7">Vetverlies & definitie</div></div>
+            </button>
+            <button class="ob-goal-btn" onclick="obSelectGoal(this,'fitness')">
+              <span class="ob-goal-icon">⚡</span>
+              <div><div style="font-weight:800">Algemene Conditie</div><div style="font-size:11px;opacity:0.7">Fit & gezond blijven</div></div>
+            </button>
+          </div>
+          <button class="ob-btn" onclick="obFinish()">Start met Trainen 🚀</button>
+        </div>
+
+      </div>
+
+      <!-- Footer quote -->
+      <div style="margin-top:32px; text-align:center; font-size:11px; color:var(--text-mut); font-style:italic; animation:obFadeUp 1.1s ease forwards;">
+        "De enige slechte workout is er één die je niet deed."
+      </div>
+    </div>
+  </div>
 </html>
