@@ -99,6 +99,7 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
+      background: var(--bg);
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-main);
@@ -619,6 +620,232 @@
     .rankup-particle {
       position: absolute; width: 8px; height: 8px; border-radius: 50%;
       animation: rankUpParticle 1.2s ease-out forwards;
+    }
+
+    /* SFEER THEMA ACHTERGRONDEN — echte CSS gradient effecten */
+    body[data-mood-theme="galaxy"] {
+      background: radial-gradient(ellipse at 20% 50%, #1a1060 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, #0d0a40 0%, transparent 40%),
+                  radial-gradient(ellipse at 60% 80%, #120840 0%, transparent 45%),
+                  radial-gradient(ellipse at 40% 10%, rgba(100,60,200,0.3) 0%, transparent 30%),
+                  #02020e !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="galaxy"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 8%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 25%, rgba(200,180,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 70%, rgba(180,160,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 65% 80%, rgba(200,150,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 45%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 78% 72%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 88%, rgba(180,200,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 22% 92%, rgba(255,255,255,0.5) 0%, transparent 100%);
+    }
+    body[data-mood-theme="nebula"] {
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(120,40,200,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 60%, rgba(60,20,140,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 20%, rgba(180,60,220,0.25) 0%, transparent 45%),
+        radial-gradient(ellipse at 15% 75%, rgba(80,20,160,0.4) 0%, transparent 40%),
+        radial-gradient(ellipse at 85% 30%, rgba(140,50,210,0.3) 0%, transparent 35%),
+        #05020f !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="nebula"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 12% 18%, rgba(220,180,255,0.9) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 30% 55%, rgba(255,200,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 48% 12%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 62% 38%, rgba(200,150,255,0.9) 0%, transparent 100%),
+        radial-gradient(2px 2px at 75% 65%, rgba(240,200,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 22%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 80%, rgba(180,120,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 55% 75%, rgba(255,180,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 50%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 90%, rgba(200,160,255,0.7) 0%, transparent 100%);
+    }
+    body[data-mood-theme="aurora"] {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(0,200,120,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 30%, rgba(0,160,80,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(20,220,140,0.25) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(0,180,100,0.15) 0%, transparent 70%),
+        #010d0a !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="aurora"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(0,220,120,0.06) 20%, rgba(0,255,160,0.1) 40%, rgba(100,255,180,0.06) 60%, transparent 80%),
+        linear-gradient(90deg, transparent 10%, rgba(0,200,100,0.04) 30%, rgba(0,240,140,0.08) 50%, transparent 70%);
+    }
+    body[data-mood-theme="sunset"] {
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(255,120,0,0.6) 0%, rgba(220,60,0,0.4) 25%, transparent 65%),
+        radial-gradient(ellipse at 30% 80%, rgba(255,80,20,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 70% 90%, rgba(200,40,0,0.35) 0%, transparent 40%),
+        linear-gradient(180deg, #0f0602 0%, #1e0d04 40%, #2e1508 70%, #1e0d04 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="sunset"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,100,0,0.04) 40%, rgba(255,60,0,0.08) 65%, rgba(255,120,0,0.12) 80%, rgba(200,50,0,0.1) 100%);
+    }
+    body[data-mood-theme="vintage"] {
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(160,100,40,0.2) 0%, transparent 70%),
+        radial-gradient(ellipse at 20% 20%, rgba(140,80,20,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(120,70,15,0.15) 0%, transparent 50%),
+        linear-gradient(135deg, #120d08 0%, #1e1510 50%, #120d08 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="vintage"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 50%, rgba(180,120,50,0.06) 0%, transparent 80%);
+    }
+    body[data-mood-theme="ocean_deep"] {
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(0,150,180,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 30%, rgba(0,100,140,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 90%, rgba(0,180,200,0.2) 0%, transparent 45%),
+        linear-gradient(180deg, #010a10 0%, #03151e 60%, #010a10 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="ocean_deep"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 20% 40%, rgba(0,200,220,0.04) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 70%, rgba(0,160,200,0.05) 0%, transparent 35%);
+      animation: oceanWave 8s ease-in-out infinite alternate;
+    }
+    @keyframes oceanWave {
+      0% { opacity: 0.5; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-10px); }
+    }
+    body[data-mood-theme="sakura"] {
+      background:
+        radial-gradient(ellipse at 40% 30%, rgba(240,100,140,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 65%, rgba(200,60,100,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 70%, rgba(220,80,120,0.2) 0%, transparent 45%),
+        #0f0509 !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="sakura"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(3px 3px at 15% 20%, rgba(255,180,200,0.5) 0%, transparent 100%),
+        radial-gradient(2px 3px at 35% 45%, rgba(255,160,190,0.4) 0%, transparent 100%),
+        radial-gradient(3px 2px at 60% 15%, rgba(255,200,215,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 80% 55%, rgba(255,170,195,0.4) 0%, transparent 100%),
+        radial-gradient(3px 3px at 50% 80%, rgba(255,190,210,0.3) 0%, transparent 100%),
+        radial-gradient(2px 3px at 90% 30%, rgba(255,160,185,0.4) 0%, transparent 100%);
+    }
+    body[data-mood-theme="lava"] {
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(255,60,0,0.5) 0%, rgba(200,20,0,0.35) 30%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(220,40,0,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 90%, rgba(180,20,0,0.35) 0%, transparent 40%),
+        radial-gradient(ellipse at 40% 60%, rgba(255,80,20,0.2) 0%, transparent 35%),
+        linear-gradient(180deg, #0d0202 0%, #1a0505 60%, #0d0202 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="lava"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 100%, rgba(255,80,0,0.08) 0%, transparent 60%);
+      animation: lavaGlow 4s ease-in-out infinite alternate;
+    }
+    @keyframes lavaGlow {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+    body[data-mood-theme="forest"] {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(0,100,30,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 50%, rgba(0,80,20,0.25) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 40%, rgba(10,120,40,0.2) 0%, transparent 40%),
+        linear-gradient(180deg, #020b05 0%, #0c2218 60%, #020b05 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="copper"] {
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(180,120,20,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 30% 70%, rgba(140,80,10,0.25) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 20%, rgba(200,140,30,0.2) 0%, transparent 40%),
+        linear-gradient(135deg, #0c0800 0%, #1a1200 50%, #0c0800 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="neon_city"] {
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(0,200,255,0.2) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,150,220,0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,100,180,0.1) 0%, transparent 60%),
+        linear-gradient(180deg, #000308 0%, #020812 50%, #000308 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="neon_city"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.03) 50%, transparent 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(0,200,255,0.015) 60px, rgba(0,200,255,0.015) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(0,180,240,0.015) 80px, rgba(0,180,240,0.015) 81px);
+    }
+    body[data-mood-theme="midnight_rose"] {
+      background:
+        radial-gradient(ellipse at 40% 40%, rgba(180,20,200,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 70%, rgba(140,10,160,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(160,15,180,0.2) 0%, transparent 45%),
+        #08010a !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="midnight_rose"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(240,140,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 50% 15%, rgba(255,120,240,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 60%, rgba(220,100,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 85%, rgba(255,150,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 65%, rgba(200,80,220,0.7) 0%, transparent 100%),
+        radial-gradient(2px 2px at 60% 40%, rgba(240,160,255,0.4) 0%, transparent 100%);
+    }
+    body[data-mood-theme="tropical"] {
+      background:
+        radial-gradient(ellipse at 60% 20%, rgba(0,200,180,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 30% 60%, rgba(0,160,140,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0,220,200,0.2) 0%, transparent 40%),
+        linear-gradient(180deg, #010f0e 0%, #082e2c 60%, #010f0e 100%) !important;
+      background-attachment: fixed !important;
+    }
+    /* Cards krijgen lichte doorzichtigheid bij sfeer thema's */
+    body[data-mood-theme] .profile-card,
+    body[data-mood-theme] .rank-badge-card,
+    body[data-mood-theme] .session-card,
+    body[data-mood-theme] .calc-card,
+    body[data-mood-theme] .ex-card,
+    body[data-mood-theme] .streak-banner {
+      backdrop-filter: blur(8px);
+    }
+    body[data-mood-theme] .app-header {
+      background: rgba(0,0,0,0.5) !important;
     }
 
     /* REKENMACHINE */
@@ -3860,6 +4087,9 @@
     }
   ];
 
+  // IDs van de sfeer thema's — moet boven applyFullAppTheme staan
+  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical'];
+
   function initThemeSettings() {
     const savedThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
     applyFullAppTheme(savedThemeId, false);
@@ -3880,6 +4110,13 @@
     Object.entries(theme.vars).forEach(([cssKey, cssVal]) => {
       document.documentElement.style.setProperty(cssKey, cssVal);
     });
+
+    // Sfeer thema: zet data-mood-theme op body voor CSS gradient achtergrond
+    if (MOOD_THEME_IDS.includes(themeId)) {
+      document.body.setAttribute('data-mood-theme', themeId);
+    } else {
+      document.body.removeAttribute('data-mood-theme');
+    }
 
     if (themeId === 'white') {
       document.body.classList.add('light-theme');
@@ -3905,9 +4142,6 @@
     renderThemeColorSwatches();
     if (showToast) triggerToast(`Thema gewijzigd: ${theme.name}`);
   }
-
-  // IDs van de sfeer thema's
-  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical'];
 
   function renderThemeColorSwatches() {
     const container = document.getElementById('themeColorSwatches');
