@@ -768,9 +768,24 @@
       <!-- OEFENING PROGRESSIE GRAFIEK -->
       <div class="profile-card">
         <div class="profile-field-label">Oefening Progressie & PR Grafiek</div>
-        <select class="profile-input" id="trackerExerciseSelect" onchange="renderExerciseProgressionChart(this.value)">
-          <option value="">Kies een oefening om de grafiek te zien...</option>
-        </select>
+
+        <!-- SEARCHABLE DROPDOWN — geen scrollen meer -->
+        <div style="position:relative;" id="trackerDropdownWrap">
+          <div style="position:relative;">
+            <input type="text" id="trackerSearchInput"
+              placeholder="🔍 Zoek of kies een oefening..."
+              autocomplete="off"
+              style="width:100%; padding:10px 36px 10px 12px; background:var(--surface-2); border:1px solid var(--border-light); border-radius:10px; color:var(--text); font-size:13px; font-family:var(--font-main); font-weight:600; box-sizing:border-box;"
+              oninput="filterTrackerDropdown(this.value)"
+              onfocus="openTrackerDropdown()"
+            />
+            <span id="trackerDropdownArrow" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-sec);">▼</span>
+          </div>
+          <div id="trackerDropdownList" style="display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; background:var(--surface-2); border:1px solid var(--border-light); border-radius:10px; max-height:220px; overflow-y:auto; z-index:999; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+          </div>
+        </div>
+        <!-- hidden select voor backward compat -->
+        <select id="trackerExerciseSelect" style="display:none;"></select>
 
         <!-- STATS ROW VOOR GESELECTEERDE OEFENING -->
         <div id="exerciseChartStats" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin:10px 0;">
@@ -2147,7 +2162,14 @@
 
         const indexEl = document.createElement('div');
         indexEl.className = 'set-idx';
-        indexEl.innerHTML = `<div>${sIdx + 1}</div>` + (prevKg ? `<div style="font-size:8px; color:var(--blue); font-weight:800; line-height:1; margin-top:2px;" title="Vorige: ${prevKg}kg x ${prevReps}">${prevKg}k</div>` : '');
+        if (prevKg) {
+          indexEl.innerHTML = `
+            <div style="font-size:11px; font-weight:800; color:var(--text);">${sIdx + 1}</div>
+            <div style="font-size:9px; color:var(--blue); font-weight:700; line-height:1.1; margin-top:2px; background:rgba(2,132,199,0.1); padding:2px 4px; border-radius:4px;" title="Vorige: ${prevKg}kg × ${prevReps}">→ ${prevKg}kg / ${prevReps}</div>
+          `;
+        } else {
+          indexEl.innerHTML = `<div style="font-size:11px; font-weight:800; color:var(--text);">${sIdx + 1}</div>`;
+        }
 
         const weightInp = document.createElement('input');
         weightInp.type = 'number';
