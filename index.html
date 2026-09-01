@@ -177,38 +177,38 @@
     }
 
     /* streak = 0: alles grijs */
-    .streak_0 .streak-svg-icon { filter: grayscale(1) opacity(0.4); }
-    .streak_0 .streak-num { color: var(--text-mut) !important; }
-    .streak_0 .streak-title { color: var(--text-mut) !important; }
-    .streak_0 .streak-sub { color: var(--text-mut) !important; }
-    .streak_0 { background: linear-gradient(135deg, rgba(100,100,100,0.08), rgba(80,80,80,0.04)) !important; border-color: rgba(100,100,100,0.2) !important; }
+    .streak-stage-0 .streak-svg-icon { filter: grayscale(1) opacity(0.4); }
+    .streak-stage-0 .streak-num { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-title { color: var(--text-mut) !important; }
+    .streak-stage-0 .streak-sub { color: var(--text-mut) !important; }
+    .streak-stage-0 { background: linear-gradient(135deg, rgba(100,100,100,0.08), rgba(80,80,80,0.04)) !important; border-color: rgba(100,100,100,0.2) !important; }
 
     /* streak 1-9: klein vlammetje, geen animatie */
-    .streak_1 .streak-svg-icon { filter: brightness(0.9); }
+    .streak-stage-1 .streak-svg-icon { filter: brightness(0.9); }
 
     /* 10+ : begint te wiggelen */
-    .streak_10 .streak-svg-icon { animation: flameWiggle 1s ease-in-out infinite; }
+    .streak-stage-10 .streak-svg-icon { animation: flameWiggle 1s ease-in-out infinite; }
 
     /* 30+: wiggle + pulse */
-    .streak_30 .streak-svg-icon { animation: flameWiggle 0.6s ease-in-out infinite, flamePulse 1s ease-in-out infinite; }
+    .streak-stage-30 .streak-svg-icon { animation: flameWiggle 0.6s ease-in-out infinite, flamePulse 1s ease-in-out infinite; }
 
     /* 100+: sneller */
-    .streak_100 .streak-svg-icon { animation: flameWiggle 0.4s ease-in-out infinite, flamePulse 0.65s ease-in-out infinite; }
+    .streak-stage-100 .streak-svg-icon { animation: flameWiggle 0.4s ease-in-out infinite, flamePulse 0.65s ease-in-out infinite; }
 
     /* 300+: supernova */
-    .streak_300 .streak-svg-icon { animation: flameSupernova 0.7s ease-in-out infinite; }
+    .streak-stage-300 .streak-svg-icon { animation: flameSupernova 0.7s ease-in-out infinite; }
 
     /* 500+: supernova snel */
-    .streak_500 .streak-svg-icon { animation: flameSupernova 0.45s ease-in-out infinite; }
+    .streak-stage-500 .streak-svg-icon { animation: flameSupernova 0.45s ease-in-out infinite; }
 
     /* 1000+: cosmic */
-    .streak_1000 .streak-svg-icon { animation: flameCosmic 1.5s linear infinite; }
+    .streak-stage-1000 .streak-svg-icon { animation: flameCosmic 1.5s linear infinite; }
 
     /* 2000+: cosmic snel */
-    .streak_2000 .streak-svg-icon { animation: flameCosmic 0.7s linear infinite; }
+    .streak-stage-2000 .streak-svg-icon { animation: flameCosmic 0.7s linear infinite; }
 
     /* 10000+: god mode */
-    .streak_10000 .streak-svg-icon { animation: flameGodMode 0.5s linear infinite; }
+    .streak-stage-10000 .streak-svg-icon { animation: flameGodMode 0.5s linear infinite; }
 
     /* SWIPEABLE THEME COLOR CIRCLES */
     .theme-swatches-scroll {
@@ -967,6 +967,40 @@
           <option value="90">90 seconden</option>
           <option value="120">2 minuten</option>
           <option value="180">3 minuten</option>
+        </select>
+
+        <div class="profile-field-label" style="margin-top:12px;">Rustdagen</div>
+        <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; margin-top:8px;">
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayMa" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Ma</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayDi" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Di</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayWo" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Wo</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayDo" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Do</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayVr" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Vr</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayZa" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Za</span>
+          </label>
+          <label style="display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="restDayZo" onchange="saveRestDays()" style="width:18px; height:18px; accent-color:var(--accent);" />
+            <span style="font-size:10px; font-weight:700; color:var(--text-sec);">Zo</span>
+          </label>
+        </div>
+        <div style="font-size:10px; color:var(--text-mut); margin-top:6px;">Selecteer de dagen waarop je niet traint</div>
         </select>
       </div>
 
@@ -1887,8 +1921,8 @@
       const dayData = schema[dayIdx] || { groups: [] };
       const allEx = dayData.groups.flatMap(g => g.exercises);
 
-      // Check if this is a rest day
-      const isRestDay = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
+      // Check if this is a rest day using custom rest days
+      const isRestDayCheck = isRestDay(checkDate);
 
       let hasDoneSet = false;
       for (const ex of allEx) {
@@ -1901,7 +1935,7 @@
 
       if (hasDoneSet) {
         streak++;
-      } else if (isRestDay) {
+      } else if (isRestDayCheck) {
         // Rest days don't break the streak, just skip them
         continue;
       } else if (i > 0) {
@@ -1923,49 +1957,37 @@
 
     let flameFill = '#ff9500';
     let stageClass = '';
-    let subText = 'Train vandaag om je streak te starten!';
+    let subText = getI18n('streakStart');
+    let currentLevel = STREAK_LEVELS[0];
 
-    if (currentStreak >= 10000) {
-      flameFill = '#ffffff';
-      stageClass = 'streak-stage-10000';
-      subText = '🔱 OVERLOAD GOD — 10.000+ DAGEN. ONAANRAAKBAAR.';
-    } else if (currentStreak >= 2000) {
-      flameFill = '#38bdf8';
-      stageClass = 'streak-stage-2000';
-      subText = 'IMMORTAL APEX — 2000+ DAGEN. NIETS KAN JOU STOPPEN.';
-    } else if (currentStreak >= 1000) {
-      flameFill = '#a855f7';
-      stageClass = 'streak-stage-1000';
-      subText = 'KOSMISCHE TITAAN — 1000+ DAGEN!';
-    } else if (currentStreak >= 500) {
-      flameFill = '#ec4899';
-      stageClass = 'streak-stage-500';
-      subText = 'HALFGOD DISCIPLINE — 500+ DAGEN!';
-    } else if (currentStreak >= 300) {
-      flameFill = '#eab308';
-      stageClass = 'streak-stage-300';
-      subText = 'SUPERNOVA OVERLOAD — 300+ DAGEN!';
-    } else if (currentStreak >= 100) {
-      flameFill = '#ff3b30';
-      stageClass = 'streak-stage-100';
-      subText = 'LEGENDARISCHE FOCUS — 100+ DAGEN!';
-    } else if (currentStreak >= 30) {
-      flameFill = '#ff453a';
-      stageClass = 'streak-stage-30';
-      subText = 'BEAST MODE AAN — 30+ DAGEN!';
-    } else if (currentStreak >= 10) {
-      flameFill = '#ff9500';
-      stageClass = 'streak-stage-10';
-      subText = 'DISCIPLINE IS AAN — 10+ DAGEN!';
-    } else if (currentStreak > 0) {
-      flameFill = '#ff9500';
-      stageClass = 'streak-stage-1';
-      subText = 'Streak actief! Blijf consistent.';
-    } else {
-      flameFill = '#64748b';
-      stageClass = 'streak-stage-0';
-      subText = 'Train vandaag om je streak te starten!';
+    // Find current level
+    for (let i = STREAK_LEVELS.length - 1; i >= 0; i--) {
+      if (currentStreak >= STREAK_LEVELS[i].minDays) {
+        currentLevel = STREAK_LEVELS[i];
+        break;
+      }
     }
+
+    flameFill = currentLevel.color;
+    // Map level IDs to translation keys
+    const translationMap = {
+      'streak_0': 'streakStart',
+      'streak_1': 'streakActive',
+      'streak_10': 'streak10',
+      'streak_30': 'streak30',
+      'streak_100': 'streak100',
+      'streak_300': 'streak300',
+      'streak_500': 'streak500',
+      'streak_1000': 'streak1000',
+      'streak_2000': 'streak2000',
+      'streak_10000': 'streak10000'
+    };
+    const translationKey = translationMap[currentLevel.id] || 'streakStart';
+    subText = getI18n(translationKey);
+
+    // Use the level ID as the stage class with streak-stage- prefix
+    const stageNum = currentLevel.id.replace('streak_', '');
+    stageClass = 'streak-stage-' + stageNum;
 
     if (bannerEl) {
       bannerEl.className = `streak-banner ${stageClass}`;
@@ -1974,9 +1996,16 @@
     if (flameEl) {
       flameEl.innerHTML = `
         <svg class="streak-svg-icon" viewBox="0 0 24 24">
-          <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.61 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z" fill="${flameFill}"/>
+          <path d="${currentLevel.svgPath}" fill="${flameFill}"/>
         </svg>
       `;
+      // Force animation reflow on SVG
+      const svgIcon = flameEl.querySelector('.streak-svg-icon');
+      if (svgIcon) {
+        svgIcon.style.animation = 'none';
+        svgIcon.offsetHeight; // Trigger reflow
+        svgIcon.style.animation = '';
+      }
     }
 
     if (subEl) subEl.textContent = subText;
@@ -3195,6 +3224,8 @@
     if (document.getElementById('profileHeightInput')) document.getElementById('profileHeightInput').value = height;
     if (document.getElementById('profileGoalSelect')) document.getElementById('profileGoalSelect').value = goal;
     if (document.getElementById('profileRestSelect')) document.getElementById('profileRestSelect').value = rest;
+
+    loadRestDays();
     if (document.getElementById('languageSelect')) document.getElementById('languageSelect').value = lang;
 
     if (document.getElementById('profileDisplayName')) document.getElementById('profileDisplayName').textContent = name || 'Jouw Profiel';
@@ -3240,6 +3271,48 @@
     const photo = localStorage.getItem('gymlog_profile_photo');
     if (!photo && hdrAvatar) hdrAvatar.textContent = initChar;
     triggerToast('Profiel opgeslagen!');
+  }
+
+  function saveRestDays() {
+    const restDays = {
+      ma: document.getElementById('restDayMa').checked,
+      di: document.getElementById('restDayDi').checked,
+      wo: document.getElementById('restDayWo').checked,
+      do: document.getElementById('restDayDo').checked,
+      vr: document.getElementById('restDayVr').checked,
+      za: document.getElementById('restDayZa').checked,
+      zo: document.getElementById('restDayZo').checked
+    };
+    localStorage.setItem('gymlog_rest_days', JSON.stringify(restDays));
+  }
+
+  function loadRestDays() {
+    const saved = localStorage.getItem('gymlog_rest_days');
+    if (saved) {
+      const restDays = JSON.parse(saved);
+      document.getElementById('restDayMa').checked = restDays.ma || false;
+      document.getElementById('restDayDi').checked = restDays.di || false;
+      document.getElementById('restDayWo').checked = restDays.wo || false;
+      document.getElementById('restDayDo').checked = restDays.do || false;
+      document.getElementById('restDayVr').checked = restDays.vr || false;
+      document.getElementById('restDayZa').checked = restDays.za || false;
+      document.getElementById('restDayZo').checked = restDays.zo || false;
+    } else {
+      // Default: Thursday as rest day
+      document.getElementById('restDayDo').checked = true;
+    }
+  }
+
+  function isRestDay(date) {
+    const dayNames = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
+    const dayName = dayNames[date.getDay()];
+    const saved = localStorage.getItem('gymlog_rest_days');
+    if (saved) {
+      const restDays = JSON.parse(saved);
+      return restDays[dayName] || false;
+    }
+    // Default: Thursday is rest day
+    return dayName === 'do';
   }
 
   function handleProfilePhotoUpload(e) {
