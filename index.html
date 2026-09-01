@@ -835,6 +835,119 @@
         linear-gradient(180deg, #010f0e 0%, #082e2c 60%, #010f0e 100%) !important;
       background-attachment: fixed !important;
     }
+    body[data-mood-theme="tropical"] {
+      background:
+        radial-gradient(ellipse at 60% 20%, rgba(0,200,180,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 30% 60%, rgba(0,160,140,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0,220,200,0.2) 0%, transparent 40%),
+        linear-gradient(180deg, #010f0e 0%, #082e2c 60%, #010f0e 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="mars"] {
+      background:
+        radial-gradient(ellipse at 50% 80%, rgba(200,60,0,0.5) 0%, rgba(150,30,0,0.35) 30%, transparent 60%),
+        radial-gradient(ellipse at 25% 60%, rgba(180,50,0,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 75% 40%, rgba(220,80,20,0.2) 0%, transparent 40%),
+        linear-gradient(180deg, #120800 0%, #1e0e02 60%, #120800 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="mars"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 100%, rgba(234,88,12,0.1) 0%, transparent 55%);
+      animation: lavaGlow 5s ease-in-out infinite alternate;
+    }
+    body[data-mood-theme="arctic"] {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 30%, rgba(14,165,233,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(125,211,252,0.2) 0%, transparent 45%),
+        linear-gradient(180deg, #030d18 0%, #0e2038 70%, #030d18 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="arctic"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 35% 10%, rgba(200,240,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(2px 2px at 80% 8%, rgba(180,230,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 30%, rgba(200,240,255,0.7) 0%, transparent 100%);
+    }
+    body[data-mood-theme="obsidian"] {
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(80,80,90,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(60,60,70,0.25) 0%, transparent 45%),
+        linear-gradient(135deg, #09090b 0%, #1f1f24 50%, #09090b 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="gold_rush"] {
+      background:
+        radial-gradient(ellipse at 60% 30%, rgba(245,158,11,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 30% 60%, rgba(180,83,9,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(251,191,36,0.2) 0%, transparent 40%),
+        linear-gradient(135deg, #0d0900 0%, #1c1400 55%, #0d0900 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="gold_rush"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 55% 35%, rgba(251,191,36,0.07) 0%, transparent 60%);
+      animation: lavaGlow 6s ease-in-out infinite alternate;
+    }
+    body[data-mood-theme="deep_purple"] {
+      background:
+        radial-gradient(ellipse at 40% 50%, rgba(124,58,237,0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 30%, rgba(90,0,168,0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 70%, rgba(109,0,180,0.3) 0%, transparent 45%),
+        #030006 !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="deep_purple"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 18% 22%, rgba(200,150,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 42% 14%, rgba(180,100,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 35%, rgba(220,180,255,0.6) 0%, transparent 100%),
+        radial-gradient(2px 2px at 85% 18%, rgba(200,140,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 60%, rgba(160,80,220,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 75%, rgba(190,120,255,0.5) 0%, transparent 100%);
+    }
+    body[data-mood-theme="bloodmoon"] {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(220,30,30,0.5) 0%, rgba(180,10,10,0.35) 30%, transparent 65%),
+        radial-gradient(ellipse at 50% 50%, rgba(150,20,20,0.2) 0%, transparent 55%),
+        linear-gradient(180deg, #0d0202 0%, #1c0404 60%, #0d0202 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="bloodmoon"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(circle at 50% 0%, rgba(239,68,68,0.12) 0%, transparent 50%);
+      animation: lavaGlow 3.5s ease-in-out infinite alternate;
+    }
+    body[data-mood-theme="ice_cave"] {
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(96,165,250,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 20%, rgba(59,130,246,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 90%, rgba(125,211,252,0.2) 0%, transparent 45%),
+        linear-gradient(180deg, #020617 0%, #0c183e 60%, #020617 100%) !important;
+      background-attachment: fixed !important;
+    }
+    body[data-mood-theme="ice_cave"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 12% 30%, rgba(200,230,255,0.8) 0%, transparent 100%),
+        radial-gradient(2px 2px at 38% 12%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 62% 28%, rgba(180,220,255,0.9) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 82% 18%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 55%, rgba(200,240,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 45%, rgba(180,210,255,0.7) 0%, transparent 100%);
+    }
     /* Cards krijgen lichte doorzichtigheid bij sfeer thema's */
     body[data-mood-theme] .profile-card,
     body[data-mood-theme] .rank-badge-card,
@@ -3974,9 +4087,86 @@
         '--blue-glow': 'rgba(2, 132, 199, 0.3)'
       }
     },
-    // ═══════════════════════════════════════
-    // SFEER THEMA'S
-    // ═══════════════════════════════════════
+    // ── EXTRA KLEUREN ──────────────────────────────
+    {
+      id: 'teal',
+      name: 'Teal (Donker Teal)',
+      swatch: '#0f766e',
+      vars: {
+        '--bg': '#011614', '--surface-1': '#042420', '--surface-2': '#083330',
+        '--surface-3': '#0e4540', '--border': '#16605a', '--border-light': '#22918a',
+        '--text': '#f0fffd', '--text-sec': '#5eead4', '--text-mut': '#2dd4bf',
+        '--blue': '#14b8a6', '--blue-glow': 'rgba(20,184,166,0.45)'
+      }
+    },
+    {
+      id: 'lime',
+      name: 'Toxic Lime (Neon Groen)',
+      swatch: '#65a30d',
+      vars: {
+        '--bg': '#061002', '--surface-1': '#0d1e05', '--surface-2': '#162d08',
+        '--surface-3': '#20400c', '--border': '#365c14', '--border-light': '#558c20',
+        '--text': '#f7ffe6', '--text-sec': '#bef264', '--text-mut': '#a3e635',
+        '--blue': '#84cc16', '--blue-glow': 'rgba(132,204,22,0.45)'
+      }
+    },
+    {
+      id: 'rose',
+      name: 'Rose Quartz (Zacht Roze)',
+      swatch: '#e11d48',
+      vars: {
+        '--bg': '#120209', '--surface-1': '#200411', '--surface-2': '#30071a',
+        '--surface-3': '#420b24', '--border': '#6e1240', '--border-light': '#a31b5c',
+        '--text': '#fff0f6', '--text-sec': '#fda4af', '--text-mut': '#fb7185',
+        '--blue': '#f43f5e', '--blue-glow': 'rgba(244,63,94,0.45)'
+      }
+    },
+    {
+      id: 'slate',
+      name: 'Slate Blue (Stalen Blauw)',
+      swatch: '#475569',
+      vars: {
+        '--bg': '#0c0e14', '--surface-1': '#151923', '--surface-2': '#1e2535',
+        '--surface-3': '#293347', '--border': '#3d4e6a', '--border-light': '#5a708f',
+        '--text': '#f1f5f9', '--text-sec': '#94a3b8', '--text-mut': '#64748b',
+        '--blue': '#7da5d6', '--blue-glow': 'rgba(125,165,214,0.4)'
+      }
+    },
+    {
+      id: 'bronze',
+      name: 'Bronze (Brons)',
+      swatch: '#a16207',
+      vars: {
+        '--bg': '#0d0900', '--surface-1': '#1a1400', '--surface-2': '#271f04',
+        '--surface-3': '#382c07', '--border': '#5c4410', '--border-light': '#896618',
+        '--text': '#fff8eb', '--text-sec': '#fde68a', '--text-mut': '#fbbf24',
+        '--blue': '#d97706', '--blue-glow': 'rgba(217,119,6,0.45)'
+      }
+    },
+    {
+      id: 'indigo_dark',
+      name: 'Indigo Dark (Diep Indigo)',
+      swatch: '#3730a3',
+      vars: {
+        '--bg': '#04040f', '--surface-1': '#0a0a20', '--surface-2': '#101032',
+        '--surface-3': '#181848', '--border': '#252570', '--border-light': '#3a3aa8',
+        '--text': '#eef2ff', '--text-sec': '#a5b4fc', '--text-mut': '#6366f1',
+        '--blue': '#818cf8', '--blue-glow': 'rgba(129,140,248,0.45)'
+      }
+    },
+    {
+      id: 'mint',
+      name: 'Mint (Fris Mint)',
+      swatch: '#10b981',
+      vars: {
+        '--bg': '#011210', '--surface-1': '#041e1c', '--surface-2': '#082e2c',
+        '--surface-3': '#0d4040', '--border': '#136355', '--border-light': '#1d9a7e',
+        '--text': '#ecfdf5', '--text-sec': '#6ee7b7', '--text-mut': '#34d399',
+        '--blue': '#10b981', '--blue-glow': 'rgba(16,185,129,0.45)'
+      }
+    },
+    // ── SFEER THEMA'S ──────────────────────────────
+    // ... (bestaande sfeer thema's staan al hieronder)
     {
       id: 'nebula',
       name: 'Nebula (Ruimte)',
@@ -4223,11 +4413,145 @@
         '--blue-glow': 'rgba(20, 184, 166, 0.5)',
         '--accent': '#14b8a6'
       }
+    },
+    // ── NIEUWE SFEER THEMA'S ──
+    {
+      id: 'mars',
+      name: 'Mars (Rode Planeet)',
+      swatch: '#c2410c',
+      vars: {
+        '--bg': '#120800',
+        '--surface-1': '#1e0e02',
+        '--surface-2': '#2c1604',
+        '--surface-3': '#3e2008',
+        '--border': '#6b3010',
+        '--border-light': '#a0491a',
+        '--text': '#fff4f0',
+        '--text-sec': '#fca993',
+        '--text-mut': '#fb7c57',
+        '--blue': '#ea580c',
+        '--blue-glow': 'rgba(234,88,12,0.55)',
+        '--accent': '#ea580c'
+      }
+    },
+    {
+      id: 'arctic',
+      name: 'Arctic (Poolgebied)',
+      swatch: '#38bdf8',
+      vars: {
+        '--bg': '#030d18',
+        '--surface-1': '#081525',
+        '--surface-2': '#0e2038',
+        '--surface-3': '#162e4e',
+        '--border': '#1e4a70',
+        '--border-light': '#2c7aad',
+        '--text': '#f0faff',
+        '--text-sec': '#bae6fd',
+        '--text-mut': '#7dd3fc',
+        '--blue': '#38bdf8',
+        '--blue-glow': 'rgba(56,189,248,0.55)',
+        '--accent': '#38bdf8'
+      }
+    },
+    {
+      id: 'obsidian',
+      name: 'Obsidian (Vulkaanglas)',
+      swatch: '#3f3f46',
+      vars: {
+        '--bg': '#09090b',
+        '--surface-1': '#141417',
+        '--surface-2': '#1f1f24',
+        '--surface-3': '#2c2c32',
+        '--border': '#404047',
+        '--border-light': '#5e5e68',
+        '--text': '#fafafa',
+        '--text-sec': '#a1a1aa',
+        '--text-mut': '#71717a',
+        '--blue': '#e4e4e7',
+        '--blue-glow': 'rgba(228,228,231,0.3)',
+        '--accent': '#e4e4e7'
+      }
+    },
+    {
+      id: 'gold_rush',
+      name: 'Gold Rush (Goudkoorts)',
+      swatch: '#fbbf24',
+      vars: {
+        '--bg': '#0d0900',
+        '--surface-1': '#1c1400',
+        '--surface-2': '#2b2000',
+        '--surface-3': '#3d2e04',
+        '--border': '#6e500a',
+        '--border-light': '#a87a14',
+        '--text': '#fffbeb',
+        '--text-sec': '#fde68a',
+        '--text-mut': '#fbbf24',
+        '--blue': '#f59e0b',
+        '--blue-glow': 'rgba(245,158,11,0.55)',
+        '--accent': '#f59e0b'
+      }
+    },
+    {
+      id: 'deep_purple',
+      name: 'Deep Purple (Diep Paars)',
+      swatch: '#7c3aed',
+      vars: {
+        '--bg': '#030006',
+        '--surface-1': '#0a0010',
+        '--surface-2': '#13001c',
+        '--surface-3': '#1e0030',
+        '--border': '#38006b',
+        '--border-light': '#5a00a8',
+        '--text': '#faf5ff',
+        '--text-sec': '#d8b4fe',
+        '--text-mut': '#a855f7',
+        '--blue': '#c084fc',
+        '--blue-glow': 'rgba(192,132,252,0.55)',
+        '--accent': '#c084fc'
+      }
+    },
+    {
+      id: 'bloodmoon',
+      name: 'Bloodmoon (Bloedmaan)',
+      swatch: '#ef4444',
+      vars: {
+        '--bg': '#0d0202',
+        '--surface-1': '#1c0404',
+        '--surface-2': '#2a0606',
+        '--surface-3': '#3b0a0a',
+        '--border': '#6e1414',
+        '--border-light': '#a01e1e',
+        '--text': '#fff5f5',
+        '--text-sec': '#fca5a5',
+        '--text-mut': '#f87171',
+        '--blue': '#ef4444',
+        '--blue-glow': 'rgba(239,68,68,0.6)',
+        '--accent': '#ef4444'
+      }
+    },
+    {
+      id: 'ice_cave',
+      name: 'Ice Cave (IJsgrot)',
+      swatch: '#7dd3fc',
+      vars: {
+        '--bg': '#020617',
+        '--surface-1': '#060e28',
+        '--surface-2': '#0c183e',
+        '--surface-3': '#142458',
+        '--border': '#1e3a8a',
+        '--border-light': '#2d5fc7',
+        '--text': '#eff6ff',
+        '--text-sec': '#bfdbfe',
+        '--text-mut': '#93c5fd',
+        '--blue': '#60a5fa',
+        '--blue-glow': 'rgba(96,165,250,0.55)',
+        '--accent': '#60a5fa'
+      }
     }
   ];
 
   // IDs van de sfeer thema's — moet boven applyFullAppTheme staan
-  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical'];
+  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical','mars','arctic','obsidian','gold_rush','deep_purple','bloodmoon','ice_cave'];
 
   function initThemeSettings() {
     const savedThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
@@ -4282,6 +4606,30 @@
     if (showToast) triggerToast(`Thema gewijzigd: ${theme.name}`);
   }
 
+  // Gradient swatches per sfeer thema — ziet eruit als de achtergrond zelf
+  const MOOD_SWATCHES = {
+    nebula:        'radial-gradient(circle at 40% 60%, #7c3aed 0%, #2d0a6e 45%, #05020f 100%)',
+    aurora:        'linear-gradient(160deg, #010d0a 0%, #059669 45%, #6ee7b7 100%)',
+    sunset:        'linear-gradient(180deg, #0f0602 0%, #7c2d12 40%, #ea580c 70%, #fbbf24 100%)',
+    vintage:       'radial-gradient(ellipse at 50% 80%, #92400e 0%, #3d2c20 50%, #120d08 100%)',
+    sakura:        'radial-gradient(circle at 60% 30%, #ec4899 0%, #9d174d 45%, #0f0509 100%)',
+    ocean_deep:    'linear-gradient(180deg, #010a10 0%, #0c4a6e 50%, #06b6d4 100%)',
+    forest:        'radial-gradient(ellipse at 50% 0%, #166534 0%, #052e16 55%, #020b05 100%)',
+    lava:          'radial-gradient(ellipse at 50% 100%, #dc2626 0%, #7f1d1d 45%, #0d0202 100%)',
+    galaxy:        'radial-gradient(circle at 30% 40%, #4f46e5 0%, #1e1b4b 45%, #02020e 100%)',
+    copper:        'radial-gradient(ellipse at 60% 30%, #d97706 0%, #78350f 55%, #0c0800 100%)',
+    neon_city:     'linear-gradient(135deg, #000308 0%, #0c4a6e 55%, #00e5ff 100%)',
+    midnight_rose: 'radial-gradient(circle at 50% 50%, #c026d3 0%, #6b21a8 45%, #08010a 100%)',
+    tropical:      'linear-gradient(160deg, #010f0e 0%, #0d9488 55%, #2dd4bf 100%)',
+    mars:          'radial-gradient(ellipse at 50% 80%, #c2410c 0%, #7c2d12 50%, #120800 100%)',
+    arctic:        'radial-gradient(circle at 50% 0%, #e0f2fe 0%, #38bdf8 45%, #0c1a24 100%)',
+    obsidian:      'linear-gradient(135deg, #09090b 0%, #27272a 55%, #52525b 100%)',
+    gold_rush:     'radial-gradient(ellipse at 40% 40%, #fbbf24 0%, #b45309 45%, #0c0800 100%)',
+    deep_purple:   'radial-gradient(circle at 60% 40%, #7c3aed 0%, #3b0764 55%, #030006 100%)',
+    bloodmoon:     'radial-gradient(ellipse at 50% 100%, #ef4444 0%, #7f1d1d 40%, #0d0202 100%)',
+    ice_cave:      'linear-gradient(160deg, #020617 0%, #0369a1 45%, #7dd3fc 100%)',
+  };
+
   function renderThemeColorSwatches() {
     const container = document.getElementById('themeColorSwatches');
     const moodContainer = document.getElementById('themeMoodSwatches');
@@ -4289,16 +4637,23 @@
 
     const currentThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
 
-    const buildSwatch = (theme) => {
+    const buildSwatch = (theme, isMood) => {
       const wrap = document.createElement('div');
       const isActive = (theme.id === currentThemeId);
+      const bg = isMood && MOOD_SWATCHES[theme.id] ? MOOD_SWATCHES[theme.id] : theme.swatch;
+      const size = isMood ? '46px' : '38px';
+      const border = isActive ? '2.5px solid #fff' : (isMood ? '1.5px solid rgba(255,255,255,0.18)' : '2px solid transparent');
+      const shadow = isActive
+        ? '0 0 0 2px var(--blue), 0 0 18px rgba(56,189,248,0.45)'
+        : (isMood ? '0 2px 14px rgba(0,0,0,0.55)' : '0 0 0 1px rgba(255,255,255,0.1)');
+
       wrap.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex-shrink:0;';
       wrap.title = theme.name;
       wrap.innerHTML = `
-        <div style="width:38px; height:38px; border-radius:50%; background:${theme.swatch}; border:2px solid ${isActive ? '#fff' : 'transparent'}; box-shadow:${isActive ? '0 0 0 2px var(--blue)' : '0 0 0 1px rgba(255,255,255,0.1)'}; display:flex; align-items:center; justify-content:center; transition:all 0.2s;">
-          ${isActive ? '<svg style="width:16px;height:16px;fill:#fff" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>' : ''}
+        <div style="width:${size}; height:${size}; border-radius:50%; background:${bg}; border:${border}; box-shadow:${shadow}; display:flex; align-items:center; justify-content:center; transition:all 0.2s; flex-shrink:0;">
+          ${isActive ? `<svg style="width:${isMood?'18px':'15px'};height:${isMood?'18px':'15px'};fill:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.9))" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>` : ''}
         </div>
-        <span style="font-size:8px; font-weight:700; color:${isActive ? 'var(--text)' : 'var(--text-mut)'}; text-align:center; max-width:44px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${theme.name.split(' ')[0]}</span>
+        <span style="font-size:8px; font-weight:700; color:${isActive ? 'var(--text)' : 'var(--text-mut)'}; text-align:center; max-width:${isMood?'50px':'44px'}; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${theme.name.split(' ')[0]}</span>
       `;
       wrap.onclick = () => applyFullAppTheme(theme.id, true);
       return wrap;
@@ -4309,9 +4664,9 @@
 
     THEME_PALETTES.forEach(theme => {
       if (MOOD_THEME_IDS.includes(theme.id)) {
-        if (moodContainer) moodContainer.appendChild(buildSwatch(theme));
+        if (moodContainer) moodContainer.appendChild(buildSwatch(theme, true));
       } else {
-        container.appendChild(buildSwatch(theme));
+        container.appendChild(buildSwatch(theme, false));
       }
     });
   }
