@@ -979,8 +979,10 @@
           </button>
         </div>
 
-        <div class="profile-field-label" style="margin-top:6px;">Accent Kleurenthema (Swipe door de rondjes)</div>
+        <div class="profile-field-label" style="margin-top:6px;">Kleurenthema</div>
         <div class="theme-swatches-scroll" id="themeColorSwatches"></div>
+        <div class="profile-field-label" style="margin-top:10px;">Sfeer Thema's</div>
+        <div class="theme-swatches-scroll" id="themeMoodSwatches"></div>
       </div>
 
       <!-- TAAL SELECTIE (LIVE VERTALING) -->
@@ -3605,6 +3607,256 @@
         '--blue': '#0284c7',
         '--blue-glow': 'rgba(2, 132, 199, 0.3)'
       }
+    },
+    // ═══════════════════════════════════════
+    // SFEER THEMA'S
+    // ═══════════════════════════════════════
+    {
+      id: 'nebula',
+      name: 'Nebula (Ruimte)',
+      swatch: '#6d28d9',
+      vars: {
+        '--bg': '#05020f',
+        '--surface-1': '#0d0820',
+        '--surface-2': '#160f35',
+        '--surface-3': '#1f1550',
+        '--border': '#2d1f72',
+        '--border-light': '#4a33a8',
+        '--text': '#f0e6ff',
+        '--text-sec': '#c4b5fd',
+        '--text-mut': '#7c3aed',
+        '--blue': '#a78bfa',
+        '--blue-glow': 'rgba(167, 139, 250, 0.5)',
+        '--accent': '#a78bfa'
+      }
+    },
+    {
+      id: 'aurora',
+      name: 'Aurora (Noorderlicht)',
+      swatch: '#059669',
+      vars: {
+        '--bg': '#010d0a',
+        '--surface-1': '#041a14',
+        '--surface-2': '#072b21',
+        '--surface-3': '#0b3d2f',
+        '--border': '#115c44',
+        '--border-light': '#1a8a67',
+        '--text': '#e0fff5',
+        '--text-sec': '#6ee7b7',
+        '--text-mut': '#34d399',
+        '--blue': '#10b981',
+        '--blue-glow': 'rgba(16, 185, 129, 0.5)',
+        '--accent': '#10b981'
+      }
+    },
+    {
+      id: 'sunset',
+      name: 'Sunset (Zonsondergang)',
+      swatch: '#ea580c',
+      vars: {
+        '--bg': '#0f0602',
+        '--surface-1': '#1e0d04',
+        '--surface-2': '#2e1508',
+        '--surface-3': '#421f0e',
+        '--border': '#7c3213',
+        '--border-light': '#b5481d',
+        '--text': '#fff1e6',
+        '--text-sec': '#fed7aa',
+        '--text-mut': '#fb923c',
+        '--blue': '#f97316',
+        '--blue-glow': 'rgba(249, 115, 22, 0.6)',
+        '--accent': '#f97316'
+      }
+    },
+    {
+      id: 'vintage',
+      name: 'Vintage (Retro Sepia)',
+      swatch: '#92400e',
+      vars: {
+        '--bg': '#120d08',
+        '--surface-1': '#1e1510',
+        '--surface-2': '#2c1f17',
+        '--surface-3': '#3d2c20',
+        '--border': '#5c4033',
+        '--border-light': '#8b6245',
+        '--text': '#f5e6d0',
+        '--text-sec': '#d4b896',
+        '--text-mut': '#a0785a',
+        '--blue': '#d4a056',
+        '--blue-glow': 'rgba(212, 160, 86, 0.4)',
+        '--accent': '#d4a056'
+      }
+    },
+    {
+      id: 'sakura',
+      name: 'Sakura (Japanse Kers)',
+      swatch: '#be185d',
+      vars: {
+        '--bg': '#0f0509',
+        '--surface-1': '#1e0a14',
+        '--surface-2': '#2d1120',
+        '--surface-3': '#401830',
+        '--border': '#6b2248',
+        '--border-light': '#9d3268',
+        '--text': '#fff0f6',
+        '--text-sec': '#fda4af',
+        '--text-mut': '#f472b6',
+        '--blue': '#fb7185',
+        '--blue-glow': 'rgba(251, 113, 133, 0.5)',
+        '--accent': '#fb7185'
+      }
+    },
+    {
+      id: 'ocean_deep',
+      name: 'Deep Sea (Diepzee Blauw)',
+      swatch: '#0e7490',
+      vars: {
+        '--bg': '#010a10',
+        '--surface-1': '#03151e',
+        '--surface-2': '#06222f',
+        '--surface-3': '#0a3244',
+        '--border': '#10506a',
+        '--border-light': '#1a7a9e',
+        '--text': '#e0f7ff',
+        '--text-sec': '#67e8f9',
+        '--text-mut': '#22d3ee',
+        '--blue': '#06b6d4',
+        '--blue-glow': 'rgba(6, 182, 212, 0.55)',
+        '--accent': '#06b6d4'
+      }
+    },
+    {
+      id: 'forest',
+      name: 'Forest (Donker Woud)',
+      swatch: '#166534',
+      vars: {
+        '--bg': '#020b05',
+        '--surface-1': '#071510',
+        '--surface-2': '#0c2218',
+        '--surface-3': '#123020',
+        '--border': '#1b4f30',
+        '--border-light': '#2a7a4a',
+        '--text': '#eafff2',
+        '--text-sec': '#86efac',
+        '--text-mut': '#4ade80',
+        '--blue': '#22c55e',
+        '--blue-glow': 'rgba(34, 197, 94, 0.5)',
+        '--accent': '#22c55e'
+      }
+    },
+    {
+      id: 'lava',
+      name: 'Lava (Vulkaan Rood)',
+      swatch: '#991b1b',
+      vars: {
+        '--bg': '#0d0202',
+        '--surface-1': '#1a0505',
+        '--surface-2': '#280808',
+        '--surface-3': '#380d0d',
+        '--border': '#5c1414',
+        '--border-light': '#8b2020',
+        '--text': '#fff5f5',
+        '--text-sec': '#fca5a5',
+        '--text-mut': '#f87171',
+        '--blue': '#ef4444',
+        '--blue-glow': 'rgba(239, 68, 68, 0.6)',
+        '--accent': '#ef4444'
+      }
+    },
+    {
+      id: 'galaxy',
+      name: 'Galaxy (Melkweg)',
+      swatch: '#312e81',
+      vars: {
+        '--bg': '#02020e',
+        '--surface-1': '#060618',
+        '--surface-2': '#0c0c28',
+        '--surface-3': '#12123c',
+        '--border': '#1e1e60',
+        '--border-light': '#3333a0',
+        '--text': '#eef2ff',
+        '--text-sec': '#a5b4fc',
+        '--text-mut': '#6366f1',
+        '--blue': '#818cf8',
+        '--blue-glow': 'rgba(129, 140, 248, 0.6)',
+        '--accent': '#818cf8'
+      }
+    },
+    {
+      id: 'copper',
+      name: 'Copper (Koper Goud)',
+      swatch: '#b45309',
+      vars: {
+        '--bg': '#0c0800',
+        '--surface-1': '#1a1200',
+        '--surface-2': '#281c02',
+        '--surface-3': '#3a2804',
+        '--border': '#624010',
+        '--border-light': '#966018',
+        '--text': '#fffbeb',
+        '--text-sec': '#fde68a',
+        '--text-mut': '#fbbf24',
+        '--blue': '#f59e0b',
+        '--blue-glow': 'rgba(245, 158, 11, 0.55)',
+        '--accent': '#f59e0b'
+      }
+    },
+    {
+      id: 'neon_city',
+      name: 'Neon City (Cyberpunk Stad)',
+      swatch: '#0891b2',
+      vars: {
+        '--bg': '#000308',
+        '--surface-1': '#020812',
+        '--surface-2': '#04101e',
+        '--surface-3': '#071828',
+        '--border': '#0c2d4a',
+        '--border-light': '#164b78',
+        '--text': '#f0faff',
+        '--text-sec': '#38bdf8',
+        '--text-mut': '#0284c7',
+        '--blue': '#00e5ff',
+        '--blue-glow': 'rgba(0, 229, 255, 0.6)',
+        '--accent': '#00e5ff'
+      }
+    },
+    {
+      id: 'midnight_rose',
+      name: 'Midnight Rose (Nacht Roos)',
+      swatch: '#9d174d',
+      vars: {
+        '--bg': '#08010a',
+        '--surface-1': '#120318',
+        '--surface-2': '#1c0526',
+        '--surface-3': '#290836',
+        '--border': '#44104f',
+        '--border-light': '#6b1878',
+        '--text': '#fdf4ff',
+        '--text-sec': '#e879f9',
+        '--text-mut': '#d946ef',
+        '--blue': '#c026d3',
+        '--blue-glow': 'rgba(192, 38, 211, 0.55)',
+        '--accent': '#c026d3'
+      }
+    },
+    {
+      id: 'tropical',
+      name: 'Tropical (Tropisch)',
+      swatch: '#0d9488',
+      vars: {
+        '--bg': '#010f0e',
+        '--surface-1': '#041e1c',
+        '--surface-2': '#082e2c',
+        '--surface-3': '#0d4240',
+        '--border': '#146660',
+        '--border-light': '#1f9e96',
+        '--text': '#f0fffd',
+        '--text-sec': '#5eead4',
+        '--text-mut': '#2dd4bf',
+        '--blue': '#14b8a6',
+        '--blue-glow': 'rgba(20, 184, 166, 0.5)',
+        '--accent': '#14b8a6'
+      }
     }
   ];
 
@@ -3654,14 +3906,17 @@
     if (showToast) triggerToast(`Thema gewijzigd: ${theme.name}`);
   }
 
+  // IDs van de sfeer thema's
+  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical'];
+
   function renderThemeColorSwatches() {
     const container = document.getElementById('themeColorSwatches');
+    const moodContainer = document.getElementById('themeMoodSwatches');
     if (!container) return;
-    container.innerHTML = '';
 
     const currentThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
 
-    THEME_PALETTES.forEach(theme => {
+    const buildSwatch = (theme) => {
       const wrap = document.createElement('div');
       const isActive = (theme.id === currentThemeId);
       wrap.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex-shrink:0;';
@@ -3673,7 +3928,18 @@
         <span style="font-size:8px; font-weight:700; color:${isActive ? 'var(--text)' : 'var(--text-mut)'}; text-align:center; max-width:44px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${theme.name.split(' ')[0]}</span>
       `;
       wrap.onclick = () => applyFullAppTheme(theme.id, true);
-      container.appendChild(wrap);
+      return wrap;
+    };
+
+    container.innerHTML = '';
+    if (moodContainer) moodContainer.innerHTML = '';
+
+    THEME_PALETTES.forEach(theme => {
+      if (MOOD_THEME_IDS.includes(theme.id)) {
+        if (moodContainer) moodContainer.appendChild(buildSwatch(theme));
+      } else {
+        container.appendChild(buildSwatch(theme));
+      }
     });
   }
 
