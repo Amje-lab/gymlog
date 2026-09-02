@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>OVERLOAD - Ultimate Gym Workout Tracker</title>
   <link rel="manifest" href="./manifest.json" />
   <meta name="theme-color" content="#0d0e12" />
@@ -98,6 +98,12 @@
     body.light-theme [style*="color: #ffffff"] { color: #0f172a !important; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html {
+      background: var(--bg);
+      background-color: var(--bg);
+      min-height: 100%;
+      height: 100%;
+    }
     body {
       background: var(--bg);
       background-color: var(--bg);
@@ -105,19 +111,25 @@
       font-family: var(--font-main);
       font-size: 14px;
       line-height: 1.45;
-      padding-bottom: 90px;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: calc(120px + env(safe-area-inset-bottom, 30px));
       overflow-x: hidden;
       min-height: 100vh;
+      min-height: 100dvh;
     }
 
     /* TOP HEADER */
     .app-header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(11, 12, 16, 0.88);
-      backdrop-filter: blur(16px);
+      background: var(--surface-1);
+      background-color: var(--bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
-      padding: 12px 16px;
+      padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px 16px;
+      margin-top: calc(-1 * env(safe-area-inset-top, 0px));
       display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
     .brand-wrap { display: flex; align-items: center; gap: 10px; }
     .brand-title {
@@ -1085,6 +1097,12 @@
     .calc-btn.eq { background: var(--blue); color: #000; border-color: var(--blue); }
     .calc-btn.clear { background: rgba(255,69,58,0.12); color: var(--red); border-color: rgba(255,69,58,0.2); }
     .calc-btn.zero { grid-column: span 2; }
+  
+    #viewHome, #viewAgenda, #viewTracker, #viewSearch, #viewProfile {
+      padding-bottom: 60px;
+      min-height: calc(100vh - 140px);
+    }
+
   </style>
 </head>
 <body>
@@ -1284,8 +1302,8 @@
       <div class="profile-card">
         <div class="profile-field-label">Voortgangsfoto's</div>
         <div style="font-size:11px; color:var(--text-sec); margin-bottom:12px; margin-top:2px;">Max 2 foto's — voorkant en achterkant</div>
-        <input type="file" id="frontPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handleProgressPhotoUpload(event,'front')" />
-        <input type="file" id="backPhotoInput"  accept="image/*" capture="environment" style="display:none;" onchange="handleProgressPhotoUpload(event,'back')" />
+        <input type="file" id="frontPhotoInput" accept="image/*" style="display:none;" onchange="handleProgressPhotoUpload(event,'front')" />
+        <input type="file" id="backPhotoInput"  accept="image/*" style="display:none;" onchange="handleProgressPhotoUpload(event,'back')" />
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <!-- VOORKANT SLOT -->
           <div id="frontPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('frontPhotoInput').click()">
@@ -1303,7 +1321,7 @@
                 <ellipse cx="20" cy="107" rx="6" ry="4"/>
                 <ellipse cx="40" cy="107" rx="6" ry="4"/>
               </svg>
-              <div class="photo-slot-label">VOORKANT</div>
+              <div class="photo-slot-label">FOTO 1 (VOORKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
             </div>
           </div>
@@ -1324,7 +1342,7 @@
                 <ellipse cx="19" cy="107" rx="6" ry="4"/>
                 <ellipse cx="41" cy="107" rx="6" ry="4"/>
               </svg>
-              <div class="photo-slot-label">ACHTERKANT</div>
+              <div class="photo-slot-label">FOTO 2 (ACHTER/ZIJKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
             </div>
           </div>
@@ -4818,7 +4836,7 @@
               style="padding:5px 12px; border-radius:8px; border:none; cursor:pointer; font-size:11px; font-weight:800;
               background:${isRest ? 'rgba(48,209,88,0.15)' : 'rgba(255,69,58,0.15)'};
               color:${isRest ? '#30d158' : '#ff453a'};">
-              ${isRest ? '🏋️ Workout' : '💤 Rustdag'}
+              ${isRest ? 'Workout' : 'Rustdag'}
             </button>
           </div>
         </div>
