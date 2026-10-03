@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -1277,8 +1277,8 @@
             <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);">${t('chooseSchema')}</div>
-          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">${t('populSchemas')}</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
         </div>
         <div style="display:flex; gap:6px;">
           <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
@@ -1388,52 +1388,35 @@
           <div id="frontPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('frontPhotoInput').click()">
             <div id="frontPhotoContent" class="progress-photo-inner">
               <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <!-- Front view muscle anatomy -->
-                <!-- Head -->
-                <circle cx="30" cy="10" r="8" fill="currentColor" opacity="0.7"/>
-                <!-- Sternocleidomastoid -->
-                <path d="M 26 18 Q 24 25 23 35" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
-                <path d="M 34 18 Q 36 25 37 35" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
-                <!-- Trapezius upper -->
-                <path d="M 26 20 L 20 30 M 34 20 L 40 30" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
-                <!-- Pectoralis major left -->
-                <ellipse cx="20" cy="32" rx="7" ry="10" fill="currentColor" opacity="0.75"/>
-                <!-- Pectoralis major right -->
-                <ellipse cx="40" cy="32" rx="7" ry="10" fill="currentColor" opacity="0.75"/>
-                <!-- Sternum line -->
-                <path d="M 30 22 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
-                <!-- Rectus abdominis -->
-                <g opacity="0.65">
-                  <rect x="27" y="45" width="6" height="8" fill="currentColor" opacity="0.6"/>
-                  <rect x="27" y="54" width="6" height="8" fill="currentColor" opacity="0.55"/>
-                  <rect x="27" y="63" width="6" height="8" fill="currentColor" opacity="0.5"/>
+                <!-- Hoofd -->
+                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+                <!-- Nek -->
+                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+                <!-- Borst & Buik -->
+                <path d="M 18 24 Q 30 22 42 24 L 42 55 Q 30 58 18 55 Z" fill="currentColor" opacity="0.8"/>
+                <!-- Borst animatie (highlights) -->
+                <g opacity="0.3">
+                  <path d="M 22 28 Q 26 26 30 28 L 30 45 Q 26 46 22 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <path d="M 30 28 Q 34 26 38 28 L 38 45 Q 34 46 30 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
                 </g>
-                <!-- Obliques left -->
-                <path d="M 20 45 Q 15 50 12 60" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-                <!-- Obliques right -->
-                <path d="M 40 45 Q 45 50 48 60" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-                <!-- Biceps left -->
-                <path d="M 18 28 L 10 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Biceps right -->
-                <path d="M 42 28 L 50 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Forearms left -->
-                <path d="M 10 45 L 8 60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-                <!-- Forearms right -->
-                <path d="M 50 45 L 52 60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-                <!-- Hands -->
-                <circle cx="8" cy="62" r="2" fill="currentColor" opacity="0.7"/>
-                <circle cx="52" cy="62" r="2" fill="currentColor" opacity="0.7"/>
-                <!-- Quadriceps left -->
-                <path d="M 24 73 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <!-- Quadriceps right -->
-                <path d="M 36 73 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <!-- Tibialis anterior left -->
-                <path d="M 22 105 L 21 115" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-                <!-- Tibialis anterior right -->
-                <path d="M 38 105 L 39 115" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-                <!-- Feet -->
-                <ellipse cx="21" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
-                <ellipse cx="39" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
+                <!-- Linker arm -->
+                <g>
+                  <path d="M 18 26 L 8 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="8" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Rechter arm -->
+                <g>
+                  <path d="M 42 26 L 52 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="52" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Linker been -->
+                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rechter been -->
+                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Buik detail -->
+                <path d="M 28 50 L 32 50" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
               </svg>
               <div class="photo-slot-label">FOTO 1 (VOORKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
@@ -1443,49 +1426,36 @@
           <div id="backPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('backPhotoInput').click()">
             <div id="backPhotoContent" class="progress-photo-inner">
               <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <!-- Back view muscle anatomy -->
-                <!-- Head -->
-                <circle cx="30" cy="10" r="8" fill="currentColor" opacity="0.7"/>
-                <!-- Neck/Cervicals -->
-                <path d="M 26 18 L 26 25 M 34 18 L 34 25" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
-                <!-- Trapezius (large) -->
-                <path d="M 15 24 Q 20 28 24 38 L 36 38 Q 40 28 45 24 L 30 20 Z" fill="currentColor" opacity="0.8"/>
-                <!-- Deltoid posterior left -->
-                <ellipse cx="15" cy="35" rx="5" ry="8" fill="currentColor" opacity="0.75"/>
-                <!-- Deltoid posterior right -->
-                <ellipse cx="45" cy="35" rx="5" ry="8" fill="currentColor" opacity="0.75"/>
-                <!-- Latissimus dorsi left -->
-                <path d="M 20 40 Q 12 50 10 65" fill="currentColor" opacity="0.7"/>
-                <!-- Latissimus dorsi right -->
-                <path d="M 40 40 Q 48 50 50 65" fill="currentColor" opacity="0.7"/>
-                <!-- Erector spinae -->
-                <g opacity="0.5">
-                  <path d="M 28 28 L 27 60"/>
-                  <path d="M 30 28 L 30 60"/>
-                  <path d="M 32 28 L 33 60"/>
+                <!-- Hoofd -->
+                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+                <!-- Nek -->
+                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+                <!-- Rug (trapezoïd breder naar onderen) -->
+                <path d="M 16 24 Q 30 22 44 24 L 46 55 Q 30 58 14 55 Z" fill="currentColor" opacity="0.8"/>
+                <!-- Rug animatie (spieren highlight) -->
+                <g opacity="0.25">
+                  <path d="M 24 30 Q 30 28 30 45" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <path d="M 20 35 L 24 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+                  <path d="M 40 35 L 36 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
                 </g>
-                <!-- Triceps left -->
-                <path d="M 15 32 L 8 50" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Triceps right -->
-                <path d="M 45 32 L 52 50" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Forearms left -->
-                <path d="M 8 50 L 6 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-                <!-- Forearms right -->
-                <path d="M 52 50 L 54 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-                <!-- Hands -->
-                <circle cx="6" cy="67" r="2" fill="currentColor" opacity="0.7"/>
-                <circle cx="54" cy="67" r="2" fill="currentColor" opacity="0.7"/>
-                <!-- Hamstrings left -->
-                <path d="M 24 68 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Hamstrings right -->
-                <path d="M 36 68 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <!-- Calves left -->
-                <path d="M 22 105 L 21 115" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.65"/>
-                <!-- Calves right -->
-                <path d="M 38 105 L 39 115" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.65"/>
-                <!-- Feet -->
-                <ellipse cx="21" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
-                <ellipse cx="39" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
+                <!-- Linker arm -->
+                <g>
+                  <path d="M 16 26 L 4 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="4" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Rechter arm -->
+                <g>
+                  <path d="M 44 26 L 56 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="56" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Linker been -->
+                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rechter been -->
+                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rug accent -->
+                <path d="M 30 35 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
               </svg>
               <div class="photo-slot-label">FOTO 2 (ACHTER/ZIJKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
@@ -1636,8 +1606,18 @@
           <option value="de">Deutsch</option>
           <option value="fr">Français</option>
           <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="pt">Português</option>
           <option value="tr">Türkçe</option>
           <option value="ar">العربية</option>
+          <option value="pl">Polski</option>
+          <option value="ru">Русский</option>
+          <option value="sv">Svenska</option>
+          <option value="no">Norsk</option>
+          <option value="da">Dansk</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
+          <option value="ko">한국어</option>
         </select>
       </div>
 
@@ -1818,17 +1798,7 @@
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Lichaamsgewicht', 'Machine': 'Machine', 'Overig': 'Overig'
-      },
-      // Extra UI strings
-      previousTraining: 'Vorige training:', empty: 'Nog geen oefeningen toegevoegd aan', noExercises: 'Geen oefeningen gevonden',
-      addExercise: '+ Zoek & Voeg', exerciseTo: 'Oefening Toe', done: 'Klaar', restDay: 'Rustdag',
-      noExercisesPlanned: 'Geen oefeningen gepland', addToDropdown: '+ Voeg toe aan...', chooseSchema: 'Trainingsschema Kiezen',
-      populSchemas: '12 populaire schema\'s of maak je eigen split', customButton: '+ Eigen', restDayTake: 'Rustdag nemen — schema doorschuiven',
-      fillFirstError: 'Vul eerst gewicht én reps in!', maxWeightError: 'Max gewicht: 500 kg', maxRepsError: 'Max reps: 100 per set',
-      minSetError: 'Minimaal 1 set vereist', addedToast: 'toegevoegd aan', alreadyAdded: 'staat al in', profileTitle: 'Jouw Profiel',
-      photoChange: 'Foto Wijzigen', remove: 'Verwijderen', chooseExercise: 'Kies een oefening om de grafiek te zien...',
-      maxPr: 'Max PR', sessions: 'Sessies', exerciseProgress: 'Oefening Progressie & PR Grafiek', selectExercise: 'Selecteer een oefening hierboven om je overload-grafiek te bekijken!',
-      noExercisesFound: 'Geen oefeningen gevonden', viewHd: 'Bekijk HD Animatie', view: 'Bekijken'
+      }
     },
     en: {
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
@@ -1849,16 +1819,7 @@
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Cable Station',
         'Lichaamsgewicht': 'Bodyweight', 'Machine': 'Machine', 'Overig': 'Other'
-      },
-      previousTraining: 'Previous workout:', empty: 'No exercises added to', noExercises: 'No exercises found',
-      addExercise: '+ Search & Add', exerciseTo: 'Exercise', done: 'Done', restDay: 'Rest Day',
-      noExercisesPlanned: 'No exercises planned', addToDropdown: '+ Add to...', chooseSchema: 'Choose Workout Schema',
-      populSchemas: '12 popular schemas or create your own split', customButton: '+ Custom', restDayTake: 'Take rest day — shift schedule',
-      fillFirstError: 'Fill in weight and reps first!', maxWeightError: 'Max weight: 500 kg', maxRepsError: 'Max reps: 100 per set',
-      minSetError: 'Minimum 1 set required', addedToast: 'added to', alreadyAdded: 'already in', profileTitle: 'Your Profile',
-      photoChange: 'Change Photo', remove: 'Remove', chooseExercise: 'Choose an exercise to see the chart...',
-      maxPr: 'Max PR', sessions: 'Sessions', exerciseProgress: 'Exercise Progress & PR Chart', selectExercise: 'Select an exercise above to view your overload chart!',
-      noExercisesFound: 'No exercises found', viewHd: 'View HD Animation', view: 'View'
+      }
     },
     de: {
       welcome: "WILLKOMMEN", startSession: "Training Starten", stopSession: "Training Beenden",
@@ -1879,16 +1840,7 @@
       equipment: {
         'Dumbbells': 'Hanteln', 'Barbell': 'Langhantel', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Koerpergewicht', 'Machine': 'Maschine', 'Overig': 'Sonstiges'
-      },
-      previousTraining: 'Vorheriges Training:', empty: 'Keine Uebungen hinzugefuegt zu', noExercises: 'Keine Uebungen gefunden',
-      addExercise: '+ Suche & Fuege Hinzu', exerciseTo: 'Uebung', done: 'Fertig', restDay: 'Ruhetag',
-      noExercisesPlanned: 'Keine Uebungen geplant', addToDropdown: '+ Zu hinzufuegen...', chooseSchema: 'Trainingsplan waehlen',
-      populSchemas: '12 beliebte Plaene oder erstelle dein eigenes Split', customButton: '+ Eigenes', restDayTake: 'Ruhetag nehmen — Plan verschieben',
-      fillFirstError: 'Zuerst Gewicht und Wiederholungen einfuellen!', maxWeightError: 'Max Gewicht: 500 kg', maxRepsError: 'Max Wiederholungen: 100 pro Satz',
-      minSetError: 'Minimum 1 Satz erforderlich', addedToast: 'hinzugefuegt zu', alreadyAdded: 'bereits in', profileTitle: 'Dein Profil',
-      photoChange: 'Foto Aendern', remove: 'Entfernen', chooseExercise: 'Waehle eine Uebung um das Diagramm zu sehen...',
-      maxPr: 'Max PR', sessions: 'Sitzungen', exerciseProgress: 'Uebungs Fortschritt & PR Diagramm', selectExercise: 'Waehle eine Uebung oben um dein Ueberload-Diagramm zu sehen!',
-      noExercisesFound: 'Keine Uebungen gefunden', viewHd: 'HD Animation anzeigen', view: 'Ansicht'
+      }
     },
     fr: {
       welcome: "BIENVENUE", startSession: "Demarrer Seance", stopSession: "Terminer Seance",
@@ -1909,16 +1861,7 @@
       equipment: {
         'Dumbbells': 'Halteres', 'Barbell': 'Barre', 'Kabelstation': 'Station de cable',
         'Lichaamsgewicht': 'Poids corporel', 'Machine': 'Machine', 'Overig': 'Autre'
-      },
-      previousTraining: 'Entrainement precedent:', empty: 'Aucun exercice ajoute a', noExercises: 'Aucun exercice trouve',
-      addExercise: '+ Recherche & Ajoute', exerciseTo: 'Exercice', done: 'Fait', restDay: 'Jour de repos',
-      noExercisesPlanned: 'Aucun exercice prevu', addToDropdown: '+ Ajouter a...', chooseSchema: 'Choisir le schema d\'entrainement',
-      populSchemas: '12 schemas populaires ou creer votre propre split', customButton: '+ Personnalise', restDayTake: 'Prendre jour de repos — decaler schema',
-      fillFirstError: 'Remplissez d\'abord le poids et les repetitions!', maxWeightError: 'Poids max: 500 kg', maxRepsError: 'Max repetitions: 100 par serie',
-      minSetError: 'Minimum 1 serie requise', addedToast: 'ajoute a', alreadyAdded: 'deja dans', profileTitle: 'Votre Profil',
-      photoChange: 'Changer la photo', remove: 'Supprimer', chooseExercise: 'Choisissez un exercice pour voir le graphique...',
-      maxPr: 'Max PR', sessions: 'Seances', exerciseProgress: 'Progression de l\'exercice & Graphique PR', selectExercise: 'Selectionnez un exercice ci-dessus pour voir votre graphique de surcharge!',
-      noExercisesFound: 'Aucun exercice trouve', viewHd: 'Voir animation HD', view: 'Voir'
+      }
     },
     es: {
       welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
@@ -1939,16 +1882,7 @@
       equipment: {
         'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estacion de cable',
         'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Otro'
-      },
-      previousTraining: 'Entrenamiento anterior:', empty: 'Sin ejercicios agregados a', noExercises: 'Sin ejercicios encontrados',
-      addExercise: '+ Busca & Agrega', exerciseTo: 'Ejercicio', done: 'Hecho', restDay: 'Dia de descanso',
-      noExercisesPlanned: 'Sin ejercicios planeados', addToDropdown: '+ Agregar a...', chooseSchema: 'Elige esquema de entrenamiento',
-      populSchemas: '12 esquemas populares o crea tu propio split', customButton: '+ Personalizado', restDayTake: 'Tomar dia de descanso — correr esquema',
-      fillFirstError: '¡Llena primero peso y repeticiones!', maxWeightError: 'Peso max: 500 kg', maxRepsError: 'Max repeticiones: 100 por serie',
-      minSetError: 'Minimo 1 serie requerida', addedToast: 'agregado a', alreadyAdded: 'ya en', profileTitle: 'Tu Perfil',
-      photoChange: 'Cambiar foto', remove: 'Eliminar', chooseExercise: 'Elige un ejercicio para ver la grafica...',
-      maxPr: 'Max PR', sessions: 'Sesiones', exerciseProgress: 'Progreso del ejercicio & Grafica PR', selectExercise: '¡Selecciona un ejercicio arriba para ver tu grafica de sobrecarga!',
-      noExercisesFound: 'Sin ejercicios encontrados', viewHd: 'Ver animacion HD', view: 'Ver'
+      }
     },
     tr: {
       welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
@@ -1969,16 +1903,7 @@
       equipment: {
         'Dumbbells': 'Dumbbell', 'Barbell': 'Barbell', 'Kabelstation': 'Kablo istasyonu',
         'Lichaamsgewicht': 'Vucut agirligi', 'Machine': 'Makine', 'Overig': 'Diger'
-      },
-      previousTraining: 'Onceki antrenman:', empty: 'Egzersiz eklenmedi', noExercises: 'Egzersiz bulunamadi',
-      addExercise: '+ Ara & Ekle', exerciseTo: 'Egzersiz', done: 'Tamam', restDay: 'Dinlenme gunu',
-      noExercisesPlanned: 'Egzersiz planlanmadi', addToDropdown: '+ Ekle...', chooseSchema: 'Antrenman semasini sec',
-      populSchemas: '12 populer sema veya kendi splitini olustur', customButton: '+ Ozel', restDayTake: 'Dinlenme gunu al — semayı kaydır',
-      fillFirstError: 'Oncce agirlik ve tekrar gir!', maxWeightError: 'Max agirlik: 500 kg', maxRepsError: 'Max tekrar: 100 set basina',
-      minSetError: 'Minimum 1 set gerekli', addedToast: 'eklendi', alreadyAdded: 'zaten', profileTitle: 'Profilin',
-      photoChange: 'Fotografi degistir', remove: 'Kaldir', chooseExercise: 'Grafiği gormek için bir egzersiz sec...',
-      maxPr: 'Max PR', sessions: 'Seanslar', exerciseProgress: 'Egzersiz Ilerlemes & PR Grafigi', selectExercise: 'Fazla yuk grafiğini görmek için yukarida bir egzersiz sec!',
-      noExercisesFound: 'Egzersiz bulunamadi', viewHd: 'HD Animasyonu Gör', view: 'Gör'
+      }
     },
     it: {
       welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
@@ -2031,25 +1956,18 @@
       restTimer: "WAQT AL-RAHA", searchPlaceholder: "Ibhath an tamreen...",
       daysShort: ['Ith', 'Thul', 'Arb', 'Kham', 'Jum', 'Sab', 'Ahad'],
       dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbia', 'Al-Khamis', 'Al-Jumua', 'Al-Sabt', 'Al-Ahad'],
+      // Categorie vertalingen
       categories: {
         'Borst': 'Sadri', 'Rug': 'Zahr', 'Schouders': 'Kataf', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Aqdam', 'Buik': 'Batn', 'Voorarmen': 'Dhira',
         'Overig': 'Akhar'
       },
+      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Mahattat as-hab',
         'Lichaamsgewicht': 'Wazn al-jasad', 'Machine': 'Ala', 'Overig': 'Akhar'
-      },
-      previousTraining: 'Al-tamreen al-sabiq:', empty: 'Lam yootam idafat tamareen ila', noExercises: 'Lam yutujad tamareen',
-      addExercise: '+ Ibhath wa idhaf', exerciseTo: 'Tamreen', done: 'Tamam', restDay: 'Yawm raha',
-      noExercisesPlanned: 'Lam toyutakhattit tamareen', addToDropdown: '+ Idhaf ila...', chooseSchema: 'Ikhtiar schema at-tamreen',
-      populSchemas: '12 schema sha\'iba aw insha schema khassa bika', customButton: '+ Mukhashah', restDayTake: 'Khudh yawm raha — Tahawwul al-schema',
-      fillFirstError: 'Imla wazn wa takarar awwalan!', maxWeightError: 'Aaksim wazn: 500 kg', maxRepsError: 'Aaksa takarar: 100 li kull majmua',
-      minSetError: 'Adna majmua wahida mahluba', addedToast: 'utidifa ila', alreadyAdded: 'Balyafa', profileTitle: 'Fileek',
-      photoChange: 'Taghyir Al-Sura', remove: 'Hafath', chooseExercise: 'Ikhtiar tamreen li-r\'iyat ar-rasm...',
-      maxPr: 'Max PR', sessions: 'Jalasaat', exerciseProgress: 'Taqaddum at-tamreen wa Rasm', selectExercise: 'Ikhtiar tamreen li-r\'iyat rasm!',
-      noExercisesFound: 'Lam yutujad tamareen', viewHd: 'I\'rad animation', view: 'I\'rad'
-    }
+      }
+    },
     pl: {
       welcome: "WITAJ", startSession: "Rozpocznij Trening", stopSession: "Zakoncz Trening",
       sessionStatus: "Status Sesji", activeWorkout: "TRENING AKTYWNY", sets: "Serie", exercises: "Cwiczenia",
@@ -2534,9 +2452,9 @@
         const emptyEx = document.createElement('div');
         emptyEx.style.cssText = 'background:var(--surface-1); border:1px dashed var(--border-light); border-radius:14px; padding:16px; text-align:center; margin-bottom:12px;';
         emptyEx.innerHTML = `
-          <div style="font-size:12px; color:var(--text-sec); font-weight:700; margin-bottom:8px;">${t('empty')} ${grp.title}</div>
+          <div style="font-size:12px; color:var(--text-sec); font-weight:700; margin-bottom:8px;">Nog geen oefeningen toegevoegd aan ${grp.title}</div>
           <button class="chip-btn" style="display:inline-flex; align-items:center; gap:6px; background:var(--surface-2); border:1px solid var(--blue); color:var(--blue); font-size:11px; padding:6px 14px; cursor:pointer;" onclick="activeCategoryFilter='${grp.title}'; switchTab('search');">
-            ${t('addExercise')} ${grp.title} ${t('exerciseTo')}
+            + Zoek & Voeg ${grp.title} Oefening Toe
           </button>
         `;
         gBlock.appendChild(emptyEx);
@@ -2754,14 +2672,14 @@
     if (!row) return;
 
     const milestones = [
-      { days: 10,    color: '#ff9500', label: '' },
-      { days: 30,    color: '#ff453a', label: '' },
-      { days: 100,   color: '#ff3b30', label: '' },
-      { days: 300,   color: '#eab308', label: '' },
-      { days: 500,   color: '#ec4899', label: '' },
-      { days: 1000,  color: '#a855f7', label: '' },
-      { days: 2000,  color: '#38bdf8', label: '' },
-      { days: 10000, color: '#ffffff', label: '' },
+      { days: 10,    color: '#ff9500', label: '10' },
+      { days: 30,    color: '#ff453a', label: '30' },
+      { days: 100,   color: '#ff3b30', label: '100' },
+      { days: 300,   color: '#eab308', label: '300' },
+      { days: 500,   color: '#ec4899', label: '500' },
+      { days: 1000,  color: '#a855f7', label: '1K' },
+      { days: 2000,  color: '#38bdf8', label: '2K' },
+      { days: 10000, color: '#ffffff', label: '10K' },
     ];
 
     row.innerHTML = '';
@@ -2883,7 +2801,7 @@
         prevSummary.innerHTML = `
           <span style="font-weight:800; color:var(--blue); display:inline-flex; align-items:center; gap:4px;">
             <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-            ${t('previousTraining')}
+            Vorige training:
           </span>
           <span style="font-weight:700; color:var(--text); font-family:var(--font-mono);">${(() => {
             const avgKg = Math.round(validSets.reduce((sum, s) => sum + (parseInt(s.weight) || 0), 0) / validSets.length);
@@ -2903,7 +2821,7 @@
       <div>Kg</div>
       <div>Reps</div>
       <div>1RM</div>
-      <div>${t('done')}</div>
+      <div>Klaar</div>
       <div></div>
     `;
     setsContainer.appendChild(setsHead);
@@ -2931,7 +2849,7 @@
         weightInp.value = setObj.weight;
         weightInp.oninput = (e) => {
           const raw = parseFloat(e.target.value);
-          if (raw > 500) { e.target.value = 500; triggerToast(t('maxWeightError')); }
+          if (raw > 500) { e.target.value = 500; triggerToast('Max gewicht: 500 kg'); }
           if (raw < 0) { e.target.value = 0; }
           setObj.weight = e.target.value;
           saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -2947,7 +2865,7 @@
         repsInp.value = setObj.reps;
         repsInp.oninput = (e) => {
           const raw = parseFloat(e.target.value);
-          if (raw > 100) { e.target.value = 100; triggerToast(t('maxRepsError')); }
+          if (raw > 100) { e.target.value = 100; triggerToast('Max reps: 100 per set'); }
           if (raw < 0) { e.target.value = 0; }
           setObj.reps = e.target.value;
           saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -2979,7 +2897,7 @@
           const r = parseFloat(setObj.reps) || 0;
           // Blokkeer aanvinken zonder gewicht/reps
           if (!setObj.done && (w <= 0 || r <= 0)) {
-            triggerToast(t('fillFirstError'));
+            triggerToast('Vul eerst gewicht én reps in!');
             return;
           }
           setObj.done = !setObj.done;
@@ -2999,7 +2917,7 @@
         removeBtn.style.cssText = 'width:26px;height:26px;font-size:10px;flex-shrink:0;border:none;';
         removeBtn.innerHTML = '<svg style="width:11px;height:11px;fill:currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
         removeBtn.onclick = () => {
-          if (sets.length <= 1) { triggerToast(t('minSetError')); return; }
+          if (sets.length <= 1) { triggerToast('Minimaal 1 set vereist'); return; }
           sets.splice(sIdx, 1);
           saveExerciseSets(dateStr, dayIdx, exName, sets);
           renderRows();
@@ -5644,97 +5562,67 @@
       const labels = { front: 'VOORKANT', back: 'ACHTERKANT' };
       const paths = {
         front: `
-          <!-- Front view muscle anatomy -->
-          <!-- Head -->
-          <circle cx="30" cy="10" r="8" fill="currentColor" opacity="0.7"/>
-          <!-- Sternocleidomastoid -->
-          <path d="M 26 18 Q 24 25 23 35" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
-          <path d="M 34 18 Q 36 25 37 35" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
-          <!-- Trapezius upper -->
-          <path d="M 26 20 L 20 30 M 34 20 L 40 30" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
-          <!-- Pectoralis major left -->
-          <ellipse cx="20" cy="32" rx="7" ry="10" fill="currentColor" opacity="0.75"/>
-          <!-- Pectoralis major right -->
-          <ellipse cx="40" cy="32" rx="7" ry="10" fill="currentColor" opacity="0.75"/>
-          <!-- Sternum line -->
-          <path d="M 30 22 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
-          <!-- Rectus abdominis -->
-          <g opacity="0.65">
-            <rect x="27" y="45" width="6" height="8" fill="currentColor" opacity="0.6"/>
-            <rect x="27" y="54" width="6" height="8" fill="currentColor" opacity="0.55"/>
-            <rect x="27" y="63" width="6" height="8" fill="currentColor" opacity="0.5"/>
+          <!-- Hoofd -->
+          <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+          <!-- Nek -->
+          <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+          <!-- Borst & Buik -->
+          <path d="M 18 24 Q 30 22 42 24 L 42 55 Q 30 58 18 55 Z" fill="currentColor" opacity="0.8"/>
+          <!-- Borst animatie (highlights) -->
+          <g opacity="0.3">
+            <path d="M 22 28 Q 26 26 30 28 L 30 45 Q 26 46 22 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M 30 28 Q 34 26 38 28 L 38 45 Q 34 46 30 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
           </g>
-          <!-- Obliques left -->
-          <path d="M 20 45 Q 15 50 12 60" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <!-- Obliques right -->
-          <path d="M 40 45 Q 45 50 48 60" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <!-- Biceps left -->
-          <path d="M 18 28 L 10 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Biceps right -->
-          <path d="M 42 28 L 50 45" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Forearms left -->
-          <path d="M 10 45 L 8 60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <!-- Forearms right -->
-          <path d="M 50 45 L 52 60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <!-- Hands -->
-          <circle cx="8" cy="62" r="2" fill="currentColor" opacity="0.7"/>
-          <circle cx="52" cy="62" r="2" fill="currentColor" opacity="0.7"/>
-          <!-- Quadriceps left -->
-          <path d="M 24 73 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-          <!-- Quadriceps right -->
-          <path d="M 36 73 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-          <!-- Tibialis anterior left -->
-          <path d="M 22 105 L 21 115" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-          <!-- Tibialis anterior right -->
-          <path d="M 38 105 L 39 115" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-          <!-- Feet -->
-          <ellipse cx="21" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
-          <ellipse cx="39" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
+          <!-- Linker arm -->
+          <g>
+            <path d="M 18 26 L 8 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="8" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Rechter arm -->
+          <g>
+            <path d="M 42 26 L 52 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="52" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Linker been -->
+          <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rechter been -->
+          <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Buik detail -->
+          <path d="M 28 50 L 32 50" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
         `,
         back: `
-          <!-- Back view muscle anatomy -->
-          <!-- Head -->
-          <circle cx="30" cy="10" r="8" fill="currentColor" opacity="0.7"/>
-          <!-- Neck/Cervicals -->
-          <path d="M 26 18 L 26 25 M 34 18 L 34 25" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
-          <!-- Trapezius (large) -->
-          <path d="M 15 24 Q 20 28 24 38 L 36 38 Q 40 28 45 24 L 30 20 Z" fill="currentColor" opacity="0.8"/>
-          <!-- Deltoid posterior left -->
-          <ellipse cx="15" cy="35" rx="5" ry="8" fill="currentColor" opacity="0.75"/>
-          <!-- Deltoid posterior right -->
-          <ellipse cx="45" cy="35" rx="5" ry="8" fill="currentColor" opacity="0.75"/>
-          <!-- Latissimus dorsi left -->
-          <path d="M 20 40 Q 12 50 10 65" fill="currentColor" opacity="0.7"/>
-          <!-- Latissimus dorsi right -->
-          <path d="M 40 40 Q 48 50 50 65" fill="currentColor" opacity="0.7"/>
-          <!-- Erector spinae -->
-          <g opacity="0.5">
-            <path d="M 28 28 L 27 60"/>
-            <path d="M 30 28 L 30 60"/>
-            <path d="M 32 28 L 33 60"/>
+          <!-- Hoofd -->
+          <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+          <!-- Nek -->
+          <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+          <!-- Rug (trapezoïd breder naar onderen) -->
+          <path d="M 16 24 Q 30 22 44 24 L 46 55 Q 30 58 14 55 Z" fill="currentColor" opacity="0.8"/>
+          <!-- Rug animatie (spieren highlight) -->
+          <g opacity="0.25">
+            <path d="M 24 30 Q 30 28 30 45" stroke="currentColor" stroke-width="1" fill="none"/>
+            <path d="M 20 35 L 24 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+            <path d="M 40 35 L 36 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
           </g>
-          <!-- Triceps left -->
-          <path d="M 15 32 L 8 50" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Triceps right -->
-          <path d="M 45 32 L 52 50" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Forearms left -->
-          <path d="M 8 50 L 6 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <!-- Forearms right -->
-          <path d="M 52 50 L 54 65" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <!-- Hands -->
-          <circle cx="6" cy="67" r="2" fill="currentColor" opacity="0.7"/>
-          <circle cx="54" cy="67" r="2" fill="currentColor" opacity="0.7"/>
-          <!-- Hamstrings left -->
-          <path d="M 24 68 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Hamstrings right -->
-          <path d="M 36 68 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
-          <!-- Calves left -->
-          <path d="M 22 105 L 21 115" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.65"/>
-          <!-- Calves right -->
-          <path d="M 38 105 L 39 115" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.65"/>
-          <!-- Feet -->
-          <ellipse cx="21" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
-          <ellipse cx="39" cy="117" rx="2.5" ry="2" fill="currentColor" opacity="0.6"/>
+          <!-- Linker arm -->
+          <g>
+            <path d="M 16 26 L 4 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="4" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Rechter arm -->
+          <g>
+            <path d="M 44 26 L 56 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="56" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Linker been -->
+          <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rechter been -->
+          <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rug accent -->
+          <path d="M 30 35 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
         `
       };
       content.innerHTML = `
@@ -5835,7 +5723,7 @@
     });
 
     if (entries.length === 0) {
-      list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-sec); font-size:13px;">${t('noExercisesFound')}</div>`;
+      list.innerHTML = '<div style="text-align:center; padding:24px; color:var(--text-sec); font-size:13px;">Geen oefeningen gevonden</div>';
       return;
     }
 
@@ -5861,7 +5749,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
           <select class="lib-add-select" onchange="addExerciseToRoutineDay('${name}', this)">
-            <option value="">${t('addToDropdown')}</option>
+            <option value="">+ Voeg toe aan...</option>
             <option value="0">Maandag (Push)</option>
             <option value="1">Dinsdag (Pull)</option>
             <option value="2">Woensdag (Benen)</option>
@@ -6755,7 +6643,7 @@ function saveCustomSchemaWizard() {
       <div style="padding:16px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
         <div>
           <div style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;">SCHEMA KIEZER</div>
-          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">${t('chooseSchema')}</div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">12 Populaire Trainingsschema's</div>
         </div>
         <button onclick="closeSchemaSelectorModal()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
       </div>
