@@ -960,6 +960,120 @@
         radial-gradient(1px 1px at 25% 55%, rgba(200,240,255,0.5) 0%, transparent 100%),
         radial-gradient(1px 1px at 75% 45%, rgba(180,210,255,0.7) 0%, transparent 100%);
     }
+    body[data-mood-theme="ice_cave"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 12% 30%, rgba(200,230,255,0.8) 0%, transparent 100%),
+        radial-gradient(2px 2px at 38% 12%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 62% 28%, rgba(180,220,255,0.9) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 82% 18%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 55%, rgba(200,240,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 45%, rgba(180,210,255,0.7) 0%, transparent 100%);
+    }
+
+    /* ── GLITCH THEMA ── het wildste ── */
+    @keyframes glitchShift {
+      0%,100% { transform: translate(0,0) skewX(0deg); filter: hue-rotate(0deg); }
+      2%       { transform: translate(-3px, 1px) skewX(2deg); filter: hue-rotate(90deg); }
+      4%       { transform: translate(3px,-1px) skewX(-1deg); filter: hue-rotate(180deg); }
+      6%       { transform: translate(0,0) skewX(0deg); filter: hue-rotate(270deg); }
+      8%       { transform: translate(-2px,2px) skewX(1deg); filter: hue-rotate(45deg); }
+      10%      { transform: translate(0,0); filter: hue-rotate(0deg); }
+      92%      { transform: translate(2px,-2px) skewX(-2deg); filter: hue-rotate(135deg); }
+      94%      { transform: translate(-1px,1px); filter: hue-rotate(0deg); }
+    }
+    @keyframes glitchScanline {
+      0%   { background-position: 0 0; }
+      100% { background-position: 0 100vh; }
+    }
+    @keyframes glitchNoise {
+      0%,100% { opacity: 0.03; }
+      25%      { opacity: 0.06; transform: translate(-1px,1px); }
+      50%      { opacity: 0.04; transform: translate(1px,-1px); }
+      75%      { opacity: 0.05; transform: translate(-2px,0); }
+    }
+    @keyframes glitchRgb {
+      0%,100% { text-shadow: none; }
+      5%  { text-shadow: 2px 0 #ff0080, -2px 0 #00ffff; }
+      10% { text-shadow: -2px 0 #ff0080, 2px 0 #00ff41; }
+      15% { text-shadow: none; }
+      85% { text-shadow: 1px 0 #00ff41, -1px 0 #ff00ff; }
+      90% { text-shadow: none; }
+    }
+    @keyframes glitchBar {
+      0%   { top: -10%; opacity: 0; }
+      10%  { opacity: 1; }
+      20%  { top: 15%; }
+      40%  { top: 45%; opacity: 0.8; }
+      60%  { top: 70%; opacity: 1; }
+      90%  { top: 105%; opacity: 0; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    body[data-mood-theme="glitch"] {
+      background: #000000 !important;
+      background-attachment: fixed !important;
+      animation: glitchShift 8s steps(1) infinite;
+    }
+    body[data-mood-theme="glitch"]::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      /* Scanlines */
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,255,65,0.03) 2px,
+        rgba(0,255,65,0.03) 4px
+      );
+      animation: glitchScanline 6s linear infinite;
+    }
+    body[data-mood-theme="glitch"]::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      /* Noise overlay */
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      animation: glitchNoise 0.15s steps(1) infinite;
+      mix-blend-mode: overlay;
+    }
+    /* Glitch streep die over het scherm loopt */
+    body[data-mood-theme="glitch"] .app-header::after {
+      content: '';
+      position: fixed; left: 0; right: 0; height: 3px; z-index: 9998;
+      background: linear-gradient(90deg, transparent, #00ff41, #ff00ff, #00ffff, transparent);
+      animation: glitchBar 4s linear infinite;
+      pointer-events: none;
+    }
+    /* Cards krijgen groene matrix glow */
+    body[data-mood-theme="glitch"] .profile-card,
+    body[data-mood-theme="glitch"] .session-card,
+    body[data-mood-theme="glitch"] .ex-card,
+    body[data-mood-theme="glitch"] .rank-badge-card,
+    body[data-mood-theme="glitch"] .streak-banner {
+      border-color: rgba(0,255,65,0.3) !important;
+      box-shadow: 0 0 12px rgba(0,255,65,0.08), inset 0 0 30px rgba(0,255,65,0.02);
+    }
+    body[data-mood-theme="glitch"] .app-header {
+      background: rgba(0,10,0,0.92) !important;
+      border-bottom-color: rgba(0,255,65,0.3) !important;
+    }
+    /* Tekst krijgt RGB glitch animatie */
+    body[data-mood-theme="glitch"] .brand-title,
+    body[data-mood-theme="glitch"] .ex-name,
+    body[data-mood-theme="glitch"] .streak-num {
+      animation: glitchRgb 6s steps(1) infinite;
+    }
+    /* Neon groen accent op knoppen */
+    body[data-mood-theme="glitch"] .session-btn.start {
+      background: rgba(0,255,65,0.15) !important;
+      border: 1px solid rgba(0,255,65,0.5) !important;
+      color: #00ff41 !important;
+      box-shadow: 0 0 16px rgba(0,255,65,0.3) !important;
+    }
+
     /* Cards krijgen lichte doorzichtigheid bij sfeer thema's */
     body[data-mood-theme] .profile-card,
     body[data-mood-theme] .rank-badge-card,
@@ -1035,6 +1149,48 @@
     .ob-goal-btn.active { border-color:var(--blue); background:rgba(56,189,248,0.12); }
     .ob-goal-btn:hover { border-color:rgba(255,255,255,0.25); }
     .ob-goal-icon { font-size:22px; flex-shrink:0; }
+
+    /* CUSTOM SCHEMA WIZARD */
+    .csw-day-card {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px; margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+    .csw-day-card[data-rest="0"] { border-color: rgba(48,209,88,0.3); }
+    .csw-hdr {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .csw-day-badge {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--surface-2); border: 1px solid var(--border-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: var(--text-sec);
+    }
+    .csw-day-name { font-size: 15px; font-weight: 900; color: var(--text); }
+    .csw-toggle-btn {
+      padding: 6px 14px; border-radius: 20px; border: none; cursor: pointer;
+      font-size: 12px; font-weight: 800; transition: all 0.2s;
+    }
+    .csw-toggle-btn.rest    { background: rgba(255,59,48,0.15); color: #ff453a; }
+    .csw-toggle-btn.workout { background: rgba(48,209,88,0.15); color: #30d158; }
+    .csw-chips-wrap {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      transition: opacity 0.2s;
+    }
+    .csw-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 13px; border-radius: 10px; cursor: pointer;
+      font-size: 12px; font-weight: 700; font-family: var(--font-main);
+      border: 1.5px solid var(--border); background: var(--surface-2);
+      color: var(--text-sec); transition: all 0.15s;
+    }
+    .csw-chip:active { transform: scale(0.95); }
+    .csw-chip.active {
+      border-color: var(--blue); background: rgba(56,189,248,0.14);
+      color: var(--blue);
+    }
+    .csw-chip:disabled { cursor: not-allowed; }
 
     /* PROGRESS PHOTO SLOTS */
     .progress-photo-slot {
@@ -2284,7 +2440,15 @@
     applyLanguageToStaticElements();
 
     const schema = getActiveRoutineSchema();
-    const dayData = schema[dayIdx] || { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+    // Check carry-over: als gisteren een workout werd overgeslagen, schuif die door naar vandaag
+    const carryOver = localStorage.getItem(`gymlog_carry_over:${dateStr}`);
+    let dayData = schema[dayIdx] || { name: DAY_NAMES[dayIdx], label: 'WORKOUT', groups: [] };
+    if (carryOver) {
+      try {
+        const carried = JSON.parse(carryOver);
+        dayData = { ...carried, name: DAY_NAMES[dayIdx] };
+      } catch(e) {}
+    }
     const container = document.getElementById('todayWorkoutContent');
     container.innerHTML = '';
 
@@ -2303,7 +2467,10 @@
       container.innerHTML += `
         <div style="background:var(--surface-1);border:1px solid var(--border);border-radius:var(--card-radius);padding:36px 20px;text-align:center;">
           <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">${t('restDayToday')}</div>
-          <div style="font-size:13px;color:var(--text-sec);">${t('restDaySub')}</div>
+          <div style="font-size:13px;color:var(--text-sec);margin-bottom:16px;">${t('restDaySub')}</div>
+          <button onclick="markTodayAsRestAndCarry('${dateStr}',${dayIdx})" style="padding:8px 18px;border-radius:10px;border:1px solid var(--border-light);background:var(--surface-2);color:var(--text-sec);font-size:12px;font-weight:700;cursor:pointer;">
+            💤 Rustdag nemen — schema doorschuiven
+          </button>
         </div>
       `;
       updateHomeStats(dateStr, dayIdx, []);
@@ -2374,7 +2541,7 @@
     const today = new Date();
     today.setHours(0,0,0,0);
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 90; i++) {
       const checkDate = new Date(today);
       checkDate.setDate(today.getDate() - i);
       const dateStr = formatDateKey(checkDate);
@@ -2383,31 +2550,89 @@
 
       const schema = getActiveRoutineSchema();
       const dayData = schema[dayIdx] || { groups: [] };
+
+      // Rustdag = schema zegt rustdag ÓÓÓK als gebruiker die dag manueel als rustdag heeft gemarkeerd
+      const schemaIsRest = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
+      const manualRestKey = `gymlog_manual_rest:${dateStr}`;
+      const manualIsRest = localStorage.getItem(manualRestKey) === '1';
+      const isRestDay = schemaIsRest || manualIsRest;
+
       const allEx = dayData.groups.flatMap(g => g.exercises);
-
-      // Check if this is a rest day
-      const isRestDay = dayData.label.includes('RUST') || (dayData.groups && dayData.groups.length === 0);
-
       let hasDoneSet = false;
       for (const ex of allEx) {
         const sets = loadExerciseSets(dateStr, dayIdx, ex);
-        if (sets.some(s => s.done)) {
-          hasDoneSet = true;
-          break;
-        }
+        if (sets.some(s => s.done)) { hasDoneSet = true; break; }
       }
 
       if (hasDoneSet) {
         streak++;
       } else if (isRestDay) {
-        // Rest days don't break the streak, just skip them
+        // Rustdag breekt de streak niet — sla over
         continue;
       } else if (i > 0) {
-        // Only break streak if it's not a rest day and no sets were done
+        // Geen training, geen rustdag, niet vandaag → streak breekt
         break;
       }
+      // Vandaag (i===0) zonder training telt nog mee — geeft gebruiker de dag
     }
     return streak;
+  }
+
+  // Markeer een dag manueel als rustdag (bijv. als je donderdag pull overslaat)
+  function markDayAsManualRest(dateStr) {
+    localStorage.setItem(`gymlog_manual_rest:${dateStr}`, '1');
+  }
+
+  // Geef de volgende workout-dag en bijbehorende schema-dag terug (voor doorschuif-logica)
+  function getNextWorkoutDayData(skippedDateStr) {
+    const schema = getActiveRoutineSchema();
+    const skipped = new Date(skippedDateStr);
+    const skippedDow = skipped.getDay();
+    const skippedIdx = (skippedDow === 0 ? 6 : skippedDow - 1);
+
+    // Zoek de schema-dag die overgeslagen werd
+    const skippedDayData = schema[skippedIdx];
+    if (!skippedDayData || skippedDayData.label.includes('RUST') || skippedDayData.groups.length === 0) {
+      return null; // Was al rustdag in schema
+    }
+
+    // Sla de schemadag op als "door te schuiven naar morgen"
+    const tomorrow = new Date(skipped);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = formatDateKey(tomorrow);
+    localStorage.setItem(`gymlog_carry_over:${tomorrowStr}`, JSON.stringify(skippedDayData));
+    return skippedDayData;
+  }
+
+  // Knop handler: gebruiker kiest bewust rustdag + schuift huidige workout door
+  function markTodayAsRestAndCarry(dateStr, dayIdx) {
+    const schema = getActiveRoutineSchema();
+    const dayData = schema[dayIdx];
+
+    // Vind de dichtstbijzijnde trainingsdag in het schema (niet-rustdag)
+    // die vandaag gepland stond of de vorige werkdag
+    let workoutToCarry = null;
+    if (dayData && !dayData.label.includes('RUST') && dayData.groups.length > 0) {
+      workoutToCarry = dayData;
+    }
+
+    // Markeer vandaag als rustdag voor streak
+    markDayAsManualRest(dateStr);
+
+    // Schuif workout door naar morgen
+    if (workoutToCarry) {
+      const today = new Date(dateStr);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowStr = formatDateKey(tomorrow);
+      localStorage.setItem(`gymlog_carry_over:${tomorrowStr}`, JSON.stringify(workoutToCarry));
+      triggerToast(`Rustdag ✓ — ${workoutToCarry.label} doorgeschoven naar morgen`);
+    } else {
+      triggerToast('Rustdag genomen — streak loopt door 🔥');
+    }
+
+    renderHomeView();
+    updateStreakDisplay();
   }
 
   function updateStreakDisplay() {
@@ -3073,65 +3298,65 @@
 
   // 47 RANKS HIERARCHY — gebalanceerde volumes & originele tier namen
   const RANK_TIERS = [
-    // WOOD — eerste stappen, elke stap ~300-400kg
-    { id: 'wood_1', name: 'Wood I',   tier: 'Flinterdun Takje',      minVol: 0,       maxVol: 400 },
-    { id: 'wood_2', name: 'Wood II',  tier: 'Bezemsteel Fysiek',     minVol: 400,     maxVol: 900 },
-    { id: 'wood_3', name: 'Wood III', tier: 'Houten Plank Lifter',   minVol: 900,     maxVol: 1800 },
-    // IRON — beginner die routine vindt, ~1500-2000kg per stap
-    { id: 'iron_1', name: 'Iron I',   tier: 'Roestig IJzer',         minVol: 1800,    maxVol: 3500 },
-    { id: 'iron_2', name: 'Iron II',  tier: 'Dumbbell Verkenner',    minVol: 3500,    maxVol: 6000 },
-    { id: 'iron_3', name: 'Iron III', tier: 'IJzeren Rookie',        minVol: 6000,    maxVol: 10000 },
-    // BRONZE — regelmatig trainen, ~5000-8000kg per stap
-    { id: 'bronze_1', name: 'Bronze I',  tier: 'Opwarm Krijger',     minVol: 10000,   maxVol: 17000 },
-    { id: 'bronze_2', name: 'Bronze II', tier: 'Vaste Bezoeker',     minVol: 17000,   maxVol: 26000 },
-    { id: 'bronze_3', name: 'Bronze III',tier: 'Spiegelkijker',      minVol: 26000,   maxVol: 38000 },
-    { id: 'bronze_4', name: 'Bronze IV', tier: 'Brons Afgestudeerde',minVol: 38000,   maxVol: 54000 },
-    { id: 'bronze_5', name: 'Bronze V',  tier: 'Pre-Workout Priester',minVol: 54000,  maxVol: 75000 },
-    // SILVER — serieuze gymrat, ~15000-20000kg per stap
-    { id: 'silver_1', name: 'Silver I',  tier: 'Gymrat in Opleiding',minVol: 75000,   maxVol: 100000 },
-    { id: 'silver_2', name: 'Silver II', tier: 'Progressie Jager',   minVol: 100000,  maxVol: 130000 },
-    { id: 'silver_3', name: 'Silver III',tier: 'Serieuze Lifter',    minVol: 130000,  maxVol: 165000 },
-    { id: 'silver_4', name: 'Silver IV', tier: 'Overload Apostel',   minVol: 165000,  maxVol: 205000 },
-    { id: 'silver_5', name: 'Silver V',  tier: 'Zilveren Strijder',  minVol: 205000,  maxVol: 250000 },
-    // GOLD — echt gevorderd, ~30000-40000kg per stap
-    { id: 'gold_1', name: 'Gold I',   tier: 'Platenlapper',          minVol: 250000,  maxVol: 310000 },
-    { id: 'gold_2', name: 'Gold II',  tier: 'Ijzervreter',           minVol: 310000,  maxVol: 380000 },
-    { id: 'gold_3', name: 'Gold III', tier: 'Spierbouwer Deluxe',    minVol: 380000,  maxVol: 460000 },
-    { id: 'gold_4', name: 'Gold IV',  tier: 'Gouden Kerel',          minVol: 460000,  maxVol: 550000 },
-    { id: 'gold_5', name: 'Gold V',   tier: 'Gouden Kampioen',       minVol: 550000,  maxVol: 660000 },
-    // PLATINUM — elite niveau, ~80000-100000kg per stap
-    { id: 'platinum_1', name: 'Platinum I',  tier: 'Stalen Wil',     minVol: 660000,  maxVol: 800000 },
-    { id: 'platinum_2', name: 'Platinum II', tier: 'Gym Veteraan',   minVol: 800000,  maxVol: 960000 },
-    { id: 'platinum_3', name: 'Platinum III',tier: 'Ijzeren Tank',   minVol: 960000,  maxVol: 1150000 },
-    { id: 'platinum_4', name: 'Platinum IV', tier: 'Overload Specialist', minVol: 1150000, maxVol: 1380000 },
-    { id: 'platinum_5', name: 'Platinum V',  tier: 'Platina Ridder', minVol: 1380000, maxVol: 1650000 },
-    // EMERALD — ~200000kg per stap
-    { id: 'emerald_1', name: 'Emerald I',  tier: 'Smaragden Vuist',  minVol: 1650000, maxVol: 2000000 },
-    { id: 'emerald_2', name: 'Emerald II', tier: 'Groene Goliath',   minVol: 2000000, maxVol: 2400000 },
-    { id: 'emerald_3', name: 'Emerald III',tier: 'Smaragd Berserker',minVol: 2400000, maxVol: 2900000 },
-    // RUBY — ~600000kg per stap
-    { id: 'ruby_1', name: 'Ruby I',  tier: 'Rode Tiran',             minVol: 2900000, maxVol: 3600000 },
-    { id: 'ruby_2', name: 'Ruby II', tier: 'Bloedrode Titaan',       minVol: 3600000, maxVol: 4500000 },
-    { id: 'ruby_3', name: 'Ruby III',tier: 'Robijn Overlord',        minVol: 4500000, maxVol: 5600000 },
-    // DIAMOND — ~1000000kg per stap
-    { id: 'diamond_1', name: 'Diamond I',  tier: 'Kristallen Kanonbal',minVol: 5600000,  maxVol: 7000000 },
-    { id: 'diamond_2', name: 'Diamond II', tier: 'Prisma Krijger',   minVol: 7000000,  maxVol: 8700000 },
-    { id: 'diamond_3', name: 'Diamond III',tier: 'Diamanten Overlord',minVol: 8700000,  maxVol: 10800000 },
-    { id: 'diamond_4', name: 'Diamond IV', tier: 'Diamanten Sloopkogel', minVol: 10800000, maxVol: 13300000 },
-    { id: 'diamond_5', name: 'Diamond V',  tier: 'Diamanten Apex',   minVol: 13300000, maxVol: 16500000 },
-    // MASTER — ~2500000kg per stap
-    { id: 'master_1', name: 'Master I',  tier: 'Meester van het IJzer',minVol: 16500000, maxVol: 20000000 },
-    { id: 'master_2', name: 'Master II', tier: 'Grootmeester Lifter', minVol: 20000000, maxVol: 24000000 },
-    { id: 'master_3', name: 'Master III',tier: 'Apex Meester',        minVol: 24000000, maxVol: 28500000 },
+    // WOOD — eerste stappen
+    { id: 'wood_1',   name: 'Wood I',   tier: 'Flinterdun Takje',         minVol: 0,        maxVol: 200 },
+    { id: 'wood_2',   name: 'Wood II',  tier: 'Bezemsteel Fysiek',        minVol: 200,      maxVol: 500 },
+    { id: 'wood_3',   name: 'Wood III', tier: 'Houten Plank Lifter',      minVol: 500,      maxVol: 900 },
+    // IRON
+    { id: 'iron_1',   name: 'Iron I',   tier: 'Roestig IJzer',            minVol: 900,      maxVol: 1800 },
+    { id: 'iron_2',   name: 'Iron II',  tier: 'Dumbbell Verkenner',       minVol: 1800,     maxVol: 3000 },
+    { id: 'iron_3',   name: 'Iron III', tier: 'IJzeren Rookie',           minVol: 3000,     maxVol: 5000 },
+    // BRONZE
+    { id: 'bronze_1', name: 'Bronze I',   tier: 'Opwarm Krijger',         minVol: 5000,     maxVol: 8500 },
+    { id: 'bronze_2', name: 'Bronze II',  tier: 'Vaste Bezoeker',         minVol: 8500,     maxVol: 13000 },
+    { id: 'bronze_3', name: 'Bronze III', tier: 'Spiegelkijker',          minVol: 13000,    maxVol: 19000 },
+    { id: 'bronze_4', name: 'Bronze IV',  tier: 'Brons Afgestudeerde',    minVol: 19000,    maxVol: 27000 },
+    { id: 'bronze_5', name: 'Bronze V',   tier: 'Pre-Workout Priester',   minVol: 27000,    maxVol: 37000 },
+    // SILVER
+    { id: 'silver_1', name: 'Silver I',   tier: 'Gymrat in Opleiding',    minVol: 37000,    maxVol: 50000 },
+    { id: 'silver_2', name: 'Silver II',  tier: 'Progressie Jager',       minVol: 50000,    maxVol: 65000 },
+    { id: 'silver_3', name: 'Silver III', tier: 'Serieuze Lifter',        minVol: 65000,    maxVol: 82000 },
+    { id: 'silver_4', name: 'Silver IV',  tier: 'Overload Apostel',       minVol: 82000,    maxVol: 102000 },
+    { id: 'silver_5', name: 'Silver V',   tier: 'Zilveren Strijder',      minVol: 102000,   maxVol: 125000 },
+    // GOLD
+    { id: 'gold_1',   name: 'Gold I',   tier: 'Platenlapper',             minVol: 125000,   maxVol: 155000 },
+    { id: 'gold_2',   name: 'Gold II',  tier: 'Ijzervreter',              minVol: 155000,   maxVol: 190000 },
+    { id: 'gold_3',   name: 'Gold III', tier: 'Spierbouwer Deluxe',       minVol: 190000,   maxVol: 230000 },
+    { id: 'gold_4',   name: 'Gold IV',  tier: 'Gouden Kerel',             minVol: 230000,   maxVol: 275000 },
+    { id: 'gold_5',   name: 'Gold V',   tier: 'Gouden Kampioen',          minVol: 275000,   maxVol: 330000 },
+    // PLATINUM
+    { id: 'platinum_1', name: 'Platinum I',   tier: 'Stalen Wil',          minVol: 330000,   maxVol: 400000 },
+    { id: 'platinum_2', name: 'Platinum II',  tier: 'Gym Veteraan',         minVol: 400000,   maxVol: 480000 },
+    { id: 'platinum_3', name: 'Platinum III', tier: 'Ijzeren Tank',         minVol: 480000,   maxVol: 575000 },
+    { id: 'platinum_4', name: 'Platinum IV',  tier: 'Overload Specialist',  minVol: 575000,   maxVol: 690000 },
+    { id: 'platinum_5', name: 'Platinum V',   tier: 'Platina Ridder',       minVol: 690000,   maxVol: 825000 },
+    // EMERALD
+    { id: 'emerald_1', name: 'Emerald I',   tier: 'Smaragden Vuist',        minVol: 825000,   maxVol: 1000000 },
+    { id: 'emerald_2', name: 'Emerald II',  tier: 'Groene Goliath',         minVol: 1000000,  maxVol: 1200000 },
+    { id: 'emerald_3', name: 'Emerald III', tier: 'Smaragd Berserker',      minVol: 1200000,  maxVol: 1450000 },
+    // RUBY
+    { id: 'ruby_1',   name: 'Ruby I',   tier: 'Rode Tiran',                minVol: 1450000,  maxVol: 1800000 },
+    { id: 'ruby_2',   name: 'Ruby II',  tier: 'Bloedrode Titaan',          minVol: 1800000,  maxVol: 2250000 },
+    { id: 'ruby_3',   name: 'Ruby III', tier: 'Robijn Overlord',           minVol: 2250000,  maxVol: 2800000 },
+    // DIAMOND
+    { id: 'diamond_1', name: 'Diamond I',   tier: 'Kristallen Kanonbal',   minVol: 2800000,  maxVol: 3500000 },
+    { id: 'diamond_2', name: 'Diamond II',  tier: 'Prisma Krijger',        minVol: 3500000,  maxVol: 4350000 },
+    { id: 'diamond_3', name: 'Diamond III', tier: 'Diamanten Overlord',    minVol: 4350000,  maxVol: 5400000 },
+    { id: 'diamond_4', name: 'Diamond IV',  tier: 'Diamanten Sloopkogel',  minVol: 5400000,  maxVol: 6650000 },
+    { id: 'diamond_5', name: 'Diamond V',   tier: 'Diamanten Apex',        minVol: 6650000,  maxVol: 8250000 },
+    // MASTER
+    { id: 'master_1', name: 'Master I',   tier: 'Meester van het IJzer',   minVol: 8250000,  maxVol: 10000000 },
+    { id: 'master_2', name: 'Master II',  tier: 'Grootmeester Lifter',     minVol: 10000000, maxVol: 12000000 },
+    { id: 'master_3', name: 'Master III', tier: 'Apex Meester',            minVol: 12000000, maxVol: 14250000 },
     // TOP RANKS
-    { id: 'challenger',     name: 'Challenger',      tier: 'Gym Legende',              minVol: 28500000,  maxVol: 35000000 },
-    { id: 'mythic_1',       name: 'Mythic I',        tier: 'Mythische Draak',           minVol: 35000000,  maxVol: 44000000 },
-    { id: 'mythic_2',       name: 'Mythic II',       tier: 'Onaantastbare Mythe',       minVol: 44000000,  maxVol: 56000000 },
-    { id: 'mythic_3',       name: 'Mythic III',      tier: 'Mythische Kolos',           minVol: 56000000,  maxVol: 72000000 },
-    { id: 'immortal_1',     name: 'Immortal I',      tier: 'Onsterfelijke Krijger',     minVol: 72000000,  maxVol: 95000000 },
-    { id: 'immortal_2',     name: 'Immortal II',     tier: 'Onsterfelijke Titaan',      minVol: 95000000,  maxVol: 130000000 },
-    { id: 'titan_overload', name: 'Titan Overload',  tier: 'Titanen Oerkracht',         minVol: 130000000, maxVol: 185000000 },
-    { id: 'god_overload',   name: 'Apex God Overload',tier: 'Kosmische God van Overload',minVol: 185000000, maxVol: 999999999999 }
+    { id: 'challenger',     name: 'Challenger',       tier: 'Gym Legende',               minVol: 14250000,  maxVol: 17500000 },
+    { id: 'mythic_1',       name: 'Mythic I',         tier: 'Mythische Draak',            minVol: 17500000,  maxVol: 22000000 },
+    { id: 'mythic_2',       name: 'Mythic II',        tier: 'Onaantastbare Mythe',        minVol: 22000000,  maxVol: 28000000 },
+    { id: 'mythic_3',       name: 'Mythic III',       tier: 'Mythische Kolos',            minVol: 28000000,  maxVol: 36000000 },
+    { id: 'immortal_1',     name: 'Immortal I',       tier: 'Onsterfelijke Krijger',      minVol: 36000000,  maxVol: 47500000 },
+    { id: 'immortal_2',     name: 'Immortal II',      tier: 'Onsterfelijke Titaan',       minVol: 47500000,  maxVol: 65000000 },
+    { id: 'titan_overload', name: 'Titan Overload',   tier: 'Titanen Oerkracht',          minVol: 65000000,  maxVol: 92500000 },
+    { id: 'god_overload',   name: 'Apex God Overload',tier: 'Kosmische God van Overload', minVol: 92500000,  maxVol: 999999999999 }
   ];
 
   function getAllTimeTotalVolume() {
@@ -4565,11 +4790,33 @@
         '--blue-glow': 'rgba(96,165,250,0.55)',
         '--accent': '#60a5fa'
       }
+    },
+    {
+      id: 'glitch',
+      name: '⚡ GLITCH (Systeem Kapot)',
+      swatch: '#00ff41',
+      vars: {
+        '--bg':          '#000000',
+        '--surface-1':   '#050508',
+        '--surface-2':   '#0a0a0f',
+        '--surface-3':   '#0f0f18',
+        '--border':      '#00ff4122',
+        '--border-light':'#00ff4155',
+        '--text':        '#00ff41',
+        '--text-sec':    '#ff00ff',
+        '--text-mut':    '#00ffff66',
+        '--blue':        '#ff0080',
+        '--blue-glow':   'rgba(255,0,128,0.7)',
+        '--accent':      '#ff0080',
+        '--green':       '#00ff41',
+        '--red':         '#ff0080',
+        '--orange':      '#ffff00'
+      }
     }
   ];
 
   // IDs van de sfeer thema's — moet boven applyFullAppTheme staan
-  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical','mars','arctic','obsidian','gold_rush','deep_purple','bloodmoon','ice_cave'];
+  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical','mars','arctic','obsidian','gold_rush','deep_purple','bloodmoon','ice_cave','glitch'];
 
   function initThemeSettings() {
     const savedThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
@@ -4645,7 +4892,7 @@
     gold_rush:     'radial-gradient(ellipse at 40% 40%, #fbbf24 0%, #b45309 45%, #0c0800 100%)',
     deep_purple:   'radial-gradient(circle at 60% 40%, #7c3aed 0%, #3b0764 55%, #030006 100%)',
     bloodmoon:     'radial-gradient(ellipse at 50% 100%, #ef4444 0%, #7f1d1d 40%, #0d0202 100%)',
-    ice_cave:      'linear-gradient(160deg, #020617 0%, #0369a1 45%, #7dd3fc 100%)',
+    glitch:        'linear-gradient(135deg, #000 0%, #001a00 30%, #00ff41 45%, #ff00ff 50%, #00ffff 55%, #000 70%, #ff0080 100%)',
   };
 
   function renderThemeColorSwatches() {
@@ -6037,6 +6284,8 @@ function openCustomSchemaWizard() {
   closeSchemaSelectorModal();
   const modal = document.getElementById('customSchemaWizardModal');
   if (!modal) return;
+  // Altijd vers laden van huidig schema
+  tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
   renderCustomSchemaDaysEditor();
   modal.classList.add('open');
 }
@@ -6060,81 +6309,142 @@ const DEFAULT_GROUP_EXERCISES = {
 };
 
 function renderCustomSchemaDaysEditor() {
-  tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
+  if (!tempCustomSchema) {
+    tempCustomSchema = JSON.parse(JSON.stringify(getActiveRoutineSchema()));
+  }
   const container = document.getElementById('customSchemaDaysContainer');
   if (!container) return;
   container.innerHTML = '';
 
-  const dayNames = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
-  const allMuscleCats = ['Borst', 'Rug', 'Schouders', 'Biceps', 'Triceps', 'Benen', 'Buik', 'Voorarmen'];
+  const DAY_LABELS = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
+  const DAY_SHORT  = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+  const MUSCLES    = ['Borst','Rug','Schouders','Biceps','Triceps','Benen','Buik','Voorarmen'];
+  const MUSCLE_ICONS = { Borst:'💪', Rug:'🏋️', Schouders:'🔝', Biceps:'💪', Triceps:'🦾', Benen:'🦵', Buik:'🔥', Voorarmen:'✊' };
 
-  dayNames.forEach((dName, dayIdx) => {
-    const dayData = tempCustomSchema[dayIdx] || { name: dName, label: 'RUSTDAG', groups: [] };
-    const isRest = dayData.label.includes('RUST');
+  DAY_LABELS.forEach((dName, dIdx) => {
+    const day = tempCustomSchema[dIdx] || { name: dName, label: 'RUSTDAG', groups: [] };
+    const isRest = day.label.includes('RUST') || day.groups.length === 0;
 
-    const dayCard = document.createElement('div');
-    dayCard.style.cssText = 'background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:12px;';
+    const card = document.createElement('div');
+    card.className = 'csw-day-card';
+    card.setAttribute('data-day', dIdx);
+    card.setAttribute('data-rest', isRest ? '1' : '0');
 
-    let chipsHtml = allMuscleCats.map(cat => {
-      const active = dayData.groups.some(g => g.title === cat);
-      return `<button type="button" onclick="toggleCustomSchemaMuscle(${dayIdx}, '${cat}')" style="padding:6px 12px; border-radius:8px; border:1px solid ${active ? 'var(--cyan)' : 'var(--border)'}; background:${active ? 'rgba(0,210,255,0.22)' : 'var(--surface-2)'}; color:${active ? 'var(--cyan)' : 'var(--text-sec)'}; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:4px;">${active ? '✓ ' : '+ '}${cat}</button>`;
-    }).join(' ');
-
-    dayCard.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <div style="font-size:15px; font-weight:900; color:var(--text);">${dName}</div>
-        <button type="button" onclick="toggleCustomSchemaDayRest(${dayIdx})" style="padding:5px 12px; border-radius:8px; font-size:11px; font-weight:800; border:none; cursor:pointer; background:${isRest ? 'rgba(255,59,48,0.15)' : 'rgba(48,209,88,0.15)'}; color:${isRest ? '#ff3b30' : '#30d158'};">
-          ${isRest ? 'Rustdag' : 'Training'}
-        </button>
+    // ── Header ──
+    const hdr = document.createElement('div');
+    hdr.className = 'csw-hdr';
+    hdr.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="csw-day-badge">${DAY_SHORT[dIdx]}</div>
+        <span class="csw-day-name">${dName}</span>
       </div>
-      <div style="margin-bottom:10px;">
-        <input type="text" value="${dayData.label}" placeholder="Label (bijv. PUSH, CHEST & BACK)" onchange="updateCustomSchemaLabel(${dayIdx}, this.value)" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:12px; font-weight:700; box-sizing:border-box;" />
-      </div>
-      ${isRest ? '<div style="font-size:11px; color:var(--text-mut); padding:4px 0;">Geen training ingesteld op deze dag. Tik op Rustdag om te wisselen naar Training.</div>' : `
-        <div style="font-size:11px; font-weight:800; color:var(--text-sec); margin-bottom:6px;">Selecteer / verwijder spiergroepen:</div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px;">${chipsHtml}</div>
-      `}
+      <button class="csw-toggle-btn ${isRest ? 'rest' : 'workout'}" data-day="${dIdx}">
+        ${isRest ? '💤 Rustdag' : '🏋️ Training'}
+      </button>
     `;
-    container.appendChild(dayCard);
+
+    // ── Muscle chips ── altijd zichtbaar, disabled als rustdag
+    const chipsWrap = document.createElement('div');
+    chipsWrap.className = 'csw-chips-wrap';
+    if (isRest) chipsWrap.style.opacity = '0.35';
+
+    MUSCLES.forEach(muscle => {
+      const active = day.groups.some(g => g.title === muscle);
+      const chip = document.createElement('button');
+      chip.className = `csw-chip${active ? ' active' : ''}`;
+      chip.setAttribute('data-day', dIdx);
+      chip.setAttribute('data-muscle', muscle);
+      chip.disabled = isRest;
+      chip.innerHTML = `<span>${MUSCLE_ICONS[muscle] || ''}</span> ${muscle}`;
+      chipsWrap.appendChild(chip);
+    });
+
+    card.appendChild(hdr);
+    card.appendChild(chipsWrap);
+    container.appendChild(card);
   });
+
+  // ── Één event listener op de container (event delegation) ──
+  container.onclick = (e) => {
+    // Toggle rustdag/training
+    const toggleBtn = e.target.closest('.csw-toggle-btn');
+    if (toggleBtn) {
+      const dIdx = parseInt(toggleBtn.getAttribute('data-day'));
+      const day = tempCustomSchema[dIdx];
+      if (day.groups.length === 0 || day.label.includes('RUST')) {
+        day.label = 'WORKOUT';
+      } else {
+        day.groups = [];
+        day.label = 'RUSTDAG';
+      }
+      renderCustomSchemaDaysEditor();
+      return;
+    }
+
+    // Toggle spiergroep chip
+    const chip = e.target.closest('.csw-chip');
+    if (chip && !chip.disabled) {
+      const dIdx   = parseInt(chip.getAttribute('data-day'));
+      const muscle = chip.getAttribute('data-muscle');
+      const day    = tempCustomSchema[dIdx];
+      const gIdx   = day.groups.findIndex(g => g.title === muscle);
+      if (gIdx >= 0) {
+        day.groups.splice(gIdx, 1);
+      } else {
+        day.groups.push({ title: muscle, exercises: [] });
+      }
+      // Auto label
+      if (day.groups.length === 0) {
+        day.label = 'RUSTDAG';
+      } else {
+        day.label = day.groups.map(g => g.title.toUpperCase()).join(' & ');
+      }
+      // Visueel direct updaten zonder full re-render
+      chip.classList.toggle('active', gIdx < 0);
+      const card = container.querySelector(`.csw-day-card[data-day="${dIdx}"]`);
+      if (card) {
+        const isNowRest = day.groups.length === 0;
+        card.setAttribute('data-rest', isNowRest ? '1' : '0');
+        const tb = card.querySelector('.csw-toggle-btn');
+        if (tb) {
+          tb.className = `csw-toggle-btn ${isNowRest ? 'rest' : 'workout'}`;
+          tb.innerHTML = isNowRest ? '💤 Rustdag' : '🏋️ Training';
+        }
+        const cw = card.querySelector('.csw-chips-wrap');
+        if (cw) cw.style.opacity = isNowRest ? '0.35' : '1';
+        cw && cw.querySelectorAll('.csw-chip').forEach(c => c.disabled = isNowRest);
+      }
+    }
+  };
 }
 
 function toggleCustomSchemaDayRest(dayIdx) {
+  if (!tempCustomSchema) return;
   const day = tempCustomSchema[dayIdx];
-  if (day.label.includes('RUST')) {
+  if (day.groups.length === 0 || day.label.includes('RUST')) {
     day.label = 'WORKOUT';
-    if (day.groups.length === 0) {
-      day.groups = [{ title: 'Borst', exercises: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Cable Fly'] }];
-    }
   } else {
-    day.label = 'RUSTDAG';
     day.groups = [];
+    day.label = 'RUSTDAG';
   }
   renderCustomSchemaDaysEditor();
 }
 
 function updateCustomSchemaLabel(dayIdx, newLabel) {
-  tempCustomSchema[dayIdx].label = newLabel || 'WORKOUT';
+  if (tempCustomSchema) tempCustomSchema[dayIdx].label = newLabel || 'WORKOUT';
 }
 
-function toggleCustomSchemaMuscle(dayIdx, cat) {
+function toggleCustomSchemaMuscle(dayIdx, muscle) {
+  if (!tempCustomSchema) return;
   const day = tempCustomSchema[dayIdx];
-  const gIdx = day.groups.findIndex(g => g.title === cat);
+  const gIdx = day.groups.findIndex(g => g.title === muscle);
   if (gIdx >= 0) {
-    // Weghalen
     day.groups.splice(gIdx, 1);
   } else {
-    // Bijvoegen
-    const defaultEx = DEFAULT_GROUP_EXERCISES[cat] || [];
-    day.groups.push({ title: cat, exercises: [...defaultEx] });
+    day.groups.push({ title: muscle, exercises: [] });
   }
-  
-  // Update label
-  if (day.groups.length > 0 && (day.label === 'WORKOUT' || day.label === 'RUSTDAG' || day.label.includes('WORKOUT'))) {
-    day.label = day.groups.map(g => g.title.toUpperCase()).join(' & ') + ' WORKOUT';
-  } else if (day.groups.length === 0) {
-    day.label = 'RUSTDAG';
-  }
+  if (day.groups.length === 0) day.label = 'RUSTDAG';
+  else day.label = day.groups.map(g => g.title.toUpperCase()).join(' & ');
   renderCustomSchemaDaysEditor();
 }
 
