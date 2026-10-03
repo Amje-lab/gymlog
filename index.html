@@ -1277,8 +1277,8 @@
             <!-- SCHEMA KIEZER & CUSTOM BUILDER BANNER -->
       <div style="background:linear-gradient(135deg, rgba(0,210,255,0.12), rgba(10,132,255,0.06)); border:1px solid rgba(0,210,255,0.25); border-radius:14px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <div style="font-size:13px; font-weight:900; color:var(--text);">Trainingsschema Kiezen</div>
-          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">12 populaire schema's of maak je eigen split</div>
+          <div style="font-size:13px; font-weight:900; color:var(--text);">${t('chooseSchema')}</div>
+          <div style="font-size:11px; color:var(--text-sec); margin-top:2px;">${t('populSchemas')}</div>
         </div>
         <div style="display:flex; gap:6px;">
           <button onclick="openSchemaSelectorModal()" style="padding:6px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-size:11px; font-weight:800; cursor:pointer;">Schema's</button>
@@ -1638,10 +1638,6 @@
           <option value="es">Español</option>
           <option value="tr">Türkçe</option>
           <option value="ar">العربية</option>
-          <option value="da">Dansk</option>
-          <option value="ja">日本語</option>
-          <option value="zh">中文</option>
-          <option value="ko">한국어</option>
         </select>
       </div>
 
@@ -1822,7 +1818,17 @@
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Lichaamsgewicht', 'Machine': 'Machine', 'Overig': 'Overig'
-      }
+      },
+      // Extra UI strings
+      previousTraining: 'Vorige training:', empty: 'Nog geen oefeningen toegevoegd aan', noExercises: 'Geen oefeningen gevonden',
+      addExercise: '+ Zoek & Voeg', exerciseTo: 'Oefening Toe', done: 'Klaar', restDay: 'Rustdag',
+      noExercisesPlanned: 'Geen oefeningen gepland', addToDropdown: '+ Voeg toe aan...', chooseSchema: 'Trainingsschema Kiezen',
+      populSchemas: '12 populaire schema\'s of maak je eigen split', customButton: '+ Eigen', restDayTake: 'Rustdag nemen — schema doorschuiven',
+      fillFirstError: 'Vul eerst gewicht én reps in!', maxWeightError: 'Max gewicht: 500 kg', maxRepsError: 'Max reps: 100 per set',
+      minSetError: 'Minimaal 1 set vereist', addedToast: 'toegevoegd aan', alreadyAdded: 'staat al in', profileTitle: 'Jouw Profiel',
+      photoChange: 'Foto Wijzigen', remove: 'Verwijderen', chooseExercise: 'Kies een oefening om de grafiek te zien...',
+      maxPr: 'Max PR', sessions: 'Sessies', exerciseProgress: 'Oefening Progressie & PR Grafiek', selectExercise: 'Selecteer een oefening hierboven om je overload-grafiek te bekijken!',
+      noExercisesFound: 'Geen oefeningen gevonden', viewHd: 'Bekijk HD Animatie', view: 'Bekijken'
     },
     en: {
       welcome: "WELCOME BACK", startSession: "Start Session", stopSession: "Finish Session",
@@ -1843,7 +1849,16 @@
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Cable Station',
         'Lichaamsgewicht': 'Bodyweight', 'Machine': 'Machine', 'Overig': 'Other'
-      }
+      },
+      previousTraining: 'Previous workout:', empty: 'No exercises added to', noExercises: 'No exercises found',
+      addExercise: '+ Search & Add', exerciseTo: 'Exercise', done: 'Done', restDay: 'Rest Day',
+      noExercisesPlanned: 'No exercises planned', addToDropdown: '+ Add to...', chooseSchema: 'Choose Workout Schema',
+      populSchemas: '12 popular schemas or create your own split', customButton: '+ Custom', restDayTake: 'Take rest day — shift schedule',
+      fillFirstError: 'Fill in weight and reps first!', maxWeightError: 'Max weight: 500 kg', maxRepsError: 'Max reps: 100 per set',
+      minSetError: 'Minimum 1 set required', addedToast: 'added to', alreadyAdded: 'already in', profileTitle: 'Your Profile',
+      photoChange: 'Change Photo', remove: 'Remove', chooseExercise: 'Choose an exercise to see the chart...',
+      maxPr: 'Max PR', sessions: 'Sessions', exerciseProgress: 'Exercise Progress & PR Chart', selectExercise: 'Select an exercise above to view your overload chart!',
+      noExercisesFound: 'No exercises found', viewHd: 'View HD Animation', view: 'View'
     },
     de: {
       welcome: "WILLKOMMEN", startSession: "Training Starten", stopSession: "Training Beenden",
@@ -1864,7 +1879,16 @@
       equipment: {
         'Dumbbells': 'Hanteln', 'Barbell': 'Langhantel', 'Kabelstation': 'Kabelstation',
         'Lichaamsgewicht': 'Koerpergewicht', 'Machine': 'Maschine', 'Overig': 'Sonstiges'
-      }
+      },
+      previousTraining: 'Vorheriges Training:', empty: 'Keine Uebungen hinzugefuegt zu', noExercises: 'Keine Uebungen gefunden',
+      addExercise: '+ Suche & Fuege Hinzu', exerciseTo: 'Uebung', done: 'Fertig', restDay: 'Ruhetag',
+      noExercisesPlanned: 'Keine Uebungen geplant', addToDropdown: '+ Zu hinzufuegen...', chooseSchema: 'Trainingsplan waehlen',
+      populSchemas: '12 beliebte Plaene oder erstelle dein eigenes Split', customButton: '+ Eigenes', restDayTake: 'Ruhetag nehmen — Plan verschieben',
+      fillFirstError: 'Zuerst Gewicht und Wiederholungen einfuellen!', maxWeightError: 'Max Gewicht: 500 kg', maxRepsError: 'Max Wiederholungen: 100 pro Satz',
+      minSetError: 'Minimum 1 Satz erforderlich', addedToast: 'hinzugefuegt zu', alreadyAdded: 'bereits in', profileTitle: 'Dein Profil',
+      photoChange: 'Foto Aendern', remove: 'Entfernen', chooseExercise: 'Waehle eine Uebung um das Diagramm zu sehen...',
+      maxPr: 'Max PR', sessions: 'Sitzungen', exerciseProgress: 'Uebungs Fortschritt & PR Diagramm', selectExercise: 'Waehle eine Uebung oben um dein Ueberload-Diagramm zu sehen!',
+      noExercisesFound: 'Keine Uebungen gefunden', viewHd: 'HD Animation anzeigen', view: 'Ansicht'
     },
     fr: {
       welcome: "BIENVENUE", startSession: "Demarrer Seance", stopSession: "Terminer Seance",
@@ -1885,7 +1909,16 @@
       equipment: {
         'Dumbbells': 'Halteres', 'Barbell': 'Barre', 'Kabelstation': 'Station de cable',
         'Lichaamsgewicht': 'Poids corporel', 'Machine': 'Machine', 'Overig': 'Autre'
-      }
+      },
+      previousTraining: 'Entrainement precedent:', empty: 'Aucun exercice ajoute a', noExercises: 'Aucun exercice trouve',
+      addExercise: '+ Recherche & Ajoute', exerciseTo: 'Exercice', done: 'Fait', restDay: 'Jour de repos',
+      noExercisesPlanned: 'Aucun exercice prevu', addToDropdown: '+ Ajouter a...', chooseSchema: 'Choisir le schema d\'entrainement',
+      populSchemas: '12 schemas populaires ou creer votre propre split', customButton: '+ Personnalise', restDayTake: 'Prendre jour de repos — decaler schema',
+      fillFirstError: 'Remplissez d\'abord le poids et les repetitions!', maxWeightError: 'Poids max: 500 kg', maxRepsError: 'Max repetitions: 100 par serie',
+      minSetError: 'Minimum 1 serie requise', addedToast: 'ajoute a', alreadyAdded: 'deja dans', profileTitle: 'Votre Profil',
+      photoChange: 'Changer la photo', remove: 'Supprimer', chooseExercise: 'Choisissez un exercice pour voir le graphique...',
+      maxPr: 'Max PR', sessions: 'Seances', exerciseProgress: 'Progression de l\'exercice & Graphique PR', selectExercise: 'Selectionnez un exercice ci-dessus pour voir votre graphique de surcharge!',
+      noExercisesFound: 'Aucun exercice trouve', viewHd: 'Voir animation HD', view: 'Voir'
     },
     es: {
       welcome: "BIENVENIDO", startSession: "Iniciar Sesion", stopSession: "Terminar Sesion",
@@ -1906,7 +1939,16 @@
       equipment: {
         'Dumbbells': 'Mancuernas', 'Barbell': 'Barra', 'Kabelstation': 'Estacion de cable',
         'Lichaamsgewicht': 'Peso corporal', 'Machine': 'Maquina', 'Overig': 'Otro'
-      }
+      },
+      previousTraining: 'Entrenamiento anterior:', empty: 'Sin ejercicios agregados a', noExercises: 'Sin ejercicios encontrados',
+      addExercise: '+ Busca & Agrega', exerciseTo: 'Ejercicio', done: 'Hecho', restDay: 'Dia de descanso',
+      noExercisesPlanned: 'Sin ejercicios planeados', addToDropdown: '+ Agregar a...', chooseSchema: 'Elige esquema de entrenamiento',
+      populSchemas: '12 esquemas populares o crea tu propio split', customButton: '+ Personalizado', restDayTake: 'Tomar dia de descanso — correr esquema',
+      fillFirstError: '¡Llena primero peso y repeticiones!', maxWeightError: 'Peso max: 500 kg', maxRepsError: 'Max repeticiones: 100 por serie',
+      minSetError: 'Minimo 1 serie requerida', addedToast: 'agregado a', alreadyAdded: 'ya en', profileTitle: 'Tu Perfil',
+      photoChange: 'Cambiar foto', remove: 'Eliminar', chooseExercise: 'Elige un ejercicio para ver la grafica...',
+      maxPr: 'Max PR', sessions: 'Sesiones', exerciseProgress: 'Progreso del ejercicio & Grafica PR', selectExercise: '¡Selecciona un ejercicio arriba para ver tu grafica de sobrecarga!',
+      noExercisesFound: 'Sin ejercicios encontrados', viewHd: 'Ver animacion HD', view: 'Ver'
     },
     tr: {
       welcome: "HOS GELDINIZ", startSession: "Antrenmana Basla", stopSession: "Antremanı Bitir",
@@ -1927,7 +1969,16 @@
       equipment: {
         'Dumbbells': 'Dumbbell', 'Barbell': 'Barbell', 'Kabelstation': 'Kablo istasyonu',
         'Lichaamsgewicht': 'Vucut agirligi', 'Machine': 'Makine', 'Overig': 'Diger'
-      }
+      },
+      previousTraining: 'Onceki antrenman:', empty: 'Egzersiz eklenmedi', noExercises: 'Egzersiz bulunamadi',
+      addExercise: '+ Ara & Ekle', exerciseTo: 'Egzersiz', done: 'Tamam', restDay: 'Dinlenme gunu',
+      noExercisesPlanned: 'Egzersiz planlanmadi', addToDropdown: '+ Ekle...', chooseSchema: 'Antrenman semasini sec',
+      populSchemas: '12 populer sema veya kendi splitini olustur', customButton: '+ Ozel', restDayTake: 'Dinlenme gunu al — semayı kaydır',
+      fillFirstError: 'Oncce agirlik ve tekrar gir!', maxWeightError: 'Max agirlik: 500 kg', maxRepsError: 'Max tekrar: 100 set basina',
+      minSetError: 'Minimum 1 set gerekli', addedToast: 'eklendi', alreadyAdded: 'zaten', profileTitle: 'Profilin',
+      photoChange: 'Fotografi degistir', remove: 'Kaldir', chooseExercise: 'Grafiği gormek için bir egzersiz sec...',
+      maxPr: 'Max PR', sessions: 'Seanslar', exerciseProgress: 'Egzersiz Ilerlemes & PR Grafigi', selectExercise: 'Fazla yuk grafiğini görmek için yukarida bir egzersiz sec!',
+      noExercisesFound: 'Egzersiz bulunamadi', viewHd: 'HD Animasyonu Gör', view: 'Gör'
     },
     it: {
       welcome: "BENVENUTO", startSession: "Inizia Allenamento", stopSession: "Termina Allenamento",
@@ -1980,18 +2031,25 @@
       restTimer: "WAQT AL-RAHA", searchPlaceholder: "Ibhath an tamreen...",
       daysShort: ['Ith', 'Thul', 'Arb', 'Kham', 'Jum', 'Sab', 'Ahad'],
       dayNames: ['Al-Ithnayn', 'Al-Thulatha', 'Al-Arbia', 'Al-Khamis', 'Al-Jumua', 'Al-Sabt', 'Al-Ahad'],
-      // Categorie vertalingen
       categories: {
         'Borst': 'Sadri', 'Rug': 'Zahr', 'Schouders': 'Kataf', 'Biceps': 'Biceps',
         'Triceps': 'Triceps', 'Benen': 'Aqdam', 'Buik': 'Batn', 'Voorarmen': 'Dhira',
         'Overig': 'Akhar'
       },
-      // Equipment vertalingen
       equipment: {
         'Dumbbells': 'Dumbbells', 'Barbell': 'Barbell', 'Kabelstation': 'Mahattat as-hab',
         'Lichaamsgewicht': 'Wazn al-jasad', 'Machine': 'Ala', 'Overig': 'Akhar'
-      }
-    },
+      },
+      previousTraining: 'Al-tamreen al-sabiq:', empty: 'Lam yootam idafat tamareen ila', noExercises: 'Lam yutujad tamareen',
+      addExercise: '+ Ibhath wa idhaf', exerciseTo: 'Tamreen', done: 'Tamam', restDay: 'Yawm raha',
+      noExercisesPlanned: 'Lam toyutakhattit tamareen', addToDropdown: '+ Idhaf ila...', chooseSchema: 'Ikhtiar schema at-tamreen',
+      populSchemas: '12 schema sha\'iba aw insha schema khassa bika', customButton: '+ Mukhashah', restDayTake: 'Khudh yawm raha — Tahawwul al-schema',
+      fillFirstError: 'Imla wazn wa takarar awwalan!', maxWeightError: 'Aaksim wazn: 500 kg', maxRepsError: 'Aaksa takarar: 100 li kull majmua',
+      minSetError: 'Adna majmua wahida mahluba', addedToast: 'utidifa ila', alreadyAdded: 'Balyafa', profileTitle: 'Fileek',
+      photoChange: 'Taghyir Al-Sura', remove: 'Hafath', chooseExercise: 'Ikhtiar tamreen li-r\'iyat ar-rasm...',
+      maxPr: 'Max PR', sessions: 'Jalasaat', exerciseProgress: 'Taqaddum at-tamreen wa Rasm', selectExercise: 'Ikhtiar tamreen li-r\'iyat rasm!',
+      noExercisesFound: 'Lam yutujad tamareen', viewHd: 'I\'rad animation', view: 'I\'rad'
+    }
     pl: {
       welcome: "WITAJ", startSession: "Rozpocznij Trening", stopSession: "Zakoncz Trening",
       sessionStatus: "Status Sesji", activeWorkout: "TRENING AKTYWNY", sets: "Serie", exercises: "Cwiczenia",
@@ -2476,9 +2534,9 @@
         const emptyEx = document.createElement('div');
         emptyEx.style.cssText = 'background:var(--surface-1); border:1px dashed var(--border-light); border-radius:14px; padding:16px; text-align:center; margin-bottom:12px;';
         emptyEx.innerHTML = `
-          <div style="font-size:12px; color:var(--text-sec); font-weight:700; margin-bottom:8px;">Nog geen oefeningen toegevoegd aan ${grp.title}</div>
+          <div style="font-size:12px; color:var(--text-sec); font-weight:700; margin-bottom:8px;">${t('empty')} ${grp.title}</div>
           <button class="chip-btn" style="display:inline-flex; align-items:center; gap:6px; background:var(--surface-2); border:1px solid var(--blue); color:var(--blue); font-size:11px; padding:6px 14px; cursor:pointer;" onclick="activeCategoryFilter='${grp.title}'; switchTab('search');">
-            + Zoek & Voeg ${grp.title} Oefening Toe
+            ${t('addExercise')} ${grp.title} ${t('exerciseTo')}
           </button>
         `;
         gBlock.appendChild(emptyEx);
@@ -2696,14 +2754,14 @@
     if (!row) return;
 
     const milestones = [
-      { days: 10,    color: '#ff9500', label: '10' },
-      { days: 30,    color: '#ff453a', label: '30' },
-      { days: 100,   color: '#ff3b30', label: '100' },
-      { days: 300,   color: '#eab308', label: '300' },
-      { days: 500,   color: '#ec4899', label: '500' },
-      { days: 1000,  color: '#a855f7', label: '1K' },
-      { days: 2000,  color: '#38bdf8', label: '2K' },
-      { days: 10000, color: '#ffffff', label: '10K' },
+      { days: 10,    color: '#ff9500', label: '' },
+      { days: 30,    color: '#ff453a', label: '' },
+      { days: 100,   color: '#ff3b30', label: '' },
+      { days: 300,   color: '#eab308', label: '' },
+      { days: 500,   color: '#ec4899', label: '' },
+      { days: 1000,  color: '#a855f7', label: '' },
+      { days: 2000,  color: '#38bdf8', label: '' },
+      { days: 10000, color: '#ffffff', label: '' },
     ];
 
     row.innerHTML = '';
@@ -2825,7 +2883,7 @@
         prevSummary.innerHTML = `
           <span style="font-weight:800; color:var(--blue); display:inline-flex; align-items:center; gap:4px;">
             <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-            Vorige training:
+            ${t('previousTraining')}
           </span>
           <span style="font-weight:700; color:var(--text); font-family:var(--font-mono);">${(() => {
             const avgKg = Math.round(validSets.reduce((sum, s) => sum + (parseInt(s.weight) || 0), 0) / validSets.length);
@@ -2845,7 +2903,7 @@
       <div>Kg</div>
       <div>Reps</div>
       <div>1RM</div>
-      <div>Klaar</div>
+      <div>${t('done')}</div>
       <div></div>
     `;
     setsContainer.appendChild(setsHead);
@@ -2873,7 +2931,7 @@
         weightInp.value = setObj.weight;
         weightInp.oninput = (e) => {
           const raw = parseFloat(e.target.value);
-          if (raw > 500) { e.target.value = 500; triggerToast('Max gewicht: 500 kg'); }
+          if (raw > 500) { e.target.value = 500; triggerToast(t('maxWeightError')); }
           if (raw < 0) { e.target.value = 0; }
           setObj.weight = e.target.value;
           saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -2889,7 +2947,7 @@
         repsInp.value = setObj.reps;
         repsInp.oninput = (e) => {
           const raw = parseFloat(e.target.value);
-          if (raw > 100) { e.target.value = 100; triggerToast('Max reps: 100 per set'); }
+          if (raw > 100) { e.target.value = 100; triggerToast(t('maxRepsError')); }
           if (raw < 0) { e.target.value = 0; }
           setObj.reps = e.target.value;
           saveExerciseSets(dateStr, dayIdx, exName, sets);
@@ -2921,7 +2979,7 @@
           const r = parseFloat(setObj.reps) || 0;
           // Blokkeer aanvinken zonder gewicht/reps
           if (!setObj.done && (w <= 0 || r <= 0)) {
-            triggerToast('Vul eerst gewicht én reps in!');
+            triggerToast(t('fillFirstError'));
             return;
           }
           setObj.done = !setObj.done;
@@ -2941,7 +2999,7 @@
         removeBtn.style.cssText = 'width:26px;height:26px;font-size:10px;flex-shrink:0;border:none;';
         removeBtn.innerHTML = '<svg style="width:11px;height:11px;fill:currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
         removeBtn.onclick = () => {
-          if (sets.length <= 1) { triggerToast('Minimaal 1 set vereist'); return; }
+          if (sets.length <= 1) { triggerToast(t('minSetError')); return; }
           sets.splice(sIdx, 1);
           saveExerciseSets(dateStr, dayIdx, exName, sets);
           renderRows();
@@ -5777,7 +5835,7 @@
     });
 
     if (entries.length === 0) {
-      list.innerHTML = '<div style="text-align:center; padding:24px; color:var(--text-sec); font-size:13px;">Geen oefeningen gevonden</div>';
+      list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-sec); font-size:13px;">${t('noExercisesFound')}</div>`;
       return;
     }
 
@@ -5803,7 +5861,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
           <select class="lib-add-select" onchange="addExerciseToRoutineDay('${name}', this)">
-            <option value="">+ Voeg toe aan...</option>
+            <option value="">${t('addToDropdown')}</option>
             <option value="0">Maandag (Push)</option>
             <option value="1">Dinsdag (Pull)</option>
             <option value="2">Woensdag (Benen)</option>
@@ -6697,7 +6755,7 @@ function saveCustomSchemaWizard() {
       <div style="padding:16px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
         <div>
           <div style="font-size:11px; font-weight:800; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;">SCHEMA KIEZER</div>
-          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">12 Populaire Trainingsschema's</div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); margin-top:2px;">${t('chooseSchema')}</div>
         </div>
         <button onclick="closeSchemaSelectorModal()" class="action-icon-btn" style="width:32px;height:32px;">✕</button>
       </div>
