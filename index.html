@@ -661,7 +661,27 @@
         radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
         radial-gradient(1.5px 1.5px at 78% 72%, rgba(255,255,255,0.7) 0%, transparent 100%),
         radial-gradient(1px 1px at 92% 88%, rgba(180,200,255,0.8) 0%, transparent 100%),
-        radial-gradient(1px 1px at 22% 92%, rgba(255,255,255,0.5) 0%, transparent 100%);
+        radial-gradient(1px 1px at 22% 92%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        /* +20 nieuwe sterren voor totaal 35+ */
+        radial-gradient(0.8px 0.8px at 12% 35%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 45% 18%, rgba(200,220,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 68% 12%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 82% 48%, rgba(180,160,255,0.7) 0%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 38% 75%, rgba(255,255,255,0.65) 0%, transparent 100%),
+        radial-gradient(1px 1px at 8% 52%, rgba(200,200,255,0.75) 0%, transparent 100%),
+        radial-gradient(1.3px 1.3px at 60% 92%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 72% 38%, rgba(180,200,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.1px 1.1px at 28% 22%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 65%, rgba(200,180,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.4px 1.4px at 48% 68%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(0.9px 0.9px at 18% 8%, rgba(255,255,255,0.75) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 18%, rgba(200,150,255,0.7) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 32% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 78%, rgba(180,160,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.3px 1.3px at 58% 5%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(0.8px 0.8px at 14% 58%, rgba(200,220,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 42% 38%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 80% 62%, rgba(180,200,255,0.75) 0%, transparent 100%);
     }
     body[data-mood-theme="nebula"] {
       background:
@@ -972,108 +992,6 @@
         radial-gradient(1px 1px at 75% 45%, rgba(180,210,255,0.7) 0%, transparent 100%);
     }
 
-    /* ── GLITCH THEMA ── het wildste ── */
-    @keyframes glitchShift {
-      0%,100% { transform: translate(0,0) skewX(0deg); filter: hue-rotate(0deg); }
-      2%       { transform: translate(-3px, 1px) skewX(2deg); filter: hue-rotate(90deg); }
-      4%       { transform: translate(3px,-1px) skewX(-1deg); filter: hue-rotate(180deg); }
-      6%       { transform: translate(0,0) skewX(0deg); filter: hue-rotate(270deg); }
-      8%       { transform: translate(-2px,2px) skewX(1deg); filter: hue-rotate(45deg); }
-      10%      { transform: translate(0,0); filter: hue-rotate(0deg); }
-      92%      { transform: translate(2px,-2px) skewX(-2deg); filter: hue-rotate(135deg); }
-      94%      { transform: translate(-1px,1px); filter: hue-rotate(0deg); }
-    }
-    @keyframes glitchScanline {
-      0%   { background-position: 0 0; }
-      100% { background-position: 0 100vh; }
-    }
-    @keyframes glitchNoise {
-      0%,100% { opacity: 0.03; }
-      25%      { opacity: 0.06; transform: translate(-1px,1px); }
-      50%      { opacity: 0.04; transform: translate(1px,-1px); }
-      75%      { opacity: 0.05; transform: translate(-2px,0); }
-    }
-    @keyframes glitchRgb {
-      0%,100% { text-shadow: none; }
-      5%  { text-shadow: 2px 0 #ff0080, -2px 0 #00ffff; }
-      10% { text-shadow: -2px 0 #ff0080, 2px 0 #00ff41; }
-      15% { text-shadow: none; }
-      85% { text-shadow: 1px 0 #00ff41, -1px 0 #ff00ff; }
-      90% { text-shadow: none; }
-    }
-    @keyframes glitchBar {
-      0%   { top: -10%; opacity: 0; }
-      10%  { opacity: 1; }
-      20%  { top: 15%; }
-      40%  { top: 45%; opacity: 0.8; }
-      60%  { top: 70%; opacity: 1; }
-      90%  { top: 105%; opacity: 0; }
-      100% { top: 110%; opacity: 0; }
-    }
-
-    body[data-mood-theme="glitch"] {
-      background: #000000 !important;
-      background-attachment: fixed !important;
-      animation: glitchShift 8s steps(1) infinite;
-    }
-    body[data-mood-theme="glitch"]::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      /* Scanlines */
-      background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,255,65,0.03) 2px,
-        rgba(0,255,65,0.03) 4px
-      );
-      animation: glitchScanline 6s linear infinite;
-    }
-    body[data-mood-theme="glitch"]::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
-      /* Noise overlay */
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      animation: glitchNoise 0.15s steps(1) infinite;
-      mix-blend-mode: overlay;
-    }
-    /* Glitch streep die over het scherm loopt */
-    body[data-mood-theme="glitch"] .app-header::after {
-      content: '';
-      position: fixed; left: 0; right: 0; height: 3px; z-index: 9998;
-      background: linear-gradient(90deg, transparent, #00ff41, #ff00ff, #00ffff, transparent);
-      animation: glitchBar 4s linear infinite;
-      pointer-events: none;
-    }
-    /* Cards krijgen groene matrix glow */
-    body[data-mood-theme="glitch"] .profile-card,
-    body[data-mood-theme="glitch"] .session-card,
-    body[data-mood-theme="glitch"] .ex-card,
-    body[data-mood-theme="glitch"] .rank-badge-card,
-    body[data-mood-theme="glitch"] .streak-banner {
-      border-color: rgba(0,255,65,0.3) !important;
-      box-shadow: 0 0 12px rgba(0,255,65,0.08), inset 0 0 30px rgba(0,255,65,0.02);
-    }
-    body[data-mood-theme="glitch"] .app-header {
-      background: rgba(0,10,0,0.92) !important;
-      border-bottom-color: rgba(0,255,65,0.3) !important;
-    }
-    /* Tekst krijgt RGB glitch animatie */
-    body[data-mood-theme="glitch"] .brand-title,
-    body[data-mood-theme="glitch"] .ex-name,
-    body[data-mood-theme="glitch"] .streak-num {
-      animation: glitchRgb 6s steps(1) infinite;
-    }
-    /* Neon groen accent op knoppen */
-    body[data-mood-theme="glitch"] .session-btn.start {
-      background: rgba(0,255,65,0.15) !important;
-      border: 1px solid rgba(0,255,65,0.5) !important;
-      color: #00ff41 !important;
-      box-shadow: 0 0 16px rgba(0,255,65,0.3) !important;
-    }
-
     /* Cards krijgen lichte doorzichtigheid bij sfeer thema's */
     body[data-mood-theme] .profile-card,
     body[data-mood-theme] .rank-badge-card,
@@ -1207,7 +1125,12 @@
       align-items: center; justify-content: center; gap: 6px; padding: 12px;
       box-sizing: border-box;
     }
-    .body-silhouet { width: 52px; height: 104px; color: var(--text-mut); opacity: 0.4; }
+    .body-silhouet { width: 52px; height: 104px; color: var(--text-mut); opacity: 0.4; animation: silhouetPulse 3s ease-in-out infinite; }
+
+    @keyframes silhouetPulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(1.02); }
+    }
     .photo-slot-label { font-size: 10px; font-weight: 800; color: var(--text-sec); letter-spacing: 0.06em; }
     .photo-slot-hint { font-size: 9px; color: var(--text-mut); }
     .progress-photo-slot.has-photo .body-silhouet,
@@ -1465,17 +1388,35 @@
           <div id="frontPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('frontPhotoInput').click()">
             <div id="frontPhotoContent" class="progress-photo-inner">
               <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <ellipse cx="30" cy="10" rx="9" ry="10"/>
-                <rect x="26" y="19" width="8" height="6"/>
-                <path d="M14 25 Q16 23 30 23 Q44 23 46 25 L48 60 Q38 64 30 64 Q22 64 12 60 Z"/>
-                <path d="M14 25 L6 52 Q5 56 8 57 L10 52 L18 30 Z"/>
-                <path d="M46 25 L54 52 Q55 56 52 57 L50 52 L42 30 Z"/>
-                <ellipse cx="7" cy="58" rx="4" ry="5"/>
-                <ellipse cx="53" cy="58" rx="4" ry="5"/>
-                <path d="M22 64 L18 100 Q17 104 21 105 L24 100 L28 64 Z"/>
-                <path d="M38 64 L42 100 Q43 104 39 105 L36 100 L32 64 Z"/>
-                <ellipse cx="20" cy="107" rx="6" ry="4"/>
-                <ellipse cx="40" cy="107" rx="6" ry="4"/>
+                <!-- Hoofd -->
+                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+                <!-- Nek -->
+                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+                <!-- Borst & Buik -->
+                <path d="M 18 24 Q 30 22 42 24 L 42 55 Q 30 58 18 55 Z" fill="currentColor" opacity="0.8"/>
+                <!-- Borst animatie (highlights) -->
+                <g opacity="0.3">
+                  <path d="M 22 28 Q 26 26 30 28 L 30 45 Q 26 46 22 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <path d="M 30 28 Q 34 26 38 28 L 38 45 Q 34 46 30 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                </g>
+                <!-- Linker arm -->
+                <g>
+                  <path d="M 18 26 L 8 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="8" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Rechter arm -->
+                <g>
+                  <path d="M 42 26 L 52 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="52" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Linker been -->
+                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rechter been -->
+                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Buik detail -->
+                <path d="M 28 50 L 32 50" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
               </svg>
               <div class="photo-slot-label">FOTO 1 (VOORKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
@@ -1485,18 +1426,36 @@
           <div id="backPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('backPhotoInput').click()">
             <div id="backPhotoContent" class="progress-photo-inner">
               <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <ellipse cx="30" cy="10" rx="9" ry="10"/>
-                <rect x="26" y="19" width="8" height="6"/>
-                <path d="M12 25 Q14 22 30 21 Q46 22 48 25 L50 60 Q38 65 30 65 Q22 65 10 60 Z"/>
-                <path d="M22 35 Q30 32 38 35 L38 55 Q30 57 22 55 Z" opacity="0.4"/>
-                <path d="M12 25 L4 52 Q3 56 6 57 L9 52 L16 30 Z"/>
-                <path d="M48 25 L56 52 Q57 56 54 57 L51 52 L44 30 Z"/>
-                <ellipse cx="5" cy="58" rx="4" ry="5"/>
-                <ellipse cx="55" cy="58" rx="4" ry="5"/>
-                <path d="M22 65 L18 100 Q17 104 21 105 L24 100 L28 65 Z"/>
-                <path d="M38 65 L42 100 Q43 104 39 105 L36 100 L32 65 Z"/>
-                <ellipse cx="19" cy="107" rx="6" ry="4"/>
-                <ellipse cx="41" cy="107" rx="6" ry="4"/>
+                <!-- Hoofd -->
+                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+                <!-- Nek -->
+                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+                <!-- Rug (trapezoïd breder naar onderen) -->
+                <path d="M 16 24 Q 30 22 44 24 L 46 55 Q 30 58 14 55 Z" fill="currentColor" opacity="0.8"/>
+                <!-- Rug animatie (spieren highlight) -->
+                <g opacity="0.25">
+                  <path d="M 24 30 Q 30 28 30 45" stroke="currentColor" stroke-width="1" fill="none"/>
+                  <path d="M 20 35 L 24 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+                  <path d="M 40 35 L 36 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+                </g>
+                <!-- Linker arm -->
+                <g>
+                  <path d="M 16 26 L 4 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="4" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Rechter arm -->
+                <g>
+                  <path d="M 44 26 L 56 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                  <circle cx="56" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+                </g>
+                <!-- Linker been -->
+                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rechter been -->
+                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+                <!-- Rug accent -->
+                <path d="M 30 35 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
               </svg>
               <div class="photo-slot-label">FOTO 2 (ACHTER/ZIJKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
@@ -2469,7 +2428,7 @@
           <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;">${t('restDayToday')}</div>
           <div style="font-size:13px;color:var(--text-sec);margin-bottom:16px;">${t('restDaySub')}</div>
           <button onclick="markTodayAsRestAndCarry('${dateStr}',${dayIdx})" style="padding:8px 18px;border-radius:10px;border:1px solid var(--border-light);background:var(--surface-2);color:var(--text-sec);font-size:12px;font-weight:700;cursor:pointer;">
-            💤 Rustdag nemen — schema doorschuiven
+            Rustdag nemen — schema doorschuiven
           </button>
         </div>
       `;
@@ -2844,7 +2803,12 @@
             <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
             Vorige training:
           </span>
-          <span style="font-weight:700; color:var(--text); font-family:var(--font-mono);">${validSets.map((s, idx) => `S${idx+1}: ${s.weight}kÃ—${s.reps}`).join('  ')}</span>
+          <span style="font-weight:700; color:var(--text); font-family:var(--font-mono);">${(() => {
+            const avgKg = Math.round(validSets.reduce((sum, s) => sum + (parseInt(s.weight) || 0), 0) / validSets.length);
+            const totalReps = validSets.reduce((sum, s) => sum + (parseInt(s.reps) || 0), 0);
+            const setCount = validSets.length;
+            return `${avgKg}kg avg × ${totalReps} reps (${setCount} sets)`;
+          })()}</span>
         `;
         setsContainer.appendChild(prevSummary);
       }
@@ -4792,31 +4756,177 @@
       }
     },
     {
-      id: 'glitch',
-      name: '⚡ GLITCH (Systeem Kapot)',
-      swatch: '#00ff41',
+      id: 'nebula_cosmic',
+      name: 'Nebula Cosmic (Kosmisch)',
+      swatch: '#a78bfa',
       vars: {
-        '--bg':          '#000000',
-        '--surface-1':   '#050508',
-        '--surface-2':   '#0a0a0f',
-        '--surface-3':   '#0f0f18',
-        '--border':      '#00ff4122',
-        '--border-light':'#00ff4155',
-        '--text':        '#00ff41',
-        '--text-sec':    '#ff00ff',
-        '--text-mut':    '#00ffff66',
-        '--blue':        '#ff0080',
-        '--blue-glow':   'rgba(255,0,128,0.7)',
-        '--accent':      '#ff0080',
-        '--green':       '#00ff41',
-        '--red':         '#ff0080',
-        '--orange':      '#ffff00'
+        '--bg':          '#0f0a1f',
+        '--surface-1':   '#1a0f2e',
+        '--surface-2':   '#251a3f',
+        '--surface-3':   '#2f2449',
+        '--border':      '#a78bfa33',
+        '--border-light':'#c4b5fd55',
+        '--text':        '#e9d5ff',
+        '--text-sec':    '#d8b4fe',
+        '--text-mut':    '#c4b5fd88',
+        '--blue':        '#a78bfa',
+        '--blue-glow':   'rgba(167,139,250,0.5)',
+        '--accent':      '#a78bfa',
+        '--green':       '#86efac',
+        '--red':         '#fb7185'
+      }
+    },
+    {
+      id: 'solar_flare',
+      name: 'Solar Flare (Zonnebrand)',
+      swatch: '#fbbf24',
+      vars: {
+        '--bg':          '#1a0f00',
+        '--surface-1':   '#2d1f00',
+        '--surface-2':   '#3d2700',
+        '--surface-3':   '#4d3300',
+        '--border':      '#fbbf2433',
+        '--border-light':'#fcd34d55',
+        '--text':        '#fef08a',
+        '--text-sec':    '#fde047',
+        '--text-mut':    '#fbbf2488',
+        '--blue':        '#fbbf24',
+        '--blue-glow':   'rgba(251,191,36,0.5)',
+        '--accent':      '#f59e0b',
+        '--green':       '#84cc16',
+        '--red':         '#ff6b6b'
+      }
+    },
+    {
+      id: 'void_abyss',
+      name: 'Void Abyss (Leegte)',
+      swatch: '#6366f1',
+      vars: {
+        '--bg':          '#0a0a14',
+        '--surface-1':   '#0f0f1e',
+        '--surface-2':   '#161628',
+        '--surface-3':   '#1e1e32',
+        '--border':      '#6366f144',
+        '--border-light':'#818cf866',
+        '--text':        '#e0e7ff',
+        '--text-sec':    '#c7d2fe',
+        '--text-mut':    '#a5b4fc88',
+        '--blue':        '#6366f1',
+        '--blue-glow':   'rgba(99,102,241,0.45)',
+        '--accent':      '#6366f1',
+        '--green':       '#34d399',
+        '--red':         '#f87171'
+      }
+    },
+    {
+      id: 'toxic_swamp',
+      name: 'Toxic Swamp (Giftig)',
+      swatch: '#86efac',
+      vars: {
+        '--bg':          '#0a1a0a',
+        '--surface-1':   '#1a2d1a',
+        '--surface-2':   '#2d3f2d',
+        '--surface-3':   '#3f5a3f',
+        '--border':      '#86efac33',
+        '--border-light':'#bbf7d055',
+        '--text':        '#dcfce7',
+        '--text-sec':    '#bbf7d0',
+        '--text-mut':    '#86efac88',
+        '--blue':        '#86efac',
+        '--blue-glow':   'rgba(134,239,172,0.5)',
+        '--accent':      '#4ade80',
+        '--green':       '#22c55e',
+        '--red':         '#ef4444'
+      }
+    },
+    {
+      id: 'lavender_dream',
+      name: 'Lavender Dream (Lavendel)',
+      swatch: '#c084fc',
+      vars: {
+        '--bg':          '#1f0f2e',
+        '--surface-1':   '#2d1a3f',
+        '--surface-2':   '#3a2449',
+        '--surface-3':   '#472d5a',
+        '--border':      '#c084fc33',
+        '--border-light':'#d8b4fe55',
+        '--text':        '#f3e8ff',
+        '--text-sec':    '#e9d5ff',
+        '--text-mut':    '#d8b4fe88',
+        '--blue':        '#c084fc',
+        '--blue-glow':   'rgba(192,132,252,0.5)',
+        '--accent':      '#b78edb',
+        '--green':       '#86efac',
+        '--red':         '#f472b6'
+      }
+    },
+    {
+      id: 'coral_reef',
+      name: 'Coral Reef (Koraalrif)',
+      swatch: '#f97316',
+      vars: {
+        '--bg':          '#1a0f0a',
+        '--surface-1':   '#2d1810',
+        '--surface-2':   '#3f2415',
+        '--surface-3':   '#533018',
+        '--border':      '#f9731633',
+        '--border-light':'#fb923c55',
+        '--text':        '#fed7aa',
+        '--text-sec':    '#fdba74',
+        '--text-mut':    '#f97316aa',
+        '--blue':        '#f97316',
+        '--blue-glow':   'rgba(249,115,22,0.5)',
+        '--accent':      '#fb923c',
+        '--green':       '#10b981',
+        '--red':         '#ef4444'
+      }
+    },
+    {
+      id: 'aurora_borealis',
+      name: 'Aurora Borealis (Noorderlicht)',
+      swatch: '#06b6d4',
+      vars: {
+        '--bg':          '#0a1e1e',
+        '--surface-1':   '#0f2d2d',
+        '--surface-2':   '#163c3c',
+        '--surface-3':   '#1a4d4d',
+        '--border':      '#06b6d433',
+        '--border-light':'#22d3ee55',
+        '--text':        '#cffafe',
+        '--text-sec':    '#a5f3fc',
+        '--text-mut':    '#67e8f988',
+        '--blue':        '#06b6d4',
+        '--blue-glow':   'rgba(6,182,212,0.5)',
+        '--accent':      '#06b6d4',
+        '--green':       '#10b981',
+        '--red':         '#f87171'
+      }
+    },
+    {
+      id: 'crimson_night',
+      name: 'Crimson Night (Karmozijnse Nacht)',
+      swatch: '#dc2626',
+      vars: {
+        '--bg':          '#1a0a0a',
+        '--surface-1':   '#2d0f0f',
+        '--surface-2':   '#3f1515',
+        '--surface-3':   '#531818',
+        '--border':      '#dc262633',
+        '--border-light':'#f87171',
+        '--text':        '#fee2e2',
+        '--text-sec':    '#fecaca',
+        '--text-mut':    '#fca5a588',
+        '--blue':        '#dc2626',
+        '--blue-glow':   'rgba(220,38,38,0.5)',
+        '--accent':      '#ef4444',
+        '--green':       '#34d399',
+        '--red':         '#dc2626'
       }
     }
   ];
 
   // IDs van de sfeer thema's — moet boven applyFullAppTheme staan
-  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical','mars','arctic','obsidian','gold_rush','deep_purple','bloodmoon','ice_cave','glitch'];
+  const MOOD_THEME_IDS = ['nebula','aurora','sunset','vintage','sakura','ocean_deep','forest','lava','galaxy','copper','neon_city','midnight_rose','tropical','mars','arctic','obsidian','gold_rush','deep_purple','bloodmoon','ice_cave','nebula_cosmic','solar_flare','void_abyss','toxic_swamp','lavender_dream','coral_reef','aurora_borealis','crimson_night'];
 
   function initThemeSettings() {
     const savedThemeId = localStorage.getItem('gymlog_full_theme') || 'black';
@@ -4892,7 +5002,14 @@
     gold_rush:     'radial-gradient(ellipse at 40% 40%, #fbbf24 0%, #b45309 45%, #0c0800 100%)',
     deep_purple:   'radial-gradient(circle at 60% 40%, #7c3aed 0%, #3b0764 55%, #030006 100%)',
     bloodmoon:     'radial-gradient(ellipse at 50% 100%, #ef4444 0%, #7f1d1d 40%, #0d0202 100%)',
-    glitch:        'linear-gradient(135deg, #000 0%, #001a00 30%, #00ff41 45%, #ff00ff 50%, #00ffff 55%, #000 70%, #ff0080 100%)',
+    nebula_cosmic: 'radial-gradient(circle at 45% 55%, #a78bfa 0%, #6d28d9 40%, #0f0a1f 100%)',
+    solar_flare:   'radial-gradient(circle at 50% 50%, #fbbf24 0%, #b45309 50%, #1a0f00 100%)',
+    void_abyss:    'radial-gradient(ellipse at 60% 40%, #6366f1 0%, #3730a3 45%, #0a0a14 100%)',
+    toxic_swamp:   'linear-gradient(135deg, #0a1a0a 0%, #1a4d1a 50%, #86efac 100%)',
+    lavender_dream: 'radial-gradient(circle at 50% 60%, #c084fc 0%, #7c3aed 45%, #1f0f2e 100%)',
+    coral_reef:    'linear-gradient(160deg, #1a0f0a 0%, #7c2d12 45%, #f97316 100%)',
+    aurora_borealis: 'linear-gradient(135deg, #0a1e1e 0%, #0c4a6e 50%, #06b6d4 100%)',
+    crimson_night: 'radial-gradient(ellipse at 50% 80%, #dc2626 0%, #7f1d1d 45%, #1a0a0a 100%)',
   };
 
   function renderThemeColorSwatches() {
@@ -5444,8 +5561,69 @@
       slot.classList.remove('has-photo','animate-in');
       const labels = { front: 'VOORKANT', back: 'ACHTERKANT' };
       const paths = {
-        front: `<ellipse cx="30" cy="10" rx="9" ry="10"/><rect x="26" y="19" width="8" height="6"/><path d="M14 25 Q16 23 30 23 Q44 23 46 25 L48 60 Q38 64 30 64 Q22 64 12 60 Z"/><path d="M14 25 L6 52 Q5 56 8 57 L10 52 L18 30 Z"/><path d="M46 25 L54 52 Q55 56 52 57 L50 52 L42 30 Z"/><ellipse cx="7" cy="58" rx="4" ry="5"/><ellipse cx="53" cy="58" rx="4" ry="5"/><path d="M22 64 L18 100 Q17 104 21 105 L24 100 L28 64 Z"/><path d="M38 64 L42 100 Q43 104 39 105 L36 100 L32 64 Z"/><ellipse cx="20" cy="107" rx="6" ry="4"/><ellipse cx="40" cy="107" rx="6" ry="4"/>`,
-        back:  `<ellipse cx="30" cy="10" rx="9" ry="10"/><rect x="26" y="19" width="8" height="6"/><path d="M12 25 Q14 22 30 21 Q46 22 48 25 L50 60 Q38 65 30 65 Q22 65 10 60 Z"/><path d="M22 35 Q30 32 38 35 L38 55 Q30 57 22 55 Z" opacity="0.4"/><path d="M12 25 L4 52 Q3 56 6 57 L9 52 L16 30 Z"/><path d="M48 25 L56 52 Q57 56 54 57 L51 52 L44 30 Z"/><ellipse cx="5" cy="58" rx="4" ry="5"/><ellipse cx="55" cy="58" rx="4" ry="5"/><path d="M22 65 L18 100 Q17 104 21 105 L24 100 L28 65 Z"/><path d="M38 65 L42 100 Q43 104 39 105 L36 100 L32 65 Z"/><ellipse cx="19" cy="107" rx="6" ry="4"/><ellipse cx="41" cy="107" rx="6" ry="4"/>`
+        front: `
+          <!-- Hoofd -->
+          <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+          <!-- Nek -->
+          <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+          <!-- Borst & Buik -->
+          <path d="M 18 24 Q 30 22 42 24 L 42 55 Q 30 58 18 55 Z" fill="currentColor" opacity="0.8"/>
+          <!-- Borst animatie (highlights) -->
+          <g opacity="0.3">
+            <path d="M 22 28 Q 26 26 30 28 L 30 45 Q 26 46 22 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M 30 28 Q 34 26 38 28 L 38 45 Q 34 46 30 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+          </g>
+          <!-- Linker arm -->
+          <g>
+            <path d="M 18 26 L 8 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="8" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Rechter arm -->
+          <g>
+            <path d="M 42 26 L 52 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="52" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Linker been -->
+          <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rechter been -->
+          <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Buik detail -->
+          <path d="M 28 50 L 32 50" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+        `,
+        back: `
+          <!-- Hoofd -->
+          <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
+          <!-- Nek -->
+          <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
+          <!-- Rug (trapezoïd breder naar onderen) -->
+          <path d="M 16 24 Q 30 22 44 24 L 46 55 Q 30 58 14 55 Z" fill="currentColor" opacity="0.8"/>
+          <!-- Rug animatie (spieren highlight) -->
+          <g opacity="0.25">
+            <path d="M 24 30 Q 30 28 30 45" stroke="currentColor" stroke-width="1" fill="none"/>
+            <path d="M 20 35 L 24 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+            <path d="M 40 35 L 36 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
+          </g>
+          <!-- Linker arm -->
+          <g>
+            <path d="M 16 26 L 4 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="4" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Rechter arm -->
+          <g>
+            <path d="M 44 26 L 56 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <circle cx="56" cy="54" r="3" fill="currentColor" opacity="0.8"/>
+          </g>
+          <!-- Linker been -->
+          <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rechter been -->
+          <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
+          <!-- Rug accent -->
+          <path d="M 30 35 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        `
       };
       content.innerHTML = `
         <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">${paths[side]}</svg>
@@ -6319,7 +6497,6 @@ function renderCustomSchemaDaysEditor() {
   const DAY_LABELS = ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'];
   const DAY_SHORT  = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
   const MUSCLES    = ['Borst','Rug','Schouders','Biceps','Triceps','Benen','Buik','Voorarmen'];
-  const MUSCLE_ICONS = { Borst:'💪', Rug:'🏋️', Schouders:'🔝', Biceps:'💪', Triceps:'🦾', Benen:'🦵', Buik:'🔥', Voorarmen:'✊' };
 
   DAY_LABELS.forEach((dName, dIdx) => {
     const day = tempCustomSchema[dIdx] || { name: dName, label: 'RUSTDAG', groups: [] };
@@ -6339,7 +6516,7 @@ function renderCustomSchemaDaysEditor() {
         <span class="csw-day-name">${dName}</span>
       </div>
       <button class="csw-toggle-btn ${isRest ? 'rest' : 'workout'}" data-day="${dIdx}">
-        ${isRest ? '💤 Rustdag' : '🏋️ Training'}
+        ${isRest ? 'Rustdag' : 'Training'}
       </button>
     `;
 
@@ -6355,7 +6532,7 @@ function renderCustomSchemaDaysEditor() {
       chip.setAttribute('data-day', dIdx);
       chip.setAttribute('data-muscle', muscle);
       chip.disabled = isRest;
-      chip.innerHTML = `<span>${MUSCLE_ICONS[muscle] || ''}</span> ${muscle}`;
+      chip.innerHTML = `${muscle}`;
       chipsWrap.appendChild(chip);
     });
 
@@ -6408,7 +6585,7 @@ function renderCustomSchemaDaysEditor() {
         const tb = card.querySelector('.csw-toggle-btn');
         if (tb) {
           tb.className = `csw-toggle-btn ${isNowRest ? 'rest' : 'workout'}`;
-          tb.innerHTML = isNowRest ? '💤 Rustdag' : '🏋️ Training';
+          tb.innerHTML = isNowRest ? 'Rustdag' : 'Training';
         }
         const cw = card.querySelector('.csw-chips-wrap');
         if (cw) cw.style.opacity = isNowRest ? '0.35' : '1';
@@ -6499,7 +6676,7 @@ function saveCustomSchemaWizard() {
 
       <div style="padding:14px 18px; border-top:1px solid var(--border); background:var(--surface-2); display:flex; gap:10px;">
         <button onclick="closeCustomSchemaWizard()" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--surface-1); color:var(--text-sec); font-size:13px; font-weight:700; cursor:pointer;">Annuleren</button>
-        <button onclick="saveCustomSchemaWizard()" class="action-btn" style="flex:2; padding:10px; font-size:13px; font-weight:900;">Schema Opslaan ✓</button>
+        <button onclick="saveCustomSchemaWizard()" class="action-btn" style="flex:2; padding:10px; font-size:13px; font-weight:900;">Schema Toepassen ✓</button>
       </div>
     </div>
   </div>
