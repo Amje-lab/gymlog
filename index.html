@@ -621,76 +621,221 @@
       background: rgba(0,0,0,0.5) !important;
     }
 
-    /* ONBOARDING OVERLAY */
-    @keyframes obFadeUp {
-      from { opacity:0; transform:translateY(24px); }
-      to   { opacity:1; transform:translateY(0); }
+    /* ONBOARDING FULLSCREEN */
+    #onboardingOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+    }
+    #onboardingOverlay.hidden {
+      display: none !important;
+    }
+
+    .ob-bg { position:fixed; inset:0; overflow:hidden; pointer-events:none; }
+    .ob-orb {
+      position:absolute; border-radius:50%; filter:blur(80px); opacity:0.25;
+      animation: obOrb 12s ease-in-out infinite;
     }
     @keyframes obOrb {
       0%,100% { transform: scale(1) translate(0,0); }
       33%      { transform: scale(1.15) translate(20px,-30px); }
       66%      { transform: scale(0.9) translate(-15px,20px); }
     }
-    .ob-bg { position:fixed; inset:0; overflow:hidden; pointer-events:none; }
-    .ob-orb {
-      position:absolute; border-radius:50%; filter:blur(80px); opacity:0.25;
-      animation: obOrb 12s ease-in-out infinite;
-    }
     .ob-orb-1 { width:360px;height:360px; background:#38bdf8; top:-80px; left:-80px; animation-delay:0s; }
     .ob-orb-2 { width:300px;height:300px; background:#a855f7; bottom:-60px; right:-60px; animation-delay:-4s; }
     .ob-orb-3 { width:250px;height:250px; background:#30d158; top:40%; left:50%; animation-delay:-8s; opacity:0.15; }
 
+    .ob-container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+    }
+
     .ob-step-card {
-      background: rgba(18,19,22,0.85);
+      background: rgba(18,19,22,0.9);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px; padding: 28px 24px;
+      border-radius: 24px;
+      padding: 32px 28px;
       backdrop-filter: blur(20px);
+      width: 100%;
+      max-width: 460px;
+      animation: obFadeUp 0.6s ease forwards;
     }
+
+    @keyframes obFadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ob-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .ob-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #30d158);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
     .ob-step-tag {
-      font-size:10px; font-weight:800; color:var(--blue);
-      text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
     }
+
     .ob-step-title {
-      font-size:22px; font-weight:900; color:#fff; margin-bottom:6px; line-height:1.2;
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.2;
     }
+
     .ob-step-sub {
-      font-size:13px; color:var(--text-sec); margin-bottom:20px;
+      font-size: 14px;
+      color: var(--text-sec);
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
+
     .ob-input {
-      width:100%; padding:14px 16px; border-radius:12px;
-      background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12);
-      color:#fff; font-size:16px; font-family:var(--font-main); font-weight:700;
-      box-sizing:border-box; outline:none; margin-bottom:16px;
-      transition:border-color 0.2s;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 16px;
+      font-family: var(--font-main);
+      font-weight: 700;
+      box-sizing: border-box;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
     }
-    .ob-input:focus { border-color:var(--blue); }
-    .ob-input::placeholder { color:rgba(255,255,255,0.25); }
+    .ob-input:focus { border-color: var(--blue); }
+    .ob-input::placeholder { color: rgba(255,255,255,0.25); }
+
+    .ob-input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .ob-input-group .ob-input {
+      margin-bottom: 0;
+    }
+
+    .ob-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .ob-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      cursor: pointer;
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .ob-option-btn:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+    }
+    .ob-option-btn.active {
+      border-color: var(--blue);
+      background: rgba(56,189,248,0.15);
+    }
+    .ob-option-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .ob-option-text {
+      flex: 1;
+    }
+    .ob-option-label {
+      font-weight: 800;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .ob-option-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+    }
+
+    .ob-btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
     .ob-btn {
-      width:100%; padding:15px; border-radius:12px;
-      background:var(--blue); color:#000; font-size:15px; font-weight:900;
-      border:none; cursor:pointer; transition:opacity 0.2s, transform 0.15s;
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-main);
     }
-    .ob-btn:hover:not(:disabled) { opacity:0.9; transform:translateY(-1px); }
-    .ob-btn:active { transform:scale(0.98); }
-    .ob-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+    .ob-btn.primary {
+      background: var(--blue);
+      color: #000;
+    }
+    .ob-btn.primary:hover:not(:disabled) {
+      background: #60bef7;
+      transform: translateY(-2px);
+    }
+    .ob-btn.primary:active {
+      transform: scale(0.98);
+    }
+    .ob-btn.primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
     .ob-btn.secondary {
-      background:transparent; color:var(--text-sec); border:1px solid rgba(255,255,255,0.15);
-      margin-top:8px;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-sec);
+      border: 1px solid rgba(255,255,255,0.15);
     }
-    .ob-btn.secondary:hover { 
-      background:rgba(255,255,255,0.05); 
-      border-color:rgba(255,255,255,0.25);
+    .ob-btn.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
     }
-    .ob-goal-btn {
-      display:flex; align-items:center; gap:14px; padding:14px 16px;
-      border-radius:12px; border:1.5px solid rgba(255,255,255,0.1);
-      background:rgba(255,255,255,0.04); color:#fff; cursor:pointer;
-      text-align:left; font-family:var(--font-main); font-size:13px;
-      transition:all 0.2s; width:100%; margin-bottom:10px;
-    }
-    .ob-goal-btn.active { border-color:var(--blue); background:rgba(56,189,248,0.12); }
-    .ob-goal-btn:hover { border-color:rgba(255,255,255,0.25); }
-    .ob-goal-icon { font-size:22px; flex-shrink:0; }
 
     /* STARTUP SPLASH EFFECT */
     @keyframes splashZoom {
@@ -877,6 +1022,25 @@
   </style>
 </head>
 <body>
+
+  <!-- STARTUP SPLASH SCREEN -->
+  <div id="startupSplash">
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+      <!-- Large O with concentric circles -->
+      <div style="position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
+        <!-- Outer circle -->
+        <div style="position: absolute; width: 160px; height: 160px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%;"></div>
+        <!-- Inner circle -->
+        <div style="position: absolute; width: 120px; height: 120px; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%;"></div>
+        <!-- Large O -->
+        <div style="font-size: 96px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1;">O</div>
+      </div>
+      <!-- OVERLOAD text -->
+      <div style="font-size: 28px; font-weight: 900; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;">
+        OVERLOAD
+      </div>
+    </div>
+  </div>
 
   <!-- HEADER -->
   <header class="app-header">
@@ -1233,9 +1397,6 @@
         </div>
         <div id="handleCooldownDisplay" style="font-size:11px; color:var(--text-mut); margin-bottom:12px;"></div>
 
-        <div class="profile-field-label" id="lblYourName">Jouw Naam</div>
-        <input type="text" class="profile-input" id="profileNameInput" placeholder="Vul je voor- en achternaam in..." onchange="saveProfileSettings()" />
-        
         <div class="profile-grid-2">
           <div>
             <div class="profile-field-label">Gewicht (kg)</div>
@@ -5758,64 +5919,99 @@
 
   function obSelectGoal(btn, goal) {
     _obSelectedGoal = goal;
-    document.querySelectorAll('#obGoalPicker .ob-goal-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#obStep4 .ob-option-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
 
+  function obGoStep1() {
+    document.querySelectorAll('[id^="obStep"]').forEach(s => s.style.display = 'none');
+    document.getElementById('obStep1').style.display = 'block';
+  }
+
+  function obGoStep2() {
+    document.querySelectorAll('[id^="obStep"]').forEach(s => s.style.display = 'none');
+    document.getElementById('obStep2').style.display = 'block';
+    setTimeout(() => document.getElementById('obNameInput').focus(), 100);
+  }
+
+  function obGoStep3() {
+    const name = (document.getElementById('obNameInput').value || '').trim();
+    if (name.length < 2) return;
+    localStorage.setItem('gymlog_username', name);
+    document.querySelectorAll('[id^="obStep"]').forEach(s => s.style.display = 'none');
+    document.getElementById('obStep3').style.display = 'block';
+  }
+
+  function obSelectFreq(btn, freq) {
+    _obSelectedFreq = freq;
+    document.querySelectorAll('#obStep3 .ob-option-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function obGoStep4() {
+    localStorage.setItem('gymlog_gym_frequency', _obSelectedFreq);
+    document.querySelectorAll('[id^="obStep"]').forEach(s => s.style.display = 'none');
+    document.getElementById('obStep4').style.display = 'block';
+  }
+
+  function obGoStep5() {
+    document.querySelectorAll('[id^="obStep"]').forEach(s => s.style.display = 'none');
+    document.getElementById('obStep5').style.display = 'block';
+  }
+
   function obFinish() {
-    const name = (localStorage.getItem('gymlog_username') || '').trim();
-    const freq = (localStorage.getItem('gymlog_gym_frequency') || '4').trim();
+    const name = localStorage.getItem('gymlog_username') || 'Atleet';
     localStorage.setItem('gymlog_goal', _obSelectedGoal);
     localStorage.setItem('gymlog_onboarding_done', '1');
-    closeSplashScreen();
+    
+    const overlay = document.getElementById('onboardingOverlay');
+    if (overlay) overlay.classList.add('hidden');
+    
     loadProfileSettings();
+    renderHomeView();
     triggerToast(`Welkom bij OVERLOAD, ${name}! 💪`);
   }
 
-  function obSkipOnboarding() {
-    // Stel defaults in
-    if (!localStorage.getItem('gymlog_username')) {
-      localStorage.setItem('gymlog_username', 'Atleet');
-    }
-    if (!localStorage.getItem('gymlog_gym_frequency')) {
-      localStorage.setItem('gymlog_gym_frequency', '4');
-    }
-    localStorage.setItem('gymlog_onboarding_done', '1');
-    closeSplashScreen();
-    loadProfileSettings();
-    renderHomeView();
-  }
-
-  function closeSplashScreen() {
+  function showOnboarding() {
     const overlay = document.getElementById('onboardingOverlay');
-    if (overlay) {
-      overlay.style.transition = 'opacity 0.5s';
-      overlay.style.opacity = '0';
-      setTimeout(() => { overlay.style.display = 'none'; overlay.style.opacity = '1'; }, 500);
-    }
-    renderHomeView();
+    if (overlay) overlay.classList.remove('hidden');
   }
 
+  // STARTUP SPLASH SCREEN
   function showStartupSplash() {
+    // Check if splash was already shown today
+    const today = new Date().toDateString();
+    const lastSplashDate = localStorage.getItem('gymlog_last_splash_date');
+
+    if (lastSplashDate === today) {
+      // Already shown today, skip splash
+      return;
+    }
+
     const splash = document.getElementById('startupSplash');
-    if (!splash) return;
-    splash.style.display = 'flex';
-    setTimeout(() => {
-      splash.classList.add('animate');
+    if (splash) {
+      splash.style.display = 'flex';
+      // After 2.5 seconds, animate fade out
       setTimeout(() => {
-        splash.style.display = 'none';
-      }, 2500);
-    }, 400);
+        splash.classList.add('animate');
+        // After animation completes, hide and update last splash date
+        setTimeout(() => {
+          splash.style.display = 'none';
+          localStorage.setItem('gymlog_last_splash_date', today);
+        }, 2500);
+      }, 1500);
+    }
   }
 
   // BOOTSTRAP APP
   initThemeSettings();
   loadProfileSettings();
 
-  // Show startup splash als user al account heeft
-  if (localStorage.getItem('gymlog_username') && localStorage.getItem('gymlog_onboarding_done')) {
-    showStartupSplash();
-  } else if (!localStorage.getItem('gymlog_username') || !localStorage.getItem('gymlog_onboarding_done')) {
+  // Show startup splash (once per day)
+  showStartupSplash();
+
+  // Show onboarding if user hasn't completed it
+  if (!localStorage.getItem('gymlog_username') || !localStorage.getItem('gymlog_onboarding_done')) {
     // Toon onboarding
     showOnboarding();
   }
@@ -6597,10 +6793,135 @@ checkActiveRestTimer();
     </div>
   </div>
 
-    <div id="startupSplash" style="display:none;">
-      <div class="splash-logo">OVER<span>LOAD</span></div>
-      <div class="splash-tagline">PROGRESSIVE GYM TRACKER</div>
+    <!-- ONBOARDING FULLSCREEN -->
+  <div id="onboardingOverlay">
+    <div class="ob-bg" aria-hidden="true">
+      <div class="ob-orb ob-orb-1"></div>
+      <div class="ob-orb ob-orb-2"></div>
+      <div class="ob-orb ob-orb-3"></div>
     </div>
+
+    <div class="ob-container">
+      <!-- STAP 1: Welkom -->
+      <div id="obStep1" class="ob-step-card">
+        <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:20%"></div></div>
+        <div class="ob-step-tag">STAP 1 VAN 5</div>
+        <div class="ob-step-title">Welkom bij OVERLOAD</div>
+        <div class="ob-step-sub">De ultieme gym tracker voor serieuze atleten. Laten we je profiel opzetten.</div>
+        <button class="ob-btn primary" onclick="obGoStep2()">Laten we beginnen →</button>
+      </div>
+
+      <!-- STAP 2: Naam (VERPLICHT) -->
+      <div id="obStep2" class="ob-step-card" style="display:none;">
+        <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:40%"></div></div>
+        <div class="ob-step-tag">STAP 2 VAN 5</div>
+        <div class="ob-step-title">Hoe mag ik je noemen?</div>
+        <div class="ob-step-sub">Dit is verplicht - je naam wordt gebruikt in je profiel en berichten.</div>
+        <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Jan, Sophie, Max..."
+          maxlength="30" autocomplete="off"
+          oninput="document.getElementById('obBtn2Next').disabled = this.value.trim().length < 2"
+        />
+        <div class="ob-btn-group">
+          <button class="ob-btn secondary" onclick="obGoStep1()">← Terug</button>
+          <button id="obBtn2Next" class="ob-btn primary" disabled onclick="obGoStep3()">Volgende →</button>
+        </div>
+      </div>
+
+      <!-- STAP 3: Trainingsfrequentie -->
+      <div id="obStep3" class="ob-step-card" style="display:none;">
+        <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:60%"></div></div>
+        <div class="ob-step-tag">STAP 3 VAN 5</div>
+        <div class="ob-step-title">Hoe vaak train je?</div>
+        <div class="ob-step-sub">Per week. Dit helpt bij schema aanbevelingen.</div>
+        <div class="ob-options">
+          <button class="ob-option-btn" onclick="obSelectFreq(this,'2')">
+            <span class="ob-option-icon">🟡</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">2x per week</span>
+              <span class="ob-option-desc">Casual, lekker ontspannen</span>
+            </div>
+          </button>
+          <button class="ob-option-btn active" onclick="obSelectFreq(this,'4')">
+            <span class="ob-option-icon">🟢</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">4x per week</span>
+              <span class="ob-option-desc">Perfect evenwicht (aanbevolen)</span>
+            </div>
+          </button>
+          <button class="ob-option-btn" onclick="obSelectFreq(this,'5')">
+            <span class="ob-option-icon">🔵</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">5-6x per week</span>
+              <span class="ob-option-desc">Intensief, serieus trainen</span>
+            </div>
+          </button>
+          <button class="ob-option-btn" onclick="obSelectFreq(this,'6+')">
+            <span class="ob-option-icon">🔴</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">6+ keer per week</span>
+              <span class="ob-option-desc">Elite level, echte atleet</span>
+            </div>
+          </button>
+        </div>
+        <div class="ob-btn-group">
+          <button class="ob-btn secondary" onclick="obGoStep2()">← Terug</button>
+          <button class="ob-btn primary" onclick="obGoStep4()">Volgende →</button>
+        </div>
+      </div>
+
+      <!-- STAP 4: Primair doel -->
+      <div id="obStep4" class="ob-step-card" style="display:none;">
+        <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:80%"></div></div>
+        <div class="ob-step-tag">STAP 4 VAN 5</div>
+        <div class="ob-step-title">Wat is je doel?</div>
+        <div class="ob-step-sub">Bepaalt welke trainingen we aanbevelen.</div>
+        <div class="ob-options">
+          <button class="ob-option-btn active" onclick="obSelectGoal(this,'hypertrophy')">
+            <span class="ob-option-icon">💪</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">Spieropbouw</span>
+              <span class="ob-option-desc">Hypertrofie & meer volume</span>
+            </div>
+          </button>
+          <button class="ob-option-btn" onclick="obSelectGoal(this,'strength')">
+            <span class="ob-option-icon">🏋️</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">Maximale Kracht</span>
+              <span class="ob-option-desc">Heavy lifting & powerlifting</span>
+            </div>
+          </button>
+          <button class="ob-option-btn" onclick="obSelectGoal(this,'cut')">
+            <span class="ob-option-icon">🔥</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">Vetverbranding</span>
+              <span class="ob-option-desc">Fit en gedefinieerd worden</span>
+            </div>
+          </button>
+          <button class="ob-option-btn" onclick="obSelectGoal(this,'fitness')">
+            <span class="ob-option-icon">⚡</span>
+            <div class="ob-option-text">
+              <span class="ob-option-label">Algemeen Fit</span>
+              <span class="ob-option-desc">Gezond en actief blijven</span>
+            </div>
+          </button>
+        </div>
+        <div class="ob-btn-group">
+          <button class="ob-btn secondary" onclick="obGoStep3()">← Terug</button>
+          <button class="ob-btn primary" onclick="obGoStep5()">Volgende →</button>
+        </div>
+      </div>
+
+      <!-- STAP 5: Klaar! -->
+      <div id="obStep5" class="ob-step-card" style="display:none;">
+        <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:100%"></div></div>
+        <div class="ob-step-tag">STAP 5 VAN 5</div>
+        <div class="ob-step-title">Je bent klaar! 🚀</div>
+        <div class="ob-step-sub">Laten we je eerste trainingsschema kiezen en je beginnen helpen groeien.</div>
+        <button class="ob-btn primary" onclick="obFinish()">Start met OVERLOAD →</button>
+      </div>
+
+    </div>
+  </div>
     <!-- Animated background particles -->
     <div class="ob-bg" aria-hidden="true">
       <div class="ob-orb ob-orb-1"></div>
@@ -6628,24 +6949,23 @@ checkActiveRestTimer();
       <!-- Stap kaart -->
       <div id="obCard" style="width:100%; max-width:400px; animation:obFadeUp 0.9s ease forwards;">
 
-        <!-- STAP 1: naam -->
+        <!-- STAP 1: naam (VERPLICHT) -->
         <div id="obStep1" class="ob-step-card">
           <div class="ob-step-tag">STAP 1 VAN 3</div>
           <div class="ob-step-title">Wat is jouw naam?</div>
-          <div class="ob-step-sub">We gebruiken dit in je profiel en willen je persoonlijk begroeiten.</div>
-          <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Amier, Emma, Liam..."
+          <div class="ob-step-sub">Dit is verplicht - we gebruiken dit in je profiel en willen je persoonlijk begroeten.</div>
+          <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Jan, Sophie, Max..."
             maxlength="30" autocomplete="off"
             oninput="document.getElementById('obNextBtn').disabled = this.value.trim().length < 2"
           />
           <button id="obNextBtn" class="ob-btn" disabled onclick="obGoStep2()">Volgende →</button>
-          <button class="ob-btn secondary" onclick="obSkipOnboarding()">Doe dit later</button>
         </div>
 
         <!-- STAP 2: gym frequentie -->
         <div id="obStep2" class="ob-step-card" style="display:none;">
           <div class="ob-step-tag">STAP 2 VAN 3</div>
           <div class="ob-step-title">Hoe vaak train je per week?</div>
-          <div class="ob-step-sub">Dit helpt ons je trainingsschema aan te bevelen.</div>
+          <div class="ob-step-sub">Dit helpt ons je trainingsschema aan te bevelen (optioneel).</div>
           <div id="obFreqPicker" style="display:flex; flex-direction:column; gap:10px; margin:18px 0;">
             <button class="ob-goal-btn" onclick="obSelectFreq(this,'2')">
               <span class="ob-goal-icon">🟡</span>
