@@ -5944,9 +5944,8 @@
       // After 2 seconds, transform O into OVERLOAD
       setTimeout(() => {
         if (splashO && splashText) {
-          // Shrink O and show OVERLOAD text
-          splashO.style.fontSize = '48px';
-          splashO.style.opacity = '0';
+          // Replace O with OVERLOAD
+          splashO.style.display = 'none';
           splashText.style.opacity = '1';
           splashText.style.transform = 'scale(1)';
         }
