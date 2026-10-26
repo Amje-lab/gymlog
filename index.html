@@ -5919,6 +5919,10 @@
   }
 
   function showOnboarding() {
+    // Hide splash screen if it's visible
+    const splash = document.getElementById('startupSplash');
+    if (splash) splash.style.display = 'none';
+
     const overlay = document.getElementById('onboardingOverlay');
     if (overlay) overlay.classList.remove('hidden');
   }
