@@ -838,35 +838,6 @@
     }
 
     /* STARTUP SPLASH EFFECT */
-    @keyframes splashZoom {
-      0% { 
-        transform: scale(0.3) rotate(-10deg);
-        opacity: 1;
-      }
-      70% {
-        transform: scale(1.1) rotate(2deg);
-        opacity: 1;
-      }
-      100% { 
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-      }
-    }
-    @keyframes splashGlow {
-      0%, 100% { 
-        filter: drop-shadow(0 0 20px rgba(56,189,248,0.4)) brightness(1);
-        text-shadow: 0 0 20px rgba(56,189,248,0.6);
-      }
-      50% { 
-        filter: drop-shadow(0 0 40px rgba(56,189,248,0.8)) brightness(1.2);
-        text-shadow: 0 0 40px rgba(56,189,248,1);
-      }
-    }
-    @keyframes splashFadeOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
-    }
     @keyframes splashBgFadeOut {
       0% { opacity: 1; pointer-events: auto; }
       85% { opacity: 1; }
@@ -884,25 +855,7 @@
       gap: 20px;
     }
     #startupSplash.animate {
-      animation: splashBgFadeOut 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    .splash-logo {
-      font-size: 64px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      line-height: 1;
-      animation: splashZoom 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, splashGlow 2s ease-in-out infinite;
-    }
-    .splash-logo span { color: var(--blue); }
-    .splash-tagline {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-sec);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      animation: splashFadeOut 2.5s ease-in forwards;
-      animation-delay: 0.3s;
+      animation: splashBgFadeOut 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     /* CUSTOM SCHEMA WIZARD */
@@ -1025,18 +978,11 @@
 
   <!-- STARTUP SPLASH SCREEN -->
   <div id="startupSplash">
-    <div style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
-      <!-- Large O with concentric circles -->
-      <div style="position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
-        <!-- Outer circle -->
-        <div style="position: absolute; width: 160px; height: 160px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%;"></div>
-        <!-- Inner circle -->
-        <div style="position: absolute; width: 120px; height: 120px; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%;"></div>
-        <!-- Large O -->
-        <div style="font-size: 96px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1;">O</div>
-      </div>
-      <!-- OVERLOAD text -->
-      <div style="font-size: 28px; font-weight: 900; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;">
+    <div id="splashContent" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+      <!-- Large O -->
+      <div id="splashO" style="font-size: 200px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1; transition: all 0.8s ease;">O</div>
+      <!-- OVERLOAD text (hidden initially) -->
+      <div id="splashText" style="font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.9); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1; opacity: 0; transform: scale(0.5); transition: all 0.8s ease;">
         OVERLOAD
       </div>
     </div>
@@ -5963,13 +5909,13 @@
     const name = localStorage.getItem('gymlog_username') || 'Atleet';
     localStorage.setItem('gymlog_goal', _obSelectedGoal);
     localStorage.setItem('gymlog_onboarding_done', '1');
-    
+
     const overlay = document.getElementById('onboardingOverlay');
     if (overlay) overlay.classList.add('hidden');
-    
+
     loadProfileSettings();
     renderHomeView();
-    triggerToast(`Welkom bij OVERLOAD, ${name}! 💪`);
+    triggerToast(`Welkom bij OVERLOAD, ${name}!`);
   }
 
   function showOnboarding() {
@@ -5989,17 +5935,31 @@
     }
 
     const splash = document.getElementById('startupSplash');
+    const splashO = document.getElementById('splashO');
+    const splashText = document.getElementById('splashText');
+
     if (splash) {
       splash.style.display = 'flex';
-      // After 2.5 seconds, animate fade out
+
+      // After 2 seconds, transform O into OVERLOAD
+      setTimeout(() => {
+        if (splashO && splashText) {
+          // Shrink O and show OVERLOAD text
+          splashO.style.fontSize = '48px';
+          splashO.style.opacity = '0';
+          splashText.style.opacity = '1';
+          splashText.style.transform = 'scale(1)';
+        }
+      }, 2000);
+
+      // After 3 seconds total, fade out and hide
       setTimeout(() => {
         splash.classList.add('animate');
-        // After animation completes, hide and update last splash date
         setTimeout(() => {
           splash.style.display = 'none';
           localStorage.setItem('gymlog_last_splash_date', today);
-        }, 2500);
-      }, 1500);
+        }, 1000);
+      }, 3000);
     }
   }
 
@@ -6010,8 +5970,8 @@
   // Show startup splash (once per day)
   showStartupSplash();
 
-  // Show onboarding if user hasn't completed it
-  if (!localStorage.getItem('gymlog_username') || !localStorage.getItem('gymlog_onboarding_done')) {
+  // Show onboarding only if user hasn't completed it at all
+  if (!localStorage.getItem('gymlog_onboarding_done')) {
     // Toon onboarding
     showOnboarding();
   }
@@ -6536,7 +6496,7 @@ function applyPopularSchema(schemaId, e) {
     closeSchemaSelectorModal();
     renderAgendaView();
     renderHomeView();
-    triggerToast(`Schema ingesteld: ${found.badge}! Voeg nu je oefeningen toe 💪`);
+    triggerToast(`Schema ingesteld: ${found.badge}! Voeg nu je oefeningen toe`);
   }
 }
 
@@ -6815,7 +6775,7 @@ checkActiveRestTimer();
       <div id="obStep2" class="ob-step-card" style="display:none;">
         <div class="ob-progress-bar"><div class="ob-progress-fill" style="width:40%"></div></div>
         <div class="ob-step-tag">STAP 2 VAN 5</div>
-        <div class="ob-step-title">Hoe mag ik je noemen?</div>
+        <div class="ob-step-title">Hoe kunnen we je noemen?</div>
         <div class="ob-step-sub">Dit is verplicht - je naam wordt gebruikt in je profiel en berichten.</div>
         <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Jan, Sophie, Max..."
           maxlength="30" autocomplete="off"
@@ -6835,28 +6795,24 @@ checkActiveRestTimer();
         <div class="ob-step-sub">Per week. Dit helpt bij schema aanbevelingen.</div>
         <div class="ob-options">
           <button class="ob-option-btn" onclick="obSelectFreq(this,'2')">
-            <span class="ob-option-icon">🟡</span>
             <div class="ob-option-text">
               <span class="ob-option-label">2x per week</span>
               <span class="ob-option-desc">Casual, lekker ontspannen</span>
             </div>
           </button>
           <button class="ob-option-btn active" onclick="obSelectFreq(this,'4')">
-            <span class="ob-option-icon">🟢</span>
             <div class="ob-option-text">
               <span class="ob-option-label">4x per week</span>
               <span class="ob-option-desc">Perfect evenwicht (aanbevolen)</span>
             </div>
           </button>
           <button class="ob-option-btn" onclick="obSelectFreq(this,'5')">
-            <span class="ob-option-icon">🔵</span>
             <div class="ob-option-text">
               <span class="ob-option-label">5-6x per week</span>
               <span class="ob-option-desc">Intensief, serieus trainen</span>
             </div>
           </button>
           <button class="ob-option-btn" onclick="obSelectFreq(this,'6+')">
-            <span class="ob-option-icon">🔴</span>
             <div class="ob-option-text">
               <span class="ob-option-label">6+ keer per week</span>
               <span class="ob-option-desc">Elite level, echte atleet</span>
@@ -6877,28 +6833,24 @@ checkActiveRestTimer();
         <div class="ob-step-sub">Bepaalt welke trainingen we aanbevelen.</div>
         <div class="ob-options">
           <button class="ob-option-btn active" onclick="obSelectGoal(this,'hypertrophy')">
-            <span class="ob-option-icon">💪</span>
             <div class="ob-option-text">
               <span class="ob-option-label">Spieropbouw</span>
               <span class="ob-option-desc">Hypertrofie & meer volume</span>
             </div>
           </button>
           <button class="ob-option-btn" onclick="obSelectGoal(this,'strength')">
-            <span class="ob-option-icon">🏋️</span>
             <div class="ob-option-text">
               <span class="ob-option-label">Maximale Kracht</span>
               <span class="ob-option-desc">Heavy lifting & powerlifting</span>
             </div>
           </button>
           <button class="ob-option-btn" onclick="obSelectGoal(this,'cut')">
-            <span class="ob-option-icon">🔥</span>
             <div class="ob-option-text">
               <span class="ob-option-label">Vetverbranding</span>
               <span class="ob-option-desc">Fit en gedefinieerd worden</span>
             </div>
           </button>
           <button class="ob-option-btn" onclick="obSelectGoal(this,'fitness')">
-            <span class="ob-option-icon">⚡</span>
             <div class="ob-option-text">
               <span class="ob-option-label">Algemeen Fit</span>
               <span class="ob-option-desc">Gezond en actief blijven</span>
@@ -6952,7 +6904,7 @@ checkActiveRestTimer();
         <!-- STAP 1: naam (VERPLICHT) -->
         <div id="obStep1" class="ob-step-card">
           <div class="ob-step-tag">STAP 1 VAN 3</div>
-          <div class="ob-step-title">Wat is jouw naam?</div>
+          <div class="ob-step-title">Hoe kunnen we je noemen?</div>
           <div class="ob-step-sub">Dit is verplicht - we gebruiken dit in je profiel en willen je persoonlijk begroeten.</div>
           <input id="obNameInput" type="text" class="ob-input" placeholder="Bijv. Jan, Sophie, Max..."
             maxlength="30" autocomplete="off"
@@ -6968,19 +6920,15 @@ checkActiveRestTimer();
           <div class="ob-step-sub">Dit helpt ons je trainingsschema aan te bevelen (optioneel).</div>
           <div id="obFreqPicker" style="display:flex; flex-direction:column; gap:10px; margin:18px 0;">
             <button class="ob-goal-btn" onclick="obSelectFreq(this,'2')">
-              <span class="ob-goal-icon">🟡</span>
               <div><div style="font-weight:800">2x per week</div><div style="font-size:11px;opacity:0.7">Casual, lekker ontspannen</div></div>
             </button>
             <button class="ob-goal-btn active" onclick="obSelectFreq(this,'4')">
-              <span class="ob-goal-icon">🟢</span>
               <div><div style="font-weight:800">4x per week</div><div style="font-size:11px;opacity:0.7">Perfect evenwicht • AANBEVOLEN</div></div>
             </button>
             <button class="ob-goal-btn" onclick="obSelectFreq(this,'5')">
-              <span class="ob-goal-icon">🔵</span>
               <div><div style="font-weight:800">5-6x per week</div><div style="font-size:11px;opacity:0.7">Intensief trainen, serieus</div></div>
             </button>
             <button class="ob-goal-btn" onclick="obSelectFreq(this,'6+')">
-              <span class="ob-goal-icon">🔴</span>
               <div><div style="font-weight:800">6+ keer per week</div><div style="font-size:11px;opacity:0.7">Elite level, echte atleet</div></div>
             </button>
           </div>
@@ -6995,23 +6943,19 @@ checkActiveRestTimer();
           <div class="ob-step-sub">Dit bepaalt welke schema's we aanbevelen.</div>
           <div id="obGoalPicker" style="display:flex; flex-direction:column; gap:10px; margin:18px 0;">
             <button class="ob-goal-btn active" onclick="obSelectGoal(this,'hypertrophy')">
-              <span class="ob-goal-icon">💪</span>
               <div><div style="font-weight:800">Spieropbouw</div><div style="font-size:11px;opacity:0.7">Hypertrofie & meer volume</div></div>
             </button>
             <button class="ob-goal-btn" onclick="obSelectGoal(this,'strength')">
-              <span class="ob-goal-icon">🏋️</span>
               <div><div style="font-weight:800">Maximale Kracht</div><div style="font-size:11px;opacity:0.7">Powerlifting & heavy lifting</div></div>
             </button>
             <button class="ob-goal-btn" onclick="obSelectGoal(this,'cut')">
-              <span class="ob-goal-icon">🔥</span>
               <div><div style="font-weight:800">Vetverbranding</div><div style="font-size:11px;opacity:0.7">Fit en gedefinieerd worden</div></div>
             </button>
             <button class="ob-goal-btn" onclick="obSelectGoal(this,'fitness')">
-              <span class="ob-goal-icon">⚡</span>
               <div><div style="font-weight:800">Algemeen Fit</div><div style="font-size:11px;opacity:0.7">Gezond & actief blijven</div></div>
             </button>
           </div>
-          <button class="ob-btn" onclick="obFinish()">Start met OVERLOAD 🚀</button>
+          <button class="ob-btn" onclick="obFinish()">Start met OVERLOAD</button>
         </div>
 
       </div>
