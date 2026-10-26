@@ -976,18 +976,6 @@
 </head>
 <body>
 
-  <!-- STARTUP SPLASH SCREEN -->
-  <div id="startupSplash">
-    <div id="splashContent" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
-      <!-- Large O -->
-      <div id="splashO" style="font-size: 200px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1; transition: all 0.8s ease;">O</div>
-      <!-- OVERLOAD text (hidden initially) -->
-      <div id="splashText" style="font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.9); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1; opacity: 0; transform: scale(0.5); transition: all 0.8s ease;">
-        OVERLOAD
-      </div>
-    </div>
-  </div>
-
   <!-- HEADER -->
   <header class="app-header">
     <div class="brand-wrap">
@@ -5911,7 +5899,18 @@
     localStorage.setItem('gymlog_onboarding_done', '1');
 
     const overlay = document.getElementById('onboardingOverlay');
-    if (overlay) overlay.classList.add('hidden');
+    if (overlay) {
+      // Fade out over 2.5 seconds
+      overlay.style.transition = 'opacity 2.5s ease';
+      overlay.style.opacity = '0';
+
+      // Hide after fade completes
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.style.opacity = '1';
+        overlay.style.transition = '';
+      }, 2500);
+    }
 
     loadProfileSettings();
     renderHomeView();
@@ -5919,59 +5918,13 @@
   }
 
   function showOnboarding() {
-    // Hide splash screen if it's visible
-    const splash = document.getElementById('startupSplash');
-    if (splash) splash.style.display = 'none';
-
     const overlay = document.getElementById('onboardingOverlay');
     if (overlay) overlay.classList.remove('hidden');
-  }
-
-  // STARTUP SPLASH SCREEN
-  function showStartupSplash() {
-    // Check if splash was already shown today
-    const today = new Date().toDateString();
-    const lastSplashDate = localStorage.getItem('gymlog_last_splash_date');
-
-    if (lastSplashDate === today) {
-      // Already shown today, skip splash
-      return;
-    }
-
-    const splash = document.getElementById('startupSplash');
-    const splashO = document.getElementById('splashO');
-    const splashText = document.getElementById('splashText');
-
-    if (splash) {
-      splash.style.display = 'flex';
-
-      // After 2 seconds, transform O into OVERLOAD
-      setTimeout(() => {
-        if (splashO && splashText) {
-          // Replace O with OVERLOAD
-          splashO.style.display = 'none';
-          splashText.style.opacity = '1';
-          splashText.style.transform = 'scale(1)';
-        }
-      }, 2000);
-
-      // After 3 seconds total, fade out and hide
-      setTimeout(() => {
-        splash.classList.add('animate');
-        setTimeout(() => {
-          splash.style.display = 'none';
-          localStorage.setItem('gymlog_last_splash_date', today);
-        }, 1000);
-      }, 3000);
-    }
   }
 
   // BOOTSTRAP APP
   initThemeSettings();
   loadProfileSettings();
-
-  // Show startup splash (once per day)
-  showStartupSplash();
 
   // Show onboarding only if user hasn't completed it at all
   if (!localStorage.getItem('gymlog_onboarding_done')) {
