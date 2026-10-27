@@ -33,6 +33,7 @@
       --card-radius: 20px;
       --accent: #38bdf8;
       --cyan: #06b6d4;
+      --accent-glow: rgba(56, 189, 248, 0.15);
     }
 
     body.light-mode {
@@ -160,11 +161,21 @@
       border-radius: 20px; padding: 16px 20px;
       margin-bottom: 18px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(255, 149, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(255, 149, 0, 0.1), 0 0 30px rgba(255, 149, 0, 0.05);
+      position: relative;
+      overflow: hidden;
     }
-    .streak-flame-box { display: flex; align-items: center; gap: 14px; }
-    .streak-svg-icon { width: 42px; height: 42px; flex-shrink: 0; transition: transform 0.3s; }
-    .streak-num { font-size: 28px; font-weight: 900; color: #ffffff; line-height: 1; }
+    .streak-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255, 149, 0, 0.08) 0%, transparent 50%);
+      animation: subtleGlow 6s ease-in-out infinite;
+    }
+    .streak-flame-box { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+    .streak-svg-icon { width: 42px; height: 42px; flex-shrink: 0; transition: transform 0.3s; filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5)); }
+    .streak-num { font-size: 28px; font-weight: 900; color: #ffffff; line-height: 1; text-shadow: 0 0 20px rgba(255, 149, 0, 0.4); }
     .streak-title { font-size: 13px; font-weight: 800; color: #ff9500; text-transform: uppercase; letter-spacing: 0.06em; }
     .streak-sub { font-size: 12px; color: var(--text-sec); font-weight: 600; }
 
@@ -218,18 +229,40 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--card-radius); padding: 18px;
       margin-bottom: 18px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
     }
-    .session-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .session-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+      animation: subtleGlow 8s ease-in-out infinite;
+    }
+    @keyframes subtleGlow {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10px, 10px); }
+    }
+    .session-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; position: relative; z-index: 1; }
     .session-title-wrap { display: flex; align-items: center; gap: 10px; }
     .session-title { font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--text-sec); letter-spacing: 0.06em; }
-    .session-timer-display { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--text); }
+    .session-timer-display { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--text); text-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
     .session-btn {
       width: 100%; padding: 14px; border-radius: 14px; border: none;
       font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex; align-items: center; justify-content: center; gap: 10px;
+      position: relative; z-index: 1;
     }
-    .session-btn.start { background: linear-gradient(135deg, #ffffff, #f0f0f0); color: #000000; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2); }
-    .session-btn.start:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3); }
+    .session-btn.start {
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      color: #000000;
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+    .session-btn.start:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.15);
+    }
     .session-btn.stop { background: rgba(255, 69, 58, 0.15); color: var(--red); border: 1px solid rgba(255, 69, 58, 0.3); }
 
     /* STATS SUMMARY BAR */
@@ -241,9 +274,17 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px; padding: 14px 12px; text-align: center;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      border-color: rgba(56, 189, 248, 0.2);
     }
     .stat-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-sec); margin-bottom: 4px; letter-spacing: 0.06em; }
-    .stat-val { font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.1; }
+    .stat-val { font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.1; text-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
 
     /* DAY HEADER & WORKOUT CARD */
     .day-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
@@ -267,8 +308,19 @@
       border-radius: var(--card-radius); padding: 16px; margin-bottom: 12px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
     }
-    .ex-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); }
+    .ex-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transition: left 0.5s;
+    }
+    .ex-card:hover::before { left: 100%; }
+    .ex-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); border-color: rgba(56, 189, 248, 0.2); }
     }
     .ex-card.completed { border-color: rgba(48, 209, 88, 0.4); background: rgba(48, 209, 88, 0.03); }
     .ex-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
@@ -926,6 +978,7 @@
     }
     .progress-photo-slot:active { transform: scale(0.97); }
     .progress-photo-slot.has-photo { border-style: solid; border-color: var(--blue); }
+    .progress-photo-slot.has-photo img { filter: grayscale(100%); }
     .progress-photo-inner {
       width: 100%; height: 100%;
       display: flex; flex-direction: column;
@@ -1194,37 +1247,7 @@
           <!-- VOORKANT SLOT -->
           <div id="frontPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('frontPhotoInput').click()">
             <div id="frontPhotoContent" class="progress-photo-inner">
-              <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <!-- Hoofd -->
-                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
-                <!-- Nek -->
-                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
-                <!-- Borst & Buik -->
-                <path d="M 18 24 Q 30 22 42 24 L 42 55 Q 30 58 18 55 Z" fill="currentColor" opacity="0.8"/>
-                <!-- Borst animatie (highlights) -->
-                <g opacity="0.3">
-                  <path d="M 22 28 Q 26 26 30 28 L 30 45 Q 26 46 22 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
-                  <path d="M 30 28 Q 34 26 38 28 L 38 45 Q 34 46 30 45 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
-                </g>
-                <!-- Linker arm -->
-                <g>
-                  <path d="M 18 26 L 8 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                  <circle cx="8" cy="54" r="3" fill="currentColor" opacity="0.8"/>
-                </g>
-                <!-- Rechter arm -->
-                <g>
-                  <path d="M 42 26 L 52 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                  <circle cx="52" cy="54" r="3" fill="currentColor" opacity="0.8"/>
-                </g>
-                <!-- Linker been -->
-                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
-                <!-- Rechter been -->
-                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
-                <!-- Buik detail -->
-                <path d="M 28 50 L 32 50" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
-              </svg>
+              <img src="./anatomie-spieren2.jpg" alt="Anatomie" style="width:100%; height:100%; object-fit:contain; filter:grayscale(100%); opacity:0.6;" />
               <div class="photo-slot-label">FOTO 1 (VOORKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
             </div>
@@ -1232,38 +1255,7 @@
           <!-- ACHTERKANT SLOT -->
           <div id="backPhotoSlot" class="progress-photo-slot" onclick="document.getElementById('backPhotoInput').click()">
             <div id="backPhotoContent" class="progress-photo-inner">
-              <svg viewBox="0 0 60 120" class="body-silhouet" fill="currentColor">
-                <!-- Hoofd -->
-                <circle cx="30" cy="12" r="8" fill="currentColor" opacity="0.9"/>
-                <!-- Nek -->
-                <rect x="28" y="20" width="4" height="3" fill="currentColor" opacity="0.85"/>
-                <!-- Rug (trapezoïd breder naar onderen) -->
-                <path d="M 16 24 Q 30 22 44 24 L 46 55 Q 30 58 14 55 Z" fill="currentColor" opacity="0.8"/>
-                <!-- Rug animatie (spieren highlight) -->
-                <g opacity="0.25">
-                  <path d="M 24 30 Q 30 28 30 45" stroke="currentColor" stroke-width="1" fill="none"/>
-                  <path d="M 20 35 L 24 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
-                  <path d="M 40 35 L 36 50" stroke="currentColor" stroke-width="0.7" fill="none"/>
-                </g>
-                <!-- Linker arm -->
-                <g>
-                  <path d="M 16 26 L 4 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                  <circle cx="4" cy="54" r="3" fill="currentColor" opacity="0.8"/>
-                </g>
-                <!-- Rechter arm -->
-                <g>
-                  <path d="M 44 26 L 56 50" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                  <circle cx="56" cy="54" r="3" fill="currentColor" opacity="0.8"/>
-                </g>
-                <!-- Linker been -->
-                <path d="M 24 56 L 22 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <circle cx="22" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
-                <!-- Rechter been -->
-                <path d="M 36 56 L 38 105" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85"/>
-                <circle cx="38" cy="108" r="2.5" fill="currentColor" opacity="0.8"/>
-                <!-- Rug accent -->
-                <path d="M 30 35 L 30 50" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
-              </svg>
+              <img src="./anatomie-spieren2.jpg" alt="Anatomie" style="width:100%; height:100%; object-fit:contain; filter:grayscale(100%); opacity:0.6;" />
               <div class="photo-slot-label">FOTO 2 (ACHTER/ZIJKANT)</div>
               <div class="photo-slot-hint">Tik om te uploaden</div>
             </div>
